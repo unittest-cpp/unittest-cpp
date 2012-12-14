@@ -1,6 +1,5 @@
 #include "DeferredTestReporter.h"
 #include "TestDetails.h"
-#include "Config.h"
 
 using namespace UnitTest;
 

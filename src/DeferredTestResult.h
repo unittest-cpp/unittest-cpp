@@ -1,6 +1,8 @@
 #ifndef UNITTEST_DEFERREDTESTRESULT_H
 #define UNITTEST_DEFERREDTESTRESULT_H
 
+#include "Config.h"
+
 #include <string>
 #include <vector>
 

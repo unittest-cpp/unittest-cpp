@@ -35,10 +35,8 @@ public:
 
 	    while (curTest != 0)
 	    {
-		    if (IsTestInSuite(curTest,suiteName) && predicate(curTest))
-			{
+		    if (IsTestInSuite(curTest, suiteName) && predicate(curTest))
 				RunTest(m_result, curTest, maxTestTimeInMs);
-			}
 
 			curTest = curTest->next;
 	    }
