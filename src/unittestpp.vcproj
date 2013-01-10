@@ -177,7 +177,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Config.h"
+			RelativePath="..\config.h"
 			>
 		</File>
 		<File
@@ -309,7 +309,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\unittestpp.h"
+			RelativePath="..\unittestpp.h"
 			>
 		</File>
 		<File

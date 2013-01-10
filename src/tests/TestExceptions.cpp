@@ -1,8 +1,7 @@
-#include "../Config.h"
-
+#include "../../config.h"
 #ifdef UNITTEST_USE_EXCEPTIONS
 
-#include "../unittestpp.h"
+#include "../../unittestpp.h"
 #include "../CurrentTest.h"
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"

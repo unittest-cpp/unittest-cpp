@@ -1,4 +1,4 @@
-#include "Config.h"
+#include "../config.h"
 #ifdef UNITTEST_USE_DEFERRED_REPORTER
 
 #include "DeferredTestResult.h"

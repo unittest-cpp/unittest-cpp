@@ -1,7 +1,7 @@
 #ifndef UNITTEST_EXCEPTIONMACROS_H
 #define UNITTEST_EXCEPTIONMACROS_H
 
-#include "Config.h"
+#include "../config.h"
 
 #ifdef UNITTEST_USE_EXCEPTIONS
 	#define UT_TRY(x) try x

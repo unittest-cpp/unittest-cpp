@@ -1,7 +1,7 @@
 #ifndef UNITTEST_XMLTESTREPORTER_H
 #define UNITTEST_XMLTESTREPORTER_H
 
-#include "Config.h"
+#include "../config.h"
 #ifdef UNITTEST_USE_DEFERRED_REPORTER
 
 #include "DeferredTestReporter.h"

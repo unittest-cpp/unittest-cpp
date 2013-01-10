@@ -1,7 +1,7 @@
 #ifndef UNITTEST_REPORTASSERTIMPL_H
 #define UNITTEST_REPORTASSERTIMPL_H
 
-#include "Config.h"
+#include "../config.h"
 
 #ifndef UNITTEST_USE_EXCEPTIONS
 	#include <csetjmp>

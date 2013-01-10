@@ -1,8 +1,7 @@
 #ifndef UNITTEST_DEFERREDTESTRESULT_H
 #define UNITTEST_DEFERREDTESTRESULT_H
 
-#include "Config.h"
-
+#include "../config.h"
 #ifdef UNITTEST_USE_DEFERRED_REPORTER
 
 #include <string>

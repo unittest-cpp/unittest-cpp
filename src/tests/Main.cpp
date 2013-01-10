@@ -1,6 +1,4 @@
-#include "../unittestpp.h"
-#include "../TestReporterStdout.h"
-
+#include "../../unittestpp.h"
 
 int main(int, char const *[])
 {

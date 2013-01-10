@@ -1,6 +1,6 @@
-#include "../Config.h"
+#include "../../config.h"
+#include "../../unittestpp.h"
 
-#include "../unittestpp.h"
 #include "../ReportAssert.h"
 #include "../ReportAssertImpl.h"
 #include "../AssertException.h"

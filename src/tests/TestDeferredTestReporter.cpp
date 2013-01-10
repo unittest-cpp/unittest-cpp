@@ -1,8 +1,8 @@
-#include "../Config.h"
+#include "../../config.h"
 
 #ifdef UNITTEST_USE_DEFERRED_REPORTER
 
-#include "../unittestpp.h"
+#include "../../unittestpp.h"
 #include "../DeferredTestReporter.h"
 #include <cstring>
 
