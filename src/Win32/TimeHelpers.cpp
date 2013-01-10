@@ -41,7 +41,7 @@ __int64 Timer::GetTime() const
 	return curTime.QuadPart;
 }
 
-void TimeHelpers::SleepMs(int const ms)
+void TimeHelpers::SleepMs(int ms)
 {
 	::Sleep(ms);
 }

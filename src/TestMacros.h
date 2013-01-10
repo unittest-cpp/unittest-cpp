@@ -78,7 +78,7 @@
 																					 \
     void Test##Fixture##Name::RunImpl() const	 \
 	{																				 \
-		bool ctorOk = false;														 \
+		volatile bool ctorOk = false;												 \
 		UT_TRY \
 		({ \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
