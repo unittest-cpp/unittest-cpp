@@ -50,7 +50,7 @@ TEST(FailingTestHasFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-
+#ifdef UNITTEST_USE_EXCEPTIONS
 TEST(ThrowingTestsAreReportedAsFailures)
 {
     class CrashingTest : public Test
@@ -71,7 +71,6 @@ TEST(ThrowingTestsAreReportedAsFailures)
 
 	CHECK_EQUAL(1, results.GetFailureCount());
 }
-
 
 #ifndef UNITTEST_MINGW
 TEST(CrashingTestsAreReportedAsFailures)
@@ -94,6 +93,7 @@ TEST(CrashingTestsAreReportedAsFailures)
 
 	CHECK_EQUAL(1, results.GetFailureCount());
 }
+#endif
 #endif
 
 TEST(TestWithUnspecifiedSuiteGetsDefaultSuite)

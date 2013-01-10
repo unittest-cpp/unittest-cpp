@@ -1,3 +1,7 @@
+#include "../Config.h"
+
+#ifdef UNITTEST_USE_EXCEPTIONS
+
 #include "../unittestpp.h"
 #include "../AssertException.h"
 #include "../ReportAssert.h"
@@ -40,5 +44,6 @@ TEST(ReportAssertSetsCorrectInfoInException)
     }
 }
 
-
 }
+
+#endif

@@ -2,13 +2,14 @@
 #define UNITTEST_TESTMACROS_H
 
 #include "Config.h"
+#include "ExceptionMacros.h"
 #include "ExecuteTest.h"
 #include "AssertException.h"
 #include "TestDetails.h"
 #include "MemoryOutStream.h"
 
 #ifndef UNITTEST_POSIX
-	#define UNITTEST_THROW_SIGNALS
+	#define UNITTEST_THROW_SIGNALS_POSIX_ONLY
 #else
 	#include "Posix/SignalTranslator.h"
 #endif
@@ -77,22 +78,24 @@
     void Test##Fixture##Name::RunImpl() const	 \
 	{																				 \
 		bool ctorOk = false;														 \
-		try {																		 \
+		UT_TRY \
+		({ \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
 			ctorOk = true;															 \
-			UnitTest::ExecuteTest(fixtureHelper, m_details);					 \
-		}																			 \
-		catch (UnitTest::AssertException const& e)											 \
-		{																			 \
+			UnitTest::ExecuteTest(fixtureHelper, m_details);						 \
+		}) \
+		UT_CATCH (UnitTest::AssertException, e, \
+		{ \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what()); \
-		}																			 \
-		catch (std::exception const& e)												 \
-		{																			 \
+		}) \
+		UT_CATCH (std::exception, e, \
+		{ \
 			UnitTest::MemoryOutStream stream;													 \
 			stream << "Unhandled exception: " << e.what();							 \
 			UnitTest::CurrentTest::Results()->OnTestFailure(m_details, stream.GetText());				 \
-		}																			 \
-		catch (...) {																 \
+		}) \
+		UT_CATCH_ALL \
+		({ \
 			if (ctorOk)																 \
 			{																		 \
 	            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),	 \
@@ -103,7 +106,7 @@
 				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),   \
 					"Unhandled exception while constructing fixture " #Fixture);         \
 			}																		 \
-		}																			 \
+		}) \
     }                                                                                \
     void Fixture##Name##Helper::RunImpl()
 

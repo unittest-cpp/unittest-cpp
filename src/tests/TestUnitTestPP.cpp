@@ -2,8 +2,6 @@
 #include "../ReportAssert.h"
 #include "ScopedCurrentTest.h"
 
-#include <vector>
-
 // These are sample tests that show the different features of the framework
 
 namespace {
@@ -45,15 +43,6 @@ TEST(ArrayCloseSucceeds)
     float const a1[] = {1, 2, 3};
     float const a2[] = {1, 2.01f, 3};
     CHECK_ARRAY_CLOSE(a1, a2, 3, 0.1f);
-}
-
-TEST (CheckArrayCloseWorksWithVectors)
-{
-    std::vector< float > a(4);
-    for (int i = 0; i < 4; ++i)
-        a[i] = (float)i;
-
-    CHECK_ARRAY_CLOSE(a, a, (int)a.size(), 0.0001f);
 }
 
 #ifdef UNITTEST_USE_EXCEPTIONS

@@ -22,6 +22,8 @@ TEST (TestsAreAddedToTheListThroughMacro)
     CHECK(list1.GetHead()->next == 0);
 }
 
+#ifdef UNITTEST_USE_EXCEPTIONS
+
 struct ThrowingThingie
 {
     ThrowingThingie() : dummy(false)
@@ -51,6 +53,8 @@ TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
     CHECK(strstr(reporter.lastFailedMessage, "fixture"));
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
 }
+
+#endif
 
 struct DummyFixture
 {
@@ -103,6 +107,8 @@ TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
     CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_details.testName);
     CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
 }
+
+#ifdef UNITTEST_USE_EXCEPTIONS
 
 struct FixtureCtorThrows
 {
@@ -184,6 +190,8 @@ TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
 	CHECK_EQUAL(FailingLine, reporter.lastFailedLine);
 	CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
 }
+
+#endif
 
 }
 

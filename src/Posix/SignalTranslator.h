@@ -32,7 +32,7 @@ private:
     #define UNITTEST_EXTENSION __extension__
 #endif
 
-#define UNITTEST_THROW_SIGNALS \
+#define UNITTEST_THROW_SIGNALS_POSIX_ONLY \
 	UnitTest::SignalTranslator sig; \
 	if (UNITTEST_EXTENSION sigsetjmp(*UnitTest::SignalTranslator::s_jumpTarget, 1) != 0) \
         throw ("Unhandled system exception"); 
