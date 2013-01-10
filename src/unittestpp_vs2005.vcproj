@@ -326,6 +326,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CompositeTestReporter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CompositeTestReporter.h"
+			>
+		</File>
+		<File
 			RelativePath="..\config.h"
 			>
 		</File>

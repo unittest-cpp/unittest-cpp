@@ -358,6 +358,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\TestCompositeTestReporter.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\TestCurrentTest.cpp"
 			>
 		</File>
