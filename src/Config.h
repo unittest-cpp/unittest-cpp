@@ -28,4 +28,6 @@
 
 //#define UNITTEST_USE_CUSTOM_STREAMS
 
+#define UNITTEST_USE_EXCEPTIONS
+
 #endif

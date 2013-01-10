@@ -56,6 +56,8 @@ TEST (CheckArrayCloseWorksWithVectors)
     CHECK_ARRAY_CLOSE(a, a, (int)a.size(), 0.0001f);
 }
 
+#ifdef UNITTEST_USE_EXCEPTIONS
+
 TEST(CheckThrowMacroSucceedsOnCorrectException)
 {
     struct TestException {};
@@ -116,6 +118,8 @@ TEST(CheckThrowMacroFailsOnWrongException)
 
 	CHECK_EQUAL(1, results.GetFailureCount());
 }
+
+#endif
 
 struct SimpleFixture
 {
