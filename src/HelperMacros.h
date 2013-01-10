@@ -28,7 +28,7 @@
 	#define UNITTEST_STDVECTOR_LINKAGE(T) \
 		__pragma(warning(push)) \
 		__pragma(warning(disable:4231)) \
-		UNITTEST_IMPEXP_TEMPLATE template class UNITTEST_LINKAGE std::allocator < T >; \
+		UNITTEST_IMPEXP_TEMPLATE template class UNITTEST_LINKAGE std::allocator< T >; \
 		UNITTEST_IMPEXP_TEMPLATE template class UNITTEST_LINKAGE std::vector< T >; \
 		__pragma(warning(pop))
 #else
