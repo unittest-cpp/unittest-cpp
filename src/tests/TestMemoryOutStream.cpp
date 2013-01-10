@@ -62,14 +62,14 @@ TEST(StreamingUnsignedLongWritesCorrectCharacters)
 TEST(StreamingLongLongWritesCorrectCharacters)
 {
 	MemoryOutStream stream;
-	stream << (long long)(ULONG_MAX) * 2;
+	stream << (long long)8589934590ll;
 	CHECK_EQUAL("8589934590", stream.GetText());
 }
 
 TEST(StreamingUnsignedLongLongWritesCorrectCharacters)
 {
 	MemoryOutStream stream;
-	stream << (unsigned long long)(ULONG_MAX) * 2;
+	stream << (unsigned long long)8589934590ull;
 	CHECK_EQUAL("8589934590", stream.GetText());
 }
 
