@@ -8,6 +8,7 @@
 #include "ScopedCurrentTest.h"
 
 using namespace UnitTest;
+using namespace std;
 
 namespace {
 
