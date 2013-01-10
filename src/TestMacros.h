@@ -2,6 +2,7 @@
 #define UNITTEST_TESTMACROS_H
 
 #include "Config.h"
+#include "TestSuite.h"
 #include "ExceptionMacros.h"
 #include "ExecuteTest.h"
 #include "AssertException.h"
