@@ -1,9 +1,12 @@
 #ifndef UNITTEST_DEFERREDTESTREPORTER_H
 #define UNITTEST_DEFERREDTESTREPORTER_H
 
+#include "Config.h"
+
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
 #include "TestReporter.h"
 #include "DeferredTestResult.h"
-#include "Config.h"
 
 #include <vector>
 
@@ -26,4 +29,5 @@ private:
 
 }
 
+#endif
 #endif

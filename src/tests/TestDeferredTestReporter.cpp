@@ -1,6 +1,9 @@
+#include "../Config.h"
+
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
 #include "../unittestpp.h"
 #include "../DeferredTestReporter.h"
-#include "../Config.h"
 #include <cstring>
 
 namespace UnitTest
@@ -115,3 +118,5 @@ TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailure
 }
 
 }}
+
+#endif

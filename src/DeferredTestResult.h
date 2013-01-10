@@ -3,6 +3,8 @@
 
 #include "Config.h"
 
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
 #include <string>
 #include <vector>
 
@@ -29,4 +31,5 @@ struct DeferredTestResult
 
 }
 
-#endif //UNITTEST_DEFERREDTESTRESULT_H
+#endif
+#endif

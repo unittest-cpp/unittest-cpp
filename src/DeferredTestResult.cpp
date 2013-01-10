@@ -1,5 +1,7 @@
-#include "DeferredTestResult.h"
 #include "Config.h"
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
+#include "DeferredTestResult.h"
 
 namespace UnitTest
 {
@@ -27,3 +29,5 @@ DeferredTestResult::~DeferredTestResult()
 }
 
 }
+
+#endif

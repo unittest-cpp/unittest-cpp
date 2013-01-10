@@ -1,3 +1,6 @@
+#include "Config.h"
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
 #include "DeferredTestReporter.h"
 #include "TestDetails.h"
 
@@ -26,3 +29,5 @@ DeferredTestReporter::DeferredTestResultList& DeferredTestReporter::GetResults()
 {
     return m_results;
 }
+
+#endif

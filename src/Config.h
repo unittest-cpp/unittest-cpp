@@ -27,6 +27,7 @@
 // uncomment this line to use the custom MemoryOutStream (no deps on std::ostringstream).
 
 #define UNITTEST_USE_CUSTOM_STREAMS
-//#define UNITTEST_USE_EXCEPTIONS
+#define UNITTEST_USE_DEFERRED_REPORTER
+#define UNITTEST_USE_EXCEPTIONS
 
 #endif
