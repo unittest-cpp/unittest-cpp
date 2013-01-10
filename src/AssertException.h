@@ -12,18 +12,8 @@ namespace UnitTest {
 class AssertException : public std::exception
 {
 public:
-    AssertException(char const* description, char const* filename, int lineNumber);
+    AssertException();
     virtual ~AssertException();
-
-    virtual char const* what() const;
-
-    char const* Filename() const;
-    int LineNumber() const;
-
-private:
-    char m_description[512];
-    char m_filename[256];
-    int m_lineNumber;
 };
 
 }

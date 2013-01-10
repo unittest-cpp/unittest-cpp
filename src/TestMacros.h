@@ -83,11 +83,11 @@
 		({ \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
 			ctorOk = true;															 \
-			UnitTest::ExecuteTest(fixtureHelper, m_details);						 \
+			UnitTest::ExecuteTest(fixtureHelper, m_details, false);					 \
 		}) \
 		UT_CATCH (UnitTest::AssertException, e, \
 		{ \
-			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what()); \
+			(void)e;	\
 		}) \
 		UT_CATCH (std::exception, e, \
 		{ \

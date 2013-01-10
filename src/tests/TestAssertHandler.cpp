@@ -1,14 +1,25 @@
 #include "../Config.h"
 
-#ifdef UNITTEST_USE_EXCEPTIONS
-
 #include "../unittestpp.h"
-#include "../AssertException.h"
 #include "../ReportAssert.h"
+#include "../AssertException.h"
+
+#include "RecordingReporter.h"
 
 using namespace UnitTest;
 
 namespace {
+
+TEST(CanSetAssertExpected)
+{
+	ExpectAssert(true);
+	CHECK(AssertExpected());
+
+	ExpectAssert(false);
+	CHECK(!AssertExpected());
+}
+
+#ifdef UNITTEST_USE_EXCEPTIONS
 
 TEST(ReportAssertThrowsAssertException)
 {
@@ -16,34 +27,85 @@ TEST(ReportAssertThrowsAssertException)
 
     try
     {
-        ReportAssert("", "", 0);
+		TestResults testResults;
+		TestDetails testDetails("", "", "", 0);
+        ReportAssertEx(&testResults, &testDetails, "", "", 0);
     }
     catch(AssertException const&)
     {
         caught = true;
     }
 
-    CHECK (true == caught);
+    CHECK(true == caught);
 }
 
-TEST(ReportAssertSetsCorrectInfoInException)
+TEST(ReportAssertClearsExpectAssertFlag)
+{
+	RecordingReporter reporter;
+	TestResults testResults(&reporter);
+	TestDetails testDetails("", "", "", 0);
+
+	try
+	{
+		ExpectAssert(true);
+		ReportAssertEx(&testResults, &testDetails, "", "", 0);
+	}
+	catch(AssertException const&)
+	{
+	}
+
+	CHECK(AssertExpected() == false);
+	CHECK_EQUAL(0, reporter.testFailedCount);
+}
+
+TEST(ReportAssertWritesFailureToResultsAndDetailsWhenAssertIsNotExpected)
 {
     const int lineNumber = 12345;
     const char* description = "description";
     const char* filename = "filename";
 
+	RecordingReporter reporter;
+	TestResults testResults(&reporter);
+	TestDetails testDetails("", "", "", 0);
+
     try
     {
-        ReportAssert(description, filename, lineNumber);
+        ReportAssertEx(&testResults, &testDetails, description, filename, lineNumber);
     }
-    catch(AssertException const& e)
+    catch(AssertException const&)
     {
-        CHECK_EQUAL(description, e.what());
-        CHECK_EQUAL(filename, e.Filename());
-        CHECK_EQUAL(lineNumber, e.LineNumber());
     }
+
+	CHECK_EQUAL(description, reporter.lastFailedMessage);
+	CHECK_EQUAL(filename, reporter.lastFailedFile);
+	CHECK_EQUAL(lineNumber, reporter.lastFailedLine);
 }
 
+TEST(ReportAssertReportsNoErrorsWhenAssertIsExpected)
+{
+	ExpectAssert(true);
+
+	RecordingReporter reporter;
+	TestResults testResults(&reporter);
+	TestDetails testDetails("", "", "", 0);
+
+	try
+	{
+		ReportAssertEx(&testResults, &testDetails, "", "", 0);
+	}
+	catch(AssertException const&)
+	{
+	}
+
+	CHECK_EQUAL(0, reporter.testFailedCount);
 }
 
 #endif
+
+TEST(CheckAssertMacroSetsAssertExpectationToFalseAfterRunning)
+{
+	CHECK_ASSERT(ReportAssert("", "", 0));
+	CHECK(!AssertExpected());
+}
+
+}

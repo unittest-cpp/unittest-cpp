@@ -27,7 +27,7 @@ public:
 	explicit TestRunner(TestReporter& reporter);
 	~TestRunner();
 
-	template <class Predicate>
+	template< class Predicate >
 	int RunTestsIf(TestList const& list, char const* suiteName, 
 				   const Predicate& predicate, int maxTestTimeInMs) const
 	{
@@ -38,11 +38,13 @@ public:
 		    if (IsTestInSuite(curTest, suiteName) && predicate(curTest))
 				RunTest(m_result, curTest, maxTestTimeInMs);
 
-			curTest = curTest->next;
+			curTest = curTest->m_nextTest;
 	    }
 
 	    return Finish();
 	}	
+
+	TestResults* GetTestResults();
 
 private:
 	TestReporter* m_reporter;

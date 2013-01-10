@@ -32,6 +32,11 @@ TestRunner::~TestRunner()
 	delete m_timer;
 }
 
+TestResults* TestRunner::GetTestResults()
+{
+	return m_result;
+}
+
 int TestRunner::Finish() const
 {
     float const secondsElapsed = static_cast<float>(m_timer->GetTimeInMs() / 1000.0);
@@ -51,7 +56,8 @@ bool TestRunner::IsTestInSuite(const Test* const curTest, char const* suiteName)
 
 void TestRunner::RunTest(TestResults* const result, Test* const curTest, int const maxTestTimeInMs) const
 {
-	CurrentTest::Results() = result;
+	if (curTest->m_isMockTest == false)
+		CurrentTest::Results() = result;
 
 	Timer testTimer;
 	testTimer.Start();
@@ -70,7 +76,7 @@ void TestRunner::RunTest(TestResults* const result, Test* const curTest, int con
 	    result->OnTestFailure(curTest->m_details, stream.GetText());
 	}
 
-	result->OnTestFinish(curTest->m_details, static_cast<float>(testTimeInMs/1000.0));
+	result->OnTestFinish(curTest->m_details, static_cast< float >(testTimeInMs / 1000.0));
 }
 
 }

@@ -16,8 +16,9 @@ public:
     void Run();
 
     TestDetails const m_details;
-    Test* next;
+    Test* m_nextTest;
     mutable bool m_timeConstraintExempt;
+	mutable bool m_isMockTest;
 
     static TestList& GetTestList();
 

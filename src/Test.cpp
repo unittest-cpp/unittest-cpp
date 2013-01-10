@@ -20,8 +20,9 @@ TestList& Test::GetTestList()
 
 Test::Test(char const* testName, char const* suiteName, char const* filename, int lineNumber)
     : m_details(testName, suiteName, filename, lineNumber)
-    , next(0)
+    , m_nextTest(0)
     , m_timeConstraintExempt(false)
+	, m_isMockTest(false)
 {
 }
 
@@ -31,7 +32,7 @@ Test::~Test()
 
 void Test::Run()
 {
-	ExecuteTest(*this, m_details);
+	ExecuteTest(*this, m_details, m_isMockTest);
 }
 
 void Test::RunImpl() const

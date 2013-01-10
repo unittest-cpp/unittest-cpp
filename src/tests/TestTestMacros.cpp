@@ -19,7 +19,7 @@ TEST_EX(DummyTest, list1)
 TEST (TestsAreAddedToTheListThroughMacro)
 {
     CHECK(list1.GetHead() != 0);
-    CHECK(list1.GetHead()->next == 0);
+    CHECK(list1.GetHead()->m_nextTest == 0);
 }
 
 #ifdef UNITTEST_USE_EXCEPTIONS

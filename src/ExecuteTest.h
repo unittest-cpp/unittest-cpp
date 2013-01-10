@@ -14,9 +14,10 @@
 namespace UnitTest {
 
 template< typename T >
-void ExecuteTest(T& testObject, TestDetails const& details)
+void ExecuteTest(T& testObject, TestDetails const& details, bool isMockTest)
 {
-	CurrentTest::Details() = &details;
+	if (isMockTest == false)
+		CurrentTest::Details() = &details;
 
 #ifndef UNITTEST_POSIX
 	UT_TRY
@@ -33,8 +34,7 @@ void ExecuteTest(T& testObject, TestDetails const& details)
 
 	UT_CATCH(AssertException, e,
 	{
-		CurrentTest::Results()->OnTestFailure(
-			TestDetails(details.testName, details.suiteName, e.Filename(), e.LineNumber()), e.what());
+		(void)e;
 	})
 	UT_CATCH(std::exception, e,
 	{
@@ -44,7 +44,7 @@ void ExecuteTest(T& testObject, TestDetails const& details)
 	})
 	UT_CATCH_ALL
 	({
-		CurrentTest::Results()->OnTestFailure(details, "Unhandled exception: Crash!");
+		CurrentTest::Results()->OnTestFailure(details, "Unhandled exception: test crashed");
 	})
 }
 

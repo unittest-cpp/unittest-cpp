@@ -130,10 +130,15 @@
         if (!caught_) \
 	        UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
     } while(0)
-#endif
 
 
 #define CHECK_ASSERT(expression) \
-    CHECK_THROW(expression, UnitTest::AssertException);
+	do \
+	{ \
+		UnitTest::ExpectAssert(true); \
+		CHECK_THROW(expression, UnitTest::AssertException); \
+		UnitTest::ExpectAssert(false); \
+	} while(0)
 
+#endif
 #endif
