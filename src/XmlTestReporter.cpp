@@ -1,5 +1,7 @@
-#include "XmlTestReporter.h"
 #include "Config.h"
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
+#include "XmlTestReporter.h"
 
 #include <iostream>
 #include <sstream>
@@ -125,3 +127,5 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
 }
 
 }
+
+#endif

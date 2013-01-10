@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\win32_vc80_$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -80,8 +80,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\win32_vc80_$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -310,6 +310,14 @@
 		</File>
 		<File
 			RelativePath=".\unittestpp.h"
+			>
+		</File>
+		<File
+			RelativePath=".\XmlTestReporter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\XmlTestReporter.h"
 			>
 		</File>
 	</Files>

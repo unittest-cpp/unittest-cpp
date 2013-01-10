@@ -1,3 +1,6 @@
+#include "../Config.h"
+#ifdef UNITTEST_USE_DEFERRED_REPORTER
+
 #include "../unittestpp.h"
 #include "../XmlTestReporter.h"
 
@@ -181,3 +184,5 @@ TEST_FIXTURE(XmlTestReporterFixture, MultipleFailures)
 }
 
 }
+
+#endif

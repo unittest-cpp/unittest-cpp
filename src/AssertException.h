@@ -13,7 +13,7 @@ class AssertException : public std::exception
 {
 public:
     AssertException();
-    virtual ~AssertException();
+    virtual ~AssertException() throw();
 };
 
 }

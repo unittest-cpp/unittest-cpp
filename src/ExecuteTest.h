@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "ExceptionMacros.h"
 #include "TestDetails.h"
+#include "TestResults.h"
 #include "MemoryOutStream.h"
 #include "AssertException.h"
 #include "CurrentTest.h"

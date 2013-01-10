@@ -8,7 +8,7 @@ AssertException::AssertException()
 {
 }
 
-AssertException::~AssertException()
+AssertException::~AssertException() throw()
 {
 }
 
