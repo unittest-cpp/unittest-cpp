@@ -16,7 +16,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
+			Name="win32_debug|Win32"
 			OutputDirectory="$(SolutionDir)lib\win32_vc80_$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_$(ConfigurationName)"
 			ConfigurationType="4"
@@ -80,7 +80,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
+			Name="win32_release|Win32"
 			OutputDirectory="$(SolutionDir)lib\win32_vc80_$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_$(ConfigurationName)"
 			ConfigurationType="4"
