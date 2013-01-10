@@ -1,6 +1,8 @@
 #include "../../unittestpp.h"
 #include "RecordingReporter.h"
 
+#include <cstring>
+
 using namespace UnitTest;
 
 
@@ -119,25 +121,21 @@ TEST(CheckCloseWithZeroEpsilonWorksForSameNumber)
 
 TEST(CheckCloseWithNaNFails)
 {
-    union
-    {
-        unsigned int bitpattern;
-        float nan;
-    };
-    bitpattern = 0xFFFFFFFF;
-    TestResults results;
+	const unsigned int bitpattern = 0xFFFFFFFF;
+	float nan;
+	std::memcpy(&nan, &bitpattern, sizeof(bitpattern));
+
+	TestResults results;
     CheckClose(results, 3.0f, nan, 0.1f, TestDetails("", "", "", 0));
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 TEST(CheckCloseWithNaNAgainstItselfFails)
 {
-    union
-    {
-        unsigned int bitpattern;
-        float nan;
-    };
-    bitpattern = 0xFFFFFFFF;
+	const unsigned int bitpattern = 0xFFFFFFFF;
+	float nan;
+	std::memcpy(&nan, &bitpattern, sizeof(bitpattern));
+
     TestResults results;
     CheckClose(results, nan, nan, 0.1f, TestDetails("", "", "", 0));
     CHECK_EQUAL(1, results.GetFailureCount());
