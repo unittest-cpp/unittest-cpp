@@ -114,8 +114,8 @@
 	UNITTEST_MULTILINE_MACRO_END
 
 
-// CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_USE_EXCEPTIONS is defined (see Config.h)
-#ifdef UNITTEST_USE_EXCEPTIONS
+// CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
+#ifndef UNITTEST_NO_EXCEPTIONS
 #define CHECK_THROW(expression, ExpectedExceptionType) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         bool caught_ = false; \

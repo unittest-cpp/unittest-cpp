@@ -5,7 +5,7 @@
 #include "TestResults.h"
 #include "TestDetails.h"
 
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 	#include "ReportAssertImpl.h"
 #endif
 
@@ -28,7 +28,7 @@ UNITTEST_LINKAGE void ReportAssert(char const* description, char const* filename
 
 namespace Detail {
 
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 jmp_buf* GetAssertJmpBuf()
 {
 	static jmp_buf s_jmpBuf;
@@ -50,7 +50,7 @@ UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults,
 
 	ExpectAssert(false);
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 	throw AssertException();
 #else
 	UNITTEST_JUMP_TO_ASSERT_JUMP_TARGET();

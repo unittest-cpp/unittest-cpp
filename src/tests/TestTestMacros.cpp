@@ -22,7 +22,7 @@ TEST (TestsAreAddedToTheListThroughMacro)
     CHECK(list1.GetHead()->m_nextTest == 0);
 }
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 struct ThrowingThingie
 {
@@ -108,7 +108,7 @@ TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
     CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
 }
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 struct FixtureCtorThrows
 {

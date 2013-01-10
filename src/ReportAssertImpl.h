@@ -3,7 +3,7 @@
 
 #include "../config.h"
 
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 	#include <csetjmp>
 #endif
 
@@ -24,7 +24,7 @@ UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults,
 
 UNITTEST_LINKAGE bool AssertExpected();
 
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 	UNITTEST_LINKAGE jmp_buf* GetAssertJmpBuf();
 
 	#ifdef UNITTEST_WIN32

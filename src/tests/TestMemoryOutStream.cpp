@@ -87,7 +87,7 @@ TEST(StreamingSizeTWritesCorrectCharacters)
     CHECK_EQUAL("53124", stream.GetText());
 }
 
-#ifdef UNITTEST_USE_CUSTOM_STREAMS
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 TEST(StreamInitialCapacityIsCorrect)
 {

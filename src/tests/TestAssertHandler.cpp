@@ -21,7 +21,7 @@ TEST(CanSetAssertExpected)
 	CHECK(!Detail::AssertExpected());
 }
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 TEST(ReportAssertThrowsAssertException)
 {

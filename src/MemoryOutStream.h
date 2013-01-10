@@ -4,7 +4,7 @@
 #include "../config.h"
 #include "HelperMacros.h"
 
-#ifndef UNITTEST_USE_CUSTOM_STREAMS
+#ifdef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 #include <sstream>
 

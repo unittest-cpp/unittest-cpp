@@ -3,7 +3,7 @@
 
 #include "../config.h"
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 	#define UT_TRY(x) try x
 	#define UT_THROW(x) throw x
 	#define UT_CATCH(ExceptionType, ExceptionName, CatchBody) catch(ExceptionType& ExceptionName) CatchBody

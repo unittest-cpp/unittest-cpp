@@ -3,7 +3,7 @@
 
 #include "../config.h"
 
-#ifdef UNITTEST_USE_DEFERRED_REPORTER
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
 
 #include "TestReporter.h"
 #include "DeferredTestResult.h"

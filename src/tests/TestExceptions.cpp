@@ -1,5 +1,5 @@
 #include "../../config.h"
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 #include "../../unittestpp.h"
 #include "../CurrentTest.h"

@@ -1,22 +1,18 @@
 #include "MemoryOutStream.h"
 
-#ifndef UNITTEST_USE_CUSTOM_STREAMS
-
+#ifdef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 namespace UnitTest {
 
 char const* MemoryOutStream::GetText() const
 {
-    m_text = this->str();
-    return m_text.c_str();
+	m_text = this->str();
+	return m_text.c_str();
 }
 
-
 }
-
 
 #else
-
 
 #include <cstring>
 #include <cstdio>

@@ -9,7 +9,7 @@
 #include "AssertException.h"
 #include "CurrentTest.h"
 
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 	#include "ReportAssertImpl.h"
 #endif
 
@@ -25,7 +25,7 @@ void ExecuteTest(T& testObject, TestDetails const& details, bool isMockTest)
 	if (isMockTest == false)
 		CurrentTest::Details() = &details;
 
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 	if (UNITTEST_SET_ASSERT_JUMP_TARGET() == 0)
 	{
 #endif
@@ -49,7 +49,7 @@ void ExecuteTest(T& testObject, TestDetails const& details, bool isMockTest)
 		({
 			CurrentTest::Results()->OnTestFailure(details, "Unhandled exception: test crashed");
 		})
-#ifndef UNITTEST_USE_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
 	}
 #endif
 }

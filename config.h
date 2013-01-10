@@ -27,11 +27,29 @@
     #define UNITTEST_MINGW
 #endif
 
-// by default, MemoryOutStream is implemented in terms of std::ostringstream, which can be expensive.
-// uncomment this line to use the custom MemoryOutStream (no deps on std::ostringstream).
 
-#define UNITTEST_USE_CUSTOM_STREAMS
-#define UNITTEST_USE_DEFERRED_REPORTER
-#define UNITTEST_USE_EXCEPTIONS
+// MemoryOutStream is a custom reimplementation of parts of std::ostringstream.
+// Uncomment this line to have MemoryOutStream implemented in terms of std::ostringstream.
+// This is useful if you are using the CHECK macros on objects that have something like this defined:
+// std::ostringstream& operator<<(std::ostringstream& s, const YourObject& value)
+
+//#define UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
+
+
+// DeferredTestReporter uses the STL to collect test results for subsequent export by reporters like
+// XmlTestReporter.  If you don't want to use this functionality, uncomment this line and no STL
+// headers or code will be compiled into UnitTest++
+
+//#define UNITTEST_NO_DEFERRED_REPORTER
+
+
+// By default, asserts that you report via UnitTest::ReportAssert() abort the current test and
+// continue to the next one by throwing an exception, which unwinds the stack naturally, destroying
+// all auto variables on its way back down.  If you don't want to (or can't) use exceptions for your 
+// platform/compiler, uncomment this line.  All exception code will be removed from UnitTest++,
+// assert recovery will be done via setjmp/longjmp, and NO correct stack unwinding will happen!
+
+//#define UNITTEST_NO_EXCEPTIONS
+
 
 #endif

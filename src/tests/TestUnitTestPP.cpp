@@ -44,7 +44,7 @@ TEST(ArrayCloseSucceeds)
     CHECK_ARRAY_CLOSE(a1, a2, 3, 0.1f);
 }
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
 {

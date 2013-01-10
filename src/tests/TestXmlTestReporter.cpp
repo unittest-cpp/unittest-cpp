@@ -1,5 +1,5 @@
 #include "../../config.h"
-#ifdef UNITTEST_USE_DEFERRED_REPORTER
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
 
 #include "../../unittestpp.h"
 #include "../XmlTestReporter.h"
@@ -12,7 +12,7 @@ using std::ostringstream;
 namespace
 {
 
-#ifdef UNITTEST_USE_CUSTOM_STREAMS
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 // Overload to let MemoryOutStream accept std::string
 MemoryOutStream& operator<<(MemoryOutStream& s, const std::string& value)
@@ -73,9 +73,9 @@ TEST_FIXTURE(XmlTestReporterFixture, EmptyReportSummaryFormat)
     reporter.ReportSummary(0, 0, 0, 0.1f);
 
     const char *expected =
-"<?xml version=\"1.0\"?>"
-"<unittest-results tests=\"0\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
-"</unittest-results>";
+		"<?xml version=\"1.0\"?>"
+		"<unittest-results tests=\"0\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
+		"</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
 }
@@ -88,10 +88,10 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleSuccessfulTestReportSummaryFormat)
     reporter.ReportSummary(1, 0, 0, 0.1f);
 
     const char *expected =
-"<?xml version=\"1.0\"?>"
-"<unittest-results tests=\"1\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
-"<test suite=\"DefaultSuite\" name=\"TestName\" time=\"0\"/>"
-"</unittest-results>";
+		"<?xml version=\"1.0\"?>"
+		"<unittest-results tests=\"1\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
+		"<test suite=\"DefaultSuite\" name=\"TestName\" time=\"0\"/>"
+		"</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
 }

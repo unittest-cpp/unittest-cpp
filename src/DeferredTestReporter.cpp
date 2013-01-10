@@ -1,5 +1,5 @@
 #include "../config.h"
-#ifdef UNITTEST_USE_DEFERRED_REPORTER
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
 
 #include "DeferredTestReporter.h"
 #include "TestDetails.h"

@@ -50,7 +50,7 @@ TEST(FailingTestHasFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-#ifdef UNITTEST_USE_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 TEST(ThrowingTestsAreReportedAsFailures)
 {
     class CrashingTest : public Test

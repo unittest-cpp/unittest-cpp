@@ -1,6 +1,6 @@
 #include "../../config.h"
 
-#ifdef UNITTEST_USE_DEFERRED_REPORTER
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
 
 #include "../../unittestpp.h"
 #include "../DeferredTestReporter.h"
@@ -12,7 +12,7 @@ namespace UnitTest
 namespace 
 {
 
-#ifdef UNITTEST_USE_CUSTOM_STREAMS
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 	MemoryOutStream& operator <<(MemoryOutStream& lhs, const std::string& rhs)
 	{
 		lhs << rhs.c_str();
