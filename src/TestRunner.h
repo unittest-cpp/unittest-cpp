@@ -11,7 +11,7 @@ class TestReporter;
 class TestResults;
 class Timer;
 
-int RunAllTests();
+UNITTEST_LINKAGE int RunAllTests();
 
 struct True
 {
@@ -21,7 +21,7 @@ struct True
 	}
 };
 
-class TestRunner
+class UNITTEST_LINKAGE TestRunner
 {
 public:
 	explicit TestRunner(TestReporter& reporter);

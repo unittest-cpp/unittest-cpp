@@ -15,7 +15,7 @@ void DeferredTestReporter::ReportFailure(TestDetails const& details, char const*
 {
     DeferredTestResult& r = m_results.back();
     r.failed = true;
-    r.failures.push_back(DeferredTestResult::Failure(details.lineNumber, failure));
+    r.failures.push_back(DeferredTestFailure(details.lineNumber, failure));
     r.failureFile = details.filename;
 }
 

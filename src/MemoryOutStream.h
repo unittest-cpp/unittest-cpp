@@ -2,6 +2,8 @@
 #define UNITTEST_MEMORYOUTSTREAM_H
 
 #include "../config.h"
+#include "DllMacros.h"
+
 #ifndef UNITTEST_USE_CUSTOM_STREAMS
 
 #include <sstream>
@@ -9,7 +11,7 @@
 namespace UnitTest
 {
 
-class MemoryOutStream : public std::ostringstream
+class UNITTEST_LINKAGE MemoryOutStream : public std::ostringstream
 {
 public:
     MemoryOutStream() {}
@@ -32,7 +34,7 @@ private:
 namespace UnitTest
 {
 
-class MemoryOutStream
+class UNITTEST_LINKAGE MemoryOutStream
 {
 public:
     explicit MemoryOutStream(int const size = 256);

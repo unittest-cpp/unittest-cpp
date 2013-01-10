@@ -8,7 +8,7 @@ namespace UnitTest {
 class TestResults;
 class TestList;
 
-class Test
+class UNITTEST_LINKAGE Test
 {
 public:
     explicit Test(char const* testName, char const* suiteName = "DefaultSuite", char const* filename = "", int lineNumber = 0);

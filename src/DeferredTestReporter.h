@@ -10,10 +10,12 @@
 
 #include <vector>
 
+UNITTEST_STDVECTOR_LINKAGE(UnitTest::DeferredTestResult);
+
 namespace UnitTest
 {
 
-class DeferredTestReporter : public TestReporter
+class UNITTEST_LINKAGE DeferredTestReporter : public TestReporter
 {
 public:
     virtual void ReportTestStart(TestDetails const& details);

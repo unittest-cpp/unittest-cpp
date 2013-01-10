@@ -4,11 +4,12 @@
 #include "../config.h"
 #ifdef UNITTEST_USE_EXCEPTIONS
 
+#include "DllMacros.h"
 #include <exception>
 
 namespace UnitTest {
 
-class AssertException : public std::exception
+class UNITTEST_LINKAGE AssertException : public std::exception
 {
 public:
     AssertException();

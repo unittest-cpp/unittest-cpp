@@ -1,9 +1,11 @@
 #ifndef UNITTEST_TESTDETAILS_H
 #define UNITTEST_TESTDETAILS_H
 
+#include "DllMacros.h"
+
 namespace UnitTest {
 
-class TestDetails
+class UNITTEST_LINKAGE TestDetails
 {
 public:
     TestDetails(char const* testName, char const* suiteName, char const* filename, int lineNumber);

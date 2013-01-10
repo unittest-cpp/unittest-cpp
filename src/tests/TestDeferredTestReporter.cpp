@@ -94,8 +94,8 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetailsForMul
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
     CHECK_EQUAL(2, (int)result.failures.size());
-    CHECK_EQUAL(failure1, result.failures[0].second);
-    CHECK_EQUAL(failure2, result.failures[1].second);
+    CHECK_EQUAL(failure1, result.failures[0].failureStr);
+    CHECK_EQUAL(failure2, result.failures[1].failureStr);
 }
 
 TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailureMessage)
@@ -113,8 +113,8 @@ TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailure
     strcpy(failureMessage, badStr);
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
-    DeferredTestResult::Failure const& failure = result.failures.at(0);
-    CHECK_EQUAL(goodStr, failure.second);
+    DeferredTestFailure const& failure = result.failures.at(0);
+    CHECK_EQUAL(goodStr, failure.failureStr);
 }
 
 }}

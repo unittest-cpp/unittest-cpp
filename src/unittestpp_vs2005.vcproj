@@ -16,9 +16,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="win32_debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\win32_vc80_$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_$(ConfigurationName)"
+			Name="win32_lib_debug|Win32"
+			OutputDirectory="$(SolutionDir)lib\win32_vc80_debug"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_lib_debug"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -48,7 +48,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -80,9 +80,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_release|Win32"
-			OutputDirectory="$(SolutionDir)lib\win32_vc80_$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_$(ConfigurationName)"
+			Name="win32_lib_release|Win32"
+			OutputDirectory="$(SolutionDir)lib\win32_vc80_release"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_lib_release"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -137,6 +137,153 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="win32_dll_debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\win32_vc80_dll_debug"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_dll_debug"
+			ConfigurationType="2"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_USRDLL;_CRT_SECURE_NO_DEPRECATE;UNITTEST_DLL_EXPORT"
+				MinimalRebuild="true"
+				ExceptionHandling="2"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\unittestpp.dll"
+				GenerateDebugInformation="true"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="win32_dll_release|Win32"
+			OutputDirectory="$(SolutionDir)bin\win32_vc80_dll_release"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_dll_release"
+			ConfigurationType="2"
+			CharacterSet="1"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				PreprocessorDefinitions="WIN32;NDEBUG;_USRDLL;_CRT_SECURE_NO_DEPRECATE;UNITTEST_DLL_EXPORT"
+				ExceptionHandling="2"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\unittestpp.dll"
+				GenerateDebugInformation="true"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -204,6 +351,10 @@
 		</File>
 		<File
 			RelativePath=".\DeferredTestResult.h"
+			>
+		</File>
+		<File
+			RelativePath=".\DllMacros.h"
 			>
 		</File>
 		<File

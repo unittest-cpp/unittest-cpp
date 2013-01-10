@@ -14,18 +14,18 @@ class TestDetails;
 
 namespace Detail {
 
-void ExpectAssert(bool expected);
+UNITTEST_LINKAGE void ExpectAssert(bool expected);
 
-void ReportAssertEx(TestResults* testResults, 
-					const TestDetails* testDetails,
-					char const* description, 
-					char const* filename, 
-					int lineNumber);
+UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults, 
+									 const TestDetails* testDetails,
+									 char const* description, 
+									 char const* filename, 
+									 int lineNumber);
 
-bool AssertExpected();
+UNITTEST_LINKAGE bool AssertExpected();
 
 #ifndef UNITTEST_USE_EXCEPTIONS
-	jmp_buf* GetAssertJmpBuf();
+	UNITTEST_LINKAGE jmp_buf* GetAssertJmpBuf();
 
 	#ifdef _MSC_VER
 		#define UNITTEST_SET_ASSERT_JUMP_TARGET() \

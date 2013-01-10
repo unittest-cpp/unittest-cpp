@@ -12,6 +12,10 @@
 		#pragma warning(disable:4786)
 		#pragma warning(disable:4290)
 	#endif
+
+	#ifdef _USRDLL
+		#define UNITTEST_WIN32_DLL
+	#endif
 #endif
 
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \

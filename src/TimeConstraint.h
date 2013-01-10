@@ -2,13 +2,14 @@
 #define UNITTEST_TIMECONSTRAINT_H
 
 #include "TimeHelpers.h"
+#include "DllMacros.h"
 
 namespace UnitTest {
 
 class TestResults;
 class TestDetails;
 
-class TimeConstraint
+class UNITTEST_LINKAGE TimeConstraint
 {
 public:
     TimeConstraint(int ms, TestDetails const& details);

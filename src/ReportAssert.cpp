@@ -20,7 +20,7 @@ namespace
 	}
 }
 
-void ReportAssert(char const* description, char const* filename, int lineNumber)
+UNITTEST_LINKAGE void ReportAssert(char const* description, char const* filename, int lineNumber)
 {
 	Detail::ReportAssertEx(CurrentTest::Results(), CurrentTest::Details(), 
 						   description, filename, lineNumber);
@@ -35,12 +35,12 @@ jmp_buf* GetAssertJmpBuf()
 	return &s_jmpBuf;
 }
 #endif
-	
-void ReportAssertEx(TestResults* testResults,
-					const TestDetails* testDetails,
-					char const* description, 
-					char const* filename, 
-					int lineNumber)
+
+UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults,
+									 const TestDetails* testDetails,
+									 char const* description,
+									 char const* filename,
+									 int lineNumber)
 {
 	if (AssertExpectedFlag() == false)
 	{
@@ -57,12 +57,12 @@ void ReportAssertEx(TestResults* testResults,
 #endif
 }
 
-void ExpectAssert(bool expected)
+UNITTEST_LINKAGE void ExpectAssert(bool expected)
 {
 	AssertExpectedFlag() = expected;
 }
 
-bool AssertExpected()
+UNITTEST_LINKAGE bool AssertExpected()
 {
 	return AssertExpectedFlag();
 }

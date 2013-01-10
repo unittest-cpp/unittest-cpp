@@ -27,13 +27,13 @@ void CheckEqual(TestResults& results, Expected const& expected, Actual const& ac
     }
 }
 
-void CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details);
 
-void CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details);
 
-void CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details);
 
-void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
 
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)

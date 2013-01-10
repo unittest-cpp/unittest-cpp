@@ -11,7 +11,7 @@
 namespace UnitTest
 {
 
-class XmlTestReporter : public DeferredTestReporter
+class UNITTEST_LINKAGE XmlTestReporter : public DeferredTestReporter
 {
 public:
     explicit XmlTestReporter(std::ostream& ostream);
