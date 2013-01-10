@@ -81,7 +81,7 @@ class SlowTest : public Test
 {
 public:
     SlowTest() : Test("slow", "somesuite", "filename", 123) {}
-    virtual void RunImpl(TestResults&) const
+    virtual void RunImpl() const
     {
         TimeHelpers::SleepMs(20);
     }
@@ -213,7 +213,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestWithTimeExemptionPasses)
     {
     public:
         SlowExemptedTest() : Test("slowexempted", "", 0) {}
-        virtual void RunImpl(TestResults&) const
+        virtual void RunImpl() const
         {
             UNITTEST_TIME_CONSTRAINT_EXEMPT();
             TimeHelpers::SleepMs(20);

@@ -29,9 +29,9 @@ UNITTEST_LINKAGE void ReportAssert(char const* description, char const* filename
 namespace Detail {
 
 #ifdef UNITTEST_NO_EXCEPTIONS
-jmp_buf* GetAssertJmpBuf()
+UNITTEST_JMPBUF* GetAssertJmpBuf()
 {
-	static jmp_buf s_jmpBuf;
+	static UNITTEST_JMPBUF s_jmpBuf;
 	return &s_jmpBuf;
 }
 #endif

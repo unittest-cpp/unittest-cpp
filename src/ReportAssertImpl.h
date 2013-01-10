@@ -2,6 +2,7 @@
 #define UNITTEST_REPORTASSERTIMPL_H
 
 #include "../config.h"
+#include "HelperMacros.h"
 
 #ifdef UNITTEST_NO_EXCEPTIONS
 	#include <csetjmp>
@@ -25,18 +26,18 @@ UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults,
 UNITTEST_LINKAGE bool AssertExpected();
 
 #ifdef UNITTEST_NO_EXCEPTIONS
-	UNITTEST_LINKAGE jmp_buf* GetAssertJmpBuf();
+	UNITTEST_LINKAGE UNITTEST_JMPBUF* GetAssertJmpBuf();
 
 	#ifdef UNITTEST_WIN32
 		#define UNITTEST_SET_ASSERT_JUMP_TARGET() \
 			__pragma(warning(push)) __pragma(warning(disable:4611)) \
-			setjmp(*UnitTest::Detail::GetAssertJmpBuf()) \
+			UNITTEST_SETJMP(*UnitTest::Detail::GetAssertJmpBuf()) \
 			__pragma(warning(pop))
 	#else
-		#define UNITTEST_SET_ASSERT_JUMP_TARGET() setjmp(*UnitTest::Detail::GetAssertJmpBuf())
+		#define UNITTEST_SET_ASSERT_JUMP_TARGET() UNITTEST_SETJMP(*UnitTest::Detail::GetAssertJmpBuf())
 	#endif
 
-	#define UNITTEST_JUMP_TO_ASSERT_JUMP_TARGET() longjmp(*UnitTest::Detail::GetAssertJmpBuf(), 1)
+	#define UNITTEST_JUMP_TO_ASSERT_JUMP_TARGET() UNITTEST_LONGJMP(*UnitTest::Detail::GetAssertJmpBuf(), 1)
 #endif
 
 }

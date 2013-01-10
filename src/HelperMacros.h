@@ -39,4 +39,14 @@
 	#define UNITTEST_STDVECTOR_LINKAGE(T)
 #endif
 
+#ifdef UNITTEST_WIN32
+	#define UNITTEST_JMPBUF jmp_buf
+	#define UNITTEST_SETJMP setjmp
+	#define UNITTEST_LONGJMP longjmp
+#elif defined UNITTEST_POSIX
+	#define UNITTEST_JMPBUF std::jmp_buf
+	#define UNITTEST_SETJMP setjmp
+	#define UNITTEST_LONGJMP std::longjmp
+#endif
+
 #endif

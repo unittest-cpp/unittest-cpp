@@ -51,5 +51,4 @@
 
 //#define UNITTEST_NO_EXCEPTIONS
 
-
 #endif

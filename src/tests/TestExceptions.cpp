@@ -226,14 +226,6 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
     CHECK(strstr(reporter.lastFailedMessage, "obj"));
 }
 
-int g_sideEffect = 0;
-float const* FunctionWithSideEffects2()
-{
-    ++g_sideEffect;
-    static float const data[] = {1,2,3,4};
-    return data;
-}
-
 class ThrowingObject2D
 {
 public:
