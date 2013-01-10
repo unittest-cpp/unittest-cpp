@@ -1,8 +1,13 @@
 #include "ReportAssert.h"
+#include "ReportAssertImpl.h"
 #include "AssertException.h"
 #include "CurrentTest.h"
 #include "TestResults.h"
 #include "TestDetails.h"
+
+#ifndef UNITTEST_USE_EXCEPTIONS
+	#include "ReportAssertImpl.h"
+#endif
 
 namespace UnitTest {
 
@@ -17,9 +22,20 @@ namespace
 
 void ReportAssert(char const* description, char const* filename, int lineNumber)
 {
-	ReportAssertEx(CurrentTest::Results(), CurrentTest::Details(), description, filename, lineNumber);
+	Detail::ReportAssertEx(CurrentTest::Results(), CurrentTest::Details(), 
+						   description, filename, lineNumber);
 }
 
+namespace Detail {
+
+#ifndef UNITTEST_USE_EXCEPTIONS
+jmp_buf* GetAssertJmpBuf()
+{
+	static jmp_buf s_jmpBuf;
+	return &s_jmpBuf;
+}
+#endif
+	
 void ReportAssertEx(TestResults* testResults,
 					const TestDetails* testDetails,
 					char const* description, 
@@ -36,6 +52,8 @@ void ReportAssertEx(TestResults* testResults,
 
 #ifdef UNITTEST_USE_EXCEPTIONS
 	throw AssertException();
+#else
+	UNITTEST_JUMP_TO_ASSERT_JUMP_TARGET();
 #endif
 }
 
@@ -49,4 +67,4 @@ bool AssertExpected()
 	return AssertExpectedFlag();
 }
 
-}
+}}

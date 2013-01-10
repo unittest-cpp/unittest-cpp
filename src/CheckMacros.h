@@ -7,6 +7,7 @@
 #include "MemoryOutStream.h"
 #include "TestDetails.h"
 #include "CurrentTest.h"
+#include "ReportAssertImpl.h"
 
 #ifdef CHECK
     #error UnitTest++ redefines CHECK
@@ -118,7 +119,7 @@
     } while (0)
 
 
-// CHECK_THROW only exists when UNITTEST_USE_EXCEPTIONS is defined (see Config.h)
+// CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_USE_EXCEPTIONS is defined (see Config.h)
 #ifdef UNITTEST_USE_EXCEPTIONS
 #define CHECK_THROW(expression, ExpectedExceptionType) \
     do \
@@ -135,10 +136,9 @@
 #define CHECK_ASSERT(expression) \
 	do \
 	{ \
-		UnitTest::ExpectAssert(true); \
+		UnitTest::Detail::ExpectAssert(true); \
 		CHECK_THROW(expression, UnitTest::AssertException); \
-		UnitTest::ExpectAssert(false); \
+		UnitTest::Detail::ExpectAssert(false); \
 	} while(0)
-
 #endif
 #endif

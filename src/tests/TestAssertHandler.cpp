@@ -2,9 +2,11 @@
 
 #include "../unittestpp.h"
 #include "../ReportAssert.h"
+#include "../ReportAssertImpl.h"
 #include "../AssertException.h"
 
 #include "RecordingReporter.h"
+#include <csetjmp>
 
 using namespace UnitTest;
 
@@ -12,11 +14,11 @@ namespace {
 
 TEST(CanSetAssertExpected)
 {
-	ExpectAssert(true);
-	CHECK(AssertExpected());
+	Detail::ExpectAssert(true);
+	CHECK(Detail::AssertExpected());
 
-	ExpectAssert(false);
-	CHECK(!AssertExpected());
+	Detail::ExpectAssert(false);
+	CHECK(!Detail::AssertExpected());
 }
 
 #ifdef UNITTEST_USE_EXCEPTIONS
@@ -29,7 +31,7 @@ TEST(ReportAssertThrowsAssertException)
     {
 		TestResults testResults;
 		TestDetails testDetails("", "", "", 0);
-        ReportAssertEx(&testResults, &testDetails, "", "", 0);
+        Detail::ReportAssertEx(&testResults, &testDetails, "", "", 0);
     }
     catch(AssertException const&)
     {
@@ -47,14 +49,14 @@ TEST(ReportAssertClearsExpectAssertFlag)
 
 	try
 	{
-		ExpectAssert(true);
-		ReportAssertEx(&testResults, &testDetails, "", "", 0);
+		Detail::ExpectAssert(true);
+		Detail::ReportAssertEx(&testResults, &testDetails, "", "", 0);
 	}
 	catch(AssertException const&)
 	{
 	}
 
-	CHECK(AssertExpected() == false);
+	CHECK(Detail::AssertExpected() == false);
 	CHECK_EQUAL(0, reporter.testFailedCount);
 }
 
@@ -70,7 +72,7 @@ TEST(ReportAssertWritesFailureToResultsAndDetailsWhenAssertIsNotExpected)
 
     try
     {
-        ReportAssertEx(&testResults, &testDetails, description, filename, lineNumber);
+        Detail::ReportAssertEx(&testResults, &testDetails, description, filename, lineNumber);
     }
     catch(AssertException const&)
     {
@@ -83,7 +85,7 @@ TEST(ReportAssertWritesFailureToResultsAndDetailsWhenAssertIsNotExpected)
 
 TEST(ReportAssertReportsNoErrorsWhenAssertIsExpected)
 {
-	ExpectAssert(true);
+	Detail::ExpectAssert(true);
 
 	RecordingReporter reporter;
 	TestResults testResults(&reporter);
@@ -91,7 +93,7 @@ TEST(ReportAssertReportsNoErrorsWhenAssertIsExpected)
 
 	try
 	{
-		ReportAssertEx(&testResults, &testDetails, "", "", 0);
+		Detail::ReportAssertEx(&testResults, &testDetails, "", "", 0);
 	}
 	catch(AssertException const&)
 	{
@@ -100,12 +102,35 @@ TEST(ReportAssertReportsNoErrorsWhenAssertIsExpected)
 	CHECK_EQUAL(0, reporter.testFailedCount);
 }
 
-#endif
-
 TEST(CheckAssertMacroSetsAssertExpectationToFalseAfterRunning)
 {
+	Detail::ExpectAssert(true);
 	CHECK_ASSERT(ReportAssert("", "", 0));
-	CHECK(!AssertExpected());
+	CHECK(!Detail::AssertExpected());
+	Detail::ExpectAssert(false);
 }
+
+#else
+
+TEST(SetAssertJumpTargetReturnsFalseWhenSettingJumpTarget)
+{
+	CHECK(UNITTEST_SET_ASSERT_JUMP_TARGET() == false);
+}
+
+TEST(JumpToAssertJumpTarget_JumpsToSetPoint_ReturnsTrue)
+{
+	const volatile bool taken = !!UNITTEST_SET_ASSERT_JUMP_TARGET();
+
+	volatile bool set = false;
+	if (taken == false)
+	{
+		UNITTEST_JUMP_TO_ASSERT_JUMP_TARGET();
+		set = true;
+	}
+
+	CHECK(set == false);
+}
+
+#endif
 
 }

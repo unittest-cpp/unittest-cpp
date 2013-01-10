@@ -4,6 +4,7 @@
 #include "../TestList.h"
 #include "../TimeHelpers.h"
 #include "../TimeConstraint.h"
+#include "../ReportAssertImpl.h"
 
 using namespace UnitTest;
 
@@ -45,7 +46,7 @@ struct MockTest : public Test
         for (int i=0; i < count; ++i)
         {
             if (asserted)
-                ReportAssertEx(testResults, &m_details, "desc", "file", 0);
+				Detail::ReportAssertEx(testResults, &m_details, "desc", "file", 0);
             else if (!success)
 				testResults->OnTestFailure(m_details, "message");
         }
@@ -122,6 +123,14 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 
 	runner.RunTestsIf(list, NULL, True(), 0);
     CHECK_EQUAL(1, reporter.testFailedCount);
+}
+
+TEST_FIXTURE(TestRunnerFixture, AssertingTestAbortsAsSoonAsAssertIsHit)
+{
+	MockTest test("test", false, true, 3);
+	list.Add(&test);
+	runner.RunTestsIf(list, NULL, True(), 0);
+	CHECK_EQUAL(1, reporter.summaryFailureCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, ReporterNotifiedOfTestCount)
