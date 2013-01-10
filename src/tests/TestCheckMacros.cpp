@@ -206,17 +206,6 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
-
-class ThrowingObject
-{
-public:
-    float operator[](int) const
-    {
-        throw "Test throw";
-    }
-};
-
-
 TEST(CheckArrayCloseSucceedsOnEqual)
 {
     bool failure = true;
@@ -403,16 +392,6 @@ TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
 
 	CHECK_EQUAL(1, g_sideEffect);
 }
-
-class ThrowingObject2D
-{
-public:
-    float* operator[](int) const
-    {
-        throw "Test throw";
-    }
-};
-
 
 TEST(CheckArray2DCloseSucceedsOnEqual)
 {

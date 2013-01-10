@@ -1,4 +1,7 @@
 #include "AssertException.h"
+
+#ifdef UNITTEST_USE_EXCEPTIONS
+
 #include <cstring>
 
 namespace UnitTest {
@@ -12,11 +15,11 @@ AssertException::AssertException(char const* description, char const* filename, 
     strcpy(m_filename, filename);
 }
 
-AssertException::~AssertException() throw()
+AssertException::~AssertException()
 {
 }
 
-char const* AssertException::what() const throw()
+char const* AssertException::what() const
 {
     return m_description;
 }
@@ -32,3 +35,5 @@ int AssertException::LineNumber() const
 }
 
 }
+
+#endif
