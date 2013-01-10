@@ -2,7 +2,7 @@
 #define UNITTEST_TIMECONSTRAINT_H
 
 #include "TimeHelpers.h"
-#include "DllMacros.h"
+#include "HelperMacros.h"
 
 namespace UnitTest {
 
@@ -27,7 +27,10 @@ private:
 #define UNITTEST_TIME_CONSTRAINT(ms) \
 	UnitTest::TimeConstraint unitTest__timeConstraint__(ms, UnitTest::TestDetails(m_details, __LINE__))
 
-#define UNITTEST_TIME_CONSTRAINT_EXEMPT() do { m_timeConstraintExempt = true; } while (0)
+#define UNITTEST_TIME_CONSTRAINT_EXEMPT() \
+	UNITTEST_MULTILINE_MACRO_BEGIN \
+	m_timeConstraintExempt = true; \
+	UNITTEST_MULTILINE_MACRO_END
 
 }
 

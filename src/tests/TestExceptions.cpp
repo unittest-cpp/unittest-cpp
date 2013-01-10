@@ -93,7 +93,7 @@ TEST(CheckCloseFailsOnException)
         RecordingReporter reporter;
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
+        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);
         failure = (testResults.GetFailureCount() > 0);
     }
 
@@ -108,7 +108,7 @@ TEST(CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
         UnitTest::TestResults testResults(&reporter);
 		UnitTest::TestDetails testDetails("closeTest", "closeSuite", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
-        CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);    line = __LINE__;
+        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);    line = __LINE__;
     }
 
     CHECK_EQUAL("closeTest", reporter.lastFailedTest);
@@ -123,7 +123,7 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
     {
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
+        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
@@ -149,7 +149,7 @@ TEST(CheckArrayCloseFailureBecauseOfExceptionContainsCorrectDetails)
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		int const data[4] = { 0, 1, 2, 3 };
-        CHECK_ARRAY_CLOSE (data, ThrowingObject(), 4, 0.01f);     line = __LINE__;
+        CHECK_ARRAY_CLOSE(data, ThrowingObject(), 4, 0.01f);     line = __LINE__;
     }
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
@@ -168,7 +168,7 @@ TEST(CheckArrayCloseFailsOnException)
 
 		const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
-        CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
+        CHECK_ARRAY_CLOSE(data, obj, 3, 0.01f);
 
 		failure = (testResults.GetFailureCount() > 0);
     }
@@ -185,7 +185,7 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
 
 		const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
-        CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
+        CHECK_ARRAY_CLOSE(data, obj, 3, 0.01f);
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "data"));
@@ -253,7 +253,7 @@ TEST(CheckArray2DCloseFailureBecauseOfExceptionContainsCorrectDetails)
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		const float data[2][2] = { {0, 1}, {2, 3} };
-        CHECK_ARRAY2D_CLOSE (data, ThrowingObject2D(), 2, 2, 0.01f);   line = __LINE__;
+        CHECK_ARRAY2D_CLOSE(data, ThrowingObject2D(), 2, 2, 0.01f);   line = __LINE__;
     }
 
     CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
@@ -272,7 +272,7 @@ TEST(CheckArray2DCloseFailsOnException)
 
 		const float data[2][2] = { {0, 1}, {2, 3} };
         ThrowingObject2D obj;
-        CHECK_ARRAY2D_CLOSE (data, obj, 2, 2, 0.01f);
+        CHECK_ARRAY2D_CLOSE(data, obj, 2, 2, 0.01f);
 
 		failure = (testResults.GetFailureCount() > 0);
     }
@@ -289,7 +289,7 @@ TEST(CheckArray2DCloseFailureOnExceptionIncludesCheckContents)
 
 		const float data[2][2] = { {0, 1}, {2, 3} };
         ThrowingObject2D obj;
-        CHECK_ARRAY2D_CLOSE (data, obj, 2, 2, 0.01f);
+        CHECK_ARRAY2D_CLOSE(data, obj, 2, 2, 0.01f);
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "data"));

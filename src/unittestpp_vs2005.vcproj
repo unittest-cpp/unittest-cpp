@@ -489,15 +489,15 @@
 			>
 		</File>
 		<File
-			RelativePath=".\DllMacros.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ExceptionMacros.h"
 			>
 		</File>
 		<File
 			RelativePath=".\ExecuteTest.h"
+			>
+		</File>
+		<File
+			RelativePath=".\HelperMacros.h"
 			>
 		</File>
 		<File

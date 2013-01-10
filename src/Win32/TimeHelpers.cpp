@@ -9,7 +9,7 @@ Timer::Timer()
 	: m_threadHandle(::GetCurrentThread())
 	, m_startTime(0)
 {
-#if defined(_MSC_VER) && (_MSC_VER == 1200) // VC6 doesn't have DWORD_PTR
+#if defined(UNITTEST_WIN32) && (_MSC_VER == 1200) // VC6 doesn't have DWORD_PTR
 	typedef unsigned long DWORD_PTR;
 #endif
 

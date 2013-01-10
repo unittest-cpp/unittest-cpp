@@ -27,7 +27,7 @@ UNITTEST_LINKAGE bool AssertExpected();
 #ifndef UNITTEST_USE_EXCEPTIONS
 	UNITTEST_LINKAGE jmp_buf* GetAssertJmpBuf();
 
-	#ifdef _MSC_VER
+	#ifdef UNITTEST_WIN32
 		#define UNITTEST_SET_ASSERT_JUMP_TARGET() \
 			__pragma(warning(push)) __pragma(warning(disable:4611)) \
 			setjmp(*UnitTest::Detail::GetAssertJmpBuf()) \

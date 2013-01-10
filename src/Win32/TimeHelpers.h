@@ -2,7 +2,7 @@
 #define UNITTEST_TIMEHELPERS_H
 
 #include "../../config.h"
-#include "../DllMacros.h"
+#include "../HelperMacros.h"
 
 #ifdef UNITTEST_MINGW
     #ifndef __int64

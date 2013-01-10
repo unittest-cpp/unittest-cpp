@@ -2,7 +2,7 @@
 #define UNITTEST_MEMORYOUTSTREAM_H
 
 #include "../config.h"
-#include "DllMacros.h"
+#include "HelperMacros.h"
 
 #ifndef UNITTEST_USE_CUSTOM_STREAMS
 

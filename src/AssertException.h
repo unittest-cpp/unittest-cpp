@@ -4,7 +4,7 @@
 #include "../config.h"
 #ifdef UNITTEST_USE_EXCEPTIONS
 
-#include "DllMacros.h"
+#include "HelperMacros.h"
 #include <exception>
 
 namespace UnitTest {

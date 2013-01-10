@@ -1,7 +1,7 @@
 #ifndef UNITTEST_TESTREPORTER_H
 #define UNITTEST_TESTREPORTER_H
 
-#include "DllMacros.h"
+#include "HelperMacros.h"
 
 namespace UnitTest {
 

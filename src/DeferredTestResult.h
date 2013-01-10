@@ -4,7 +4,7 @@
 #include "../config.h"
 #ifdef UNITTEST_USE_DEFERRED_REPORTER
 
-#include "DllMacros.h"
+#include "HelperMacros.h"
 #include <string>
 #include <vector>
 
