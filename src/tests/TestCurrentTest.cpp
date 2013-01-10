@@ -1,4 +1,4 @@
-#include "../UnitTest++.h"
+#include "../unittestpp.h"
 #include "../CurrentTest.h"
 #include "ScopedCurrentTest.h"
 

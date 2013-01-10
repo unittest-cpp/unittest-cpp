@@ -1,4 +1,4 @@
-#include "../UnitTest++.h"
+#include "../unittestpp.h"
 #include "../DeferredTestReporter.h"
 #include "../Config.h"
 #include <cstring>

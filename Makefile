@@ -37,7 +37,7 @@ endif
 test_src = src/tests/Main.cpp \
 	src/tests/TestAssertHandler.cpp \
 	src/tests/TestChecks.cpp \
-	src/tests/TestUnitTest++.cpp \
+	src/tests/TestUnitTestPP.cpp \
 	src/tests/TestTest.cpp \
 	src/tests/TestTestResults.cpp \
 	src/tests/TestTestRunner.cpp \

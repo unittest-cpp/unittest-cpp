@@ -237,7 +237,7 @@ SOURCE=.\src\TimeHelpers.h
 # End Source File
 # Begin Source File
 
-SOURCE=".\src\UnitTest++.h"
+SOURCE=".\src\unittestpp.h"
 # End Source File
 # Begin Source File
 

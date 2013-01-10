@@ -146,7 +146,7 @@ SOURCE=.\src\tests\TestTimeConstraintMacro.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=".\src\tests\TestUnitTest++.cpp"
+SOURCE=".\src\tests\TestUnitTestPP.cpp"
 # End Source File
 # Begin Source File
 

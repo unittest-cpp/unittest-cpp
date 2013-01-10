@@ -15,7 +15,7 @@ TimeConstraint::TimeConstraint(int ms, TestDetails const& details)
 
 TimeConstraint::~TimeConstraint()
 {
-    int const totalTimeInMs = m_timer.GetTimeInMs();
+    double const totalTimeInMs = m_timer.GetTimeInMs();
     if (totalTimeInMs > m_maxMs)
     {
         MemoryOutStream stream;

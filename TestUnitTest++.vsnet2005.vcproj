@@ -243,7 +243,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\tests\TestUnitTest++.cpp"
+			RelativePath=".\src\tests\TestUnitTestPP.cpp"
 			>
 		</File>
 		<File
