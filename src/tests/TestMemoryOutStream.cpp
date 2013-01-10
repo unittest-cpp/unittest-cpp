@@ -103,6 +103,14 @@ TEST(StreamingSizeTWritesCorrectCharacters)
     CHECK_EQUAL("53124", stream.GetText());
 }
 
+TEST(ClearEmptiesMemoryOutStreamContents)
+{
+	MemoryOutStream stream;
+	stream << "Hello world";
+	stream.Clear();
+	CHECK_EQUAL("", stream.GetText());
+}
+
 #ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 TEST(StreamInitialCapacityIsCorrect)

@@ -10,6 +10,12 @@ char const* MemoryOutStream::GetText() const
 	return m_text.c_str();
 }
 
+void MemoryOutStream::Clear()
+{
+	this->str(std::string());
+	m_text = this->str();
+}
+
 }
 
 #else
@@ -50,6 +56,11 @@ MemoryOutStream::MemoryOutStream(int const size)
 MemoryOutStream::~MemoryOutStream()
 {
     delete [] m_buffer;
+}
+
+void MemoryOutStream::Clear()
+{
+	m_buffer[0] = '\0';
 }
 
 char const* MemoryOutStream::GetText() const

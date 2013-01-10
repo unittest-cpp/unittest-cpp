@@ -16,7 +16,8 @@ class UNITTEST_LINKAGE MemoryOutStream : public std::ostringstream
 public:
     MemoryOutStream() {}
     ~MemoryOutStream() {}
-    char const* GetText() const;
+	void Clear();
+	char const* GetText() const;
 
 private:
     MemoryOutStream(MemoryOutStream const&);
@@ -40,6 +41,7 @@ public:
     explicit MemoryOutStream(int const size = 256);
     ~MemoryOutStream();
 
+	void Clear();
     char const* GetText() const;
 
     MemoryOutStream& operator <<(char const* txt);
