@@ -57,7 +57,7 @@ char const* MemoryOutStream::GetText() const
     return m_buffer;
 }
 
-MemoryOutStream& MemoryOutStream::operator << (char const* txt)
+MemoryOutStream& MemoryOutStream::operator <<(char const* txt)
 {
 	using namespace std;
 
@@ -74,37 +74,59 @@ MemoryOutStream& MemoryOutStream::operator << (char const* txt)
     return *this;
 }
 
-MemoryOutStream& MemoryOutStream::operator << (int const n)
+MemoryOutStream& MemoryOutStream::operator <<(int const n)
 {
     FormatToStream(*this, "%i", n);
     return *this;
 }
 
-MemoryOutStream& MemoryOutStream::operator << (long const n)
+MemoryOutStream& MemoryOutStream::operator <<(long const n)
 {
     FormatToStream(*this, "%li", n);
     return *this;
 }
 
-MemoryOutStream& MemoryOutStream::operator << (unsigned long const n)
+MemoryOutStream& MemoryOutStream::operator <<(unsigned long const n)
 {
     FormatToStream(*this, "%lu", n);
     return *this;
 }
 
-MemoryOutStream& MemoryOutStream::operator << (float const f)
+MemoryOutStream& MemoryOutStream::operator <<(long long const n)
+{
+#ifdef UNITTEST_WIN32
+	FormatToStream(*this, "%I64d", n);
+#else
+	FormatToStream(*this, "%lld", n);
+#endif
+
+	return *this;
+}
+
+MemoryOutStream& MemoryOutStream::operator <<(unsigned long long const n)
+{
+#ifdef UNITTEST_WIN32
+	FormatToStream(*this, "%I64u", n);
+#else
+	FormatToStream(*this, "%llu", n);
+#endif
+
+	return *this;
+}
+
+MemoryOutStream& MemoryOutStream::operator <<(float const f)
 {
     FormatToStream(*this, "%ff", f);
     return *this;    
 }
 
-MemoryOutStream& MemoryOutStream::operator << (void const* p)
+MemoryOutStream& MemoryOutStream::operator <<(void const* p)
 {
     FormatToStream(*this, "%p", p);
     return *this;    
 }
 
-MemoryOutStream& MemoryOutStream::operator << (unsigned int const s)
+MemoryOutStream& MemoryOutStream::operator <<(unsigned int const s)
 {
     FormatToStream(*this, "%u", s);
     return *this;    

@@ -42,14 +42,16 @@ public:
 
     char const* GetText() const;
 
-    MemoryOutStream& operator << (char const* txt);
-    MemoryOutStream& operator << (int n);
-    MemoryOutStream& operator << (long n);
-    MemoryOutStream& operator << (unsigned long n);
-    MemoryOutStream& operator << (float f);
-    MemoryOutStream& operator << (double d);
-    MemoryOutStream& operator << (void const* p);
-    MemoryOutStream& operator << (unsigned int s);
+    MemoryOutStream& operator <<(char const* txt);
+    MemoryOutStream& operator <<(int n);
+    MemoryOutStream& operator <<(long n);
+	MemoryOutStream& operator <<(long long n);
+    MemoryOutStream& operator <<(unsigned long n);
+	MemoryOutStream& operator <<(unsigned long long n);
+    MemoryOutStream& operator <<(float f);
+    MemoryOutStream& operator <<(double d);
+    MemoryOutStream& operator <<(void const* p);
+    MemoryOutStream& operator <<(unsigned int s);
 
     enum { GROW_CHUNK_SIZE = 32 };
     int GetCapacity() const;

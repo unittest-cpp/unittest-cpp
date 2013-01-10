@@ -2,6 +2,8 @@
 
 #include "../MemoryOutStream.h"
 #include <cstring>
+#include <climits>
+#include <cstdlib>
 
 using namespace UnitTest;
 using namespace std;
@@ -55,6 +57,20 @@ TEST(StreamingUnsignedLongWritesCorrectCharacters)
     MemoryOutStream stream;
     stream << (unsigned long)123;
     CHECK_EQUAL("123", stream.GetText());
+}
+
+TEST(StreamingLongLongWritesCorrectCharacters)
+{
+	MemoryOutStream stream;
+	stream << (long long)(ULONG_MAX) * 2;
+	CHECK_EQUAL("8589934590", stream.GetText());
+}
+
+TEST(StreamingUnsignedLongLongWritesCorrectCharacters)
+{
+	MemoryOutStream stream;
+	stream << (unsigned long long)(ULONG_MAX) * 2;
+	CHECK_EQUAL("8589934590", stream.GetText());
 }
 
 TEST(StreamingFloatWritesCorrectCharacters)
