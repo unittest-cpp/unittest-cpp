@@ -17,9 +17,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="win32_static_md_debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc90_static_md_debug"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc90_static_md_debug"
+			Name="win32_static_vc90_md_debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -93,9 +93,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_static_md_release|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc90_static_md_release"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc90_static_md_release"
+			Name="win32_static_vc90_md_release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -170,9 +170,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_dll_debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc90_dll_debug"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc90_dll_debug"
+			Name="win32_dll_vc90_debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -246,9 +246,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_dll_release|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc90_dll_release"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc90_dll_release"
+			Name="win32_dll_vc90_release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -323,9 +323,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_static_mt_debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc90_static_mt_debug"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc90_static_mt_debug"
+			Name="win32_static_vc90_mt_debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -399,9 +399,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_static_mt_release|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc90_static_mt_release"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc90_static_mt_release"
+			Name="win32_static_vc90_mt_release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="0"

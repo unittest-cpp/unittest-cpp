@@ -16,9 +16,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="win32_lib_md_debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\win32_vc80_md_debug"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_lib_md_debug"
+			Name="win32_static_vc80_md_debug|Win32"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -80,9 +80,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_lib_md_release|Win32"
-			OutputDirectory="$(SolutionDir)lib\win32_vc80_md_release"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_lib_md_release"
+			Name="win32_static_vc80_md_release|Win32"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -143,9 +143,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_dll_debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc80_dll_debug"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_dll_debug"
+			Name="win32_dll_vc80_debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -217,9 +217,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_dll_release|Win32"
-			OutputDirectory="$(SolutionDir)bin\win32_vc80_dll_release"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_dll_release"
+			Name="win32_dll_vc80_release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -290,9 +290,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_lib_mt_debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\win32_vc80_mt_debug"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_lib_mt_debug"
+			Name="win32_static_vc80_mt_debug|Win32"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -354,9 +354,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_lib_mt_release|Win32"
-			OutputDirectory="$(SolutionDir)lib\win32_vc80_mt_release"
-			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\win32_vc80_lib_mt_release"
+			Name="win32_static_vc80_mt_release|Win32"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
