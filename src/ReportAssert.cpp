@@ -1,3 +1,4 @@
+#include "ReportAssert.h"
 #include "AssertException.h"
 
 namespace UnitTest {
