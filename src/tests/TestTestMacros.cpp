@@ -1,4 +1,4 @@
-#include "../UnitTest++.h"
+#include "../../unittestpp.h"
 #include "../TestMacros.h"
 #include "../TestList.h"
 #include "../TestResults.h"
@@ -8,6 +8,7 @@
 #include "ScopedCurrentTest.h"
 
 using namespace UnitTest;
+using namespace std;
 
 namespace {
 
@@ -19,8 +20,10 @@ TEST_EX(DummyTest, list1)
 TEST (TestsAreAddedToTheListThroughMacro)
 {
     CHECK(list1.GetHead() != 0);
-    CHECK(list1.GetHead()->next == 0);
+    CHECK(list1.GetHead()->m_nextTest == 0);
 }
+
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 struct ThrowingThingie
 {
@@ -51,6 +54,8 @@ TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
     CHECK(strstr(reporter.lastFailedMessage, "fixture"));
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
 }
+
+#endif
 
 struct DummyFixture
 {
@@ -103,6 +108,8 @@ TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
     CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_details.testName);
     CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
 }
+
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 struct FixtureCtorThrows
 {
@@ -184,6 +191,8 @@ TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
 	CHECK_EQUAL(FailingLine, reporter.lastFailedLine);
 	CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
 }
+
+#endif
 
 }
 

@@ -32,9 +32,14 @@ TestRunner::~TestRunner()
 	delete m_timer;
 }
 
+TestResults* TestRunner::GetTestResults()
+{
+	return m_result;
+}
+
 int TestRunner::Finish() const
 {
-    float const secondsElapsed = m_timer->GetTimeInMs() / 1000.0f;
+    float const secondsElapsed = static_cast<float>(m_timer->GetTimeInMs() / 1000.0);
     m_reporter->ReportSummary(m_result->GetTotalTestCount(), 
 							  m_result->GetFailedTestCount(), 
 							  m_result->GetFailureCount(), 
@@ -51,7 +56,8 @@ bool TestRunner::IsTestInSuite(const Test* const curTest, char const* suiteName)
 
 void TestRunner::RunTest(TestResults* const result, Test* const curTest, int const maxTestTimeInMs) const
 {
-	CurrentTest::Results() = result;
+	if (curTest->m_isMockTest == false)
+		CurrentTest::Results() = result;
 
 	Timer testTimer;
 	testTimer.Start();
@@ -60,7 +66,7 @@ void TestRunner::RunTest(TestResults* const result, Test* const curTest, int con
 
 	curTest->Run();
 
-	int const testTimeInMs = testTimer.GetTimeInMs();
+	double const testTimeInMs = testTimer.GetTimeInMs();
 	if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs && !curTest->m_timeConstraintExempt)
 	{
 	    MemoryOutStream stream;
@@ -70,7 +76,7 @@ void TestRunner::RunTest(TestResults* const result, Test* const curTest, int con
 	    result->OnTestFailure(curTest->m_details, stream.GetText());
 	}
 
-	result->OnTestFinish(curTest->m_details, testTimeInMs/1000.0f);
+	result->OnTestFinish(curTest->m_details, static_cast< float >(testTimeInMs / 1000.0));
 }
 
 }

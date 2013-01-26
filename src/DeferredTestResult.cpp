@@ -1,8 +1,23 @@
+#include "../config.h"
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
+
 #include "DeferredTestResult.h"
-#include "Config.h"
+#include <cstring>
 
 namespace UnitTest
 {
+
+DeferredTestFailure::DeferredTestFailure()
+	: lineNumber(-1)
+{
+	failureStr[0] = '\0';
+}
+
+DeferredTestFailure::DeferredTestFailure(int lineNumber_, const char* failureStr_)
+	: lineNumber(lineNumber_)
+{
+	std::strcpy(failureStr, failureStr_);
+}
 
 DeferredTestResult::DeferredTestResult()
 	: suiteName("")
@@ -22,4 +37,10 @@ DeferredTestResult::DeferredTestResult(char const* suite, char const* test)
 {
 }
 
+DeferredTestResult::~DeferredTestResult()
+{
 }
+
+}
+
+#endif

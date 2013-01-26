@@ -1,3 +1,6 @@
+#include "../config.h"
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
+
 #include "DeferredTestReporter.h"
 #include "TestDetails.h"
 
@@ -12,7 +15,7 @@ void DeferredTestReporter::ReportFailure(TestDetails const& details, char const*
 {
     DeferredTestResult& r = m_results.back();
     r.failed = true;
-    r.failures.push_back(DeferredTestResult::Failure(details.lineNumber, failure));
+    r.failures.push_back(DeferredTestFailure(details.lineNumber, failure));
     r.failureFile = details.filename;
 }
 
@@ -26,3 +29,5 @@ DeferredTestReporter::DeferredTestResultList& DeferredTestReporter::GetResults()
 {
     return m_results;
 }
+
+#endif

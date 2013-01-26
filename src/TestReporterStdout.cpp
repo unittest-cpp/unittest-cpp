@@ -4,7 +4,7 @@
 #include "TestDetails.h"
 
 // cstdio doesn't pull in namespace std on VC6, so we do it here.
-#if defined(_MSC_VER) && (_MSC_VER == 1200)
+#if defined(UNITTEST_WIN32) && (_MSC_VER == 1200)
 	namespace std {}
 #endif
 

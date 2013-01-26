@@ -1,5 +1,7 @@
+#include "../config.h"
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
+
 #include "XmlTestReporter.h"
-#include "Config.h"
 
 #include <iostream>
 #include <sstream>
@@ -117,11 +119,13 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
          it != result.failures.end(); 
          ++it)
     {
-        string const escapedMessage = XmlEscape(it->second);
-        string const message = BuildFailureMessage(result.failureFile, it->first, escapedMessage);
+		string const escapedMessage = XmlEscape(std::string(it->failureStr));
+        string const message = BuildFailureMessage(result.failureFile, it->lineNumber, escapedMessage);
 
         os << "<failure" << " message=\"" << message << "\"" << "/>";
     }
 }
 
 }
+
+#endif

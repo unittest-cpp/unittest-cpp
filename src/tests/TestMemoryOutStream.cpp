@@ -1,7 +1,9 @@
-#include "../UnitTest++.h"
+#include "../../unittestpp.h"
 
 #include "../MemoryOutStream.h"
 #include <cstring>
+#include <climits>
+#include <cstdlib>
 
 using namespace UnitTest;
 using namespace std;
@@ -57,6 +59,20 @@ TEST(StreamingUnsignedLongWritesCorrectCharacters)
     CHECK_EQUAL("123", stream.GetText());
 }
 
+TEST(StreamingLongLongWritesCorrectCharacters)
+{
+	MemoryOutStream stream;
+	stream << (long long)8589934590ll;
+	CHECK_EQUAL("8589934590", stream.GetText());
+}
+
+TEST(StreamingUnsignedLongLongWritesCorrectCharacters)
+{
+	MemoryOutStream stream;
+	stream << (unsigned long long)8589934590ull;
+	CHECK_EQUAL("8589934590", stream.GetText());
+}
+
 TEST(StreamingFloatWritesCorrectCharacters)
 {
     MemoryOutStream stream;
@@ -87,7 +103,15 @@ TEST(StreamingSizeTWritesCorrectCharacters)
     CHECK_EQUAL("53124", stream.GetText());
 }
 
-#ifdef UNITTEST_USE_CUSTOM_STREAMS
+TEST(ClearEmptiesMemoryOutStreamContents)
+{
+	MemoryOutStream stream;
+	stream << "Hello world";
+	stream.Clear();
+	CHECK_EQUAL("", stream.GetText());
+}
+
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 TEST(StreamInitialCapacityIsCorrect)
 {

@@ -1,11 +1,13 @@
 #ifndef UNITTEST_TESTREPORTER_H
 #define UNITTEST_TESTREPORTER_H
 
+#include "HelperMacros.h"
+
 namespace UnitTest {
 
 class TestDetails;
 
-class TestReporter
+class UNITTEST_LINKAGE TestReporter
 {
 public:
     virtual ~TestReporter();

@@ -212,7 +212,7 @@
 			RelativePath=".\src\TimeHelpers.h">
 		</File>
 		<File
-			RelativePath=".\src\UnitTest++.h">
+			RelativePath=".\src\unittestpp.h">
 		</File>
 		<File
 			RelativePath=".\src\XmlTestReporter.cpp">

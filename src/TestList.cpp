@@ -21,7 +21,7 @@ void TestList::Add(Test* test)
     }
     else
     {
-        m_tail->next = test;
+        m_tail->m_nextTest = test;
         m_tail = test;
     }
 }

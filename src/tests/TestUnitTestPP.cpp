@@ -1,8 +1,5 @@
-#include "../UnitTest++.h"
-#include "../ReportAssert.h"
+#include "../../unittestpp.h"
 #include "ScopedCurrentTest.h"
-
-#include <vector>
 
 // These are sample tests that show the different features of the framework
 
@@ -47,14 +44,7 @@ TEST(ArrayCloseSucceeds)
     CHECK_ARRAY_CLOSE(a1, a2, 3, 0.1f);
 }
 
-TEST (CheckArrayCloseWorksWithVectors)
-{
-    std::vector< float > a(4);
-    for (int i = 0; i < 4; ++i)
-        a[i] = (float)i;
-
-    CHECK_ARRAY_CLOSE(a, a, (int)a.size(), 0.0001f);
-}
+#ifndef UNITTEST_NO_EXCEPTIONS
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
 {
@@ -116,6 +106,8 @@ TEST(CheckThrowMacroFailsOnWrongException)
 
 	CHECK_EQUAL(1, results.GetFailureCount());
 }
+
+#endif
 
 struct SimpleFixture
 {
