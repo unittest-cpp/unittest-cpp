@@ -1,6 +1,9 @@
-#include "../UnitTest++.h"
+#include "../../config.h"
+
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
+
+#include "../../unittestpp.h"
 #include "../DeferredTestReporter.h"
-#include "../Config.h"
 #include <cstring>
 
 namespace UnitTest
@@ -9,7 +12,7 @@ namespace UnitTest
 namespace 
 {
 
-#ifdef UNITTEST_USE_CUSTOM_STREAMS
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 	MemoryOutStream& operator <<(MemoryOutStream& lhs, const std::string& rhs)
 	{
 		lhs << rhs.c_str();
@@ -91,8 +94,8 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetailsForMul
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
     CHECK_EQUAL(2, (int)result.failures.size());
-    CHECK_EQUAL(failure1, result.failures[0].second);
-    CHECK_EQUAL(failure2, result.failures[1].second);
+    CHECK_EQUAL(failure1, result.failures[0].failureStr);
+    CHECK_EQUAL(failure2, result.failures[1].failureStr);
 }
 
 TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailureMessage)
@@ -110,8 +113,10 @@ TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailure
     strcpy(failureMessage, badStr);
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
-    DeferredTestResult::Failure const& failure = result.failures.at(0);
-    CHECK_EQUAL(goodStr, failure.second);
+    DeferredTestFailure const& failure = result.failures.at(0);
+    CHECK_EQUAL(goodStr, failure.failureStr);
 }
 
 }}
+
+#endif

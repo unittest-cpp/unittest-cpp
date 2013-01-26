@@ -52,7 +52,7 @@ Version 1.2 (2006-10-29)
 - Added named test suites
 - Added CHECK_ARRAY2D_CLOSE 
 - Posix library name is libUnitTest++.a now
-- Floating point numbers are postfixed with f in the failure reports
+- Floating point numbers are postfixed with 'f' in the failure reports
 
 Version 1.1 (2006-04-18)
 - CHECK macros do not have side effects even if one of the parameters changes state

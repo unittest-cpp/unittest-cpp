@@ -1,12 +1,14 @@
 #ifndef UNITTEST_TESTRESULTS_H
 #define UNITTEST_TESTRESULTS_H
 
+#include "HelperMacros.h"
+
 namespace UnitTest {
 
 class TestReporter;
 class TestDetails;
 
-class TestResults
+class UNITTEST_LINKAGE TestResults
 {
 public:
     explicit TestResults(TestReporter* reporter = 0);

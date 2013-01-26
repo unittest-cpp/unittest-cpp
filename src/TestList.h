@@ -1,12 +1,13 @@
 #ifndef UNITTEST_TESTLIST_H
 #define UNITTEST_TESTLIST_H
 
+#include "HelperMacros.h"
 
 namespace UnitTest {
 
 class Test;
 
-class TestList
+class UNITTEST_LINKAGE TestList
 {
 public:
     TestList();
@@ -20,7 +21,7 @@ private:
 };
 
 
-class ListAdder
+class UNITTEST_LINKAGE ListAdder
 {
 public:
     ListAdder(TestList& list, Test* test);

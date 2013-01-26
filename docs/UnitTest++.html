@@ -31,14 +31,14 @@
 <p>You'll probably want to keep the generated library in a shared space in source control, so you can reuse it for multiple test projects. A redistributable package of UnitTest++ would consist of the generated library file, and all of the header files in <code>UnitTest++/src/</code> and its per-platform subfolders. The <code>tests</code> directory only contains the unit tests for the library, and need not be included.</p>
 
 <h2>Using UnitTest++</h2>
-<p>The source code for UnitTest++ comes with a full test suite written <em>using</em> UnitTest++. This is a great place to learn techniques for testing. There is one sample .cpp file: <code>UnitTest++/src/tests/TestUnitTest++.cpp</code>. It covers most of UnitTest++'s features in an easy-to-grasp context, so start there if you want a quick overview of typical usage.</p>
+<p>The source code for UnitTest++ comes with a full test suite written <em>using</em> UnitTest++. This is a great place to learn techniques for testing. There is one sample .cpp file: <code>UnitTest++/src/tests/TestUnitTestPP.cpp</code>. It covers most of UnitTest++'s features in an easy-to-grasp context, so start there if you want a quick overview of typical usage.</p>
 
 <h3>Getting started</h3>
 <p>Listed below is a minimal C++ program to run a failing test through UnitTest++.</p>
 
 <pre>
   // test.cpp
-  #include &lt;UnitTest++.h&gt;
+  #include &lt;unittestpp.h&gt;
 
   TEST(FailSpectacularly)
   {
@@ -51,7 +51,7 @@
   }
 </pre>
 
-<p><code>UnitTest++.h</code> is a facade header for UnitTest++, so including that should get you all features of the library. All classes and free functions are placed in namespace <code>UnitTest</code>, so you need to either qualify their full names (as with <code>RunAllTests()</code> in the example) or add a <code>using namespace UnitTest;</code> statement in your .cpp files. Note that any mention of UnitTest++ functions and classes in this document assume that the <code>UnitTest</code> namespace has been opened.</p>
+<p><code>unittestpp.h</code> is a facade header for UnitTest++, so including that should get you all features of the library. All classes and free functions are placed in namespace <code>UnitTest</code>, so you need to either qualify their full names (as with <code>RunAllTests()</code> in the example) or add a <code>using namespace UnitTest;</code> statement in your .cpp files. Note that any mention of UnitTest++ functions and classes in this document assume that the <code>UnitTest</code> namespace has been opened.</p>
 
 <p>Compiling and linking this program with UnitTest++'s static library into an executable, and running it, will produce the following output (details may vary):</p>
 

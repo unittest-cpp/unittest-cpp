@@ -8,7 +8,7 @@ namespace UnitTest {
 class TestResults;
 class TestList;
 
-class Test
+class UNITTEST_LINKAGE Test
 {
 public:
     explicit Test(char const* testName, char const* suiteName = "DefaultSuite", char const* filename = "", int lineNumber = 0);
@@ -16,8 +16,9 @@ public:
     void Run();
 
     TestDetails const m_details;
-    Test* next;
+    Test* m_nextTest;
     mutable bool m_timeConstraintExempt;
+	mutable bool m_isMockTest;
 
     static TestList& GetTestList();
 

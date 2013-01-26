@@ -1,6 +1,9 @@
 #ifndef UNITTEST_XMLTESTREPORTER_H
 #define UNITTEST_XMLTESTREPORTER_H
 
+#include "../config.h"
+#ifndef UNITTEST_NO_DEFERRED_REPORTER
+
 #include "DeferredTestReporter.h"
 
 #include <iosfwd>
@@ -8,7 +11,7 @@
 namespace UnitTest
 {
 
-class XmlTestReporter : public DeferredTestReporter
+class UNITTEST_LINKAGE XmlTestReporter : public DeferredTestReporter
 {
 public:
     explicit XmlTestReporter(std::ostream& ostream);
@@ -31,4 +34,5 @@ private:
 
 }
 
+#endif
 #endif

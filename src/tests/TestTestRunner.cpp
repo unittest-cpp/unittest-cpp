@@ -1,14 +1,32 @@
-#include "../UnitTest++.h"
+#include "../../unittestpp.h"
 #include "RecordingReporter.h"
 #include "../ReportAssert.h"
 #include "../TestList.h"
 #include "../TimeHelpers.h"
 #include "../TimeConstraint.h"
+#include "../ReportAssertImpl.h"
 
 using namespace UnitTest;
 
 namespace
 {
+
+struct TestRunnerFixture
+{
+	TestRunnerFixture()
+		: runner(reporter)
+	{
+		s_testRunnerFixtureTestResults = runner.GetTestResults();
+	}
+
+	static TestResults* s_testRunnerFixtureTestResults;
+
+    RecordingReporter reporter;
+    TestList list;
+	TestRunner runner;
+};
+
+TestResults* TestRunnerFixture::s_testRunnerFixtureTestResults = NULL;
 
 struct MockTest : public Test
 {
@@ -18,35 +36,25 @@ struct MockTest : public Test
         , asserted(assert_)
         , count(count_)
     {
+		m_isMockTest = true;
     }
 
-    virtual void RunImpl(TestResults& testResults_) const
+    virtual void RunImpl() const
     {
+		TestResults* testResults = TestRunnerFixture::s_testRunnerFixtureTestResults;
+
         for (int i=0; i < count; ++i)
         {
             if (asserted)
-                ReportAssert("desc", "file", 0);
+				Detail::ReportAssertEx(testResults, &m_details, "desc", "file", 0);
             else if (!success)
-                testResults_.OnTestFailure(m_details, "message");
+				testResults->OnTestFailure(m_details, "message");
         }
     }
 
     bool const success;
     bool const asserted;
     int const count;
-};
-
-
-struct TestRunnerFixture
-{
-	TestRunnerFixture()
-		: runner(reporter)
-	{
-	}
-
-    RecordingReporter reporter;
-    TestList list;
-	TestRunner runner;
 };
 
 TEST_FIXTURE(TestRunnerFixture, TestStartIsReportedCorrectly)
@@ -73,7 +81,7 @@ class SlowTest : public Test
 {
 public:
     SlowTest() : Test("slow", "somesuite", "filename", 123) {}
-    virtual void RunImpl(TestResults&) const
+    virtual void RunImpl() const
     {
         TimeHelpers::SleepMs(20);
     }
@@ -104,7 +112,7 @@ TEST_FIXTURE(TestRunnerFixture, CallsReportFailureOncePerFailingTest)
     MockTest test3("test", false, false);
     list.Add(&test3);
 
-	CHECK_EQUAL(2, 	runner.RunTestsIf(list, NULL, True(), 0));
+	CHECK_EQUAL(2, runner.RunTestsIf(list, NULL, True(), 0));
     CHECK_EQUAL(2, reporter.testFailedCount);
 }
 
@@ -117,6 +125,13 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
     CHECK_EQUAL(1, reporter.testFailedCount);
 }
 
+TEST_FIXTURE(TestRunnerFixture, AssertingTestAbortsAsSoonAsAssertIsHit)
+{
+	MockTest test("test", false, true, 3);
+	list.Add(&test);
+	runner.RunTestsIf(list, NULL, True(), 0);
+	CHECK_EQUAL(1, reporter.summaryFailureCount);
+}
 
 TEST_FIXTURE(TestRunnerFixture, ReporterNotifiedOfTestCount)
 {
@@ -198,7 +213,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestWithTimeExemptionPasses)
     {
     public:
         SlowExemptedTest() : Test("slowexempted", "", 0) {}
-        virtual void RunImpl(TestResults&) const
+        virtual void RunImpl() const
         {
             UNITTEST_TIME_CONSTRAINT_EXEMPT();
             TimeHelpers::SleepMs(20);

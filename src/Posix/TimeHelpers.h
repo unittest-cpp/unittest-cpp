@@ -19,7 +19,7 @@ private:
 
 namespace TimeHelpers
 {
-void SleepMs (int ms);
+	void SleepMs(int ms);
 }
 
 

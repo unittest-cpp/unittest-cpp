@@ -5,7 +5,7 @@
 
 namespace UnitTest {
 
-class TestReporterStdout : public TestReporter
+class UNITTEST_LINKAGE TestReporterStdout : public TestReporter
 {
 private:
     virtual void ReportTestStart(TestDetails const& test);
