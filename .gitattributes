@@ -1,0 +1,13 @@
+* text=auto
+
+*.h text
+*.cpp text
+
+# VS 20xx files
+*.sln text eol=crlf
+*.vcproj text eol=crlf
+*.vcxproj text eol=crlt
+
+# VC6 files 
+*.dsw text eol=crlf
+*.dsp text eol=crlf
