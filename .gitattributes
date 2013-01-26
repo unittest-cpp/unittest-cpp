@@ -6,7 +6,7 @@
 # VS 20xx files
 *.sln text eol=crlf
 *.vcproj text eol=crlf
-*.vcxproj text eol=crlt
+*.vcxproj text eol=crlf
 
 # VC6 files 
 *.dsw text eol=crlf
