@@ -298,7 +298,7 @@ TEST(CheckArrayEqualSuceedsOnEqual)
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
 
-		const float data[4] = { 0, 1, 2, 3 };
+		const int data[4] = { 0, 1, 2, 3 };
         CHECK_ARRAY_EQUAL (data, data, 4);
 
 		failure = (testResults.GetFailureCount() > 0);

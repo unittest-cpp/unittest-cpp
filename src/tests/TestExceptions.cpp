@@ -130,10 +130,11 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
     CHECK(strstr(reporter.lastFailedMessage, "1.0001f"));
 }
 
+template <typename T>
 class ThrowingObject
 {
 public:
-    float operator[](int) const
+    T operator[](int) const
     {
         throw "Test throw";
     }
@@ -149,7 +150,7 @@ TEST(CheckArrayCloseFailureBecauseOfExceptionContainsCorrectDetails)
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		int const data[4] = { 0, 1, 2, 3 };
-        CHECK_ARRAY_CLOSE(data, ThrowingObject(), 4, 0.01f);     line = __LINE__;
+        CHECK_ARRAY_CLOSE(data, ThrowingObject<float>(), 4, 0.01f);     line = __LINE__;
     }
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
@@ -167,7 +168,7 @@ TEST(CheckArrayCloseFailsOnException)
 		ScopedCurrentTest scopedResults(testResults);
 
 		const float data[4] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
+        ThrowingObject<float> obj;
         CHECK_ARRAY_CLOSE(data, obj, 3, 0.01f);
 
 		failure = (testResults.GetFailureCount() > 0);
@@ -184,7 +185,7 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
 		ScopedCurrentTest scopedResults(testResults);
 
 		const float data[4] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
+        ThrowingObject<float> obj;
         CHECK_ARRAY_CLOSE(data, obj, 3, 0.01f);
     }
 
@@ -200,8 +201,8 @@ TEST(CheckArrayEqualFailsOnException)
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
 
-		const float data[4] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
+		const int data[4] = { 0, 1, 2, 3 };
+        ThrowingObject<int> obj;
         CHECK_ARRAY_EQUAL (data, obj, 3);
 
 		failure = (testResults.GetFailureCount() > 0);
@@ -217,8 +218,8 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
 
-		const float data[4] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
+		const int data[4] = { 0, 1, 2, 3 };
+        ThrowingObject<int> obj;
         CHECK_ARRAY_EQUAL (data, obj, 3);
     }
 
