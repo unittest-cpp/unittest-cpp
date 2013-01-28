@@ -23,7 +23,7 @@ public:
 
 }
 
-UNITTEST_STDVECTOR_LINKAGE(UnitTest::DeferredTestFailure);
+UNITTEST_STDVECTOR_LINKAGE(UnitTest::DeferredTestFailure)
 
 namespace UnitTest
 {
