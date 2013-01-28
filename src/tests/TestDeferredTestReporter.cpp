@@ -57,8 +57,8 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportTestStartCapturesTestNameAndSuit
     reporter.ReportTestStart(details);
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
-    CHECK_EQUAL(testName.c_str(), result.testName);
-    CHECK_EQUAL(testSuite.c_str(), result.suiteName);
+    CHECK_EQUAL(testName.c_str(), result.testName.c_str());
+    CHECK_EQUAL(testSuite.c_str(), result.suiteName.c_str());
 }
 
 TEST_FIXTURE(DeferredTestReporterFixture, ReportTestEndCapturesTestTime)
@@ -80,7 +80,7 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetails)
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
     CHECK(result.failed == true);
-    CHECK_EQUAL(fileName.c_str(), result.failureFile);
+    CHECK_EQUAL(fileName.c_str(), result.failureFile.c_str());
 }
 
 TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetailsForMultipleFailures)

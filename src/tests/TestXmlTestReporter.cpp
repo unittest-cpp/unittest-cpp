@@ -52,7 +52,7 @@ TEST_FIXTURE(XmlTestReporterFixture, MultipleCharactersAreEscaped)
         "</test>"
         "</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 TEST_FIXTURE(XmlTestReporterFixture, OutputIsCachedUntilReportSummaryIsCalled)
@@ -77,7 +77,7 @@ TEST_FIXTURE(XmlTestReporterFixture, EmptyReportSummaryFormat)
 		"<unittest-results tests=\"0\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
 		"</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 TEST_FIXTURE(XmlTestReporterFixture, SingleSuccessfulTestReportSummaryFormat)
@@ -93,7 +93,7 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleSuccessfulTestReportSummaryFormat)
 		"<test suite=\"DefaultSuite\" name=\"TestName\" time=\"0\"/>"
 		"</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 TEST_FIXTURE(XmlTestReporterFixture, SingleFailedTestReportSummaryFormat)
@@ -112,7 +112,7 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleFailedTestReportSummaryFormat)
         "</test>"
         "</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 TEST_FIXTURE(XmlTestReporterFixture, FailureMessageIsXMLEscaped)
@@ -132,7 +132,7 @@ TEST_FIXTURE(XmlTestReporterFixture, FailureMessageIsXMLEscaped)
         "</test>"
         "</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 TEST_FIXTURE(XmlTestReporterFixture, OneFailureAndOneSuccess)
@@ -156,7 +156,7 @@ TEST_FIXTURE(XmlTestReporterFixture, OneFailureAndOneSuccess)
         "<test suite=\"suite\" name=\"SucceededTest\" time=\"1\"/>"
         "</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 TEST_FIXTURE(XmlTestReporterFixture, MultipleFailures)
@@ -180,7 +180,7 @@ TEST_FIXTURE(XmlTestReporterFixture, MultipleFailures)
         "</test>"
         "</unittest-results>";
 
-    CHECK_EQUAL(expected, output.str());
+    CHECK_EQUAL(expected, output.str().c_str());
 }
 
 }
