@@ -21,7 +21,6 @@ TestList& Test::GetTestList()
 Test::Test(char const* testName, char const* suiteName, char const* filename, int lineNumber)
     : m_details(testName, suiteName, filename, lineNumber)
     , m_nextTest(0)
-    , m_timeConstraintExempt(false)
 	, m_isMockTest(false)
 {
 }
