@@ -72,6 +72,33 @@ TEST(CheckEqualsWithStringsWorksOnContentsWithALiteral)
     CHECK_EQUAL(0, results.GetFailureCount());
 }
 
+TEST(CheckEqualsWithStringsWorksOnNullExpected)
+{
+    char const* const expected = "hi";
+    char const* const actual = NULL;
+    TestResults results;
+    CheckEqual(results, expected, actual, TestDetails("", "", "", 0));
+    CHECK_EQUAL (1, results.GetFailureCount());
+}
+
+TEST(CheckEqualsWithStringsWorksOnNullActual)
+{
+    char const* const expected = NULL;
+    char const* const actual = "hi";
+    TestResults results;
+    CheckEqual(results, expected, actual, TestDetails("", "", "", 0));
+    CHECK_EQUAL (1, results.GetFailureCount());
+}
+
+TEST(CheckEqualsWithStringsWorksOnNullExpectedAndActual)
+{
+    char const* const expected = NULL;
+    char const* const actual = NULL;
+    TestResults results;
+    CheckEqual(results, expected, actual, TestDetails("", "", "", 0));
+    CHECK_EQUAL (0, results.GetFailureCount());
+}
+
 TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
 {
     RecordingReporter reporter;
