@@ -207,24 +207,30 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
     CHECK(strstr(reporter.lastFailedMessage, "3ms"));
 }
 
-TEST_FIXTURE(TestRunnerFixture, SlowTestWithTimeExemptionPasses)
+
+namespace SlowTestHelper
 {
-    class SlowExemptedTest : public Test
+    TestRunnerFixture testRunnerFixture;
+
+    TEST_EX(SlowExemptedTest, testRunnerFixture.list)
     {
-    public:
-        SlowExemptedTest() : Test("slowexempted", "", 0) {}
-        virtual void RunImpl() const
-        {
-            UNITTEST_TIME_CONSTRAINT_EXEMPT();
-            TimeHelpers::SleepMs(20);
-        }
-    };
+        UNITTEST_TIME_CONSTRAINT_EXEMPT();
+        TimeHelpers::SleepMs(20);
+    }
+    
+    class Fixture {};
+    
+    TEST_FIXTURE_EX(Fixture, SlowExemptedTest, testRunnerFixture.list)
+    {
+        UNITTEST_TIME_CONSTRAINT_EXEMPT();
+        TimeHelpers::SleepMs(20);
+    }
+}
 
-    SlowExemptedTest test;
-    list.Add(&test);
-
-	runner.RunTestsIf(list, NULL, True(), 3);
-    CHECK_EQUAL(0, reporter.testFailedCount);
+TEST(SlowTestsWithTimeExemptionPass)
+{
+    SlowTestHelper::testRunnerFixture.runner.RunTestsIf(SlowTestHelper::testRunnerFixture.list, NULL, True(), 3);
+    CHECK_EQUAL(0, SlowTestHelper::testRunnerFixture.reporter.testFailedCount);
 }
 
 struct TestSuiteFixture

@@ -17,7 +17,7 @@ public:
 
     TestDetails const m_details;
     Test* m_nextTest;
-    mutable bool m_timeConstraintExempt;
+
 	mutable bool m_isMockTest;
 
     static TestList& GetTestList();
