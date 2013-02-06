@@ -32,8 +32,9 @@ void FormatToStream(MemoryOutStream& stream, char const* format, ValueType const
 {
 	using namespace std;
 
-    char txt[32];
-    sprintf(txt, format, value);
+    const size_t BUFFER_SIZE=32;
+    char txt[BUFFER_SIZE];
+    snprintf(txt, BUFFER_SIZE, format, value);
     stream << txt;
 }
 
@@ -127,7 +128,7 @@ MemoryOutStream& MemoryOutStream::operator <<(unsigned long long const n)
 
 MemoryOutStream& MemoryOutStream::operator <<(float const f)
 {
-    FormatToStream(*this, "%ff", f);
+    FormatToStream(*this, "%0.6f", f);
     return *this;    
 }
 
@@ -145,7 +146,7 @@ MemoryOutStream& MemoryOutStream::operator <<(unsigned int const s)
 
 MemoryOutStream& MemoryOutStream::operator <<(double const d)
 {
-	FormatToStream(*this, "%f", d);
+	FormatToStream(*this, "%0.6f", d);
 	return *this;
 }
 
