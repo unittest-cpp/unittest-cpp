@@ -62,4 +62,27 @@ TEST(TimeConstraintMacroComparesAgainstPreciseActual)
     CHECK(strstr(reporter.lastFailedTest, "TimeConstraintMacroComparesAgainstPreciseActual"));
 }
 
+struct EmptyFixture {};
+
+TEST_FIXTURE(EmptyFixture, TimeConstraintMacroWorksInFixtures)
+{
+    int testLine = 0;
+    RecordingReporter reporter;
+
+    {
+      UnitTest::TestResults testResults(&reporter);
+      ScopedCurrentTest scopedResults(testResults);
+
+      UNITTEST_TIME_CONSTRAINT(10);  testLine = __LINE__;
+      UnitTest::TimeHelpers::SleepMs(20);
+    }
+
+    using namespace std;
+
+    CHECK_EQUAL(1, reporter.testFailedCount);
+    CHECK(strstr(reporter.lastFailedFile, __FILE__));
+    CHECK_EQUAL(testLine, reporter.lastFailedLine);
+    CHECK(strstr(reporter.lastFailedTest, "TimeConstraintMacroWorksInFixtures"));
+} 
+
 }

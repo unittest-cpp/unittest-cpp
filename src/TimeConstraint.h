@@ -29,7 +29,7 @@ private:
 
 #define UNITTEST_TIME_CONSTRAINT_EXEMPT() \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
-	m_timeConstraintExempt = true; \
+	m_details.timeConstraintExempt = true; \
 	UNITTEST_MULTILINE_MACRO_END
 
 }
