@@ -31,7 +31,7 @@ void TestReporterStdout::ReportTestFinish(TestDetails const& /*test*/, float)
 }
 
 void TestReporterStdout::ReportSummary(int const totalTestCount, int const failedTestCount,
-                                       int const failureCount, float secondsElapsed)
+                                       int const failureCount, float const secondsElapsed)
 {
 	using namespace std;
 
