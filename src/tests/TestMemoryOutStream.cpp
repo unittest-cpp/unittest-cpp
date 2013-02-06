@@ -4,6 +4,7 @@
 #include <cstring>
 #include <climits>
 #include <cstdlib>
+#include <cfloat>
 
 using namespace UnitTest;
 using namespace std;
@@ -152,15 +153,15 @@ TEST(WritingStringLongerThanCapacityFitsInNewBuffer)
 TEST(WritingIntLongerThanCapacityFitsInNewBuffer)
 {
     MemoryOutStream stream(8);
-    stream << "aaaa" << 123456;;
+    stream << "aaaa" << 123456;
     CHECK_EQUAL("aaaa123456", stream.GetText());
 }
 
 TEST(WritingFloatLongerThanCapacityFitsInNewBuffer)
 {
     MemoryOutStream stream(8);
-    stream << "aaaa" << 123456.0f;;
-    CHECK_EQUAL("aaaa123456.000000f", stream.GetText());
+    stream << "aaaa" << 123456.0f;
+    CHECK_EQUAL("aaaa123456.000000", stream.GetText());
 }
 
 TEST(WritingSizeTLongerThanCapacityFitsInNewBuffer)
@@ -168,6 +169,13 @@ TEST(WritingSizeTLongerThanCapacityFitsInNewBuffer)
     MemoryOutStream stream(8);
     stream << "aaaa" << size_t(32145);
     CHECK_EQUAL("aaaa32145", stream.GetText());
+}
+
+TEST(VerifyLargeDoubleCanBeStreamedWithoutCrashing)
+{
+    MemoryOutStream stream(8);
+    stream << DBL_MAX;
+    CHECK(true);
 }
 
 #endif
