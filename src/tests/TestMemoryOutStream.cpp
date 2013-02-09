@@ -2,14 +2,65 @@
 
 #include "../MemoryOutStream.h"
 #include <cstring>
-#include <climits>
 #include <cstdlib>
+#include <climits>
 #include <cfloat>
 
 using namespace UnitTest;
 using namespace std;
 
 namespace {
+
+const char* const maxSignedIntegralStr(size_t nBytes)
+{
+    switch(nBytes)
+    {
+        case 8:
+            return "9223372036854775807";
+        case 4:
+            return "2147483647";
+        case 2:
+            return "32767";
+        case 1:
+            return "127";
+        default:
+            return "Unsupported signed integral size";
+    }
+}
+
+const char* const minSignedIntegralStr(size_t nBytes)
+{
+    switch(nBytes)
+    {
+        case 8:
+            return "-9223372036854775808";
+        case 4:
+            return "-2147483648";
+        case 2:
+            return "-32768";
+        case 1:
+            return "-128";
+        default:
+            return "Unsupported signed integral size";
+    }
+}
+
+const char* const maxUnsignedIntegralStr(size_t nBytes)
+{
+    switch(nBytes)
+    {
+        case 8:
+            return "18446744073709551615";
+        case 4:
+            return "4294967295";
+        case 2:
+            return "65535";
+        case 1:
+            return "255";
+        default:
+            return "Unsupported signed integral size";
+    }
+}
 
 TEST(DefaultIsEmptyString)
 {
@@ -39,11 +90,39 @@ TEST(StreamingIntWritesCorrectCharacters)
     CHECK_EQUAL("123", stream.GetText());
 }
 
+TEST(StreaminMaxIntWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << INT_MAX;
+    CHECK_EQUAL(maxSignedIntegralStr(sizeof(int)), stream.GetText());    
+}
+
+TEST(StreamingMinIntWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << INT_MIN;
+    CHECK_EQUAL(minSignedIntegralStr(sizeof(int)), stream.GetText());
+}
+
 TEST(StreamingUnsignedIntWritesCorrectCharacters)
 {
     MemoryOutStream stream;
     stream << (unsigned int)123;
     CHECK_EQUAL("123", stream.GetText());
+}
+
+TEST(StreamingMaxUnsignedIntWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned int)UINT_MAX;
+    CHECK_EQUAL(maxUnsignedIntegralStr(sizeof(unsigned int)), stream.GetText());
+}
+
+TEST(StreamingMinUnsignedIntWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned int)0;
+    CHECK_EQUAL("0", stream.GetText());
 }
 
 TEST(StreamingLongWritesCorrectCharacters)
@@ -53,6 +132,20 @@ TEST(StreamingLongWritesCorrectCharacters)
     CHECK_EQUAL("-123", stream.GetText());
 }
 
+TEST(StreamingMaxLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (long)(LONG_MAX);
+    CHECK_EQUAL(maxSignedIntegralStr(sizeof(long)), stream.GetText());
+}
+
+TEST(StreamingMinLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (long)(LONG_MIN);
+    CHECK_EQUAL(minSignedIntegralStr(sizeof(long)), stream.GetText());
+}
+
 TEST(StreamingUnsignedLongWritesCorrectCharacters)
 {
     MemoryOutStream stream;
@@ -60,18 +153,66 @@ TEST(StreamingUnsignedLongWritesCorrectCharacters)
     CHECK_EQUAL("123", stream.GetText());
 }
 
+TEST(StreamingMaxUnsignedLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned long)ULONG_MAX;
+    CHECK_EQUAL(maxUnsignedIntegralStr(sizeof(unsigned long)), stream.GetText());
+}
+
+TEST(StreamingMinUnsignedLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned long)0ul;
+    CHECK_EQUAL("0", stream.GetText());
+}
+
 TEST(StreamingLongLongWritesCorrectCharacters)
 {
 	MemoryOutStream stream;
-	stream << (long long)8589934590ll;
-	CHECK_EQUAL("8589934590", stream.GetText());
+	stream << (long long)-12345ll;
+	CHECK_EQUAL("-12345", stream.GetText());
 }
+
+#ifdef LLONG_MAX
+TEST(StreamingMaxLongLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (long long)LLONG_MAX;
+    CHECK_EQUAL(maxSignedIntegralStr(sizeof(long long)), stream.GetText());
+}
+#endif
+
+#ifdef LLONG_MIN
+TEST(StreamingMinLongLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (long long)LLONG_MIN;
+    CHECK_EQUAL(minSignedIntegralStr(sizeof(long long)), stream.GetText());
+}
+#endif
 
 TEST(StreamingUnsignedLongLongWritesCorrectCharacters)
 {
 	MemoryOutStream stream;
-	stream << (unsigned long long)8589934590ull;
-	CHECK_EQUAL("8589934590", stream.GetText());
+	stream << (unsigned long long)85899ull;
+	CHECK_EQUAL("85899", stream.GetText());
+}
+
+#ifdef ULLONG_MAX
+TEST(StreamingMaxUnsignedLongLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned long long)ULLONG_MAX;
+    CHECK_EQUAL(maxUnsignedIntegralStr(sizeof(unsigned long long)), stream.GetText());
+}
+#endif
+
+TEST(StreamingMinUnsignedLongLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned long long)0ull;
+    CHECK_EQUAL("0", stream.GetText());
 }
 
 TEST(StreamingFloatWritesCorrectCharacters)
