@@ -6,13 +6,15 @@
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"
 
+#include <stdexcept>
+
 using namespace std;
 
 namespace {
 
 int ThrowingFunction()
 {
-    throw "Doh";
+    throw std::logic_error("Doh");
 }
 
 TEST(CheckFailsOnException)
@@ -39,6 +41,18 @@ TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
+}
+
+TEST(CheckFailureBecauseOfStandardExceptionIncludesWhat)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK(ThrowingFunction() == 1);
+    }
+
+    CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
 
 TEST(CheckEqualFailsOnException)
