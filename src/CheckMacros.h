@@ -41,6 +41,13 @@
 			if (!UnitTest::Check(value)) \
 				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
 		}) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK(" #value ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
 		UT_CATCH_ALL \
 		({ \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
