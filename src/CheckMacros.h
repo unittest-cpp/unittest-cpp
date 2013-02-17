@@ -81,6 +81,13 @@
 		({ \
             UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_CLOSE(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
