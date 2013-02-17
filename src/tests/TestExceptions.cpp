@@ -156,6 +156,18 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
     CHECK(strstr(reporter.lastFailedMessage, "1.0001f"));
 }
 
+TEST(CheckCloseFailureBecauseOfStandardExceptionIncludesWhat)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);
+    }
+
+    CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
+}
+
 class ThrowingObject
 {
 public:
