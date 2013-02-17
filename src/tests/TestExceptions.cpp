@@ -14,44 +14,65 @@ namespace {
 
 int ThrowingFunction()
 {
+    throw "Doh";
+}
+
+int ThrowingStdExceptionFunction()
+{
     throw std::logic_error("Doh");
 }
 
-TEST(CheckFailsOnException)
+struct CheckFixture
 {
-    bool failure = false;
+    CheckFixture()
+      : reporter()
+      , testResults(&reporter)
     {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-        CHECK(ThrowingFunction() == 1);
-        failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK(failure);
-}
-
-TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
-{
-    RecordingReporter reporter;
+    void Throw()
     {
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-        CHECK(ThrowingFunction() == 1);
-    }
-
-    CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
-}
-
-TEST(CheckFailureBecauseOfStandardExceptionIncludesWhat)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
         ScopedCurrentTest scopedResults(testResults);
         CHECK(ThrowingFunction() == 1);
     }
 
+    void StdThrow()
+    {
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK(ThrowingStdExceptionFunction() == 1);
+    }
+
+    RecordingReporter reporter;
+    UnitTest::TestResults testResults;
+};
+
+TEST_FIXTURE(CheckFixture, CheckFailsOnException)
+{
+    Throw();
+    CHECK(testResults.GetFailureCount() > 0);
+}
+
+TEST_FIXTURE(CheckFixture, CheckFailsOnStdException)
+{
+    StdThrow();
+    CHECK(testResults.GetFailureCount() > 0);
+}
+
+TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfExceptionIncludesCheckContents)
+{
+    Throw();
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
+}
+
+TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfStdExceptionIncludesCheckContents)
+{
+    StdThrow();
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingStdExceptionFunction() == 1"));
+}
+
+TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfStandardExceptionIncludesWhat)
+{
+    StdThrow();
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
 
@@ -106,7 +127,7 @@ TEST(CheckEqualFailureBecauseOfStandardExceptionIncludesWhat)
     {
         UnitTest::TestResults testResults(&reporter);
         ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL(ThrowingFunction(), 123);
+        CHECK_EQUAL(ThrowingStdExceptionFunction(), 123);
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
@@ -162,7 +183,7 @@ TEST(CheckCloseFailureBecauseOfStandardExceptionIncludesWhat)
     {
         UnitTest::TestResults testResults(&reporter);
         ScopedCurrentTest scopedResults(testResults);
-        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);
+        CHECK_CLOSE((float)ThrowingStdExceptionFunction(), 1.0001f, 0.1f);
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
