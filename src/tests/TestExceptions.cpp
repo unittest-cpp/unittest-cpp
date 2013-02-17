@@ -100,6 +100,18 @@ TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
     CHECK(strstr(reporter.lastFailedMessage, "123"));
 }
 
+TEST(CheckEqualFailureBecauseOfStandardExceptionIncludesWhat)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_EQUAL(ThrowingFunction(), 123);
+    }
+
+    CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
+}
+
 TEST(CheckCloseFailsOnException)
 {
     bool failure = false;
