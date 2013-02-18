@@ -30,13 +30,13 @@ struct CheckFixture
     {
     }
 
-    void Throw()
+    void PerformCheckWithNonStdThrow()
     {
         ScopedCurrentTest scopedResults(testResults);
         CHECK(ThrowingFunction() == 1);
     }
 
-    void StdThrow()
+    void PerformCheckWithStdThrow()
     {
         ScopedCurrentTest scopedResults(testResults);
         CHECK(ThrowingStdExceptionFunction() == 1);
@@ -48,31 +48,31 @@ struct CheckFixture
 
 TEST_FIXTURE(CheckFixture, CheckFailsOnException)
 {
-    Throw();
+    PerformCheckWithNonStdThrow();
     CHECK(testResults.GetFailureCount() > 0);
 }
 
 TEST_FIXTURE(CheckFixture, CheckFailsOnStdException)
 {
-    StdThrow();
+    PerformCheckWithStdThrow();
     CHECK(testResults.GetFailureCount() > 0);
 }
 
 TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfExceptionIncludesCheckContents)
 {
-    Throw();
+    PerformCheckWithNonStdThrow();
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
 }
 
 TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfStdExceptionIncludesCheckContents)
 {
-    StdThrow();
+    PerformCheckWithStdThrow();
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingStdExceptionFunction() == 1"));
 }
 
 TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfStandardExceptionIncludesWhat)
 {
-    StdThrow();
+    PerformCheckWithStdThrow();
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
 
