@@ -76,31 +76,49 @@ TEST_FIXTURE(CheckFixture, CheckFailureBecauseOfStandardExceptionIncludesWhat)
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
 
-TEST(CheckEqualFailsOnException)
+struct CheckEqualFixture
 {
-    bool failure = false;
+    CheckEqualFixture()
+      : reporter()
+      , testResults(&reporter)
+      , line(-1)
     {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL(ThrowingFunction(), 1);
-        failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK(failure);
+    void PerformCheckWithNonStdThrow()
+    {
+        UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+        CHECK_EQUAL(ThrowingFunction(), 123); line = __LINE__;
+    }
+
+    void PerformCheckWithStdThrow()
+    {
+        UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+        CHECK_EQUAL(ThrowingStdExceptionFunction(), 123); line = __LINE__;
+    }
+
+    RecordingReporter reporter;
+    UnitTest::TestResults testResults;
+    int line;
+};
+
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailsOnException)
+{
+    PerformCheckWithNonStdThrow();
+    CHECK(testResults.GetFailureCount() > 0);
 }
 
-TEST(CheckEqualFailureBecauseOfExceptionContainsCorrectDetails)
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailsOnStdException)
 {
-    int line = 0;
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-		UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
-		ScopedCurrentTest scopedResults(testResults, &testDetails);
+    PerformCheckWithStdThrow();
+    CHECK(testResults.GetFailureCount() > 0);   
+}
 
-		CHECK_EQUAL(ThrowingFunction(), 123);    line = __LINE__;
-    }
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailureBecauseOfExceptionContainsCorrectDetails)
+{
+    PerformCheckWithNonStdThrow();
 
     CHECK_EQUAL("testName", reporter.lastFailedTest);
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
@@ -108,27 +126,35 @@ TEST(CheckEqualFailureBecauseOfExceptionContainsCorrectDetails)
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
-TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailureBecauseOfStdExceptionContainsCorrectDetails)
 {
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL(ThrowingFunction(), 123);
-    }
+    PerformCheckWithStdThrow();
+
+    CHECK_EQUAL("testName", reporter.lastFailedTest);
+    CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
+{
+    PerformCheckWithNonStdThrow();
 
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction()"));
     CHECK(strstr(reporter.lastFailedMessage, "123"));
 }
 
-TEST(CheckEqualFailureBecauseOfStandardExceptionIncludesWhat)
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailureBecauseOfStdExceptionIncludesCheckContents)
 {
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL(ThrowingStdExceptionFunction(), 123);
-    }
+    PerformCheckWithStdThrow();
+
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingStdExceptionFunction()"));
+    CHECK(strstr(reporter.lastFailedMessage, "123"));
+}
+
+TEST_FIXTURE(CheckEqualFixture, CheckEqualFailureBecauseOfStandardExceptionIncludesWhat)
+{
+    PerformCheckWithStdThrow();
 
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
