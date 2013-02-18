@@ -159,30 +159,51 @@ TEST_FIXTURE(CheckEqualFixture, CheckEqualFailureBecauseOfStandardExceptionInclu
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
 
-TEST(CheckCloseFailsOnException)
+struct CheckCloseFixture
 {
-    bool failure = false;
+    CheckCloseFixture()
+      : reporter()
+      , testResults(&reporter)
+      , line(-1)
     {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);
-        failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK(failure);
+    void PerformCheckWithNonStdThrow()
+    {
+        UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+        CHECK_CLOSE(static_cast<float>(ThrowingFunction()), 1.0001f, 0.1f); line = __LINE__;
+    }
+
+    void PerformCheckWithStdThrow()
+    {
+        UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+        CHECK_CLOSE(static_cast<float>(ThrowingStdExceptionFunction()), 1.0001f, 0.1f); line = __LINE__;
+    }
+
+    RecordingReporter reporter;
+    UnitTest::TestResults testResults;
+    int line;
+};
+
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailsOnException)
+{
+    PerformCheckWithNonStdThrow();
+
+    CHECK(testResults.GetFailureCount() > 0);
 }
 
-TEST(CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailsOnStdException)
 {
-    int line = 0;
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-		UnitTest::TestDetails testDetails("closeTest", "closeSuite", "filename", -1);
-		ScopedCurrentTest scopedResults(testResults, &testDetails);
-        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);    line = __LINE__;
-    }
+    PerformCheckWithStdThrow();
+
+    CHECK(testResults.GetFailureCount() > 0);
+}
+
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
+{
+    PerformCheckWithNonStdThrow();
 
     CHECK_EQUAL("closeTest", reporter.lastFailedTest);
     CHECK_EQUAL("closeSuite", reporter.lastFailedSuite);
@@ -190,27 +211,35 @@ TEST(CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
-TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailureBecauseOfStdExceptionContainsCorrectDetails)
 {
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-        CHECK_CLOSE((float)ThrowingFunction(), 1.0001f, 0.1f);
-    }
+    PerformCheckWithStdThrow();
 
-    CHECK(strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
+    CHECK_EQUAL("closeTest", reporter.lastFailedTest);
+    CHECK_EQUAL("closeSuite", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
+{
+    PerformCheckWithNonStdThrow();
+
+    CHECK(strstr(reporter.lastFailedMessage, "static_cast<float>(ThrowingFunction())"));
     CHECK(strstr(reporter.lastFailedMessage, "1.0001f"));
 }
 
-TEST(CheckCloseFailureBecauseOfStandardExceptionIncludesWhat)
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailureBecauseOfStdExceptionIncludesCheckContents)
 {
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-        CHECK_CLOSE((float)ThrowingStdExceptionFunction(), 1.0001f, 0.1f);
-    }
+    PerformCheckWithStdThrow();
+
+    CHECK(strstr(reporter.lastFailedMessage, "static_cast<float>(ThrowingStdExceptionFunction())"));
+    CHECK(strstr(reporter.lastFailedMessage, "1.0001f"));
+}
+
+TEST_FIXTURE(CheckCloseFixture, CheckCloseFailureBecauseOfStandardExceptionIncludesWhat)
+{
+    PerformCheckWithStdThrow();
 
     CHECK(strstr(reporter.lastFailedMessage, "exception (Doh)"));
 }
