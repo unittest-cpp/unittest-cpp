@@ -141,10 +141,17 @@
 		({ \
             UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+ 		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
-                    "Unhandled exception in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"); \
+                    "Unhandled exception in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")"); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
