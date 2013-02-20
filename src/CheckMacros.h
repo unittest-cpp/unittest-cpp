@@ -41,6 +41,13 @@
 			if (!UnitTest::Check(value)) \
 				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
 		}) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK(" #value ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
 		UT_CATCH_ALL \
 		({ \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
@@ -54,6 +61,13 @@
 		({ \
             UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_EQUAL(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
@@ -67,6 +81,13 @@
 		({ \
             UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_CLOSE(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
@@ -80,6 +101,13 @@
 		({ \
             UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+ 		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY_EQUAL(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
@@ -93,6 +121,13 @@
 		({ \
             UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+ 		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
@@ -106,10 +141,17 @@
 		({ \
             UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+ 		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+				message.GetText()); \
+		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
-                    "Unhandled exception in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"); \
+                    "Unhandled exception in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")"); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
