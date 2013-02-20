@@ -10,16 +10,17 @@ source_group("" FILES ${headers_} ${sources_})
 
 # get platform specific sources
 if (WIN32)
-    set(PLAT_DIR Win32)
+    set(platformDir_ Win32)
 else()
-    set(PLAT_DIR Posix)
+    set(platformDir_ Posix)
 endif(WIN32)
 
-file(GLOB PLAT_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/${PLAT_DIR}/*.cpp src/${PLAT_DIR}/*.h)
-source_group(${PLAT_DIR} FILES ${PLAT_SRCS})
+file(GLOB platformHeaders_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/${platformDir_}/*.h)
+file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/${platformDir_}/*.cpp)
+source_group(${platformDir_} FILES ${platformHeaders_} ${platformSources_})
 
 # create the lib
-add_library(UnitTestPP STATIC ${headers_} ${sources_} ${PLAT_SRCS})
+add_library(UnitTestPP STATIC ${headers_} ${sources_} ${platformHeaders_} ${platformSources_})
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(UnitTestPP PROPERTIES OUTPUT_NAME UnitTest++)
@@ -58,3 +59,4 @@ endif()
 
 install(TARGETS UnitTestPP DESTINATION lib)
 install(FILES ${headers_} DESTINATION ${UTPP_INSTALL_DESTINATION})
+install(FILES ${platformHeaders_} DESTINATION ${UTPP_INSTALL_DESTINATION}/${platformDir_})
