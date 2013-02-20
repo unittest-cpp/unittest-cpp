@@ -1,7 +1,7 @@
 #ifndef UNITTEST_HELPERMACROS_H
 #define UNITTEST_HELPERMACROS_H
 
-#include "../config.h"
+#include "Config.h"
 
 #define UNITTEST_MULTILINE_MACRO_BEGIN do {
 

@@ -1,4 +1,4 @@
-#include "../config.h"
+#include "Config.h"
 #include "Test.h"
 #include "TestList.h"
 #include "TestResults.h"

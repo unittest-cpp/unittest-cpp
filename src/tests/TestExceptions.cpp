@@ -1,4 +1,4 @@
-#include "../../config.h"
+#include "../Config.h"
 #ifndef UNITTEST_NO_EXCEPTIONS
 
 #include "../../src/UnitTestPP.h"
