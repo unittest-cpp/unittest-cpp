@@ -1,4 +1,4 @@
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 #include "../TestReporter.h"
 #include "../TimeHelpers.h"
 #include "ScopedCurrentTest.h"

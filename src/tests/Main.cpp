@@ -1,4 +1,4 @@
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 
 int main(int, char const *[])
 {

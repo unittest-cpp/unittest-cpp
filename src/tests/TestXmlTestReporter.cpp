@@ -1,7 +1,7 @@
 #include "../../config.h"
 #ifndef UNITTEST_NO_DEFERRED_REPORTER
 
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 #include "../XmlTestReporter.h"
 
 #include <sstream>

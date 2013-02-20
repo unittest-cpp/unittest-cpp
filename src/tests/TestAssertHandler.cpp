@@ -1,5 +1,5 @@
 #include "../../config.h"
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 
 #include "../ReportAssert.h"
 #include "../ReportAssertImpl.h"

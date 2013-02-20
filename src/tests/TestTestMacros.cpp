@@ -1,4 +1,4 @@
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 #include "../TestMacros.h"
 #include "../TestList.h"
 #include "../TestResults.h"
