@@ -1,4 +1,4 @@
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 #include "../TestResults.h"
 #include "RecordingReporter.h"
 

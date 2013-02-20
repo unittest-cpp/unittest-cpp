@@ -1,4 +1,4 @@
-#include "../../unittestpp.h"
+#include "../../src/UnitTestPP.h"
 
 #include "../MemoryOutStream.h"
 #include <cstring>
