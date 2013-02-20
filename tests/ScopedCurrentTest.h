@@ -1,7 +1,7 @@
 #ifndef UNITTEST_SCOPEDCURRENTTEST_H
 #define UNITTEST_SCOPEDCURRENTTEST_H
 
-#include "../CurrentTest.h"
+#include "UnitTest++/CurrentTest.h"
 #include <cstddef>
 
 class ScopedCurrentTest

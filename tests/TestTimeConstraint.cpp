@@ -1,6 +1,6 @@
-#include "../../src/UnitTestPP.h"
-#include "../TestResults.h"
-#include "../TimeHelpers.h"
+#include "UnitTest++/UnitTestPP.h"
+#include "UnitTest++/TestResults.h"
+#include "UnitTest++/TimeHelpers.h"
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"
 

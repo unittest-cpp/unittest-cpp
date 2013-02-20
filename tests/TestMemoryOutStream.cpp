@@ -1,6 +1,6 @@
-#include "../../src/UnitTestPP.h"
+#include "UnitTest++/UnitTestPP.h"
 
-#include "../MemoryOutStream.h"
+#include "UnitTest++/MemoryOutStream.h"
 #include <cstring>
 #include <cstdlib>
 #include <climits>

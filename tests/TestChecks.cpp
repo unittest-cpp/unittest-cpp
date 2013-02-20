@@ -1,4 +1,4 @@
-#include "../../src/UnitTestPP.h"
+#include "UnitTest++/UnitTestPP.h"
 #include "RecordingReporter.h"
 
 #include <cstring>
