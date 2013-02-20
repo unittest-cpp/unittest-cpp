@@ -363,21 +363,87 @@ TEST_FIXTURE(CheckArrayCloseFixture, CheckArrayEqualFailureOnStdExceptionInclude
     CHECK(strstr(reporter.lastFailedMessage, "exception (Test throw)"));
 }
 
-TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
+struct CheckArrayEqualFixture
 {
-    RecordingReporter reporter;
+    CheckArrayEqualFixture()
+      : reporter()
+      , testResults(&reporter)
+      , line(-1)
     {
-        UnitTest::TestResults testResults(&reporter);
-		ScopedCurrentTest scopedResults(testResults);
-
-		const float data[4] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
-        CHECK_ARRAY_EQUAL (data, obj, 3);
     }
 
-    CHECK(strstr(reporter.lastFailedMessage, "data"));
-    CHECK(strstr(reporter.lastFailedMessage, "obj"));
+    void PerformCheckWithNonStdThrow()
+    {
+        UnitTest::TestDetails const testDetails("arrayCloseTest", "arrayCloseSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+        int const data[4] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_EQUAL(data, ThrowingObject(), 4); line = __LINE__;
+    }
+
+    void PerformCheckWithStdThrow()
+    {
+        UnitTest::TestDetails const testDetails("arrayCloseTest", "arrayCloseSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+        int const data[4] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_EQUAL(data, StdThrowingObject(), 4); line = __LINE__;
+    }
+
+    RecordingReporter reporter;
+    UnitTest::TestResults testResults;
+    int line;
+};
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayCloseFailsOnException)
+{
+    PerformCheckWithNonStdThrow();
+
+    CHECK(testResults.GetFailureCount() > 0);
 }
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayCloseFailsOnStdException)
+{
+    PerformCheckWithStdThrow();
+
+    CHECK(testResults.GetFailureCount() > 0);
+}
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayCloseFailureOnExceptionIncludesCheckContents)
+{
+    PerformCheckWithNonStdThrow();
+
+    CHECK(strstr(reporter.lastFailedMessage, "data"));
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingObject()"));
+}
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayCloseFailureOnStdExceptionIncludesCheckContents)
+{
+    PerformCheckWithStdThrow();
+
+    CHECK(strstr(reporter.lastFailedMessage, "data"));
+    CHECK(strstr(reporter.lastFailedMessage, "StdThrowingObject()"));
+}
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayEqualFailsOnException)
+{
+    PerformCheckWithNonStdThrow();
+
+    CHECK(testResults.GetFailureCount() > 0);
+}
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayEqualFailsOnStdException)
+{
+    PerformCheckWithStdThrow();
+
+    CHECK(testResults.GetFailureCount() > 0);
+}
+
+TEST_FIXTURE(CheckArrayEqualFixture, CheckArrayEqualFailureOnStdExceptionIncludesWhat)
+{
+    PerformCheckWithStdThrow();
+
+    CHECK(strstr(reporter.lastFailedMessage, "exception (Test throw)"));
+}
+
 
 class ThrowingObject2D
 {
