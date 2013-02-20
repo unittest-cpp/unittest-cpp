@@ -28,13 +28,22 @@
 #endif
 
 
-// MemoryOutStream is a custom reimplementation of parts of std::ostringstream.
-// Uncomment this line to have MemoryOutStream implemented in terms of std::ostringstream.
+// By default, MemoryOutStream is implemented in terms of std::ostringstream.
 // This is useful if you are using the CHECK macros on objects that have something like this defined:
 // std::ostringstream& operator<<(std::ostringstream& s, const YourObject& value)
+// 
+// On the other hand, it can be more expensive.
+// Un-comment this line to use the custom MemoryOutStream (no deps on std::ostringstream).
 
-//#define UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
+// #define UNITTEST_USE_CUSTOM_STREAMS
 
+// Developer note: This dual-macro setup is to preserve compatibility with UnitTest++ 1.4 users
+// who may have used or defined UNITTEST_USE_CUSTOM_STREAMS outside of this configuration file, as
+// well as Google Code HEAD users that may have used or defined
+// UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM outside of this configuration file.
+#ifndef UNITTEST_USE_CUSTOM_STREAMS
+    #define UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
+#endif
 
 // DeferredTestReporter uses the STL to collect test results for subsequent export by reporters like
 // XmlTestReporter.  If you don't want to use this functionality, uncomment this line and no STL
