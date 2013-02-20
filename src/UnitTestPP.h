@@ -1,7 +1,7 @@
 #ifndef UNITTESTPP_H
 #define UNITTESTPP_H
 
-#include "../config.h"
+#include "Config.h"
 #include "TestMacros.h"
 #include "CheckMacros.h"
 #include "TestRunner.h"

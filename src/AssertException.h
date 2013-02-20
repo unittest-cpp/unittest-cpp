@@ -1,7 +1,7 @@
 #ifndef UNITTEST_ASSERTEXCEPTION_H
 #define UNITTEST_ASSERTEXCEPTION_H
 
-#include "../config.h"
+#include "Config.h"
 #ifndef UNITTEST_NO_EXCEPTIONS
 
 #include "HelperMacros.h"

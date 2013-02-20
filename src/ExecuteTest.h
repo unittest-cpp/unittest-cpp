@@ -1,7 +1,7 @@
 #ifndef UNITTEST_EXECUTE_TEST_H
 #define UNITTEST_EXECUTE_TEST_H
 
-#include "../config.h"
+#include "Config.h"
 #include "ExceptionMacros.h"
 #include "TestDetails.h"
 #include "TestResults.h"
