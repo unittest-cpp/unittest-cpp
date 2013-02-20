@@ -1,10 +1,10 @@
 #ifndef UNITTEST_RECORDINGREPORTER_H
 #define UNITTEST_RECORDINGREPORTER_H
 
-#include "../TestReporter.h"
+#include "UnitTest++/TestReporter.h"
 #include <cstring>
 
-#include "../TestDetails.h"
+#include "UnitTest++/TestDetails.h"
 
 struct RecordingReporter : public UnitTest::TestReporter
 {

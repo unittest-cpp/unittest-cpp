@@ -4,8 +4,8 @@ project(UnitTest++)
 option(UTPP_USE_PLUS_SIGN "Set this to OFF is you with to use '-cpp' instead of '++' in lib/include paths" ON)
 
 # get the main sources
-file(GLOB headers_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.h)
-file(GLOB sources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.cpp)
+file(GLOB headers_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/*.h)
+file(GLOB sources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/*.cpp)
 source_group("" FILES ${headers_} ${sources_})
 
 # get platform specific sources
@@ -15,8 +15,8 @@ else()
     set(platformDir_ Posix)
 endif(WIN32)
 
-file(GLOB platformHeaders_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/${platformDir_}/*.h)
-file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/${platformDir_}/*.cpp)
+file(GLOB platformHeaders_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${platformDir_}/*.h)
+file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${platformDir_}/*.cpp)
 source_group(${platformDir_} FILES ${platformHeaders_} ${platformSources_})
 
 # create the lib
@@ -26,12 +26,12 @@ if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(UnitTestPP PROPERTIES OUTPUT_NAME UnitTest++)
 endif()
 
-include_directories(src)
 
 # build the test runner
-file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/tests/*.cpp src/tests/*.h)
+file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} tests/*.cpp tests/*.h)
 source_group( "" FILES ${TEST_SRCS})
 add_executable(TestUnitTestPP ${TEST_SRCS})
+include_directories(UnitTest++)
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(TestUnitTestPP PROPERTIES OUTPUT_NAME TestUnitTest++)

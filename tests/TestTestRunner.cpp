@@ -1,10 +1,10 @@
-#include "../../src/UnitTestPP.h"
+#include "UnitTest++/UnitTestPP.h"
 #include "RecordingReporter.h"
-#include "../ReportAssert.h"
-#include "../TestList.h"
-#include "../TimeHelpers.h"
-#include "../TimeConstraint.h"
-#include "../ReportAssertImpl.h"
+#include "UnitTest++/ReportAssert.h"
+#include "UnitTest++/TestList.h"
+#include "UnitTest++/TimeHelpers.h"
+#include "UnitTest++/TimeConstraint.h"
+#include "UnitTest++/ReportAssertImpl.h"
 
 using namespace UnitTest;
 
