@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestUnitTest++", "TestUnitTest++.vcproj", "{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83} = {F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest++", "UnitTest++.vcproj", "{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		MinSizeRel = MinSizeRel
+		Release = Release
+		RelWithDebInfo = RelWithDebInfo
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.Debug.ActiveCfg = Debug|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.Debug.Build.0 = Debug|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.MinSizeRel.ActiveCfg = MinSizeRel|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.MinSizeRel.Build.0 = MinSizeRel|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.Release.ActiveCfg = Release|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.Release.Build.0 = Release|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.RelWithDebInfo.ActiveCfg = RelWithDebInfo|Win32
+		{F39EC7C8-6F40-4523-A955-D6E811D0FCDA}.RelWithDebInfo.Build.0 = RelWithDebInfo|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.Debug.ActiveCfg = Debug|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.Debug.Build.0 = Debug|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.MinSizeRel.ActiveCfg = MinSizeRel|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.MinSizeRel.Build.0 = MinSizeRel|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.Release.ActiveCfg = Release|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.Release.Build.0 = Release|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.RelWithDebInfo.ActiveCfg = RelWithDebInfo|Win32
+		{F1511AAB-B257-4A50-AFE5-CA8DB30DDB83}.RelWithDebInfo.Build.0 = RelWithDebInfo|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
