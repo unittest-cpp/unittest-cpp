@@ -72,7 +72,7 @@ TEST(ThrowingTestsAreReportedAsFailures)
 	CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-#ifndef UNITTEST_MINGW
+#if !defined(UNITTEST_MINGW) && !defined(UNITTEST_WIN32)
 TEST(CrashingTestsAreReportedAsFailures)
 {
     class CrashingTest : public Test
@@ -81,6 +81,7 @@ TEST(CrashingTestsAreReportedAsFailures)
         CrashingTest() : Test("crashing") {}
         virtual void RunImpl() const
         {
+
             reinterpret_cast< void (*)() >(0)();
         }
     };

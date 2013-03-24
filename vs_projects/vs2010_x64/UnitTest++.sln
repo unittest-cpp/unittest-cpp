@@ -1,0 +1,38 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestUnitTest++", "TestUnitTest++.vcxproj", "{5C5EBB30-ECAF-4BCF-9054-094ED2894699}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FB6A3EF4-5303-407E-A45C-687834E9D072} = {FB6A3EF4-5303-407E-A45C-687834E9D072}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest++", "UnitTest++.vcxproj", "{FB6A3EF4-5303-407E-A45C-687834E9D072}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		MinSizeRel|x64 = MinSizeRel|x64
+		Release|x64 = Release|x64
+		RelWithDebInfo|x64 = RelWithDebInfo|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.Debug|x64.ActiveCfg = Debug|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.Debug|x64.Build.0 = Debug|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.Release|x64.ActiveCfg = Release|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.Release|x64.Build.0 = Release|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{5C5EBB30-ECAF-4BCF-9054-094ED2894699}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.Debug|x64.ActiveCfg = Debug|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.Debug|x64.Build.0 = Debug|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.Release|x64.ActiveCfg = Release|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.Release|x64.Build.0 = Release|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{FB6A3EF4-5303-407E-A45C-687834E9D072}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

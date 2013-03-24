@@ -1,9 +1,16 @@
 *.o
 *.a
+
+# Visual Studio temp/user files
 *.user
 *.suo
 *.sdf
 *.opensdf
+*.ncb
+
+# Build output directories
 Release
 Debug
+MinSizeRel
+RelWithDebInfo
 ipch
