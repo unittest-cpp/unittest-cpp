@@ -10,6 +10,7 @@ source_group("" FILES ${headers_} ${sources_})
 
 # get platform specific sources
 if (WIN32)
+    add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
     set(platformDir_ Win32)
 else()
     set(platformDir_ Posix)
@@ -20,32 +21,32 @@ file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${pla
 source_group(${platformDir_} FILES ${platformHeaders_} ${platformSources_})
 
 # create the lib
-add_library(UnitTestPP STATIC ${headers_} ${sources_} ${platformHeaders_} ${platformSources_})
+add_library(UnitTest++ STATIC ${headers_} ${sources_} ${platformHeaders_} ${platformSources_})
 
 if(${UTPP_USE_PLUS_SIGN})
-	set_target_properties(UnitTestPP PROPERTIES OUTPUT_NAME UnitTest++)
+	set_target_properties(UnitTest++ PROPERTIES OUTPUT_NAME UnitTest++)
 endif()
 
 
 # build the test runner
 file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} tests/*.cpp tests/*.h)
 source_group( "" FILES ${TEST_SRCS})
-add_executable(TestUnitTestPP ${TEST_SRCS})
+add_executable(TestUnitTest++ ${TEST_SRCS})
 include_directories(.)
 
 if(${UTPP_USE_PLUS_SIGN})
-	set_target_properties(TestUnitTestPP PROPERTIES OUTPUT_NAME TestUnitTest++)
+	set_target_properties(TestUnitTest++ PROPERTIES OUTPUT_NAME TestUnitTest++)
 endif()
 
-target_link_libraries(TestUnitTestPP UnitTestPP)
+target_link_libraries(TestUnitTest++ UnitTest++)
 
 # turn on testing
 enable_testing()
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -V)
 
 # add the test runner as a test
-add_test(NAME TestUnitTestPP COMMAND TestUnitTest++ ${CONFIG_PATH} ${CONFIG_TASKS_PATH} ${SOUND_LOG_PATH})
-add_dependencies(check TestUnitTestPP)
+add_test(NAME TestUnitTest++ COMMAND TestUnitTest++ ${CONFIG_PATH} ${CONFIG_TASKS_PATH} ${SOUND_LOG_PATH})
+add_dependencies(check TestUnitTest++)
 
 
 # add install targets
@@ -57,6 +58,6 @@ else()
 	set (UTPP_INSTALL_DESTINATION "include/UnitTestPP")
 endif()
 
-install(TARGETS UnitTestPP DESTINATION lib)
+install(TARGETS UnitTest++ DESTINATION lib)
 install(FILES ${headers_} DESTINATION ${UTPP_INSTALL_DESTINATION})
 install(FILES ${platformHeaders_} DESTINATION ${UTPP_INSTALL_DESTINATION}/${platformDir_})
