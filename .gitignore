@@ -4,6 +4,10 @@
 *.suo
 *.sdf
 *.opensdf
+
+# Build output directories
 Release
 Debug
+MinSizeRel
+RelWithDebInfo
 ipch

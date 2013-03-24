@@ -7,6 +7,7 @@
 *.sln text eol=crlf
 *.vcproj text eol=crlf
 *.vcxproj text eol=crlf
+*.vcxproj.filters text eol=crlf
 
 # VC6 files 
 *.dsw text eol=crlf
