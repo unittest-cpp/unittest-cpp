@@ -31,7 +31,7 @@ endif()
 file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} tests/*.cpp tests/*.h)
 source_group( "" FILES ${TEST_SRCS})
 add_executable(TestUnitTestPP ${TEST_SRCS})
-include_directories(UnitTest++)
+include_directories(.)
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(TestUnitTestPP PROPERTIES OUTPUT_NAME TestUnitTest++)
