@@ -1,2 +1,2 @@
 EXTRA_DIST = docs
-SUBDIRS = src
+SUBDIRS = UnitTest++
