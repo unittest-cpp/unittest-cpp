@@ -56,7 +56,22 @@
 		83D5FD1B171F910E005B0069 /* UnitTestPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D5FCE5171F910E005B0069 /* UnitTestPP.h */; };
 		83D5FD1E171F910E005B0069 /* XmlTestReporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5FCEB171F910E005B0069 /* XmlTestReporter.cpp */; };
 		83D5FD1F171F910E005B0069 /* XmlTestReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D5FCEC171F910E005B0069 /* XmlTestReporter.h */; };
+		83D5FD27171F91B7005B0069 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5FD26171F91B7005B0069 /* main.cpp */; };
+		83D5FD29171F91B7005B0069 /* TestUnitTest__.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83D5FD28171F91B7005B0069 /* TestUnitTest__.1 */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		83D5FD22171F91B6005B0069 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				83D5FD29171F91B7005B0069 /* TestUnitTest__.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8347D76F171F8D1C00FE3FC1 /* libUnitTest++.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUnitTest++.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,10 +124,20 @@
 		83D5FCE5171F910E005B0069 /* UnitTestPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTestPP.h; sourceTree = "<group>"; };
 		83D5FCEB171F910E005B0069 /* XmlTestReporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlTestReporter.cpp; sourceTree = "<group>"; };
 		83D5FCEC171F910E005B0069 /* XmlTestReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlTestReporter.h; sourceTree = "<group>"; };
+		83D5FD24171F91B7005B0069 /* TestUnitTest++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TestUnitTest++"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83D5FD26171F91B7005B0069 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		83D5FD28171F91B7005B0069 /* TestUnitTest__.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = TestUnitTest__.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8347D76C171F8D1C00FE3FC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83D5FD21171F91B6005B0069 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -126,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				83D5FCB4171F910E005B0069 /* UnitTest++ */,
+				83D5FD25171F91B7005B0069 /* TestUnitTest++ */,
 				8347D770171F8D1C00FE3FC1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				8347D76F171F8D1C00FE3FC1 /* libUnitTest++.a */,
+				83D5FD24171F91B7005B0069 /* TestUnitTest++ */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,6 +230,15 @@
 			path = Posix;
 			sourceTree = "<group>";
 		};
+		83D5FD25171F91B7005B0069 /* TestUnitTest++ */ = {
+			isa = PBXGroup;
+			children = (
+				83D5FD26171F91B7005B0069 /* main.cpp */,
+				83D5FD28171F91B7005B0069 /* TestUnitTest__.1 */,
+			);
+			path = "TestUnitTest++";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -263,6 +299,23 @@
 			productReference = 8347D76F171F8D1C00FE3FC1 /* libUnitTest++.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		83D5FD23171F91B6005B0069 /* TestUnitTest++ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83D5FD2A171F91B7005B0069 /* Build configuration list for PBXNativeTarget "TestUnitTest++" */;
+			buildPhases = (
+				83D5FD20171F91B6005B0069 /* Sources */,
+				83D5FD21171F91B6005B0069 /* Frameworks */,
+				83D5FD22171F91B6005B0069 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TestUnitTest++";
+			productName = "TestUnitTest++";
+			productReference = 83D5FD24171F91B7005B0069 /* TestUnitTest++ */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -285,6 +338,7 @@
 			projectRoot = "";
 			targets = (
 				8347D76E171F8D1C00FE3FC1 /* UnitTest++ */,
+				83D5FD23171F91B6005B0069 /* TestUnitTest++ */,
 			);
 		};
 /* End PBXProject section */
@@ -313,6 +367,14 @@
 				83D5FD14171F910E005B0069 /* TestRunner.cpp in Sources */,
 				83D5FD17171F910E005B0069 /* TimeConstraint.cpp in Sources */,
 				83D5FD1E171F910E005B0069 /* XmlTestReporter.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83D5FD20171F91B6005B0069 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83D5FD27171F91B7005B0069 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +454,20 @@
 			};
 			name = Release;
 		};
+		83D5FD2B171F91B7005B0069 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		83D5FD2C171F91B7005B0069 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -412,6 +488,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		83D5FD2A171F91B7005B0069 /* Build configuration list for PBXNativeTarget "TestUnitTest++" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83D5FD2B171F91B7005B0069 /* Debug */,
+				83D5FD2C171F91B7005B0069 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
