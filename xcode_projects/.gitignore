@@ -1,0 +1,10 @@
+#######################################
+# Temporary OS X files
+
+.DS_Store
+
+#######################################
+# Personal XCode 4 settings
+
+xcuserdata
+*.xcuserstate
