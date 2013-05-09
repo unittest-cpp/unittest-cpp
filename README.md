@@ -9,7 +9,7 @@ UnitTest++ is a lightweight unit testing framework for C++. It was designed to d
 
 Documentation
 --------------
-The full documenation for building and using UnitTest++ can be found on the [GitHub wiki page](https://github.com/unittest-cpp/unittest-cpp/wiki). The contents of this wiki are also included as a git submodule under the `docs` folder, so version-specific Markdown documentation is always available along with the download.
+The full documentation for building and using UnitTest++ can be found on the [GitHub wiki page](https://github.com/unittest-cpp/unittest-cpp/wiki). The contents of this wiki are also included as a git submodule under the `docs` folder, so version-specific Markdown documentation is always available along with the download.
 
 Pre-requisites
 ---------------
