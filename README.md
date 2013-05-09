@@ -1,13 +1,60 @@
 UnitTest++
-==========
+===========
 
+UnitTest++ is a lightweight unit testing framework for C++. It was designed to do test-driven development on a wide variety of platforms. Simplicity, portability, speed, and small footprint are all very important aspects of UnitTest++. UnitTest++ is ANSI portable C++ and makes minimal use of advanced library and languages features, which means it should be easily portable to just about any platform. Out of the box, the following platforms are supported:
+
+* Windows
+* Linux
+* Mac OS X
+
+Documentation
+--------------
+The full documenation for building and using UnitTest++ can be found on the [GitHub wiki page](https://github.com/unittest-cpp/unittest-cpp/wiki). The contents of this wiki are also included as a git submodule under the `docs` folder, so version-specific Markdown documentation is always available along with the download.
+
+Pre-requisites
+---------------
+While there are currently some bundled makefiles and projects, UnitTest++ is primarily built and supported using [CMake](http://cmake.org).
+
+Downloading
+------------
+### Latest (HEAD) ###
+
+Via git:
+
+    git clone https://github.com/unittest-cpp/unittest-cpp
+
+Via svn:
+
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/trunk unittest-cpp
+
+### Latest release (v1.4) ###
+
+Via git:
+
+    git clone https://github.com/unittest-cpp/unittest-cpp
+    cd unittest-cpp
+    git checkout v1.4
+
+Via svn:
+
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.4 unittest-cpp
+
+License
+---------
 *UnitTest++ is free software. You may copy, distribute, and modify it under
 the terms of the License contained in the file LICENSE distributed
 with this package. This license is the same as the MIT/X Consortium
 license.*
 
+Contributors
+--------------
+### [GitHub Contributor Graph](https://github.com/unittest-cpp/unittest-cpp/contributors) ###
 
-### Authors: ###
+### Current Maintainers: ###
+* Patrick Johnmeyer (pjohnmeyer@gmail.com) @pjohnmeyer
+* Charles Nicholson (charles.nicholson@gmail.com) @charlesnicholson
+
+### Original Authors: ###
 * Noel Llopis (llopis@convexhull.com) 
 * Charles Nicholson (charles.nicholson@gmail.com)
 
