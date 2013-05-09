@@ -48,6 +48,8 @@ license.*
 
 Contributors
 --------------
+### [GitHub Contributor Graph](https://github.com/unittest-cpp/unittest-cpp/contributors) ###
+
 ### Current Maintainers: ###
 * Patrick Johnmeyer (pjohnmeyer@gmail.com) @pjohnmeyer
 * Charles Nicholson (charles.nicholson@gmail.com) @charlesnicholson
