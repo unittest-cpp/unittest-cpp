@@ -150,7 +150,7 @@ TEST(CheckCloseWithNaNFails)
 {
 	const unsigned int bitpattern = 0xFFFFFFFF;
 	float nan;
-	std::memcpy(&nan, &bitpattern, sizeof(bitpattern));
+	UNIITEST_NS_QUAL_STD(memcpy)(&nan, &bitpattern, sizeof(bitpattern));
 
 	TestResults results;
     CheckClose(results, 3.0f, nan, 0.1f, TestDetails("", "", "", 0));
@@ -161,7 +161,7 @@ TEST(CheckCloseWithNaNAgainstItselfFails)
 {
 	const unsigned int bitpattern = 0xFFFFFFFF;
 	float nan;
-	std::memcpy(&nan, &bitpattern, sizeof(bitpattern));
+	UNIITEST_NS_QUAL_STD(memcpy)(&nan, &bitpattern, sizeof(bitpattern));
 
     TestResults results;
     CheckClose(results, nan, nan, 0.1f, TestDetails("", "", "", 0));

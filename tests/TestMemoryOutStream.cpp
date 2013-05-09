@@ -167,6 +167,7 @@ TEST(StreamingMinUnsignedLongWritesCorrectCharacters)
     CHECK_EQUAL("0", stream.GetText());
 }
 
+#ifndef UNITTEST_COMPILER_IS_MSVC6
 TEST(StreamingLongLongWritesCorrectCharacters)
 {
 	MemoryOutStream stream;
@@ -214,6 +215,7 @@ TEST(StreamingMinUnsignedLongLongWritesCorrectCharacters)
     stream << (unsigned long long)0ull;
     CHECK_EQUAL("0", stream.GetText());
 }
+#endif
 
 TEST(StreamingFloatWritesCorrectCharacters)
 {
