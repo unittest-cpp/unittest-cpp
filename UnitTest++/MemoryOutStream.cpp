@@ -16,6 +16,33 @@ void MemoryOutStream::Clear()
 	m_text = this->str();
 }
 
+#ifdef UNITTEST_COMPILER_IS_MSVC6
+
+#define snprintf _snprintf
+
+template<typename ValueType>
+std::ostream& FormatToStream(std::ostream& stream, char const* format, ValueType const& value)
+{
+   using namespace std;
+   
+   const size_t BUFFER_SIZE=32;
+   char txt[BUFFER_SIZE];
+   snprintf(txt, BUFFER_SIZE, format, value);
+   return stream << txt;
+}
+
+std::ostream& operator<<(std::ostream& stream, __int64 const n)
+{
+   return FormatToStream(stream, "%I64d", n);
+}
+
+std::ostream& operator<<(std::ostream& stream, unsigned __int64 const n)
+{
+   return FormatToStream(stream, "%I64u", n);
+}
+
+#endif
+
 }
 
 #else
@@ -108,7 +135,11 @@ MemoryOutStream& MemoryOutStream::operator <<(unsigned long const n)
     return *this;
 }
 
+#ifdef UNITTEST_COMPILER_IS_MSVC6
+MemoryOutStream& MemoryOutStream::operator <<(__int64 const n)
+#else
 MemoryOutStream& MemoryOutStream::operator <<(long long const n)
+#endif
 {
 #ifdef UNITTEST_WIN32
 	FormatToStream(*this, "%I64d", n);
@@ -119,7 +150,11 @@ MemoryOutStream& MemoryOutStream::operator <<(long long const n)
 	return *this;
 }
 
+#ifdef UNITTEST_COMPILER_IS_MSVC6
+MemoryOutStream& MemoryOutStream::operator <<(unsigned __int64 const n)
+#else
 MemoryOutStream& MemoryOutStream::operator <<(unsigned long long const n)
+#endif
 {
 #ifdef UNITTEST_WIN32
 	FormatToStream(*this, "%I64u", n);
