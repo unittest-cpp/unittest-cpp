@@ -5,7 +5,7 @@
 
 #define UNITTEST_MULTILINE_MACRO_BEGIN do {
 
-#ifdef UNITTEST_WIN32
+#if defined(UNITTEST_WIN32) && !defined(UNITTEST_COMPILER_IS_MSVC6)
 	#define UNITTEST_MULTILINE_MACRO_END \
 		} __pragma(warning(push)) __pragma(warning(disable:4127)) while (0) __pragma(warning(pop))
 #else

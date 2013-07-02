@@ -7,7 +7,8 @@
 	#pragma warning(disable:4702) // unreachable code
 	#pragma warning(disable:4722) // destructor never returns, potential memory leak
 
-	#if (_MSC_VER == 1200)  // VC6
+#if (_MSC_VER == 1200)  // VC6
+		#define UNITTEST_COMPILER_IS_MSVC6
 		#pragma warning(disable:4786)
 		#pragma warning(disable:4290)
 	#endif
@@ -59,5 +60,14 @@
 // assert recovery will be done via setjmp/longjmp, and NO correct stack unwinding will happen!
 
 //#define UNITTEST_NO_EXCEPTIONS
+
+
+// std namespace qualification: used for functions like strcpy that 
+// may live in std:: namespace (cstring header).
+#if defined( UNITTEST_COMPILER_IS_MSVC6 )
+	#define UNIITEST_NS_QUAL_STD(x) x
+#else
+	#define UNIITEST_NS_QUAL_STD(x) ::std::x
+#endif
 
 #endif
