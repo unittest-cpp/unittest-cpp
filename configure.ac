@@ -4,9 +4,10 @@
 AC_PREREQ([2.69])
 AC_INIT([UnitTest++], [1.4], [victor.lavaud@gmail.com])
 AC_CONFIG_SRCDIR([UnitTest++/TestDetails.cpp])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE()
+AM_INIT_AUTOMAKE([foreign])
 LT_INIT()
 
 AC_SUBST([LIBUNITTEST_SO_VERSION], [1:4:0])
