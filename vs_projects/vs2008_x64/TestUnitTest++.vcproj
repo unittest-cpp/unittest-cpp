@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=" /Zm1000"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				BasicRuntimeChecks="3"
 				CompileAs="2"
 				DebugInformationFormat="3"
@@ -34,17 +34,17 @@
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				AssemblerListingLocation="Debug"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Debug/TestUnitTest++.pdb"
+				ProgramDataBaseFileName="..\..\vs_projects\vs2008_x64\Debug/TestUnitTest++.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;Debug\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="3"
 				GenerateStublessProxies="TRUE"
@@ -65,14 +65,14 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:x64 /debug"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib Debug\UnitTest++.lib "
-				OutputFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Debug\TestUnitTest++.exe"
+				OutputFile="..\..\vs_projects\vs2008_x64\Debug\TestUnitTest++.exe"
 				Version="0.0"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
-				ProgramDatabaseFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Debug/TestUnitTest++.pdb"
+				ProgramDatabaseFile="..\..\vs_projects\vs2008_x64\Debug/TestUnitTest++.pdb"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
-				ImportLibrary="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Debug\TestUnitTest++.lib"/>
+				ImportLibrary="..\..\vs_projects\vs2008_x64\Debug\TestUnitTest++.lib"/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
@@ -85,7 +85,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=" /Zm1000"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				CompileAs="2"
 				ExceptionHandling="1"
 				InlineFunctionExpansion="2"
@@ -96,17 +96,17 @@
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;Release\&quot;"
 				AssemblerListingLocation="Release"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Release/TestUnitTest++.pdb"
+				ProgramDataBaseFileName="..\..\vs_projects\vs2008_x64\Release/TestUnitTest++.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;Release\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="3"
 				GenerateStublessProxies="TRUE"
@@ -127,13 +127,13 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:x64"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib Release\UnitTest++.lib "
-				OutputFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Release\TestUnitTest++.exe"
+				OutputFile="..\..\vs_projects\vs2008_x64\Release\TestUnitTest++.exe"
 				Version="0.0"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
-				ProgramDatabaseFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Release/TestUnitTest++.pdb"
+				ProgramDatabaseFile="..\..\vs_projects\vs2008_x64\Release/TestUnitTest++.pdb"
 				SubSystem="1"
-				ImportLibrary="U:\unittest-cpp-pj\vs_projects\vs2008_x64\Release\TestUnitTest++.lib"/>
+				ImportLibrary="..\..\vs_projects\vs2008_x64\Release\TestUnitTest++.lib"/>
 		</Configuration>
 		<Configuration
 			Name="MinSizeRel|x64"
@@ -146,7 +146,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=" /Zm1000"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				CompileAs="2"
 				ExceptionHandling="1"
 				InlineFunctionExpansion="1"
@@ -157,17 +157,17 @@
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
 				AssemblerListingLocation="MinSizeRel"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="U:\unittest-cpp-pj\vs_projects\vs2008_x64\MinSizeRel/TestUnitTest++.pdb"
+				ProgramDataBaseFileName="..\..\vs_projects\vs2008_x64\MinSizeRel/TestUnitTest++.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="3"
 				GenerateStublessProxies="TRUE"
@@ -188,13 +188,13 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:x64"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib MinSizeRel\UnitTest++.lib "
-				OutputFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\MinSizeRel\TestUnitTest++.exe"
+				OutputFile="..\..\vs_projects\vs2008_x64\MinSizeRel\TestUnitTest++.exe"
 				Version="0.0"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
-				ProgramDatabaseFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\MinSizeRel/TestUnitTest++.pdb"
+				ProgramDatabaseFile="..\..\vs_projects\vs2008_x64\MinSizeRel/TestUnitTest++.pdb"
 				SubSystem="1"
-				ImportLibrary="U:\unittest-cpp-pj\vs_projects\vs2008_x64\MinSizeRel\TestUnitTest++.lib"/>
+				ImportLibrary="..\..\vs_projects\vs2008_x64\MinSizeRel\TestUnitTest++.lib"/>
 		</Configuration>
 		<Configuration
 			Name="RelWithDebInfo|x64"
@@ -207,7 +207,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=" /Zm1000"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				CompileAs="2"
 				DebugInformationFormat="3"
 				ExceptionHandling="1"
@@ -219,17 +219,17 @@
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
 				AssemblerListingLocation="RelWithDebInfo"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="U:\unittest-cpp-pj\vs_projects\vs2008_x64\RelWithDebInfo/TestUnitTest++.pdb"
+				ProgramDataBaseFileName="..\..\vs_projects\vs2008_x64\RelWithDebInfo/TestUnitTest++.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
-				AdditionalIncludeDirectories="U:\unittest-cpp-pj\.;"
+				AdditionalIncludeDirectories="..\..\.;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="3"
 				GenerateStublessProxies="TRUE"
@@ -250,79 +250,79 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:x64 /debug"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib RelWithDebInfo\UnitTest++.lib "
-				OutputFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\RelWithDebInfo\TestUnitTest++.exe"
+				OutputFile="..\..\vs_projects\vs2008_x64\RelWithDebInfo\TestUnitTest++.exe"
 				Version="0.0"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
-				ProgramDatabaseFile="U:\unittest-cpp-pj\vs_projects\vs2008_x64\RelWithDebInfo/TestUnitTest++.pdb"
+				ProgramDatabaseFile="..\..\vs_projects\vs2008_x64\RelWithDebInfo/TestUnitTest++.pdb"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
-				ImportLibrary="U:\unittest-cpp-pj\vs_projects\vs2008_x64\RelWithDebInfo\TestUnitTest++.lib"/>
+				ImportLibrary="..\..\vs_projects\vs2008_x64\RelWithDebInfo\TestUnitTest++.lib"/>
 		</Configuration>
 	</Configurations>
 	<Files>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\Main.cpp">
+				RelativePath="..\..\tests\Main.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestAssertHandler.cpp">
+				RelativePath="..\..\tests\TestAssertHandler.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestCheckMacros.cpp">
+				RelativePath="..\..\tests\TestCheckMacros.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestChecks.cpp">
+				RelativePath="..\..\tests\TestChecks.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestCompositeTestReporter.cpp">
+				RelativePath="..\..\tests\TestCompositeTestReporter.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestCurrentTest.cpp">
+				RelativePath="..\..\tests\TestCurrentTest.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestDeferredTestReporter.cpp">
+				RelativePath="..\..\tests\TestDeferredTestReporter.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestExceptions.cpp">
+				RelativePath="..\..\tests\TestExceptions.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestMemoryOutStream.cpp">
+				RelativePath="..\..\tests\TestMemoryOutStream.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTest.cpp">
+				RelativePath="..\..\tests\TestTest.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTestList.cpp">
+				RelativePath="..\..\tests\TestTestList.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTestMacros.cpp">
+				RelativePath="..\..\tests\TestTestMacros.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTestResults.cpp">
+				RelativePath="..\..\tests\TestTestResults.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTestRunner.cpp">
+				RelativePath="..\..\tests\TestTestRunner.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTestSuite.cpp">
+				RelativePath="..\..\tests\TestTestSuite.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTimeConstraint.cpp">
+				RelativePath="..\..\tests\TestTimeConstraint.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestTimeConstraintMacro.cpp">
+				RelativePath="..\..\tests\TestTimeConstraintMacro.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestUnitTestPP.cpp">
+				RelativePath="..\..\tests\TestUnitTestPP.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\TestXmlTestReporter.cpp">
+				RelativePath="..\..\tests\TestXmlTestReporter.cpp">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\RecordingReporter.h">
+				RelativePath="..\..\tests\RecordingReporter.h">
 			</File>
 			<File
-				RelativePath="U:\unittest-cpp-pj\tests\ScopedCurrentTest.h">
+				RelativePath="..\..\tests\ScopedCurrentTest.h">
 			</File>
 	</Files>
 	<Globals>
