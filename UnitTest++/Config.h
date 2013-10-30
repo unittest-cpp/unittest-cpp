@@ -70,4 +70,22 @@
 	#define UNIITEST_NS_QUAL_STD(x) ::std::x
 #endif
 
+
+//#define UNITTEST_FORCE_CPP11_DETECTION
+//#define UNITTEST_DISABLE_CPP11
+
+/* C++11 features are enabled when __cplusplus > 199711L
+ * but compiler support is patchy. You can manually force or disable C++11
+ * by defining UNITTEST_FORCE_CPP11_DETECTION
+ * or UNITTEST_DISABLE_CPP11
+ * You will also require compiler options that enable C++11 eg
+ * gcc 4.6:  -std=c++0x
+ * gcc 4.7+: -std=c++11
+ * MSVC 2012+: No options required
+ * MSVC 2010 and earlier do not support strongly typed enums
+ */
+#if ((__cplusplus > 199711L ) || defined( UNITTEST_FORCE_CPP11_DETECTION )) && !defined( UNITTEST_DISABLE_CPP11 )
+	#define UNITTEST_CPP11
+#endif
+
 #endif

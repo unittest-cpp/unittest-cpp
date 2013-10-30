@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.1)
 project(UnitTest++)
 
 option(UTPP_USE_PLUS_SIGN "Set this to OFF is you with to use '-cpp' instead of '++' in lib/include paths" ON)
+option(UTPP_USE_CPP11 "Set this to ON is you with support C++11 features such as strongly typed enum" OFF)
 
 # get the main sources
 file(GLOB headers_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/*.h)
@@ -15,6 +16,12 @@ if (WIN32)
 else()
     set(platformDir_ Posix)
 endif(WIN32)
+
+if(${UTPP_USE_CPP11})
+  if (${CMAKE_COMPILER_IS_GNUCXX})
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+  endif()
+endif()
 
 file(GLOB platformHeaders_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${platformDir_}/*.h)
 file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${platformDir_}/*.cpp)
