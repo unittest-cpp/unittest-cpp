@@ -24,12 +24,17 @@ namespace
         virtual void RunImpl() const
         {
             TestResults& testResults_ = *CurrentTest::Results();
+
             for (int i=0; i < count; ++i)
             {
                 if (asserted)
+                {
                     ReportAssert("desc", "file", 0);
+                }
                 else if (!success)
+                {
                     testResults_.OnTestFailure(m_details, "message");
+                }
             }
         }
         
@@ -38,8 +43,13 @@ namespace
         int const count;
     };
     
-    struct FixtureBase {
-        explicit FixtureBase() : runner(reporter) { }
+    struct FixtureBase
+    {
+        FixtureBase()
+        : runner(reporter)
+        {
+        }
+
         template <class Predicate>
         int RunTestsIf(TestList const& list, char const* suiteName,
                        const Predicate& predicate, int maxTestTimeInMs)
@@ -51,6 +61,7 @@ namespace
             CurrentTest::Details() = oldDetails;
             return result;
         }
+
         TestRunner runner;
         RecordingReporter reporter;
     };
@@ -83,7 +94,11 @@ namespace
     class SlowTest : public Test
     {
     public:
-        SlowTest() : Test("slow", "somesuite", "filename", 123) {}
+        SlowTest()
+        : Test("slow", "somesuite", "filename", 123)
+        {
+        }
+        
         virtual void RunImpl() const
         {
             TimeHelpers::SleepMs(20);
@@ -277,7 +292,7 @@ namespace
         Test fail("fail");
         
         CHECK(predicate(&pass));
-        CHECK(!predicate(&fail));	
+        CHECK(!predicate(&fail));   
     }
     
     TEST_FIXTURE(TestRunnerFixture, TestRunnerRunsTestsThatPassPredicate)
