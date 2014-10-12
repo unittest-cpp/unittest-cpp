@@ -62,11 +62,13 @@
 			message << "Unhandled exception (" << e.what() << ") in REQUIRE_CHECK(" #value ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				message.GetText()); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
 		UT_CATCH_ALL \
 		({ \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				"Unhandled exception in REQUIRE_CHECK(" #value ")"); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
 	UNITTEST_MULTILINE_MACRO_END
 
@@ -86,11 +88,13 @@
 			message << "Unhandled exception (" << e.what() << ") in REQUIRE_EQUAL(" #expected ", " #actual ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				message.GetText()); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
                     "Unhandled exception in REQUIRE_EQUAL(" #expected ", " #actual ")"); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
@@ -110,11 +114,13 @@
 			message << "Unhandled exception (" << e.what() << ") in REQUIRE_CLOSE(" #expected ", " #actual ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				message.GetText()); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
                     "Unhandled exception in REQUIRE_CLOSE(" #expected ", " #actual ")"); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
@@ -134,11 +140,13 @@
 			message << "Unhandled exception (" << e.what() << ") in REQUIRE_ARRAY_EQUAL(" #expected ", " #actual ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				message.GetText()); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
                     "Unhandled exception in REQUIRE_ARRAY_EQUAL(" #expected ", " #actual ")"); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
@@ -158,11 +166,13 @@
 			message << "Unhandled exception (" << e.what() << ") in REQUIRE_ARRAY_CLOSE(" #expected ", " #actual ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				message.GetText()); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
                     "Unhandled exception in REQUIRE_ARRAY_CLOSE(" #expected ", " #actual ")"); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
@@ -182,11 +192,13 @@
 			message << "Unhandled exception (" << e.what() << ") in REQUIRE_ARRAY2D_CLOSE(" #expected ", " #actual ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
 				message.GetText()); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
 		}) \
         UT_CATCH_ALL \
 		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
                     "Unhandled exception in REQUIRE_ARRAY2D_CLOSE(" #expected ", " #actual ")"); \
+            UT_THROW(UnitTest::RequiredCheckFailedException()); \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
 
