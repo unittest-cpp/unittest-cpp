@@ -7,6 +7,7 @@
 #include "TestResults.h"
 #include "MemoryOutStream.h"
 #include "AssertException.h"
+#include "RequiredCheckFailedException.h"
 #include "CurrentTest.h"
 
 #ifdef UNITTEST_NO_EXCEPTIONS
@@ -39,6 +40,7 @@ void ExecuteTest(T& testObject, TestDetails const& details, bool isMockTest)
 		})
 #endif
 		UT_CATCH(AssertException, e, { (void)e; })
+        UT_CATCH(RequiredCheckFailedException, e, { (void)e; })
 		UT_CATCH(std::exception, e,
 		{
 			MemoryOutStream stream;

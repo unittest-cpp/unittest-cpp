@@ -89,6 +89,10 @@
 		{ \
 			(void)e;	\
 		}) \
+        UT_CATCH (UnitTest::RequiredCheckFailedException, e, \
+        { \
+            (void)e;    \
+        }) \
 		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream stream;													 \

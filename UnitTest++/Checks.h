@@ -2,8 +2,10 @@
 #define UNITTEST_CHECKS_H
 
 #include "Config.h"
+#include "ExceptionMacros.h"
 #include "TestResults.h"
 #include "MemoryOutStream.h"
+#include "RequiredCheckFailedException.h"
 
 namespace UnitTest {
 
@@ -16,7 +18,7 @@ bool Check(Value const value)
 
 
 template< typename Expected, typename Actual >
-void CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
+void CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details, bool const required)
 {
     if (!(expected == actual))
     {
@@ -24,16 +26,21 @@ void CheckEqual(TestResults& results, Expected const& expected, Actual const& ac
         stream << "Expected " << expected << " but was " << actual;
 
         results.OnTestFailure(details, stream.GetText());
+        
+        if(required)
+        {
+            UT_THROW(RequiredCheckFailedException());
+        }
     }
 }
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details, bool const required);
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details, bool const required);
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details, bool const required);
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
+UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details, bool const required);
 
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
@@ -43,7 +50,7 @@ bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& t
 
 template< typename Expected, typename Actual, typename Tolerance >
 void CheckClose(TestResults& results, Expected const& expected, Actual const& actual, Tolerance const& tolerance,
-                TestDetails const& details)
+                TestDetails const& details, bool const required)
 {
     if (!AreClose(expected, actual, tolerance))
     { 
@@ -51,13 +58,18 @@ void CheckClose(TestResults& results, Expected const& expected, Actual const& ac
         stream << "Expected " << expected << " +/- " << tolerance << " but was " << actual;
 
         results.OnTestFailure(details, stream.GetText());
+        
+        if(required)
+        {
+            UT_THROW(RequiredCheckFailedException());
+        }
     }
 }
 
 
 template< typename Expected, typename Actual >
 void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
-                int const count, TestDetails const& details)
+                int const count, TestDetails const& details, bool const required)
 {
     bool equal = true;
     for (int i = 0; i < count; ++i)
@@ -80,6 +92,11 @@ void CheckArrayEqual(TestResults& results, Expected const& expected, Actual cons
 		stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
+        
+        if(required)
+        {
+            UT_THROW(RequiredCheckFailedException());
+        }
     }
 }
 
@@ -94,7 +111,8 @@ bool ArrayAreClose(Expected const& expected, Actual const& actual, int const cou
 
 template< typename Expected, typename Actual, typename Tolerance >
 void CheckArrayClose(TestResults& results, Expected const& expected, Actual const& actual,
-                   int const count, Tolerance const& tolerance, TestDetails const& details)
+                   int const count, Tolerance const& tolerance, TestDetails const& details,
+                   bool const required)
 {
     bool equal = ArrayAreClose(expected, actual, count, tolerance);
 
@@ -112,12 +130,18 @@ void CheckArrayClose(TestResults& results, Expected const& expected, Actual cons
         stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
+        
+        if(required)
+        {
+            UT_THROW(RequiredCheckFailedException());
+        }
     }
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
 void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
-                   int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
+                   int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details,
+                   bool const required)
 {
     bool equal = true;
     for (int i = 0; i < rows; ++i)
@@ -150,6 +174,11 @@ void CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
 		stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
+        
+        if(required)
+        {
+            UT_THROW(RequiredCheckFailedException());
+        }
     }
 }
 
