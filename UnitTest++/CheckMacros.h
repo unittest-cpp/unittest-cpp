@@ -34,12 +34,6 @@
 	#error UnitTest++ redefines CHECK_ARRAY2D_CLOSE
 #endif
 
-#ifdef IS_NOT_REQUIRED_CHECK
-    #error UnitTest++ redefines IS_NOT_REQUIRED_CHECK
-#endif
-
-#define IS_NOT_REQUIRED_CHECK false
-
 #define CHECK(value) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
 	UT_TRY \
@@ -65,7 +59,7 @@
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
 		({ \
-            UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), IS_NOT_REQUIRED_CHECK); \
+            UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
 		UT_CATCH (std::exception, e, \
 		{ \
@@ -85,7 +79,7 @@
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
 		({ \
-            UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), IS_NOT_REQUIRED_CHECK); \
+            UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
 		UT_CATCH (std::exception, e, \
 		{ \
@@ -105,7 +99,7 @@
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
 		({ \
-            UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), IS_NOT_REQUIRED_CHECK); \
+            UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
  		UT_CATCH (std::exception, e, \
 		{ \
@@ -125,7 +119,7 @@
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
 		({ \
-            UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), IS_NOT_REQUIRED_CHECK); \
+            UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
  		UT_CATCH (std::exception, e, \
 		{ \
@@ -145,7 +139,7 @@
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
 		({ \
-            UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), IS_NOT_REQUIRED_CHECK); \
+            UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
  		UT_CATCH (std::exception, e, \
 		{ \

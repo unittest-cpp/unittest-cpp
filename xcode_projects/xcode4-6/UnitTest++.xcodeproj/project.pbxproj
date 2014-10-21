@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6093F5AA19C0F26600A43101 /* RequiredCheckFailedException.h in Headers */ = {isa = PBXBuildFile; fileRef = 6093F5A919C0F26600A43101 /* RequiredCheckFailedException.h */; };
-		6093F5AC19C0F27300A43101 /* RequireMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6093F5AB19C0F27300A43101 /* RequireMacros.h */; };
-		6093F5AE19C0F37C00A43101 /* RequiredCheckFailedException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6093F5AD19C0F37C00A43101 /* RequiredCheckFailedException.cpp */; };
-		6093F5B019C0F8FE00A43101 /* TestRequireMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6093F5AF19C0F8FE00A43101 /* TestRequireMacros.cpp */; };
 		83D5FCED171F910E005B0069 /* AssertException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5FCB5171F910E005B0069 /* AssertException.cpp */; };
 		83D5FCEE171F910E005B0069 /* AssertException.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D5FCB6171F910E005B0069 /* AssertException.h */; };
 		83D5FCEF171F910E005B0069 /* CheckMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D5FCB7171F910E005B0069 /* CheckMacros.h */; };
@@ -95,10 +91,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6093F5A919C0F26600A43101 /* RequiredCheckFailedException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequiredCheckFailedException.h; sourceTree = "<group>"; };
-		6093F5AB19C0F27300A43101 /* RequireMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequireMacros.h; sourceTree = "<group>"; };
-		6093F5AD19C0F37C00A43101 /* RequiredCheckFailedException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RequiredCheckFailedException.cpp; sourceTree = "<group>"; };
-		6093F5AF19C0F8FE00A43101 /* TestRequireMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestRequireMacros.cpp; sourceTree = "<group>"; };
 		8347D76F171F8D1C00FE3FC1 /* libUnitTest++.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUnitTest++.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D5FCB5171F910E005B0069 /* AssertException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssertException.cpp; sourceTree = "<group>"; };
 		83D5FCB6171F910E005B0069 /* AssertException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssertException.h; sourceTree = "<group>"; };
@@ -213,9 +205,6 @@
 		83D5FCB4171F910E005B0069 /* UnitTest++ */ = {
 			isa = PBXGroup;
 			children = (
-				6093F5AD19C0F37C00A43101 /* RequiredCheckFailedException.cpp */,
-				6093F5AB19C0F27300A43101 /* RequireMacros.h */,
-				6093F5A919C0F26600A43101 /* RequiredCheckFailedException.h */,
 				83D5FCB5171F910E005B0069 /* AssertException.cpp */,
 				83D5FCB6171F910E005B0069 /* AssertException.h */,
 				83D5FCB7171F910E005B0069 /* CheckMacros.h */,
@@ -281,7 +270,6 @@
 		83D5FD2D171F9218005B0069 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				6093F5AF19C0F8FE00A43101 /* TestRequireMacros.cpp */,
 				83D5FD2E171F9218005B0069 /* Main.cpp */,
 				83D5FD2F171F9218005B0069 /* RecordingReporter.h */,
 				83D5FD30171F9218005B0069 /* ScopedCurrentTest.h */,
@@ -322,7 +310,6 @@
 				83D5FCF4171F910E005B0069 /* Config.h in Headers */,
 				83D5FCF6171F910E005B0069 /* CurrentTest.h in Headers */,
 				83D5FCF8171F910E005B0069 /* DeferredTestReporter.h in Headers */,
-				6093F5AC19C0F27300A43101 /* RequireMacros.h in Headers */,
 				83D5FCFA171F910E005B0069 /* DeferredTestResult.h in Headers */,
 				83D5FCFB171F910E005B0069 /* ExceptionMacros.h in Headers */,
 				83D5FCFC171F910E005B0069 /* ExecuteTest.h in Headers */,
@@ -341,7 +328,6 @@
 				83D5FD13171F910E005B0069 /* TestResults.h in Headers */,
 				83D5FD15171F910E005B0069 /* TestRunner.h in Headers */,
 				83D5FD16171F910E005B0069 /* TestSuite.h in Headers */,
-				6093F5AA19C0F26600A43101 /* RequiredCheckFailedException.h in Headers */,
 				83D5FD18171F910E005B0069 /* TimeConstraint.h in Headers */,
 				83D5FD19171F910E005B0069 /* TimeHelpers.h in Headers */,
 				83D5FD1A171F910E005B0069 /* UnitTest++.h in Headers */,
@@ -427,7 +413,6 @@
 				83D5FCF9171F910E005B0069 /* DeferredTestResult.cpp in Sources */,
 				83D5FCFE171F910E005B0069 /* MemoryOutStream.cpp in Sources */,
 				83D5FD00171F910E005B0069 /* SignalTranslator.cpp in Sources */,
-				6093F5AE19C0F37C00A43101 /* RequiredCheckFailedException.cpp in Sources */,
 				83D5FD02171F910E005B0069 /* TimeHelpers.cpp in Sources */,
 				83D5FD04171F910E005B0069 /* ReportAssert.cpp in Sources */,
 				83D5FD07171F910E005B0069 /* Test.cpp in Sources */,
@@ -462,7 +447,6 @@
 				83D5FD52171F9218005B0069 /* TestTestRunner.cpp in Sources */,
 				83D5FD53171F9218005B0069 /* TestTestSuite.cpp in Sources */,
 				83D5FD54171F9218005B0069 /* TestTimeConstraint.cpp in Sources */,
-				6093F5B019C0F8FE00A43101 /* TestRequireMacros.cpp in Sources */,
 				83D5FD55171F9218005B0069 /* TestTimeConstraintMacro.cpp in Sources */,
 				83D5FD56171F9218005B0069 /* TestUnitTestPP.cpp in Sources */,
 				83D5FD57171F9218005B0069 /* TestXmlTestReporter.cpp in Sources */,
@@ -589,7 +573,6 @@
 				83D5FD2C171F91B7005B0069 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
