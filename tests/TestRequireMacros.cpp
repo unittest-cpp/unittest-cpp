@@ -60,40 +60,6 @@ TEST(RequiredCheckFailsOnFalse)
     CHECK(exception);
 }
 
-bool ThrowsOnCall()
-{
-    throw std::exception();
-    return false;
-}
-
-TEST(RequireCheckStopsTestOnException)
-{
-    bool failure = false;
-    bool continued = false;
-    bool exception = false;
-
-    {
-        UnitTest::TestResults testResults;
-        ScopedCurrentTest scopedResults(testResults);
-
-        try 
-        {
-            REQUIRE_CHECK(ThrowsOnCall());
-            continued = true;
-        }
-        catch (const UnitTest::RequiredCheckFailedException&)
-        {
-            exception = true;
-        }
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(failure);
-    CHECK(!continued);
-    CHECK(exception);
-}
-
 TEST(FailureReportsCorrectTestName)
 {
     RecordingReporter reporter;
@@ -180,34 +146,6 @@ TEST(RequiredCheckEqualFailsOnNotEqual)
     }
 
     CHECK(failure);
-    CHECK(exception);
-}
-
-TEST(RequireEqualStopsTestOnException)
-{
-    bool failure = false;
-    bool continued = false;
-    bool exception = false;
-
-    {
-        UnitTest::TestResults testResults;
-        ScopedCurrentTest scopedResults(testResults);
-
-        try 
-        {
-            REQUIRE_EQUAL(false, ThrowsOnCall());
-            continued = true;
-        }
-        catch (const UnitTest::RequiredCheckFailedException&)
-        {
-            exception = true;
-        }
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(failure);
-    CHECK(!continued);
     CHECK(exception);
 }
 
@@ -329,40 +267,6 @@ TEST(RequiredCheckCloseFailsOnNotEqual)
     CHECK(exception);
 }
 
-float ThrowsOnCallReturnsFloat()
-{
-    throw std::exception();
-    return 0.0f;
-}
-
-TEST(RequireCloseStopsTestOnException)
-{
-    bool failure = false;
-    bool continued = false;
-    bool exception = false;
-
-    {
-        UnitTest::TestResults testResults;
-        ScopedCurrentTest scopedResults(testResults);
-
-        try 
-        {
-            REQUIRE_CLOSE(1.0f, ThrowsOnCallReturnsFloat(), 0.1f);
-            continued = true;
-        }
-        catch (const UnitTest::RequiredCheckFailedException&)
-        {
-            exception = true;
-        }
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(failure);
-    CHECK(!continued);
-    CHECK(exception);
-}
-
 TEST(RequiredCheckCloseFailureContainsCorrectDetails)
 {
     int line = 0;
@@ -475,54 +379,6 @@ TEST(RequiredCheckArrayCloseFailsOnNotEqual)
     }
 
     CHECK(failure);
-    CHECK(exception);
-}
-
-// more convenient to use std::array<> here... not every compiler has it.
-template<typename Type, std::size_t Count>
-struct array_wrapper
-{
-    Type operator[](std::size_t index) const
-    {
-        return values_[index];
-    }
-
-    Type values_[Count];
-};
-
-array_wrapper<int, 4> ThrowsOnCallReturnsArray()
-{
-    throw std::exception();
-    return array_wrapper<int, 4>();
-}
-
-TEST(RequireCheckArrayStopsTestOnException)
-{
-    bool failure = false;
-    bool continued = false;
-    bool exception = false;
-
-    {
-        UnitTest::TestResults testResults;
-        ScopedCurrentTest scopedResults(testResults);
-
-        int const data1[4] = { 0, 1, 2, 3 };
-
-        try
-        {
-            REQUIRE_ARRAY_CLOSE (data1, ThrowsOnCallReturnsArray(), 4, 0.01f);
-            continued = true;
-        }
-        catch (const UnitTest::RequiredCheckFailedException&)
-        {
-            exception = true;
-        }
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(failure);
-    CHECK(!continued);
     CHECK(exception);
 }
 
@@ -803,43 +659,6 @@ TEST(RequiredCheckArray2DCloseFailsOnNotEqual)
     CHECK(failure);
     CHECK(exception);
 }
-
-array_wrapper<array_wrapper<int, 2>, 2> ThrowsOnCallMultidimensionalArray()
-{
-    throw std::exception();
-    return array_wrapper<array_wrapper<int, 2>, 2>();
-}
-
-TEST(RequiredCheckArray2DCloseStopsOnException)
-{
-    bool failure = false;
-    bool continued = false;
-    bool exception = false;
-    {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-
-        const float data[2][2] = { {0, 1}, {2, 3} };
-
-        try
-        {
-            REQUIRE_ARRAY2D_CLOSE(data, ThrowsOnCallMultidimensionalArray(), 2, 2, 0.01f);
-            continued = true;
-        }
-        catch (const UnitTest::RequiredCheckFailedException&)
-        {
-            exception = true;
-        }
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(failure);
-    CHECK(!continued);
-    CHECK(exception);
-}
-
 
 TEST(RequiredCheckArray2DCloseFailureIncludesCheckExpectedAndActual)
 {
