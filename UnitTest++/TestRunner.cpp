@@ -6,7 +6,7 @@
 #include "MemoryOutStream.h"
 
 #include <cstring>
-
+#include <vector>
 
 namespace UnitTest {
 
@@ -15,6 +15,52 @@ int RunAllTests()
 	TestReporterStdout reporter;
 	TestRunner runner(reporter);
 	return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
+}
+
+int RunAllTestsInSuites(std::vector<char const *> suiteNames)
+{
+	//walk list of all tests, add those with a suiteName that
+	//matches one of the arguments to a new TestList
+	const TestList& allTests(Test::GetTestList());
+	TestList selectedTests;
+	Test* p = allTests.GetHead();
+	while (p)
+	{
+		for (unsigned int i = 0; i < suiteNames.size(); ++i)
+			if (strcmp(p->m_details.suiteName, suiteNames[i]) == 0)
+				selectedTests.Add(p);
+		Test* q = p;
+		p = p->m_nextTest;
+		q->m_nextTest = NULL;
+	}
+
+	//run selected test(s) only
+	TestReporterStdout reporter;
+	TestRunner runner(reporter);
+	return runner.RunTestsIf(selectedTests, NULL, True(), 0);
+}
+
+int RunAllNamedTests(std::vector<char const *> testNames)
+{
+	//walk list of all tests, add those with a name that
+	//matches one of the arguments to a new TestList
+	const TestList& allTests(Test::GetTestList());
+	TestList selectedTests;
+	Test* p = allTests.GetHead();
+	while (p)
+	{
+		for (unsigned int i = 0; i < testNames.size(); ++i)
+			if (strcmp(p->m_details.testName, testNames[i]) == 0)
+				selectedTests.Add(p);
+		Test* q = p;
+		p = p->m_nextTest;
+		q->m_nextTest = NULL;
+	}
+
+	//run selected test(s) only
+	TestReporterStdout reporter;
+	TestRunner runner(reporter);
+	return runner.RunTestsIf(selectedTests, NULL, True(), 0);
 }
 
 

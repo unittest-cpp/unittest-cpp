@@ -5,6 +5,8 @@
 #include "TestList.h"
 #include "CurrentTest.h"
 
+#include <vector>
+
 namespace UnitTest {
 
 class TestReporter;
@@ -12,6 +14,8 @@ class TestResults;
 class Timer;
 
 UNITTEST_LINKAGE int RunAllTests();
+UNITTEST_LINKAGE int RunAllTestsInSuites(std::vector<char const *> suiteName);
+UNITTEST_LINKAGE int RunAllNamedTests(std::vector<char const *> testNames);
 
 struct True
 {
