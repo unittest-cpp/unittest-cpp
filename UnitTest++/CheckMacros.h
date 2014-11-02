@@ -168,14 +168,13 @@
 	        UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
 	UNITTEST_MULTILINE_MACRO_END
 
-#define CHECK_NO_THROW(expression, NotExpectedExceptionType) \
+#define CHECK_NO_THROW(expression) \
   UNITTEST_MULTILINE_MACRO_BEGIN \
   bool caught_ = false; \
   try { expression; } \
-  catch (NotExpectedExceptionType const&) { caught_ = true; } \
-  catch (...) {} \
+  catch (...) { caught_ = true; } \
 if (caught_) \
-  UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Non-expected exception: \"" #NotExpectedExceptionType "\" thrown"); \
+  UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Unexpected exception thrown"); \
   UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_ASSERT(expression) \
