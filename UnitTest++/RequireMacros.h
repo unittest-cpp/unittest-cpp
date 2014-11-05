@@ -10,19 +10,14 @@
 #endif
 
 #ifndef UNITTEST_NO_EXCEPTIONS
-    #define REQUIRE(test) \
-        UNITTEST_MULTILINE_MACRO_BEGIN \
-            int const failuresBeforeTest = UnitTest::CurrentTest::Results()->GetFailureCount(); \
-            test; \
-            int const failuresAfterTest = UnitTest::CurrentTest::Results()->GetFailureCount(); \
-            if(failuresAfterTest > failuresBeforeTest) \
-            { \
-                UT_THROW(UnitTest::AssertException()); \
-            } \
-        UNITTEST_MULTILINE_MACRO_END
-    #endif
+    #define REQUIRE \
+            for (int failuresBeforeTest = UnitTest::CurrentTest::Results()->GetFailureCount(), newFailures = 0, run = 0; \
+                (run == 0) || ((newFailures != 0) && (throw UnitTest::AssertException(), true)); \
+                newFailures = UnitTest::CurrentTest::Results()->GetFailureCount() - failuresBeforeTest, run = 1)
 #endif
 
 #ifdef UNITTEST_NO_EXCEPTIONS
-    #define REQUIRE(test) test;
+    #define REQUIRE
+#endif
+
 #endif
