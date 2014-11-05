@@ -21,7 +21,7 @@ TEST(RequireCheckSucceedsOnTrue)
         
         try
         {
-            REQUIRE(CHECK(true));
+            REQUIRE CHECK(true);
         }
         catch(const UnitTest::AssertException&)
         {
@@ -46,7 +46,7 @@ TEST(RequiredCheckFailsOnFalse)
         
         try
         {
-            REQUIRE(CHECK(false));
+            REQUIRE CHECK(false);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -71,10 +71,11 @@ TEST(RequireMacroSupportsMultipleChecks)
         ScopedCurrentTest scopedResults(testResults);
         
         try{
-            REQUIRE({
+            REQUIRE
+            {
                 CHECK(true);
                 CHECK_EQUAL(1,1);
-            });
+            }
         }
         catch (const UnitTest::AssertException&)
         {
@@ -99,10 +100,11 @@ TEST(RequireMacroSupportsMultipleChecksWithFailingChecks)
         ScopedCurrentTest scopedResults(testResults);
         
         try{
-            REQUIRE({
+            REQUIRE
+            {
                 CHECK(true);
                 CHECK_EQUAL(1,2);
-            });
+            }
         }
         catch (const UnitTest::AssertException&)
         {
@@ -125,7 +127,7 @@ TEST(FailureReportsCorrectTestName)
         
         try
         {
-            REQUIRE(CHECK(false));
+            REQUIRE CHECK(false);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -145,7 +147,7 @@ TEST(RequiredCheckFailureIncludesCheckContents)
         
         try
         {
-            REQUIRE(CHECK(yaddayadda));
+            REQUIRE CHECK(yaddayadda);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -166,7 +168,7 @@ TEST(RequiredCheckEqualSucceedsOnEqual)
         
         try
         {
-            REQUIRE(CHECK_EQUAL(1,1));
+            REQUIRE CHECK_EQUAL(1,1);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -191,7 +193,7 @@ TEST(RequiredCheckEqualFailsOnNotEqual)
 
         try
         {
-            REQUIRE(CHECK_EQUAL(1, 2));
+            REQUIRE CHECK_EQUAL(1, 2);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -216,7 +218,7 @@ TEST(RequiredCheckEqualFailureContainsCorrectDetails)
 
         try
         {
-            line = __LINE__; REQUIRE(CHECK_EQUAL(1, 123));
+            line = __LINE__; REQUIRE CHECK_EQUAL(1, 123);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -245,7 +247,7 @@ TEST(RequiredCheckEqualDoesNotHaveSideEffectsWhenPassing)
         
         try
         {
-            REQUIRE(CHECK_EQUAL(1, FunctionWithSideEffects()));
+            REQUIRE CHECK_EQUAL(1, FunctionWithSideEffects());
         }
         catch (const UnitTest::AssertException&)
         {
@@ -263,7 +265,7 @@ TEST(RequiredCheckEqualDoesNotHaveSideEffectsWhenFailing)
 
         try
         {
-            REQUIRE(CHECK_EQUAL(2, FunctionWithSideEffects()));
+            REQUIRE CHECK_EQUAL(2, FunctionWithSideEffects());
         }
         catch (const UnitTest::AssertException&)
         {
@@ -284,7 +286,7 @@ TEST(RequiredCheckCloseSucceedsOnEqual)
 
         try
         {
-            REQUIRE(CHECK_CLOSE(1.0f, 1.001f, 0.01f));
+            REQUIRE CHECK_CLOSE(1.0f, 1.001f, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -309,7 +311,7 @@ TEST(RequiredCheckCloseFailsOnNotEqual)
         
         try
         {
-            REQUIRE(CHECK_CLOSE (1.0f, 1.1f, 0.01f));
+            REQUIRE CHECK_CLOSE (1.0f, 1.1f, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -334,7 +336,7 @@ TEST(RequiredCheckCloseFailureContainsCorrectDetails)
 
         try
         {
-            line = __LINE__; REQUIRE(CHECK_CLOSE(1.0f, 1.1f, 0.01f));
+            line = __LINE__; REQUIRE CHECK_CLOSE(1.0f, 1.1f, 0.01f);
             CHECK(false);
         }
         catch (const UnitTest::AssertException&)
@@ -357,7 +359,7 @@ TEST(RequiredCheckCloseDoesNotHaveSideEffectsWhenPassing)
         
         try
         {
-            REQUIRE(CHECK_CLOSE (1, FunctionWithSideEffects(), 0.1f));
+            REQUIRE CHECK_CLOSE (1, FunctionWithSideEffects(), 0.1f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -375,7 +377,7 @@ TEST(RequiredCheckCloseDoesNotHaveSideEffectsWhenFailing)
         
         try
         {
-            REQUIRE(CHECK_CLOSE(2, FunctionWithSideEffects(), 0.1f));
+            REQUIRE CHECK_CLOSE(2, FunctionWithSideEffects(), 0.1f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -396,7 +398,7 @@ TEST(RequiredCheckArrayCloseSucceedsOnEqual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_CLOSE (data, data, 4, 0.01f));
+            REQUIRE CHECK_ARRAY_CLOSE (data, data, 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -424,7 +426,7 @@ TEST(RequiredCheckArrayCloseFailsOnNotEqual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f));
+            REQUIRE CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -450,7 +452,7 @@ TEST(RequiredCheckArrayCloseFailureIncludesCheckExpectedAndActual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_CLOSE(data1, data2, 4, 0.01f));
+            REQUIRE CHECK_ARRAY_CLOSE(data1, data2, 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -475,7 +477,7 @@ TEST(RequiredCheckArrayCloseFailureContainsCorrectDetails)
         
         try
         {
-            line = __LINE__; REQUIRE(CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f));
+            line = __LINE__; REQUIRE CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -500,7 +502,7 @@ TEST(RequiredCheckArrayCloseFailureIncludesTolerance)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f));
+            REQUIRE CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -523,7 +525,7 @@ TEST(RequiredCheckArrayEqualSuceedsOnEqual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_EQUAL (data, data, 4));
+            REQUIRE CHECK_ARRAY_EQUAL (data, data, 4);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -551,7 +553,7 @@ TEST(RequiredCheckArrayEqualFailsOnNotEqual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_EQUAL (data1, data2, 4));
+            REQUIRE CHECK_ARRAY_EQUAL (data1, data2, 4);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -577,7 +579,7 @@ TEST(RequiredCheckArrayEqualFailureIncludesCheckExpectedAndActual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_EQUAL (data1, data2, 4));
+            REQUIRE CHECK_ARRAY_EQUAL (data1, data2, 4);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -601,7 +603,7 @@ TEST(RequiredCheckArrayEqualFailureContainsCorrectInfo)
         
         try
         {
-            line = __LINE__; REQUIRE(CHECK_ARRAY_EQUAL (data1, data2, 4));
+            line = __LINE__; REQUIRE CHECK_ARRAY_EQUAL (data1, data2, 4);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -631,7 +633,7 @@ TEST(RequiredCheckArrayCloseDoesNotHaveSideEffectsWhenPassing)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f));
+            REQUIRE CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -651,7 +653,7 @@ TEST(RequiredCheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
         
         try
         {
-            REQUIRE(CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f));
+            REQUIRE CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -674,7 +676,7 @@ TEST(RequiredCheckArray2DCloseSucceedsOnEqual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY2D_CLOSE(data, data, 2, 2, 0.01f));
+            REQUIRE CHECK_ARRAY2D_CLOSE(data, data, 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -702,7 +704,7 @@ TEST(RequiredCheckArray2DCloseFailsOnNotEqual)
         
         try
         {
-            REQUIRE(CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f));
+            REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -728,7 +730,7 @@ TEST(RequiredCheckArray2DCloseFailureIncludesCheckExpectedAndActual)
 
         try
         {
-            REQUIRE(CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f));
+            REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -753,7 +755,7 @@ TEST(RequiredCheckArray2DCloseFailureContainsCorrectDetails)
         
         try
         {
-            line = __LINE__; REQUIRE(CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f));
+            line = __LINE__; REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -778,7 +780,7 @@ TEST(RequiredCheckArray2DCloseFailureIncludesTolerance)
         
         try
         {
-            REQUIRE(CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f));
+            REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -808,7 +810,7 @@ TEST(RequiredCheckArray2DCloseDoesNotHaveSideEffectsWhenPassing)
         
         try
         {
-            REQUIRE(CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f));
+            REQUIRE CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
@@ -828,7 +830,7 @@ TEST(RequiredCheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
         
         try
         {
-            REQUIRE(CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f));
+            REQUIRE CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
         }
         catch (const UnitTest::AssertException&)
         {
