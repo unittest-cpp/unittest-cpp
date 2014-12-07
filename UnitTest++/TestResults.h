@@ -5,6 +5,7 @@
 
 namespace UnitTest {
 
+class RequiredCheckTestReporter;
    class TestReporter;
    class TestDetails;
 
@@ -22,6 +23,9 @@ namespace UnitTest {
       int GetFailureCount() const;
 
    private:
+    friend class RequiredCheckTestReporter;
+
+private:
       TestReporter* m_testReporter;
       int m_totalTestCount;
       int m_failedTestCount;
