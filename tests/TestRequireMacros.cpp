@@ -117,7 +117,37 @@ TEST(RequireMacroSupportsMultipleChecksWithFailingChecks)
     CHECK(failure);
     CHECK(exception);
 }
+
+TEST(RequireMacroDoesntExecuteCodeAfterAFailingCheck)
+{
+    bool failure = false;
+    bool exception = false;
+    bool run = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        try{
+            REQUIRE
+            {
+                CHECK(false);
+                run = true;     // this shouldn't get executed.
+            }
+        }
+        catch (const UnitTest::AssertException&)
+        {
+            exception = true;
+        }
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
     
+    CHECK(failure);
+    CHECK(exception);
+    CHECK(!run);
+}
+
 TEST(FailureReportsCorrectTestName)
 {
     RecordingReporter reporter;
