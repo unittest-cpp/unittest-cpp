@@ -315,4 +315,48 @@ TEST(CheckArray2DCloseFailureIncludesDetails)
     CHECK_EQUAL(1234, reporter.lastFailedLine);
 }
 
+// C++11 specific tests
+#ifdef UNITTEST_CPP11
+
+enum class StronglyTypedColorEnum : unsigned short
+{
+   Red, Blue
+};
+
+TEST(CheckEqualWithStronglyTypedEnum)
+{
+    TestResults results;
+
+    CheckEqual(results, StronglyTypedColorEnum::Red, StronglyTypedColorEnum::Blue, TestDetails("", "", "", 0));
+    CHECK_EQUAL(1, results.GetFailureCount());
+
+    CheckEqual(results, StronglyTypedColorEnum::Red, StronglyTypedColorEnum::Red, TestDetails("", "", "", 0));
+    CHECK_EQUAL(1, results.GetFailureCount());
+}
+
+TEST(CheckArrayEqualWithStronglyTypedEnum)
+{
+    TestResults results;
+
+    StronglyTypedColorEnum expected[] = {StronglyTypedColorEnum::Red,
+                                         StronglyTypedColorEnum::Red,
+                                         StronglyTypedColorEnum::Blue};
+
+    StronglyTypedColorEnum results1[] = {StronglyTypedColorEnum::Red,
+                                         StronglyTypedColorEnum::Red,
+                                         StronglyTypedColorEnum::Blue};
+
+    StronglyTypedColorEnum results2[] = {StronglyTypedColorEnum::Red,
+                                         StronglyTypedColorEnum::Blue,
+                                         StronglyTypedColorEnum::Blue};
+
+    CheckArrayEqual(results, expected, results1, 3, TestDetails("", "", "", 0));
+    CHECK_EQUAL(0, results.GetFailureCount());
+
+    CheckArrayEqual(results, expected, results2, 3, TestDetails("", "", "", 0));
+    CHECK_EQUAL(1, results.GetFailureCount());
+}
+
+#endif
+
 }
