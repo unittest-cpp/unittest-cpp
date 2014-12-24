@@ -156,7 +156,7 @@
 	UNITTEST_MULTILINE_MACRO_END
 
 
-// CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
+// CHECK_THROW, CHECK_NO_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
 #ifndef UNITTEST_NO_EXCEPTIONS
 #define CHECK_THROW(expression, ExpectedExceptionType) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
@@ -168,6 +168,14 @@
 	        UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
 	UNITTEST_MULTILINE_MACRO_END
 
+#define CHECK_NO_THROW(expression) \
+  UNITTEST_MULTILINE_MACRO_BEGIN \
+  bool caught_ = false; \
+  try { expression; } \
+  catch (...) { caught_ = true; } \
+if (caught_) \
+  UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Unexpected exception thrown"); \
+  UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_ASSERT(expression) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
