@@ -40,14 +40,10 @@ endif()
 
 target_link_libraries(TestUnitTest++ UnitTest++)
 
-# turn on testing
-enable_testing()
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -V)
-
-# add the test runner as a test
-add_test(NAME TestUnitTest++ COMMAND TestUnitTest++ ${CONFIG_PATH} ${CONFIG_TASKS_PATH} ${SOUND_LOG_PATH})
-add_dependencies(check TestUnitTest++)
-
+# run unit tests as post build step
+add_custom_command(TARGET TestUnitTest++
+	POST_BUILD COMMAND TestUnitTest++
+	COMMENT "Running unit tests")
 
 # add install targets
 # need a custom install path?
