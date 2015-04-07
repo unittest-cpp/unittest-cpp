@@ -10,7 +10,6 @@ UnitTest___libUnitTest___la_SOURCES += UnitTest++/Win32/TimeHelpers.cpp
 else 
 nobase_pkginclude_HEADERS += UnitTest++/Posix/SignalTranslator.h UnitTest++/Posix/TimeHelpers.h
 UnitTest___libUnitTest___la_SOURCES += UnitTest++/Posix/SignalTranslator.cpp UnitTest++/Posix/TimeHelpers.cpp
-UnitTest___libUnitTest___la_CPPFLAGS += -DUNITTEST_POSIX
 endif
 
 UnitTest___libUnitTest___la_LDFLAGS = -version-number @LIBUNITTEST_SO_VERSION@
