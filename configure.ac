@@ -8,7 +8,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])
-AM_CONDITIONAL([WINDOWS], [test "$OS" == "Windows_NT"])
+AM_CONDITIONAL([WINDOWS],
+	  [test "${host#*mingw}" != "${host}" -o "${host#*msvc}" != "${host}"])
 LT_INIT()
 
 AC_SUBST([LIBUNITTEST_SO_VERSION], [1:4:1])
