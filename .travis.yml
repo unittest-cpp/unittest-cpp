@@ -1,0 +1,21 @@
+language: cpp
+
+# Build with gcc and clang.
+compiler:
+  - gcc
+  - clang
+
+# Build both debug and release configurations, through use of an environment variable in the build matrix.
+env:
+  - CONFIGURATION=Debug
+  - CONFIGURATION=Release
+
+# Run cmake to generate makefiles in 'builds' directory.
+# No need to create it because it's part of the repo.
+# Pass along configuration type to cmake
+before_script:
+  - cd builds && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$CONFIGURATION ../ && cd ..
+
+# Run make in the directory containing generated makefiles.
+script:
+  - make -C builds
