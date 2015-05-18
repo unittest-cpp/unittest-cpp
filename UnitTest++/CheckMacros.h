@@ -41,7 +41,7 @@
 			if (!UnitTest::Check(value)) \
 				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
 		}) \
-      UT_CATCH (UnitTest::AssertException, e, \
+      UT_CATCH (UnitTest::AssertException, , \
       { \
          UT_THROW(); \
       }) \
@@ -65,7 +65,7 @@
 		({ \
             UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
-      UT_CATCH (UnitTest::AssertException, e, \
+      UT_CATCH (UnitTest::AssertException, , \
       { \
          UT_THROW(); \
       }) \
@@ -89,7 +89,7 @@
 		({ \
             UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
-      UT_CATCH (UnitTest::AssertException, e, \
+      UT_CATCH (UnitTest::AssertException, , \
       { \
           UT_THROW(); \
       }) \
@@ -113,7 +113,7 @@
 		({ \
             UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
-      UT_CATCH (UnitTest::AssertException, e, \
+      UT_CATCH (UnitTest::AssertException, , \
       { \
          UT_THROW(); \
       }) \
@@ -137,7 +137,7 @@
 		({ \
             UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
-      UT_CATCH (UnitTest::AssertException, e, \
+      UT_CATCH (UnitTest::AssertException, , \
       { \
           UT_THROW(); \
       }) \
@@ -161,7 +161,7 @@
 		({ \
             UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
-      UT_CATCH (UnitTest::AssertException, e, \
+      UT_CATCH (UnitTest::AssertException, , \
       { \
           UT_THROW(); \
       }) \
