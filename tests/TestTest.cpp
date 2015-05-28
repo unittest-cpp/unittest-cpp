@@ -73,6 +73,8 @@ TEST(ThrowingTestsAreReportedAsFailures)
 }
 
 #if !defined(UNITTEST_MINGW) && !defined(UNITTEST_WIN32)
+// Skip this test in debug because some debuggers don't like it.
+#if defined(NDEBUG)
 TEST(CrashingTestsAreReportedAsFailures)
 {
     class CrashingTest : public Test
@@ -94,6 +96,7 @@ TEST(CrashingTestsAreReportedAsFailures)
 
 	CHECK_EQUAL(1, results.GetFailureCount());
 }
+#endif
 #endif
 #endif
 
