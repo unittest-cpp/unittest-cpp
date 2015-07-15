@@ -12,7 +12,7 @@ env:
 
 # Run cmake to generate makefiles in 'builds' directory.
 # No need to create it because it's part of the repo.
-# Pass along configuration type to cmake
+# Pass along configuration type to cmake.
 before_script:
   - cd builds && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$CONFIGURATION ../ && cd ..
 
