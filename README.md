@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/unittest-cpp/unittest-cpp.svg?branch=master)](https://travis-ci.org/unittest-cpp/unittest-cpp)
+[![Build status](https://ci.appveyor.com/api/projects/status/ffs2k8dddts5cyok/branch/master?svg=true)](https://ci.appveyor.com/project/pjohnmeyer/unittest-cpp/branch/master)
+
 UnitTest++
 ===========
 
