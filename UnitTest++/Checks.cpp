@@ -5,10 +5,10 @@ namespace UnitTest {
 
 namespace {
 
-void CheckStringsEqual(TestResults& results, char const* expected, char const* actual, 
+void CheckStringsEqual(TestResults& results, char const* expected, char const* actual,
                        TestDetails const& details)
 {
-	using namespace std;
+    using namespace std;
 
     if ((expected && actual) ? strcmp(expected, actual) : (expected || actual))
     {
