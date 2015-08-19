@@ -10,6 +10,30 @@
 using namespace UnitTest;
 using namespace std;
 
+/* test for c++11 support */
+#ifndef _MSC_VER
+
+  /* Test for clang >= 3.3 */
+  #ifdef __clang__
+    #if (__clang__ == 1) && (__clang_major__ > 3 || (__clang_major__ == 3 && (__clang_minor__ > 2 )))
+      #define _NOEXCEPT_OP(x) noexcept(x)
+    #else
+        #define _NOEXCEPT_OP(x)
+    #endif
+  #endif
+
+  #ifndef __clang__
+    /* Test for GCC >= 4.8.0 */
+    #ifdef __GNUC__
+        #if (__GNUC__ > 4) || (__GNUC__ == 4 && (__GNUC_MINOR__ > 7 ))
+        #define _NOEXCEPT_OP(x) noexcept(x)
+        #else
+            #define _NOEXCEPT_OP(x)
+        #endif
+    #endif
+  #endif
+#endif
+
 namespace {
 
 TestList list1;
@@ -138,7 +162,7 @@ TEST(FixturesWithThrowingCtorsAreFailures)
 
 struct FixtureDtorThrows
 {
-	~FixtureDtorThrows() { throw "exception"; }
+	~FixtureDtorThrows() _NOEXCEPT_OP(false) { throw "exception"; }
 };
 
 TestList throwingFixtureTestList2;
