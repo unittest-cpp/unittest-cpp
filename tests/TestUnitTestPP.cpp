@@ -1,3 +1,4 @@
+#include <ios>
 #include "UnitTest++/UnitTestPP.h"
 #include "ScopedCurrentTest.h"
 
@@ -16,6 +17,12 @@ TEST(CheckWorksWithPointers)
     void* p = (void *)0x100;
     CHECK(p);
     CHECK(p != 0);
+}
+
+TEST(CanUseCheckDescribedToGetCustomFailureMessage)
+{
+    bool const b = true;
+    CHECK_DESCRIBED(b, "b is not " << std::boolalpha << true << ", b is " << b);
 }
 
 TEST(ValidCheckEqualSucceeds)

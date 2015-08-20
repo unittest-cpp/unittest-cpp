@@ -1,3 +1,4 @@
+#include <ios>
 #include "UnitTest++/UnitTestPP.h"
 #include "UnitTest++/CurrentTest.h"
 #include "UnitTest++/Config.h"
@@ -88,6 +89,82 @@ TEST(CheckDoesNotHaveSideEffectsWhenFailing)
         UnitTest::TestResults testResults;
         ScopedCurrentTest scopedResults(testResults);
         CHECK(!FunctionWithSideEffects());
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckDescribedSucceedsOnTrue)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_DESCRIBED(true, "description");
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckDescribedFailsOnFalse)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_DESCRIBED(false, "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckDescribedFailureReportsCorrectTestName)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_DESCRIBED(false, "description");
+    }
+
+    CHECK_EQUAL(m_details.testName, reporter.lastFailedTest);
+}
+
+TEST(CheckDescribedFailureIncludesCustomDescription)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_DESCRIBED(false, "description " << hex << 0x1234);
+    }
+
+    CHECK(strstr(reporter.lastFailedMessage, "description 1234"));
+}
+
+TEST(CheckDescribedDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_DESCRIBED(FunctionWithSideEffects(), "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckDescribedDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_DESCRIBED(!FunctionWithSideEffects(), "description");
     }
     CHECK_EQUAL(1, g_sideEffect);
 }

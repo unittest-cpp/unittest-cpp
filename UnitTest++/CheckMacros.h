@@ -34,12 +34,23 @@
     #error UnitTest++ redefines CHECK_ARRAY2D_CLOSE
 #endif
 
+#define UNITTEST_CHECK_WITH_DESCRIPTION(condition, description) \
+    if (!condition) \
+    { \
+        UnitTest::MemoryOutStream stream; \
+        stream << description; \
+        UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), stream.GetText()); \
+    }
+
 #define CHECK(value) \
     UNITTEST_CHECK(value, \
                    if (!UnitTest::Check(value)) \
                    { \
                        UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
                    })
+
+#define CHECK_DESCRIBED(value, description) \
+    UNITTEST_CHECK(value, UNITTEST_CHECK_WITH_DESCRIPTION(UnitTest::Check(value), description))
 
 #define UNITTEST_CHECK(value, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
