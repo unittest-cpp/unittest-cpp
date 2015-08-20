@@ -229,6 +229,82 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+TEST(CheckArrayEqualSuceedsOnEqual)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[4] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_EQUAL (data, data, 4);
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckArrayEqualFailsOnNotEqual)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data1, data2, 4);
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data1, data2, 4);
+    }
+
+    CHECK(strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+}
+
+TEST(CheckArrayEqualFailureContainsCorrectInfo)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data1, data2, 4);     line = __LINE__;
+    }
+
+    CHECK_EQUAL("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+float const* FunctionWithSideEffects2()
+{
+    ++g_sideEffect;
+    static float const data[] = {1,2,3,4};
+    return data;
+}
+
 TEST(CheckArrayCloseSucceedsOnEqual)
 {
     bool failure = true;
@@ -311,82 +387,6 @@ TEST(CheckArrayCloseFailureIncludesTolerance)
     }
 
     CHECK(strstr(reporter.lastFailedMessage, "0.01"));
-}
-
-TEST(CheckArrayEqualSuceedsOnEqual)
-{
-    bool failure = true;
-    {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-
-        const float data[4] = { 0, 1, 2, 3 };
-        CHECK_ARRAY_EQUAL (data, data, 4);
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(!failure);
-}
-
-TEST(CheckArrayEqualFailsOnNotEqual)
-{
-    bool failure = false;
-    {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-
-        int const data1[4] = { 0, 1, 2, 3 };
-        int const data2[4] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data1, data2, 4);
-
-        failure = (testResults.GetFailureCount() > 0);
-    }
-
-    CHECK(failure);
-}
-
-TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-
-        int const data1[4] = { 0, 1, 2, 3 };
-        int const data2[4] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data1, data2, 4);
-    }
-
-    CHECK(strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
-}
-
-TEST(CheckArrayEqualFailureContainsCorrectInfo)
-{
-    int line = 0;
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
-
-        int const data1[4] = { 0, 1, 2, 3 };
-        int const data2[4] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data1, data2, 4);     line = __LINE__;
-    }
-
-    CHECK_EQUAL("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
-    CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
-    CHECK_EQUAL(line, reporter.lastFailedLine);
-}
-
-float const* FunctionWithSideEffects2()
-{
-    ++g_sideEffect;
-    static float const data[] = {1,2,3,4};
-    return data;
 }
 
 TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenPassing)
