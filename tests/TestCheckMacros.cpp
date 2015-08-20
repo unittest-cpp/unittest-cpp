@@ -237,6 +237,74 @@ TEST(CheckEqualDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+TEST(CheckEqualDescribedSucceedsOnEqual)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_EQUAL_DESCRIBED(1, 1, "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckEqualDescribedFailsOnNotEqual)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_EQUAL_DESCRIBED(1, 2, "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckEqualDescribedFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        CHECK_EQUAL_DESCRIBED(1, 123, "description " << hex << 0x1234);    line = __LINE__;
+    }
+
+    CHECK_EQUAL("testName", reporter.lastFailedTest);
+    CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("description 1234", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckEqualDescribedDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_EQUAL_DESCRIBED(1, FunctionWithSideEffects(), "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckEqualDescribedDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_EQUAL_DESCRIBED(2, FunctionWithSideEffects(), "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
 
 TEST(CheckCloseSucceedsOnEqual)
 {

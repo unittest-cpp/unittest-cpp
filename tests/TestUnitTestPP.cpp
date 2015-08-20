@@ -38,6 +38,13 @@ TEST(CheckEqualWorksWithPointers)
     CHECK_EQUAL((void*)0, p);
 }
 
+TEST(CanUseCheckEqualsDescribedToGetCustomFailureMessage)
+{
+    int const x = 0x44;
+    int const expected = 0x44;
+    CHECK_EQUAL_DESCRIBED(expected, x, "x is not " << std::showbase << std::hex << expected << ", x is " << x);
+}
+
 TEST(ValidCheckCloseSucceeds)
 {
     CHECK_CLOSE(2.0f, 2.001f, 0.01f);

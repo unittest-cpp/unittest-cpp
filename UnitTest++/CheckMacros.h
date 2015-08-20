@@ -77,6 +77,10 @@
                          UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, \
                                               UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
 
+#define CHECK_EQUAL_DESCRIBED(expected, actual, description) \
+    UNITTEST_CHECK_EQUAL(expected, actual, \
+                         UNITTEST_CHECK_WITH_DESCRIPTION(UnitTest::AreEqual(expected, actual), description))
+
 #define UNITTEST_CHECK_EQUAL(expected, actual, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
