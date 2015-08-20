@@ -305,6 +305,33 @@ float const* FunctionWithSideEffects2()
     return data;
 }
 
+TEST(CheckArrayEqualDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_EQUAL (data, FunctionWithSideEffects2(), 4);
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckArrayEqualDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data, FunctionWithSideEffects2(), 4);
+    }
+
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 TEST(CheckArrayCloseSucceedsOnEqual)
 {
     bool failure = true;
