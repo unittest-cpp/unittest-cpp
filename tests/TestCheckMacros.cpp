@@ -280,21 +280,23 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
     CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
-TEST(CheckArrayEqualFailureContainsCorrectInfo)
+TEST(CheckArrayEqualFailureContainsCorrectDetails)
 {
     int line = 0;
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults(&reporter);
-        ScopedCurrentTest scopedResults(testResults);
+        UnitTest::TestDetails testDetails("arrayEqualTest", "arrayEqualSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
 
         int const data1[4] = { 0, 1, 2, 3 };
         int const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 4);     line = __LINE__;
     }
 
-    CHECK_EQUAL("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
-    CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL("arrayEqualTest", reporter.lastFailedTest);
+    CHECK_EQUAL("arrayEqualSuite", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
