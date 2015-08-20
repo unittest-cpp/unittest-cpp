@@ -7,6 +7,13 @@ using namespace std;
 
 namespace {
 
+int g_sideEffect = 0;
+int FunctionWithSideEffects()
+{
+    ++g_sideEffect;
+    return 1;
+}
+
 TEST(CheckSucceedsOnTrue)
 {
     bool failure = true;
@@ -62,6 +69,28 @@ TEST(CheckFailureIncludesCheckContents)
     CHECK(strstr(reporter.lastFailedMessage, "yaddayadda"));
 }
 
+TEST(CheckDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK(FunctionWithSideEffects());
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK(!FunctionWithSideEffects());
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 TEST(CheckEqualSucceedsOnEqual)
 {
     bool failure = true;
@@ -106,13 +135,6 @@ TEST(CheckEqualFailureContainsCorrectDetails)
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
     CHECK_EQUAL("filename", reporter.lastFailedFile);
     CHECK_EQUAL(line, reporter.lastFailedLine);
-}
-
-int g_sideEffect = 0;
-int FunctionWithSideEffects()
-{
-    ++g_sideEffect;
-    return 1;
 }
 
 TEST(CheckEqualDoesNotHaveSideEffectsWhenPassing)
