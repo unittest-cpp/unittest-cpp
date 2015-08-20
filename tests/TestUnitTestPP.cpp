@@ -109,6 +109,12 @@ TEST(CheckThrowMacroSucceedsOnCorrectException)
     CHECK_THROW(throw TestException(), TestException);
 }
 
+TEST(CanUseCheckThrowDescribedToGetCustomFailureMessage)
+{
+    struct TestException {};
+    CHECK_THROW_DESCRIBED(throw TestException(), TestException, "This should really throw a TestException");
+}
+
 TEST(CheckAssertSucceeds)
 {
     CHECK_ASSERT(UnitTest::ReportAssert("desc", "file", 0));

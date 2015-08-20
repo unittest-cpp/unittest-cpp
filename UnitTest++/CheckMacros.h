@@ -225,6 +225,10 @@
                          UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
                                                                          "Expected exception: \"" #ExpectedExceptionType "\" not thrown"))
 
+#define CHECK_THROW_DESCRIBED(expression, ExpectedExceptionType, description) \
+    UNITTEST_CHECK_THROW(expression, ExpectedExceptionType, \
+                         UNITTEST_CHECK_WITH_DESCRIPTION(false, description))
+
 #define UNITTEST_CHECK_THROW(expression, ExpectedExceptionType, failure_action)        \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         bool caught_ = false; \
