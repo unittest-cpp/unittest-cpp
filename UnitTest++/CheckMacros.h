@@ -135,6 +135,10 @@
                                UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, \
                                                          UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
 
+#define CHECK_ARRAY_EQUAL_DESCRIBED(expected, actual, count, description) \
+    UNITTEST_CHECK_ARRAY_EQUAL(expected, actual, count, \
+                               UNITTEST_CHECK_WITH_DESCRIPTION(UnitTest::ArrayAreEqual(expected, actual, count), description))
+
 #define UNITTEST_CHECK_ARRAY_EQUAL(expected, actual, count, test_action)    \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \

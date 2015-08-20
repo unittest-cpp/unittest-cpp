@@ -66,6 +66,13 @@ TEST(ArrayEqualSucceeds)
     CHECK_ARRAY_EQUAL(a1, a2, 3);
 }
 
+TEST(CanUseCheckArrayEqualDescribedToGetCustomFailureMessage)
+{
+    int const x[] = {1, 2, 3};
+    int const expected[] = {1, 2, 3};
+    CHECK_ARRAY_EQUAL_DESCRIBED(expected, x, 3, "x is not correct, have you checked the flux capacitor?");
+}
+
 TEST(ArrayCloseSucceeds)
 {
     float const a1[] = {1, 2, 3};
