@@ -16,9 +16,15 @@ bool Check(Value const value)
 
 
 template< typename Expected, typename Actual >
+bool AreEqual(Expected const& expected, Actual const& actual)
+{
+    return expected == actual;
+}
+
+template< typename Expected, typename Actual >
 void CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
 {
-    if (!(expected == actual))
+    if (!AreEqual(expected, actual))
     {
         UnitTest::MemoryOutStream stream;
         stream << "Expected " << expected << " but was " << actual;
@@ -27,13 +33,18 @@ void CheckEqual(TestResults& results, Expected const& expected, Actual const& ac
     }
 }
 
+UNITTEST_LINKAGE bool AreEqual(char const* expected, char const* actual);
 UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details);
 
+UNITTEST_LINKAGE bool AreEqual(char* expected, char* actual);
 UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details);
 
+UNITTEST_LINKAGE bool AreEqual(char* expected, char const* actual);
 UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details);
 
+UNITTEST_LINKAGE bool AreEqual(char const* expected, char* actual);
 UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
+
 
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
@@ -54,16 +65,21 @@ void CheckClose(TestResults& results, Expected const& expected, Actual const& ac
     }
 }
 
-
 template< typename Expected, typename Actual >
-void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
-                     int const count, TestDetails const& details)
+bool ArrayAreEqual(Expected const& expected, Actual const& actual, int const count)
 {
     bool equal = true;
     for (int i = 0; i < count; ++i)
         equal &= (expected[i] == actual[i]);
 
-    if (!equal)
+    return equal;
+}
+
+template< typename Expected, typename Actual >
+void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
+                     int const count, TestDetails const& details)
+{
+    if (!ArrayAreEqual(expected, actual, count))
     {
         UnitTest::MemoryOutStream stream;
 
@@ -115,15 +131,24 @@ void CheckArrayClose(TestResults& results, Expected const& expected, Actual cons
     }
 }
 
+
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
-                       int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
+bool Array2DAreClose(Expected const& expected, Actual const& actual,
+                     int const rows, int const columns, Tolerance const& tolerance)
 {
     bool equal = true;
     for (int i = 0; i < rows; ++i)
         equal &= ArrayAreClose(expected[i], actual[i], columns, tolerance);
 
-    if (!equal)
+    return equal;
+}
+
+template< typename Expected, typename Actual, typename Tolerance >
+void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
+                       int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
+{
+
+    if (!Array2DAreClose(expected, actual, rows, columns, tolerance))
     {
         UnitTest::MemoryOutStream stream;
 
