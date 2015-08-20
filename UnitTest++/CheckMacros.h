@@ -35,11 +35,17 @@
 #endif
 
 #define CHECK(value) \
+    UNITTEST_CHECK(value, \
+                   if (!UnitTest::Check(value)) \
+                   { \
+                       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
+                   })
+
+#define UNITTEST_CHECK(value, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
     UT_TRY \
         ({ \
-            if (!UnitTest::Check(value)) \
-                UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
+            test_action; \
         }) \
         UT_CATCH (std::exception, e, \
         { \
@@ -56,10 +62,15 @@
     UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_EQUAL(expected, actual) \
+    UNITTEST_CHECK_EQUAL(expected, actual, \
+                         UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, \
+                                              UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
+
+#define UNITTEST_CHECK_EQUAL(expected, actual, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
         ({ \
-            UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
+            test_action; \
         }) \
         UT_CATCH (std::exception, e, \
         { \
@@ -76,10 +87,15 @@
     UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
+    UNITTEST_CHECK_CLOSE(expected, actual, tolerance, \
+                         UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, \
+                                              UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
+
+#define UNITTEST_CHECK_CLOSE(expected, actual, tolerance, test_action)      \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
         ({ \
-            UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
+            test_action; \
         }) \
         UT_CATCH (std::exception, e, \
         { \
@@ -96,10 +112,15 @@
     UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \
+    UNITTEST_CHECK_ARRAY_EQUAL(expected, actual, count, \
+                               UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, \
+                                                         UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
+
+#define UNITTEST_CHECK_ARRAY_EQUAL(expected, actual, count, test_action)    \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
         ({ \
-            UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
+            test_action; \
         }) \
         UT_CATCH (std::exception, e, \
         { \
@@ -116,10 +137,15 @@
     UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
+    UNITTEST_CHECK_ARRAY_CLOSE(expected, actual, count, tolerance, \
+                               UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, \
+                                                         UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
+
+#define UNITTEST_CHECK_ARRAY_CLOSE(expected, actual, count, tolerance, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
         ({ \
-            UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
+            test_action; \
         }) \
         UT_CATCH (std::exception, e, \
         { \
@@ -136,10 +162,15 @@
     UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance) \
+    UNITTEST_CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance, \
+                                 UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, \
+                                                             UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
+
+#define UNITTEST_CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
         ({ \
-            UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
+            test_action; \
         }) \
         UT_CATCH (std::exception, e, \
         { \
@@ -155,19 +186,25 @@
         }) \
     UNITTEST_MULTILINE_MACRO_END
 
-
 // CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
 #ifndef UNITTEST_NO_EXCEPTIONS
+
 #define CHECK_THROW(expression, ExpectedExceptionType) \
+    UNITTEST_CHECK_THROW(expression, ExpectedExceptionType, \
+                         UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+                                                                         "Expected exception: \"" #ExpectedExceptionType "\" not thrown"))
+
+#define UNITTEST_CHECK_THROW(expression, ExpectedExceptionType, failure_action)        \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         bool caught_ = false; \
         try { expression; } \
         catch (ExpectedExceptionType const&) { caught_ = true; } \
         catch (...) {} \
         if (!caught_) \
-            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
+        { \
+            failure_action; \
+        } \
     UNITTEST_MULTILINE_MACRO_END
-
 
 #define CHECK_ASSERT(expression) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
