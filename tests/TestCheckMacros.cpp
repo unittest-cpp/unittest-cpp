@@ -639,6 +639,104 @@ TEST(CheckThrowDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+void Assert()
+{
+    UnitTest::ReportAssert("description", "filename", __LINE__);
+}
+
+void NoAssert()
+{
+}
+
+void AssertWithSideEffect()
+{
+    ++g_sideEffect;
+    UnitTest::ReportAssert("description", "filename", __LINE__);
+}
+
+TEST(CheckAssertSucceedsWhenAssertThrown)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT(Assert());
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckAssertFailsWhenAssertNotThrown)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT(NoAssert());
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckAssertFailsWhenWrongTypeThrown)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT(ThrowInt());
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckAssertFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        CHECK_ASSERT(ThrowInt());    line = __LINE__;
+    }
+
+    CHECK_EQUAL("testName", reporter.lastFailedTest);
+    CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("Expected exception: \"UnitTest::AssertException\" not thrown", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckAssertDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT(AssertWithSideEffect());
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckAssertDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT(ThrowIntWithSideEffect());
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 #endif  // UNITTEST_NO_EXCEPTIONS
 
 }
