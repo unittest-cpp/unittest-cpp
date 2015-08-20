@@ -1,5 +1,6 @@
 #include "UnitTest++/UnitTestPP.h"
 #include "UnitTest++/CurrentTest.h"
+#include "UnitTest++/Config.h"
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"
 
@@ -536,5 +537,108 @@ TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
     }
     CHECK_EQUAL(1, g_sideEffect);
 }
+
+
+// CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
+#ifndef UNITTEST_NO_EXCEPTIONS
+void ThrowInt()
+{
+    throw 42;
+}
+
+void ThrowNothing()
+{
+}
+
+void ThrowIntWithSideEffect()
+{
+    ++g_sideEffect;
+    ThrowInt();
+}
+
+TEST(CheckThrowSucceedsWhenCorrectTypeTrown)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_THROW(ThrowInt(), int);
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckThrowFailsWhenNothingThrown)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_THROW(ThrowNothing(), int);
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckThrowFailsWhenWrongTypeThrown)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_THROW(ThrowInt(), float);
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckThrowFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        CHECK_THROW(ThrowInt(), float);    line = __LINE__;
+    }
+
+    CHECK_EQUAL("testName", reporter.lastFailedTest);
+    CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("Expected exception: \"float\" not thrown", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckThrowDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_THROW(ThrowIntWithSideEffect(), int);
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckThrowDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_THROW(ThrowIntWithSideEffect(), float);
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+#endif  // UNITTEST_NO_EXCEPTIONS
 
 }
