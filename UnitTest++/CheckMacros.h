@@ -106,6 +106,10 @@
                          UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, \
                                               UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
 
+#define CHECK_CLOSE_DESCRIBED(expected, actual, tolerance, description) \
+    UNITTEST_CHECK_CLOSE(expected, actual, tolerance, \
+                         UNITTEST_CHECK_WITH_DESCRIPTION(UnitTest::AreClose(expected, actual, tolerance), description))
+
 #define UNITTEST_CHECK_CLOSE(expected, actual, tolerance, test_action)      \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \

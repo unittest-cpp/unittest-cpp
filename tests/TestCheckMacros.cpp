@@ -374,6 +374,75 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+TEST(CheckCloseDescribedSucceedsOnEqual)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_CLOSE_DESCRIBED(1.0f, 1.001f, 0.01f, "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckCloseDescribedFailsOnNotEqual)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_CLOSE_DESCRIBED(1.0f, 1.1f, 0.01f, "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckCloseDescribedFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails testDetails("test", "suite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        CHECK_CLOSE_DESCRIBED(1.0f, 1.1f, 0.01f, "description " << hex << 0x1234);    line = __LINE__;
+    }
+
+    CHECK_EQUAL("test", reporter.lastFailedTest);
+    CHECK_EQUAL("suite", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("description 1234", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckCloseDescribedDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_CLOSE_DESCRIBED(1, FunctionWithSideEffects(), 0.1f, "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckCloseDescribedDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_CLOSE_DESCRIBED(2, FunctionWithSideEffects(), 0.1f, "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 TEST(CheckArrayEqualSuceedsOnEqual)
 {
     bool failure = true;

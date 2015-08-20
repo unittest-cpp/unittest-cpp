@@ -1,4 +1,5 @@
 #include <ios>
+#include <iomanip>
 #include "UnitTest++/UnitTestPP.h"
 #include "ScopedCurrentTest.h"
 
@@ -49,6 +50,13 @@ TEST(ValidCheckCloseSucceeds)
 {
     CHECK_CLOSE(2.0f, 2.001f, 0.01f);
     CHECK_CLOSE(2.001f, 2.0f, 0.01f);
+}
+
+TEST(CanUseCheckCloseDescribedToGetCustomFailureMessage)
+{
+    float const x = 2.001f;
+    float const expected = 2.0f;
+    CHECK_CLOSE_DESCRIBED(expected, x, 0.01f, "x is not close to " << std::setprecision(5) << expected << ", x is " << x);
 }
 
 TEST(ArrayEqualSucceeds)
