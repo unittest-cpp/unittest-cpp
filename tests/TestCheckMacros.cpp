@@ -742,6 +742,87 @@ TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+TEST(CheckArrayCloseDescribedSucceedsOnEqual)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        const float data[4] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_CLOSE_DESCRIBED(data, data, 4, 0.01f, "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckArrayCloseDescribedFailsOnNotEqual)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE_DESCRIBED(data1, data2, 4, 0.01f, "description");
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckArrayCloseDescribedFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails testDetails("arrayCloseTest", "arrayCloseSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE_DESCRIBED(data1, data2, 4, 0.01f, "description " << hex << 0x1234); line = __LINE__;
+    }
+
+    CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
+    CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("description 1234", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckArrayCloseDescribedDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_CLOSE_DESCRIBED(data, FunctionWithSideEffects2(), 4, 0.01f, "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckArrayCloseDescribedDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE_DESCRIBED(data, FunctionWithSideEffects2(), 4, 0.01f, "description");
+    }
+
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 TEST(CheckArray2DCloseSucceedsOnEqual)
 {
     bool failure = true;

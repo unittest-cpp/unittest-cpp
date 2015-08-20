@@ -164,6 +164,10 @@
                                UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, \
                                                          UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
 
+#define CHECK_ARRAY_CLOSE_DESCRIBED(expected, actual, count, tolerance, description) \
+    UNITTEST_CHECK_ARRAY_CLOSE(expected, actual, count, tolerance, \
+                               UNITTEST_CHECK_WITH_DESCRIPTION(UnitTest::ArrayAreClose(expected, actual, count, tolerance), description))
+
 #define UNITTEST_CHECK_ARRAY_CLOSE(expected, actual, count, tolerance, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
