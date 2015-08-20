@@ -945,6 +945,88 @@ TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+TEST(CheckArray2DCloseDescribedSucceedsOnEqual)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[2][2] = { {0, 1}, {2, 3} };
+        CHECK_ARRAY2D_CLOSE_DESCRIBED(data, data, 2, 2, 0.01f, "description");
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckArray2DCloseDescribedFailsOnNotEqual)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+
+        int const data1[2][2] = { {0, 1}, {2, 3} };
+        int const data2[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE_DESCRIBED(data1, data2, 2, 2, 0.01f, "description");
+
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckArray2DCloseDescribedFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails testDetails("array2DCloseTest", "array2DCloseSuite", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        int const data1[2][2] = { {0, 1}, {2, 3} };
+        int const data2[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE_DESCRIBED(data1, data2, 2, 2, 0.01f, "description " << hex << 0x1234);     line = __LINE__;
+    }
+
+    CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
+    CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("description 1234", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckArray2DCloseDescribedDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[2][2] = { {0, 1}, {2, 3} };
+        CHECK_ARRAY2D_CLOSE_DESCRIBED(data, FunctionWithSideEffects3(), 2, 2, 0.01f, "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckArray2DCloseDescribedDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+
+        const float data[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE_DESCRIBED(data, FunctionWithSideEffects3(), 2, 2, 0.01f, "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 
 // CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
 #ifndef UNITTEST_NO_EXCEPTIONS

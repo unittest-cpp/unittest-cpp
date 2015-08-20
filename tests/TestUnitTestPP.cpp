@@ -94,6 +94,13 @@ TEST(Array2dCloseSucceeds)
     CHECK_ARRAY2D_CLOSE(a1, a2, 2, 3, 0.1f);
 }
 
+TEST(CanUseCheckArray2dCloseDescribedToGetCustomFailureMessage)
+{
+    float const x[][3] = {{1, 2.01f, 3}, {4, 5.01, 6}};
+    float const expected[][3] = {{1, 2, 3}, {4, 5, 6}};
+    CHECK_ARRAY2D_CLOSE_DESCRIBED(expected, x, 2, 3, 0.1f, "x is not correct, have you checked the flux capacitor?");
+}
+
 #ifndef UNITTEST_NO_EXCEPTIONS
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)

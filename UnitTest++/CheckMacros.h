@@ -193,6 +193,10 @@
                                  UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, \
                                                              UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)))
 
+#define CHECK_ARRAY2D_CLOSE_DESCRIBED(expected, actual, rows, columns, tolerance, description) \
+    UNITTEST_CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance, \
+                                 UNITTEST_CHECK_WITH_DESCRIPTION(UnitTest::Array2DAreClose(expected, actual, rows, columns, tolerance), description))
+
 #define UNITTEST_CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance, test_action) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
