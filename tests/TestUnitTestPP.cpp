@@ -96,7 +96,7 @@ TEST(Array2dCloseSucceeds)
 
 TEST(CanUseCheckArray2dCloseDescribedToGetCustomFailureMessage)
 {
-    float const x[][3] = {{1, 2.01f, 3}, {4, 5.01, 6}};
+    float const x[][3] = {{1, 2.01f, 3}, {4, 5.01f, 6}};
     float const expected[][3] = {{1, 2, 3}, {4, 5, 6}};
     CHECK_ARRAY2D_CLOSE_DESCRIBED(expected, x, 2, 3, 0.1f, "x is not correct, have you checked the flux capacitor?");
 }
