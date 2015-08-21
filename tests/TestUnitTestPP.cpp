@@ -74,14 +74,14 @@ TEST(CheckThrowMacroFailsOnMissingException)
     };
 
     UnitTest::TestResults results;
-	{
-		ScopedCurrentTest scopedResults(results);
+    {
+        ScopedCurrentTest scopedResults(results);
 
-		NoThrowTest test;
-		test.Run();
-	}
+        NoThrowTest test;
+        test.Run();
+    }
 
-	CHECK_EQUAL(1, results.GetFailureCount());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 TEST(CheckThrowMacroFailsOnWrongException)
@@ -97,14 +97,14 @@ TEST(CheckThrowMacroFailsOnWrongException)
     };
 
     UnitTest::TestResults results;
-	{
-		ScopedCurrentTest scopedResults(results);
+    {
+        ScopedCurrentTest scopedResults(results);
 
-		WrongThrowTest test;
-		test.Run();
-	}
+        WrongThrowTest test;
+        test.Run();
+    }
 
-	CHECK_EQUAL(1, results.GetFailureCount());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 #endif
@@ -137,12 +137,12 @@ TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtATime)
 
 void CheckBool(const bool b)
 {
-	CHECK(b);
+    CHECK(b);
 }
 
 TEST(CanCallCHECKOutsideOfTestFunction)
 {
-	CheckBool(true);
+    CheckBool(true);
 }
 
 }
