@@ -247,5 +247,13 @@
         CHECK_THROW(expression, UnitTest::AssertException); \
         UnitTest::Detail::ExpectAssert(false); \
     UNITTEST_MULTILINE_MACRO_END
+
+#define CHECK_ASSERT_DESCRIBED(expression, description) \
+    UNITTEST_MULTILINE_MACRO_BEGIN \
+        UnitTest::Detail::ExpectAssert(true); \
+        CHECK_THROW_DESCRIBED(expression, UnitTest::AssertException, description); \
+        UnitTest::Detail::ExpectAssert(false); \
+    UNITTEST_MULTILINE_MACRO_END
+
 #endif
 #endif

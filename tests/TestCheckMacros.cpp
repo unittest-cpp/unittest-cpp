@@ -1309,6 +1309,89 @@ TEST(CheckAssertDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL(1, g_sideEffect);
 }
 
+TEST(CheckAssertDescribedSucceedsWhenAssertThrown)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT_DESCRIBED(Assert(), "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(!failure);
+}
+
+TEST(CheckAssertDescribedFailsWhenAssertNotThrown)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT_DESCRIBED(NoAssert(), "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckAssertDescribedFailsWhenWrongTypeThrown)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults(&reporter);
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT_DESCRIBED(ThrowInt(), "description");
+        failure = (testResults.GetFailureCount() > 0);
+    }
+
+    CHECK(failure);
+}
+
+TEST(CheckAssertDescribedFailureContainsCorrectDetails)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults(&reporter);
+        UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+        ScopedCurrentTest scopedResults(testResults, &testDetails);
+
+        CHECK_ASSERT_DESCRIBED(ThrowInt(), "description " << hex << 0x1234);    line = __LINE__;
+    }
+
+    CHECK_EQUAL("testName", reporter.lastFailedTest);
+    CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL("description 1234", reporter.lastFailedMessage);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
+}
+
+TEST(CheckAssertDescribedDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT_DESCRIBED(AssertWithSideEffect(), "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
+TEST(CheckAssertDescribedDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults;
+        ScopedCurrentTest scopedResults(testResults);
+        CHECK_ASSERT_DESCRIBED(ThrowIntWithSideEffect(), "description");
+    }
+    CHECK_EQUAL(1, g_sideEffect);
+}
+
 #endif  // UNITTEST_NO_EXCEPTIONS
 
 }

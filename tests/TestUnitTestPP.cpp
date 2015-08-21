@@ -120,6 +120,11 @@ TEST(CheckAssertSucceeds)
     CHECK_ASSERT(UnitTest::ReportAssert("desc", "file", 0));
 }
 
+TEST(CanUseCheckAssertDescribedToGetCustomFailureMessage)
+{
+    CHECK_ASSERT_DESCRIBED(UnitTest::ReportAssert("desc", "file", 0), "This should really trigger an assert");
+}
+
 TEST(CheckThrowMacroFailsOnMissingException)
 {
     class NoThrowTest : public UnitTest::Test
