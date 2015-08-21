@@ -90,7 +90,7 @@ TEST(CanUseCheckArrayCloseDescribedToGetCustomFailureMessage)
 TEST(Array2dCloseSucceeds)
 {
     float const a1[][3] = {{1, 2, 3}, {4, 5, 6}};
-    float const a2[][3] = {{1, 2.01f, 3}, {4, 5.01, 6}};
+    float const a2[][3] = {{1, 2.01f, 3}, {4, 5.01f, 6}};
     CHECK_ARRAY2D_CLOSE(a1, a2, 2, 3, 0.1f);
 }
 
