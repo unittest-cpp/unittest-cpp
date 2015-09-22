@@ -1,9 +1,16 @@
-lib_LTLIBRARIES = libUnitTest++.la
-pkgincludedir = $(includedir)/UnitTest++
-nobase_pkginclude_HEADERS = UnitTest++.h UnitTestPP.h Config.h HelperMacros.h Test.h TestDetails.h TestList.h TestSuite.h TestResults.h TestMacros.h CheckMacros.h TestRunner.h TimeConstraint.h ExecuteTest.h AssertException.h MemoryOutStream.h CurrentTest.h Posix/SignalTranslator.h Checks.h TimeHelpers.h Posix/TimeHelpers.h ExceptionMacros.h ReportAssert.h ReportAssertImpl.h TestReporter.h TestReporterStdout.h CompositeTestReporter.h DeferredTestReporter.h DeferredTestResult.h
-libUnitTest___la_SOURCES = AssertException.cpp Test.cpp Checks.cpp TestRunner.cpp TestResults.cpp TestReporter.cpp TestReporterStdout.cpp ReportAssert.cpp TestList.cpp TimeConstraint.cpp TestDetails.cpp MemoryOutStream.cpp DeferredTestReporter.cpp DeferredTestResult.cpp XmlTestReporter.cpp CurrentTest.cpp Posix/SignalTranslator.cpp Posix/TimeHelpers.cpp CompositeTestReporter.cpp
-libUnitTest___la_LDFLAGS = -version-number @LIBUNITTEST_SO_VERSION@
-check_PROGRAMS = TestUnitTest++
-TestUnitTest___SOURCES = $(top_srcdir)/tests/Main.cpp $(top_srcdir)/tests/TestAssertHandler.cpp $(top_srcdir)/tests/TestCheckMacros.cpp $(top_srcdir)/tests/TestChecks.cpp $(top_srcdir)/tests/TestCompositeTestReporter.cpp $(top_srcdir)/tests/TestCurrentTest.cpp $(top_srcdir)/tests/TestDeferredTestReporter.cpp $(top_srcdir)/tests/TestExceptions.cpp $(top_srcdir)/tests/TestMemoryOutStream.cpp $(top_srcdir)/tests/TestTest.cpp $(top_srcdir)/tests/TestTestList.cpp $(top_srcdir)/tests/TestTestMacros.cpp $(top_srcdir)/tests/TestTestResults.cpp $(top_srcdir)/tests/TestTestRunner.cpp $(top_srcdir)/tests/TestTestSuite.cpp $(top_srcdir)/tests/TestTimeConstraint.cpp $(top_srcdir)/tests/TestTimeConstraintMacro.cpp $(top_srcdir)/tests/TestUnitTestPP.cpp $(top_srcdir)/tests/TestXmlTestReporter.cpp
-TestUnitTest___LDADD = libUnitTest++.la
-TESTS = TestUnitTest++
+lib_LTLIBRARIES = UnitTest++/libUnitTest++.la
+pkgincludedir = $(includedir)/UnitTest++/
+nobase_pkginclude_HEADERS = UnitTest++/UnitTest++.h UnitTest++/UnitTestPP.h UnitTest++/Config.h UnitTest++/HelperMacros.h UnitTest++/Test.h UnitTest++/TestDetails.h UnitTest++/TestList.h UnitTest++/TestSuite.h UnitTest++/TestResults.h UnitTest++/TestMacros.h UnitTest++/CheckMacros.h UnitTest++/TestRunner.h UnitTest++/TimeConstraint.h UnitTest++/ExecuteTest.h UnitTest++/AssertException.h UnitTest++/MemoryOutStream.h UnitTest++/CurrentTest.h  UnitTest++/Checks.h UnitTest++/TimeHelpers.h  UnitTest++/ExceptionMacros.h UnitTest++/ReportAssert.h UnitTest++/ReportAssertImpl.h UnitTest++/TestReporter.h UnitTest++/TestReporterStdout.h UnitTest++/CompositeTestReporter.h UnitTest++/DeferredTestReporter.h UnitTest++/DeferredTestResult.h
+UnitTest___libUnitTest___la_SOURCES = UnitTest++/AssertException.cpp UnitTest++/Test.cpp UnitTest++/Checks.cpp UnitTest++/TestRunner.cpp UnitTest++/TestResults.cpp UnitTest++/TestReporter.cpp UnitTest++/TestReporterStdout.cpp UnitTest++/ReportAssert.cpp UnitTest++/TestList.cpp UnitTest++/TimeConstraint.cpp UnitTest++/TestDetails.cpp UnitTest++/MemoryOutStream.cpp UnitTest++/DeferredTestReporter.cpp UnitTest++/DeferredTestResult.cpp UnitTest++/XmlTestReporter.cpp UnitTest++/CurrentTest.cpp  UnitTest++/CompositeTestReporter.cpp
+
+if WINDOWS 
+nobase_pkginclude_HEADERS += UnitTest++/Win32/TimeHelpers.h
+UnitTest___libUnitTest___la_SOURCES += UnitTest++/Win32/TimeHelpers.cpp
+else 
+nobase_pkginclude_HEADERS += UnitTest++/Posix/SignalTranslator.h UnitTest++/Posix/TimeHelpers.h
+UnitTest___libUnitTest___la_SOURCES += UnitTest++/Posix/SignalTranslator.cpp UnitTest++/Posix/TimeHelpers.cpp
+endif
+
+UnitTest___libUnitTest___la_LDFLAGS = -version-number @LIBUNITTEST_SO_VERSION@
+
+

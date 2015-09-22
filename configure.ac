@@ -7,7 +7,9 @@ AC_CONFIG_SRCDIR([UnitTest++/TestDetails.cpp])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
+AM_CONDITIONAL([WINDOWS],
+	  [test "${host#*mingw}" != "${host}" -o "${host#*msvc}" != "${host}"])
 LT_INIT()
 
 AC_SUBST([LIBUNITTEST_SO_VERSION], [1:4:1])
@@ -29,6 +31,5 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_CHECK_FUNCS([gettimeofday strstr])
 
-AC_CONFIG_FILES([Makefile
-		 UnitTest++/Makefile])
+AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
