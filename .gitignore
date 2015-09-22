@@ -41,3 +41,4 @@ Makefile.in
 .libs
 *.log
 *.trs
+*.pc
