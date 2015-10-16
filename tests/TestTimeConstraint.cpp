@@ -14,7 +14,7 @@ TEST(TimeConstraintSucceedsWithFastTest)
     TestResults result;
     {
 		ScopedCurrentTest scopedResult(result);
-        TimeConstraint t(200, TestDetails("", "", "", 0));
+        TimeConstraint t(200, TestDetails("", "", "", 0), 0);
         TimeHelpers::SleepMs(5);
     }
     CHECK_EQUAL(0, result.GetFailureCount());
@@ -25,7 +25,7 @@ TEST(TimeConstraintFailsWithSlowTest)
     TestResults result;
     {
 		ScopedCurrentTest scopedResult(result);
-        TimeConstraint t(10, TestDetails("", "", "", 0));
+        TimeConstraint t(10, TestDetails("", "", "", 0),0);
         TimeHelpers::SleepMs(20);
     }
     CHECK_EQUAL(1, result.GetFailureCount());
@@ -39,7 +39,7 @@ TEST(TimeConstraintFailureIncludesCorrectData)
 		ScopedCurrentTest scopedResult(result);
 
 		TestDetails const details("testname", "suitename", "filename", 10);
-        TimeConstraint t(10, details);
+        TimeConstraint t(10, details,10);
         TimeHelpers::SleepMs(20);
     }
 
@@ -56,7 +56,7 @@ TEST(TimeConstraintFailureIncludesTimeoutInformation)
     TestResults result(&reporter);
     {
 		ScopedCurrentTest scopedResult(result);
-        TimeConstraint t(10, TestDetails("", "", "", 0));
+        TimeConstraint t(10, TestDetails("", "", "", 0),0);
         TimeHelpers::SleepMs(20);
     }
 
