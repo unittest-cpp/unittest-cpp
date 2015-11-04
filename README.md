@@ -30,17 +30,17 @@ Via svn:
 
     svn checkout https://github.com/unittest-cpp/unittest-cpp/trunk unittest-cpp
 
-### Latest release (v1.4) ###
+### Latest release (v1.5.0) ###
 
 Via git:
 
     git clone https://github.com/unittest-cpp/unittest-cpp
     cd unittest-cpp
-    git checkout v1.4
+    git checkout v1.5.0
 
 Via svn:
 
-    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.4 unittest-cpp
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.5.0 unittest-cpp
 
 License
 ---------
@@ -76,6 +76,12 @@ Contributors
 
 Historic release notes
 ----------------------
+
+### Version 1.5 (2015-11-04) ###
+- Visual Studio 2015 support
+- CMake-based build management
+- Integration of SourceForge and Google Code versions of the project
+- [Full List](https://github.com/unittest-cpp/unittest-cpp/issues?q=is%3Aissue+is%3Aclosed+milestone%3A1.5.0)
 
 ### Version 1.4 (2008-10-30) ###
 - CHECK macros work at arbitrary stack depth from inside TESTs.
