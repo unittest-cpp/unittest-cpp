@@ -6,6 +6,7 @@ AC_INIT([UnitTest++], [1.5.0], [pjohnmeyer@gmail.com])
 AC_CONFIG_SRCDIR([UnitTest++/TestDetails.cpp])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_FILES([UnitTest++.pc])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AM_CONDITIONAL([WINDOWS],
