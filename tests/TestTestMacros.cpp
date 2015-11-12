@@ -32,6 +32,15 @@ using namespace std;
         #endif
     #endif
   #endif
+
+#elif _MSC_VER
+
+  #if (_MSC_VER > 1800)
+    #define _NOEXCEPT_OP(x) noexcept(x)
+  #else
+    #define _NOEXCEPT_OP(x)
+  #endif
+
 #endif
 
 namespace {
@@ -160,11 +169,6 @@ TEST(FixturesWithThrowingCtorsAreFailures)
 	CHECK(strstr(reporter.lastFailedMessage, "while constructing fixture"));
 }
 
-// Visual Studio 2015 in compliance with C++11 standard
-// implicitly adds a 'noexcept' to all user defined 
-// destructors. Any exceptions thrown from destructors
-// cause abort() to be called on the process.
-#if(_MSC_VER < 1900)
 struct FixtureDtorThrows
 {
 	~FixtureDtorThrows() _NOEXCEPT_OP(false) { throw "exception"; }
@@ -190,7 +194,6 @@ TEST(FixturesWithThrowingDtorsAreFailures)
 	CHECK_EQUAL(1, failureCount);
 	CHECK(strstr(reporter.lastFailedMessage, "while destroying fixture"));
 }
-#endif 
 
 const int FailingLine = 123;
 
