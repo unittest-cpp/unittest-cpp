@@ -41,6 +41,10 @@
 			if (!UnitTest::Check(value)) \
 				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
 		}) \
+      UT_CATCH (UnitTest::AssertException, , \
+      { \
+         UT_THROW(); \
+      }) \
 		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream message; \
@@ -61,6 +65,10 @@
 		({ \
             UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+      UT_CATCH (UnitTest::AssertException, , \
+      { \
+         UT_THROW(); \
+      }) \
 		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream message; \
@@ -81,6 +89,10 @@
 		({ \
             UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+      UT_CATCH (UnitTest::AssertException, , \
+      { \
+          UT_THROW(); \
+      }) \
 		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream message; \
@@ -101,6 +113,10 @@
 		({ \
             UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+      UT_CATCH (UnitTest::AssertException, , \
+      { \
+         UT_THROW(); \
+      }) \
  		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream message; \
@@ -121,6 +137,10 @@
 		({ \
             UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+      UT_CATCH (UnitTest::AssertException, , \
+      { \
+          UT_THROW(); \
+      }) \
  		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream message; \
@@ -141,6 +161,10 @@
 		({ \
             UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
         }) \
+      UT_CATCH (UnitTest::AssertException, , \
+      { \
+          UT_THROW(); \
+      }) \
  		UT_CATCH (std::exception, e, \
 		{ \
 			UnitTest::MemoryOutStream message; \
