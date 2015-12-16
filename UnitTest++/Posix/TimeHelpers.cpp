@@ -27,7 +27,7 @@ double Timer::GetTimeInMs() const
 
 void TimeHelpers::SleepMs(int ms)
 {
-    usleep(ms * 1000);
+    usleep(static_cast<useconds_t>(ms * 1000));
 }
 
 }
