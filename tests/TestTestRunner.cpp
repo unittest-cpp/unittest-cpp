@@ -110,7 +110,7 @@ namespace
         SlowTest test;
         list.Add(&test);
         
-        // Using UnitTest::Timer here is arguably a bit hokey and self-recursive, but
+        // Using UnitTest::Timer here is arguably a bit hokey and self-referential, but
         // it should guarantee that the test time recorded is less than that plus the 
         // overhead of RunTestsIf -- the only thing we can reliably assert without
         // reworking the test to not use sleeps at all
