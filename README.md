@@ -30,17 +30,17 @@ Via svn:
 
     svn checkout https://github.com/unittest-cpp/unittest-cpp/trunk unittest-cpp
 
-### Latest release (v1.5.0) ###
+### Latest release (v1.5.1) ###
 
 Via git:
 
     git clone https://github.com/unittest-cpp/unittest-cpp
     cd unittest-cpp
-    git checkout v1.5.0
+    git checkout v1.5.1
 
 Via svn:
 
-    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.5.0 unittest-cpp
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.5.1 unittest-cpp
 
 License
 ---------
@@ -76,6 +76,11 @@ Contributors
 
 Historic release notes
 ----------------------
+
+### Version 1.5.1 (2016-01-30) ###
+- pkg-config support
+- Fix for Visual Studio 2010 compilation issue in 1.5.0
+- [Full List](https://github.com/unittest-cpp/unittest-cpp/issues?q=milestone%3A1.5.1+)
 
 ### Version 1.5 (2015-11-04) ###
 - Visual Studio 2015 support

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([UnitTest++], [1.5.0], [pjohnmeyer@gmail.com])
+AC_INIT([UnitTest++], [1.5.1], [pjohnmeyer@gmail.com])
 AC_CONFIG_SRCDIR([UnitTest++/TestDetails.cpp])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
@@ -13,7 +13,7 @@ AM_CONDITIONAL([WINDOWS],
 	  [test "${host#*mingw}" != "${host}" -o "${host#*msvc}" != "${host}"])
 LT_INIT()
 
-AC_SUBST([LIBUNITTEST_SO_VERSION], [1:5:0])
+AC_SUBST([LIBUNITTEST_SO_VERSION], [1:5:1])
 
 # Checks for programs.
 AC_PROG_CXX
