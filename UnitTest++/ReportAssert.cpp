@@ -6,7 +6,7 @@
 #include "TestDetails.h"
 
 #ifdef UNITTEST_NO_EXCEPTIONS
-#include "ReportAssertImpl.h"
+   #include "ReportAssertImpl.h"
 #endif
 
 namespace UnitTest {
