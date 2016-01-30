@@ -110,8 +110,15 @@ namespace
         SlowTest test;
         list.Add(&test);
         
+        // Using UnitTest::Timer here is arguably a bit hokey and self-recursive, but
+        // it should guarantee that the test time recorded is less than that plus the 
+        // overhead of RunTestsIf -- the only thing we can reliably assert without
+        // reworking the test to not use sleeps at all
+        Timer actual;
+        actual.Start();
         RunTestsIf(list, NULL, True(), 0);
-        CHECK(reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= 0.050f);
+
+        CHECK(reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= actual.GetTimeInMs());
     }
     
     TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
