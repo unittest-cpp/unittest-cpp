@@ -13,217 +13,210 @@ using namespace std;
 /* test for c++11 support */
 #ifndef _MSC_VER
 
-  /* Test for clang >= 3.3 */
-  #ifdef __clang__
-    #if (__clang__ == 1) && (__clang_major__ > 3 || (__clang_major__ == 3 && (__clang_minor__ > 2 )))
-      #define _NOEXCEPT_OP(x) noexcept(x)
-    #else
-        #define _NOEXCEPT_OP(x)
-    #endif
-  #endif
+   /* Test for clang >= 3.3 */
+   #ifdef __clang__
+      #if (__clang__ == 1) && (__clang_major__ > 3 || (__clang_major__ == 3 && (__clang_minor__ > 2 )))
+         #define _NOEXCEPT_OP(x) noexcept(x)
+      #else
+         #define _NOEXCEPT_OP(x)
+      #endif
+   #endif
 
-  #ifndef __clang__
-    /* Test for GCC >= 4.8.0 */
-    #ifdef __GNUC__
-        #if (__GNUC__ > 4) || (__GNUC__ == 4 && (__GNUC_MINOR__ > 7 ))
-        #define _NOEXCEPT_OP(x) noexcept(x)
-        #else
+   #ifndef __clang__
+      /* Test for GCC >= 4.8.0 */
+      #ifdef __GNUC__
+         #if (__GNUC__ > 4) || (__GNUC__ == 4 && (__GNUC_MINOR__ > 7 ))
+            #define _NOEXCEPT_OP(x) noexcept(x)
+         #else
             #define _NOEXCEPT_OP(x)
-        #endif
-    #endif
-  #endif
+         #endif
+      #endif
+   #endif
 
 #elif _MSC_VER
 
-  #if (_MSC_VER > 1800)
-    #define _NOEXCEPT_OP(x) noexcept(x)
-  #else
-    #define _NOEXCEPT_OP(x)
-  #endif
+   #if (_MSC_VER > 1800)
+      #define _NOEXCEPT_OP(x) noexcept(x)
+   #else
+      #define _NOEXCEPT_OP(x)
+   #endif
 
 #endif
 
 namespace {
 
-TestList list1;
-TEST_EX(DummyTest, list1)
-{
-}
+   TestList list1;
+   TEST_EX(DummyTest, list1)
+   {}
 
-TEST (TestsAreAddedToTheListThroughMacro)
-{
-    CHECK(list1.GetHead() != 0);
-    CHECK(list1.GetHead()->m_nextTest == 0);
-}
+   TEST (TestsAreAddedToTheListThroughMacro)
+   {
+      CHECK(list1.GetHead() != 0);
+      CHECK(list1.GetHead()->m_nextTest == 0);
+   }
 
 #ifndef UNITTEST_NO_EXCEPTIONS
 
-struct ThrowingThingie
-{
-    ThrowingThingie() : dummy(false)
-    {
-        if (!dummy)
+   struct ThrowingThingie
+   {
+      ThrowingThingie() : dummy(false)
+      {
+         if (!dummy)
             throw "Oops";
-    }
+      }
 
-    bool dummy;
-};
+      bool dummy;
+   };
 
-TestList list2;
-TEST_FIXTURE_EX(ThrowingThingie, DummyTestName, list2)
-{
-}
+   TestList list2;
+   TEST_FIXTURE_EX(ThrowingThingie, DummyTestName, list2)
+   {}
 
-TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
-{
-    RecordingReporter reporter;
-    TestResults result(&reporter);
-	{
-		ScopedCurrentTest scopedResults(result);
-		list2.GetHead()->Run();
-	}
+   TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
+   {
+      RecordingReporter reporter;
+      TestResults result(&reporter);
+      {
+         ScopedCurrentTest scopedResults(result);
+         list2.GetHead()->Run();
+      }
 
-    CHECK(strstr(reporter.lastFailedMessage, "xception"));
-    CHECK(strstr(reporter.lastFailedMessage, "fixture"));
-    CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
-}
+      CHECK(strstr(reporter.lastFailedMessage, "xception"));
+      CHECK(strstr(reporter.lastFailedMessage, "fixture"));
+      CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
+   }
 
 #endif
 
-struct DummyFixture
-{
-    int x;
-};
+   struct DummyFixture
+   {
+      int x;
+   };
 
 // We're really testing the macros so we just want them to compile and link
-SUITE(TestSuite1)
-{
-	TEST(SimilarlyNamedTestsInDifferentSuitesWork)
-	{
-	}
+   SUITE(TestSuite1)
+   {
+      TEST(SimilarlyNamedTestsInDifferentSuitesWork)
+      {}
 
-	TEST_FIXTURE(DummyFixture, SimilarlyNamedFixtureTestsInDifferentSuitesWork)
-	{
-	}
-}
+      TEST_FIXTURE(DummyFixture, SimilarlyNamedFixtureTestsInDifferentSuitesWork)
+      {}
+   }
 
-SUITE(TestSuite2)
-{
-	TEST(SimilarlyNamedTestsInDifferentSuitesWork)
-	{
-	}
+   SUITE(TestSuite2)
+   {
+      TEST(SimilarlyNamedTestsInDifferentSuitesWork)
+      {}
 
-	TEST_FIXTURE(DummyFixture,SimilarlyNamedFixtureTestsInDifferentSuitesWork)
-	{
-	}
-}
+      TEST_FIXTURE(DummyFixture,SimilarlyNamedFixtureTestsInDifferentSuitesWork)
+      {}
+   }
 
-TestList macroTestList1;
-TEST_EX(MacroTestHelper1, macroTestList1)
-{
-}
+   TestList macroTestList1;
+   TEST_EX(MacroTestHelper1, macroTestList1)
+   {}
 
-TEST(TestAddedWithTEST_EXMacroGetsDefaultSuite)
-{
-    CHECK(macroTestList1.GetHead() != NULL);
-    CHECK_EQUAL ("MacroTestHelper1", macroTestList1.GetHead()->m_details.testName);
-    CHECK_EQUAL ("DefaultSuite", macroTestList1.GetHead()->m_details.suiteName);
-}
+   TEST(TestAddedWithTEST_EXMacroGetsDefaultSuite)
+   {
+      CHECK(macroTestList1.GetHead() != NULL);
+      CHECK_EQUAL ("MacroTestHelper1", macroTestList1.GetHead()->m_details.testName);
+      CHECK_EQUAL ("DefaultSuite", macroTestList1.GetHead()->m_details.suiteName);
+   }
 
-TestList macroTestList2;
-TEST_FIXTURE_EX(DummyFixture, MacroTestHelper2, macroTestList2)
-{
-}
+   TestList macroTestList2;
+   TEST_FIXTURE_EX(DummyFixture, MacroTestHelper2, macroTestList2)
+   {}
 
-TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
-{
-    CHECK(macroTestList2.GetHead() != NULL);
-    CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_details.testName);
-    CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
-}
+   TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
+   {
+      CHECK(macroTestList2.GetHead() != NULL);
+      CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_details.testName);
+      CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
+   }
 
 #ifndef UNITTEST_NO_EXCEPTIONS
 
-struct FixtureCtorThrows
-{
-	FixtureCtorThrows()	{ throw "exception"; }
-};
+   struct FixtureCtorThrows
+   {
+      FixtureCtorThrows() {
+         throw "exception";
+      }
+   };
 
-TestList throwingFixtureTestList1;
-TEST_FIXTURE_EX(FixtureCtorThrows, FixtureCtorThrowsTestName, throwingFixtureTestList1)
-{
-}
+   TestList throwingFixtureTestList1;
+   TEST_FIXTURE_EX(FixtureCtorThrows, FixtureCtorThrowsTestName, throwingFixtureTestList1)
+   {}
 
-TEST(FixturesWithThrowingCtorsAreFailures)
-{
-	CHECK(throwingFixtureTestList1.GetHead() != NULL);
-	RecordingReporter reporter;
-	TestResults result(&reporter);
-	{
-		ScopedCurrentTest scopedResult(result);
-		throwingFixtureTestList1.GetHead()->Run();
-	}
+   TEST(FixturesWithThrowingCtorsAreFailures)
+   {
+      CHECK(throwingFixtureTestList1.GetHead() != NULL);
+      RecordingReporter reporter;
+      TestResults result(&reporter);
+      {
+         ScopedCurrentTest scopedResult(result);
+         throwingFixtureTestList1.GetHead()->Run();
+      }
 
-	int const failureCount = result.GetFailedTestCount();
-	CHECK_EQUAL(1, failureCount);
-	CHECK(strstr(reporter.lastFailedMessage, "while constructing fixture"));
-}
+      int const failureCount = result.GetFailedTestCount();
+      CHECK_EQUAL(1, failureCount);
+      CHECK(strstr(reporter.lastFailedMessage, "while constructing fixture"));
+   }
 
-struct FixtureDtorThrows
-{
-	~FixtureDtorThrows() _NOEXCEPT_OP(false) { throw "exception"; }
-};
+   struct FixtureDtorThrows
+   {
+      ~FixtureDtorThrows() _NOEXCEPT_OP(false) {
+         throw "exception";
+      }
+   };
 
-TestList throwingFixtureTestList2;
-TEST_FIXTURE_EX(FixtureDtorThrows, FixtureDtorThrowsTestName, throwingFixtureTestList2)
-{
-}
+   TestList throwingFixtureTestList2;
+   TEST_FIXTURE_EX(FixtureDtorThrows, FixtureDtorThrowsTestName, throwingFixtureTestList2)
+   {}
 
-TEST(FixturesWithThrowingDtorsAreFailures)
-{
-	CHECK(throwingFixtureTestList2.GetHead() != NULL);
+   TEST(FixturesWithThrowingDtorsAreFailures)
+   {
+      CHECK(throwingFixtureTestList2.GetHead() != NULL);
 
-	RecordingReporter reporter;
-	TestResults result(&reporter);
-	{
-		ScopedCurrentTest scopedResult(result);
-		throwingFixtureTestList2.GetHead()->Run();
-	}
+      RecordingReporter reporter;
+      TestResults result(&reporter);
+      {
+         ScopedCurrentTest scopedResult(result);
+         throwingFixtureTestList2.GetHead()->Run();
+      }
 
-	int const failureCount = result.GetFailedTestCount();
-	CHECK_EQUAL(1, failureCount);
-	CHECK(strstr(reporter.lastFailedMessage, "while destroying fixture"));
-}
+      int const failureCount = result.GetFailedTestCount();
+      CHECK_EQUAL(1, failureCount);
+      CHECK(strstr(reporter.lastFailedMessage, "while destroying fixture"));
+   }
 
-const int FailingLine = 123;
+   const int FailingLine = 123;
 
-struct FixtureCtorAsserts
-{
-	FixtureCtorAsserts()
-	{
-		UnitTest::ReportAssert("assert failure", "file", FailingLine);
-	}
-};
+   struct FixtureCtorAsserts
+   {
+      FixtureCtorAsserts()
+      {
+         UnitTest::ReportAssert("assert failure", "file", FailingLine);
+      }
+   };
 
-TestList ctorAssertFixtureTestList;
-TEST_FIXTURE_EX(FixtureCtorAsserts, CorrectlyReportsAssertFailureInCtor, ctorAssertFixtureTestList)
-{
-}
+   TestList ctorAssertFixtureTestList;
+   TEST_FIXTURE_EX(FixtureCtorAsserts, CorrectlyReportsAssertFailureInCtor, ctorAssertFixtureTestList)
+   {}
 
-TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
-{
-	RecordingReporter reporter;
-	TestResults result(&reporter);
-	{
-		ScopedCurrentTest scopedResults(result);
-		ctorAssertFixtureTestList.GetHead()->Run();
-	}
+   TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
+   {
+      RecordingReporter reporter;
+      TestResults result(&reporter);
+      {
+         ScopedCurrentTest scopedResults(result);
+         ctorAssertFixtureTestList.GetHead()->Run();
+      }
 
-	const int failureCount = result.GetFailedTestCount();
-	CHECK_EQUAL(1, failureCount);
-	CHECK_EQUAL(FailingLine, reporter.lastFailedLine);
-	CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
-}
+      const int failureCount = result.GetFailedTestCount();
+      CHECK_EQUAL(1, failureCount);
+      CHECK_EQUAL(FailingLine, reporter.lastFailedLine);
+      CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
+   }
 
 #endif
 
@@ -234,9 +227,8 @@ TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
 // Note: we are outside of the anonymous namespace
 SUITE(SameTestSuite)
 {
-	TEST(DummyTest1)
-	{
-	}
+   TEST(DummyTest1)
+   {}
 }
 
 #define CUR_TEST_NAME CurrentTestDetailsContainCurrentTestInfo
@@ -245,8 +237,8 @@ SUITE(SameTestSuite)
 
 TEST(CUR_TEST_NAME)
 {
-	const UnitTest::TestDetails* details = CurrentTest::Details();
-	CHECK_EQUAL(STRINGIFY(CUR_TEST_NAME), details->testName);
+   const UnitTest::TestDetails* details = CurrentTest::Details();
+   CHECK_EQUAL(STRINGIFY(CUR_TEST_NAME), details->testName);
 }
 
 #undef CUR_TEST_NAME

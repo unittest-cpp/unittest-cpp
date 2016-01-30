@@ -5,8 +5,7 @@
 // Note: we are outside of the anonymous namespace
 SUITE(SameTestSuite)
 {
-    TEST(DummyTest2)
-    {
-    }
+   TEST(DummyTest2)
+   {}
 }
 

@@ -4,13 +4,11 @@
 
 namespace UnitTest {
 
-AssertException::AssertException()
-{
-}
+   AssertException::AssertException()
+   {}
 
-AssertException::~AssertException() throw()
-{
-}
+   AssertException::~AssertException() throw()
+   {}
 
 }
 
