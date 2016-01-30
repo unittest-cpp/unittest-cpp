@@ -26,11 +26,11 @@ namespace UnitTest {
       struct sigaction m_old_SIGALRM_action;
    };
 
-   #if !defined (__GNUC__)
+#if !defined (__GNUC__)
    #define UNITTEST_EXTENSION
-   #else
+#else
    #define UNITTEST_EXTENSION __extension__
-   #endif
+#endif
 
    #define UNITTEST_THROW_SIGNALS_POSIX_ONLY                                               \
       UnitTest::SignalTranslator sig;                                                      \

@@ -170,60 +170,60 @@ namespace {
    TEST(StreamingLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
-      #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
       stream << (__int64)-12345i64;
-      #else
+#else
       stream << (long long)-12345ll;
-      #endif
+#endif
       CHECK_EQUAL("-12345", stream.GetText());
    }
 
-   #ifdef LLONG_MAX
+#ifdef LLONG_MAX
    TEST(StreamingMaxLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
       stream << (long long)LLONG_MAX;
       CHECK_EQUAL(maxSignedIntegralStr(sizeof(long long)), stream.GetText());
    }
-   #endif
+#endif
 
-   #ifdef LLONG_MIN
+#ifdef LLONG_MIN
    TEST(StreamingMinLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
       stream << (long long)LLONG_MIN;
       CHECK_EQUAL(minSignedIntegralStr(sizeof(long long)), stream.GetText());
    }
-   #endif
+#endif
 
    TEST(StreamingUnsignedLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
-      #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
       stream << (unsigned __int64)85899ui64;
-      #else
+#else
       stream << (unsigned long long)85899ull;
-      #endif
+#endif
       CHECK_EQUAL("85899", stream.GetText());
    }
 
-   #ifdef ULLONG_MAX
+#ifdef ULLONG_MAX
    TEST(StreamingMaxUnsignedLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
       stream << (unsigned long long)ULLONG_MAX;
       CHECK_EQUAL(maxUnsignedIntegralStr(sizeof(unsigned long long)), stream.GetText());
    }
-   #endif
+#endif
 
    TEST(StreamingMinUnsignedLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
-      #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
       stream << (unsigned __int64)0ui64;
-      #else
+#else
       stream << (unsigned long long)0ull;
-      #endif
+#endif
       CHECK_EQUAL("0", stream.GetText());
    }
 
@@ -265,7 +265,7 @@ namespace {
       CHECK_EQUAL("", stream.GetText());
    }
 
-   #ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
    TEST(StreamInitialCapacityIsCorrect)
    {
@@ -331,6 +331,6 @@ namespace {
       CHECK(true);
    }
 
-   #endif
+#endif
 
 }

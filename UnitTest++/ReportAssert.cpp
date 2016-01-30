@@ -28,13 +28,13 @@ namespace UnitTest {
 
    namespace Detail {
 
-      #ifdef UNITTEST_NO_EXCEPTIONS
+#ifdef UNITTEST_NO_EXCEPTIONS
       UNITTEST_JMPBUF* GetAssertJmpBuf()
       {
          static UNITTEST_JMPBUF s_jmpBuf;
          return &s_jmpBuf;
       }
-      #endif
+#endif
 
       UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults,
                                            const TestDetails* testDetails,
@@ -50,11 +50,11 @@ namespace UnitTest {
 
          ExpectAssert(false);
 
-         #ifndef UNITTEST_NO_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
          throw AssertException();
-         #else
+#else
          UNITTEST_JUMP_TO_ASSERT_JUMP_TARGET();
-         #endif
+#endif
       }
 
       UNITTEST_LINKAGE void ExpectAssert(bool expected)

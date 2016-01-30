@@ -12,7 +12,7 @@ using std::ostringstream;
 namespace
 {
 
-   #ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 
 // Overload to let MemoryOutStream accept std::string
    MemoryOutStream& operator<<(MemoryOutStream& s, const std::string& value)
@@ -21,7 +21,7 @@ namespace
       return s;
    }
 
-   #endif
+#endif
 
    struct XmlTestReporterFixture
    {

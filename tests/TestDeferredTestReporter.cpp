@@ -12,13 +12,13 @@ namespace UnitTest
    namespace
    {
 
-      #ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
+#ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
       MemoryOutStream& operator <<(MemoryOutStream& lhs, const std::string& rhs)
       {
          lhs << rhs.c_str();
          return lhs;
       }
-      #endif
+#endif
 
       struct MockDeferredTestReporter : public DeferredTestReporter
       {

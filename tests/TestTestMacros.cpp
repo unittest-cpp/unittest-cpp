@@ -55,7 +55,7 @@ namespace {
       CHECK(list1.GetHead()->m_nextTest == 0);
    }
 
-   #ifndef UNITTEST_NO_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
    struct ThrowingThingie
    {
@@ -86,7 +86,7 @@ namespace {
       CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
    }
 
-   #endif
+#endif
 
    struct DummyFixture
    {
@@ -134,7 +134,7 @@ namespace {
       CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
    }
 
-   #ifndef UNITTEST_NO_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
    struct FixtureCtorThrows
    {
@@ -218,7 +218,7 @@ namespace {
       CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
    }
 
-   #endif
+#endif
 
 }
 

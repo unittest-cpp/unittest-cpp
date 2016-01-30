@@ -26,10 +26,10 @@ namespace UnitTest
       mutable std::string m_text;
    };
 
-   #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
    std::ostream& operator<<(std::ostream& stream, __int64 const n);
    std::ostream& operator<<(std::ostream& stream, unsigned __int64 const n);
-   #endif
+#endif
 
 }
 
@@ -57,13 +57,13 @@ namespace UnitTest
       MemoryOutStream& operator <<(int n);
       MemoryOutStream& operator <<(long n);
       MemoryOutStream& operator <<(unsigned long n);
-      #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
       MemoryOutStream& operator <<(__int64 n);
       MemoryOutStream& operator <<(unsigned __int64 n);
-      #else
+#else
       MemoryOutStream& operator <<(long long n);
       MemoryOutStream& operator <<(unsigned long long n);
-      #endif
+#endif
       MemoryOutStream& operator <<(float f);
       MemoryOutStream& operator <<(double d);
       MemoryOutStream& operator <<(void const* p);

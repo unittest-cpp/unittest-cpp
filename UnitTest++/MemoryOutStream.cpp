@@ -16,7 +16,7 @@ namespace UnitTest {
       m_text = this->str();
    }
 
-   #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
 
    #define snprintf _snprintf
 
@@ -41,7 +41,7 @@ namespace UnitTest {
       return FormatToStream(stream, "%I64u", n);
    }
 
-   #endif
+#endif
 
 }
 
@@ -135,32 +135,32 @@ namespace UnitTest {
       return *this;
    }
 
-   #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
    MemoryOutStream& MemoryOutStream::operator <<(__int64 const n)
-   #else
+#else
    MemoryOutStream& MemoryOutStream::operator <<(long long const n)
-   #endif
+#endif
    {
-      #ifdef UNITTEST_WIN32
+#ifdef UNITTEST_WIN32
       FormatToStream(*this, "%I64d", n);
-      #else
+#else
       FormatToStream(*this, "%lld", n);
-      #endif
+#endif
 
       return *this;
    }
 
-   #ifdef UNITTEST_COMPILER_IS_MSVC6
+#ifdef UNITTEST_COMPILER_IS_MSVC6
    MemoryOutStream& MemoryOutStream::operator <<(unsigned __int64 const n)
-   #else
+#else
    MemoryOutStream& MemoryOutStream::operator <<(unsigned long long const n)
-   #endif
+#endif
    {
-      #ifdef UNITTEST_WIN32
+#ifdef UNITTEST_WIN32
       FormatToStream(*this, "%I64u", n);
-      #else
+#else
       FormatToStream(*this, "%llu", n);
-      #endif
+#endif
 
       return *this;
    }

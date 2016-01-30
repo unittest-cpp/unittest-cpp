@@ -50,7 +50,7 @@ namespace {
       CHECK_EQUAL(1, results.GetFailureCount());
    }
 
-   #ifndef UNITTEST_NO_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
    TEST(ThrowingTestsAreReportedAsFailures)
    {
       class CrashingTest : public Test
@@ -72,9 +72,9 @@ namespace {
       CHECK_EQUAL(1, results.GetFailureCount());
    }
 
-   #if !defined(UNITTEST_MINGW) && !defined(UNITTEST_WIN32)
+#if !defined(UNITTEST_MINGW) && !defined(UNITTEST_WIN32)
 // Skip this test in debug because some debuggers don't like it.
-   #if defined(NDEBUG)
+#if defined(NDEBUG)
    TEST(CrashingTestsAreReportedAsFailures)
    {
       class CrashingTest : public Test
@@ -96,9 +96,9 @@ namespace {
 
       CHECK_EQUAL(1, results.GetFailureCount());
    }
-   #endif
-   #endif
-   #endif
+#endif
+#endif
+#endif
 
    TEST(TestWithUnspecifiedSuiteGetsDefaultSuite)
    {

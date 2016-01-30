@@ -13,13 +13,13 @@ namespace UnitTest {
    void TestReporterStdout::ReportFailure(TestDetails const& details, char const* failure)
    {
       using namespace std;
-      #if defined(__APPLE__) || defined(__GNUG__)
+#if defined(__APPLE__) || defined(__GNUG__)
       char const* const errorFormat = "%s:%d:%d: error: Failure in %s: %s\n";
       fprintf(stderr, errorFormat, details.filename, details.lineNumber, 1, details.testName, failure);
-      #else
+#else
       char const* const errorFormat = "%s(%d): error: Failure in %s: %s\n";
       fprintf(stderr, errorFormat, details.filename, details.lineNumber, details.testName, failure);
-      #endif
+#endif
    }
 
    void TestReporterStdout::ReportTestStart(TestDetails const& /*test*/)

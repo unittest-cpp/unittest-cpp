@@ -44,7 +44,7 @@ namespace {
       CHECK_ARRAY_CLOSE(a1, a2, 3, 0.1f);
    }
 
-   #ifndef UNITTEST_NO_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
    TEST(CheckThrowMacroSucceedsOnCorrectException)
    {
@@ -106,7 +106,7 @@ namespace {
       CHECK_EQUAL(1, results.GetFailureCount());
    }
 
-   #endif
+#endif
 
    struct SimpleFixture
    {

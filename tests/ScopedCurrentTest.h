@@ -19,7 +19,9 @@ public:
       UnitTest::CurrentTest::Results() = &newResults;
 
       if (newDetails != NULL)
+      {
          UnitTest::CurrentTest::Details() = newDetails;
+      }
    }
 
    ~ScopedCurrentTest()

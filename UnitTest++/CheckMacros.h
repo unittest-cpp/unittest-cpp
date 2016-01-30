@@ -34,25 +34,25 @@
 #error UnitTest++ redefines CHECK_ARRAY2D_CLOSE
 #endif
 
-#define CHECK(value)                                                                                                                   \
-   UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                      \
-   UT_TRY                                                                                                                              \
-      ({                                                                                                                               \
-      if (!UnitTest::Check(value))                                                                                                     \
-         UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value);  \
-   })                                                                                                                                  \
-   UT_CATCH (std::exception, e,                                                                                                        \
-   {                                                                                                                                   \
-      UnitTest::MemoryOutStream message;                                                                                               \
-      message << "Unhandled exception (" << e.what() << ") in CHECK(" #value ")";                                                      \
-      UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),              \
-                                                      message.GetText());                                                              \
-   })                                                                                                                                  \
-   UT_CATCH_ALL                                                                                                                        \
-      ({                                                                                                                               \
-      UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),              \
-                                                      "Unhandled exception in CHECK(" #value ")");                                     \
-   })                                                                                                                                  \
+#define CHECK(value)                                                                                                                  \
+   UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                     \
+   UT_TRY                                                                                                                             \
+      ({                                                                                                                              \
+      if (!UnitTest::Check(value))                                                                                                    \
+         UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
+   })                                                                                                                                 \
+   UT_CATCH (std::exception, e,                                                                                                       \
+   {                                                                                                                                  \
+      UnitTest::MemoryOutStream message;                                                                                              \
+      message << "Unhandled exception (" << e.what() << ") in CHECK(" #value ")";                                                     \
+      UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),             \
+                                                      message.GetText());                                                             \
+   })                                                                                                                                 \
+   UT_CATCH_ALL                                                                                                                       \
+      ({                                                                                                                              \
+      UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),             \
+                                                      "Unhandled exception in CHECK(" #value ")");                                    \
+   })                                                                                                                                 \
    UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_EQUAL(expected, actual)                                                                                                                \
@@ -158,14 +158,14 @@
 
 // CHECK_THROW and CHECK_ASSERT only exist when UNITTEST_NO_EXCEPTIONS isn't defined (see config.h)
 #ifndef UNITTEST_NO_EXCEPTIONS
-#define CHECK_THROW(expression, ExpectedExceptionType)                                                                                                                                       \
-   UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                                                                            \
-   bool caught_ = false;                                                                                                                                                                     \
-   try { expression; }                                                                                                                                                                       \
-   catch (ExpectedExceptionType const&) { caught_ = true; }                                                                                                                                  \
-   catch (...) {}                                                                                                                                                                            \
-   if (!caught_)                                                                                                                                                                             \
-      UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown");  \
+#define CHECK_THROW(expression, ExpectedExceptionType)                                                                                                                                      \
+   UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                                                                           \
+   bool caught_ = false;                                                                                                                                                                    \
+   try { expression; }                                                                                                                                                                      \
+   catch (ExpectedExceptionType const&) { caught_ = true; }                                                                                                                                 \
+   catch (...) {}                                                                                                                                                                           \
+   if (!caught_)                                                                                                                                                                            \
+      UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
    UNITTEST_MULTILINE_MACRO_END
 
 

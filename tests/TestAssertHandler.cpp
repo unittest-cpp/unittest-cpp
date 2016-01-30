@@ -21,7 +21,7 @@ namespace {
       CHECK(!Detail::AssertExpected());
    }
 
-   #ifndef UNITTEST_NO_EXCEPTIONS
+#ifndef UNITTEST_NO_EXCEPTIONS
 
    TEST(ReportAssertThrowsAssertException)
    {
@@ -107,7 +107,7 @@ namespace {
       Detail::ExpectAssert(false);
    }
 
-   #else
+#else
 
    TEST(SetAssertJumpTargetReturnsFalseWhenSettingJumpTarget)
    {
@@ -128,6 +128,6 @@ namespace {
       CHECK(set == false);
    }
 
-   #endif
+#endif
 
 }
