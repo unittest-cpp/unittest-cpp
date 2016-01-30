@@ -5,14 +5,14 @@
 
 namespace UnitTest {
 
-class TestResults;
-class TestDetails;
+   class TestResults;
+   class TestDetails;
 
-namespace CurrentTest
-{
-	UNITTEST_LINKAGE TestResults*& Results();
-	UNITTEST_LINKAGE const TestDetails*& Details();
-}
+   namespace CurrentTest
+   {
+      UNITTEST_LINKAGE TestResults*& Results();
+      UNITTEST_LINKAGE const TestDetails*& Details();
+   }
 
 }
 

@@ -9,12 +9,12 @@
 
 namespace UnitTest {
 
-class UNITTEST_LINKAGE AssertException : public std::exception
-{
-public:
-    AssertException();
-    virtual ~AssertException() throw();
-};
+   class UNITTEST_LINKAGE AssertException : public std::exception
+   {
+   public:
+      AssertException();
+      virtual ~AssertException() throw();
+   };
 
 }
 

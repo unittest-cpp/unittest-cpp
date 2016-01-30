@@ -3,16 +3,16 @@
 
 namespace UnitTest {
 
-UNITTEST_LINKAGE TestResults*& CurrentTest::Results()
-{
-	static TestResults* testResults = NULL;
-	return testResults;
-}
+   UNITTEST_LINKAGE TestResults*& CurrentTest::Results()
+   {
+      static TestResults* testResults = NULL;
+      return testResults;
+   }
 
-UNITTEST_LINKAGE const TestDetails*& CurrentTest::Details()
-{
-	static const TestDetails* testDetails = NULL;
-	return testDetails;
-}
+   UNITTEST_LINKAGE const TestDetails*& CurrentTest::Details()
+   {
+      static const TestDetails* testDetails = NULL;
+      return testDetails;
+   }
 
 }
