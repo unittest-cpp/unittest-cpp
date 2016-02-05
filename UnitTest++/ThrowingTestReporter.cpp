@@ -1,5 +1,5 @@
 #include "ThrowingTestReporter.h"
-#include "AssertException.h"
+#include "RequiredCheckException.h"
 
 namespace UnitTest {
 
@@ -21,7 +21,7 @@ namespace UnitTest {
    void ThrowingTestReporter::ReportFailure(TestDetails const& test, char const* failure)
    {
       if(m_decoratedReporter) m_decoratedReporter->ReportFailure(test, failure);
-      throw AssertException();
+      throw RequiredCheckException();
    }
 
    //virtual

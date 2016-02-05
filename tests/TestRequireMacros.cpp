@@ -23,7 +23,7 @@ namespace {
          {
             REQUIRE CHECK(true);
          }
-         catch(const UnitTest::AssertException&)
+         catch(const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -48,7 +48,7 @@ namespace {
          {
             REQUIRE CHECK(false);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -77,7 +77,7 @@ namespace {
                CHECK_EQUAL(1,1);
             }
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -106,7 +106,7 @@ namespace {
                CHECK_EQUAL(1,2);
             }
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -135,7 +135,7 @@ namespace {
                run = true;     // this shouldn't get executed.
             }
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -159,7 +159,7 @@ namespace {
          {
             REQUIRE CHECK(false);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -178,7 +178,7 @@ namespace {
          {
             REQUIRE CHECK(yaddayadda);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -198,7 +198,7 @@ namespace {
          {
             REQUIRE CHECK_EQUAL(1,1);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -223,7 +223,7 @@ namespace {
          {
             REQUIRE CHECK_EQUAL(1, 2);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -248,7 +248,7 @@ namespace {
          {
             line = __LINE__; REQUIRE CHECK_EQUAL(1, 123);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -276,7 +276,7 @@ namespace {
          {
             REQUIRE CHECK_EQUAL(1, FunctionWithSideEffects());
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
@@ -293,7 +293,7 @@ namespace {
          {
             REQUIRE CHECK_EQUAL(2, FunctionWithSideEffects());
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
@@ -313,7 +313,7 @@ namespace {
          {
             REQUIRE CHECK_CLOSE(1.0f, 1.001f, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -338,7 +338,7 @@ namespace {
          {
             REQUIRE CHECK_CLOSE (1.0f, 1.1f, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -364,7 +364,7 @@ namespace {
             line = __LINE__; REQUIRE CHECK_CLOSE(1.0f, 1.1f, 0.01f);
             CHECK(false);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -385,7 +385,7 @@ namespace {
          {
             REQUIRE CHECK_CLOSE (1, FunctionWithSideEffects(), 0.1f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
@@ -402,7 +402,7 @@ namespace {
          {
             REQUIRE CHECK_CLOSE(2, FunctionWithSideEffects(), 0.1f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
@@ -422,7 +422,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_CLOSE (data, data, 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -450,7 +450,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -476,7 +476,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_CLOSE(data1, data2, 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -500,7 +500,7 @@ namespace {
          {
             line = __LINE__; REQUIRE CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -524,7 +524,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -546,7 +546,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_EQUAL (data, data, 4);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -574,7 +574,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_EQUAL (data1, data2, 4);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -600,7 +600,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_EQUAL (data1, data2, 4);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -623,7 +623,7 @@ namespace {
          {
             line = __LINE__; REQUIRE CHECK_ARRAY_EQUAL (data1, data2, 4);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -652,7 +652,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
@@ -671,7 +671,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -693,7 +693,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY2D_CLOSE(data, data, 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -721,7 +721,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {
             exception = true;
          }
@@ -747,7 +747,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -771,7 +771,7 @@ namespace {
          {
             line = __LINE__; REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -795,7 +795,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
 
@@ -824,7 +824,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
@@ -843,7 +843,7 @@ namespace {
          {
             REQUIRE CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
          }
-         catch (const UnitTest::AssertException&)
+         catch (const UnitTest::RequiredCheckException&)
          {}
       }
       CHECK_EQUAL(1, g_sideEffect);
