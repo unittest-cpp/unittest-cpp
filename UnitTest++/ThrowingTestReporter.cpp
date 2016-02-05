@@ -36,14 +36,4 @@ namespace UnitTest {
       if(m_decoratedReporter) m_decoratedReporter->ReportSummary(totalTestCount, failedTestCount, failureCount, secondsElapsed);
    }
 
-   TestReporter* ThrowingTestReporter::GetDecorated() const
-   {
-      return m_decoratedReporter;
-   }
-
-   void ThrowingTestReporter::SetDecorated(TestReporter* reporter)
-   {
-      m_decoratedReporter = reporter;
-   }
-
 }

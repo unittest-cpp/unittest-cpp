@@ -13,13 +13,14 @@ namespace UnitTest {
    class UNITTEST_LINKAGE RequiredCheckTestReporter
    {
    public:
-      explicit RequiredCheckTestReporter(TestResults* results);
+      explicit RequiredCheckTestReporter(TestResults& results);
       ~RequiredCheckTestReporter();
 
       bool Next();
 
    private:
-      TestResults* m_results;
+      TestResults& m_results;
+      TestReporter* m_originalTestReporter;
       ThrowingTestReporter m_throwingReporter;
       int m_continue;
    };

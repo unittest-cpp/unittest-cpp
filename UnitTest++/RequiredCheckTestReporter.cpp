@@ -5,21 +5,18 @@
 
 namespace UnitTest {
 
-   RequiredCheckTestReporter::RequiredCheckTestReporter(TestResults* results)
+   RequiredCheckTestReporter::RequiredCheckTestReporter(TestResults& results)
       : m_results(results)
-      , m_throwingReporter(0)
+      , m_originalTestReporter(results.m_testReporter)
+      , m_throwingReporter(results.m_testReporter)
       , m_continue(0)
    {
-      if(m_results)
-      {
-         m_throwingReporter.SetDecorated(m_results->m_testReporter);
-         m_results->m_testReporter = &m_throwingReporter;
-      }
+      m_results.m_testReporter = &m_throwingReporter;
    }
 
    RequiredCheckTestReporter::~RequiredCheckTestReporter()
    {
-      if(m_results) m_results->m_testReporter = m_throwingReporter.GetDecorated();
+      m_results.m_testReporter = m_originalTestReporter;
    }
 
    bool RequiredCheckTestReporter::Next()
