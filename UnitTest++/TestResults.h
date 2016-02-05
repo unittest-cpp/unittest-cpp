@@ -25,7 +25,6 @@ namespace UnitTest {
    private:
       friend class RequiredCheckTestReporter;
 
-   private:
       TestReporter* m_testReporter;
       int m_totalTestCount;
       int m_failedTestCount;

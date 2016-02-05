@@ -18,8 +18,8 @@ namespace UnitTest {
       virtual void ReportTestFinish(TestDetails const& test, float secondsElapsed);
       virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
 
-      TestReporter* getDecorated() const;
-      void setDecorated(TestReporter* reporter);
+      TestReporter* GetDecorated() const;
+      void SetDecorated(TestReporter* reporter);
 
    private:
       TestReporter* m_decoratedReporter;

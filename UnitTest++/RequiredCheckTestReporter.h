@@ -16,7 +16,7 @@ namespace UnitTest {
       explicit RequiredCheckTestReporter(TestResults* results);
       ~RequiredCheckTestReporter();
 
-      bool next();
+      bool Next();
 
    private:
       TestResults* m_results;

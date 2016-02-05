@@ -12,17 +12,17 @@ namespace UnitTest {
    {
       if(m_results)
       {
-         m_throwingReporter.setDecorated(m_results->m_testReporter);
+         m_throwingReporter.SetDecorated(m_results->m_testReporter);
          m_results->m_testReporter = &m_throwingReporter;
       }
    }
 
    RequiredCheckTestReporter::~RequiredCheckTestReporter()
    {
-      if(m_results) m_results->m_testReporter = m_throwingReporter.getDecorated();
+      if(m_results) m_results->m_testReporter = m_throwingReporter.GetDecorated();
    }
 
-   bool RequiredCheckTestReporter::next()
+   bool RequiredCheckTestReporter::Next()
    {
       return m_continue++ == 0;
    }
