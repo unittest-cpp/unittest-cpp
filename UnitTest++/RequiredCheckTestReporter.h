@@ -6,23 +6,23 @@
 
 namespace UnitTest {
 
-    class TestResults;
+   class TestResults;
 
-    // This RAII class decorates the current TestReporter with
-    // a version that throws after reporting a failure.
-    class UNITTEST_LINKAGE RequiredCheckTestReporter
-    {
-    public:
-        explicit RequiredCheckTestReporter(TestResults* results);
-        ~RequiredCheckTestReporter();
+   // This RAII class decorates the current TestReporter with
+   // a version that throws after reporting a failure.
+   class UNITTEST_LINKAGE RequiredCheckTestReporter
+   {
+   public:
+      explicit RequiredCheckTestReporter(TestResults* results);
+      ~RequiredCheckTestReporter();
 
-        bool next();
-        
-    private:
-        TestResults* m_results;
-        ThrowingTestReporter m_throwingReporter;
-        int m_continue;
-    };
+      bool next();
+
+   private:
+      TestResults* m_results;
+      ThrowingTestReporter m_throwingReporter;
+      int m_continue;
+   };
 }
 
 #endif

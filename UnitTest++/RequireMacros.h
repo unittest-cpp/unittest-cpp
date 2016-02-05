@@ -8,11 +8,11 @@
 #endif
 
 #ifndef UNITTEST_NO_EXCEPTIONS
-    #define REQUIRE for(UnitTest::RequiredCheckTestReporter decoratedReporter(UnitTest::CurrentTest::Results()); decoratedReporter.next(); )
+#define REQUIRE for(UnitTest::RequiredCheckTestReporter decoratedReporter(UnitTest::CurrentTest::Results()); decoratedReporter.next(); )
 #endif
 
 #ifdef UNITTEST_NO_EXCEPTIONS
-    #define REQUIRE
+#define REQUIRE
 #endif
 
 #endif
