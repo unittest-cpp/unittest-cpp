@@ -38,14 +38,11 @@
 #define CHECK(value)                                                                                                                  \
    UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                     \
    UT_TRY                                                                                                                             \
-      ({                                                                                                                              \
+   ({                                                                                                                                 \
       if (!UnitTest::Check(value))                                                                                                    \
          UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
    })                                                                                                                                 \
-   UT_CATCH (UnitTest::RequiredCheckException, ,                                                                                      \
-   {                                                                                                                                  \
-      UT_THROW();                                                                                                                     \
-   })                                                                                                                                 \
+   UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                       \
    {                                                                                                                                  \
       UnitTest::MemoryOutStream message;                                                                                              \
@@ -63,13 +60,10 @@
 #define CHECK_EQUAL(expected, actual)                                                                                                                \
    UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                                    \
    UT_TRY                                                                                                                                            \
-      ({                                                                                                                                             \
+   ({                                                                                                                                                \
       UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), expected, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
    })                                                                                                                                                \
-   UT_CATCH (UnitTest::RequiredCheckException, ,                                                                                                     \
-   {                                                                                                                                                 \
-      UT_THROW();                                                                                                                                    \
-   })                                                                                                                                                \
+   UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                      \
    {                                                                                                                                                 \
       UnitTest::MemoryOutStream message;                                                                                                             \
@@ -78,7 +72,7 @@
                                                       message.GetText());                                                                            \
    })                                                                                                                                                \
    UT_CATCH_ALL                                                                                                                                      \
-      ({                                                                                                                                             \
+   ({                                                                                                                                                \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                            \
                                                       "Unhandled exception in CHECK_EQUAL(" #expected ", " #actual ")");                             \
    })                                                                                                                                                \
@@ -87,13 +81,10 @@
 #define CHECK_CLOSE(expected, actual, tolerance)                                                                                                                \
    UNITTEST_MULTILINE_MACRO_BEGIN                                                                                                                               \
    UT_TRY                                                                                                                                                       \
-      ({                                                                                                                                                        \
+   ({                                                                                                                                                           \
       UnitTest::CheckClose(*UnitTest::CurrentTest::Results(), expected, actual, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
    })                                                                                                                                                           \
-   UT_CATCH (UnitTest::RequiredCheckException, ,                                                                                                                \
-   {                                                                                                                                                            \
-      UT_THROW();                                                                                                                                               \
-   })                                                                                                                                                           \
+   UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                 \
    {                                                                                                                                                            \
       UnitTest::MemoryOutStream message;                                                                                                                        \
@@ -102,7 +93,7 @@
                                                       message.GetText());                                                                                       \
    })                                                                                                                                                           \
    UT_CATCH_ALL                                                                                                                                                 \
-      ({                                                                                                                                                        \
+   ({                                                                                                                                                           \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                                       \
                                                       "Unhandled exception in CHECK_CLOSE(" #expected ", " #actual ")");                                        \
    })                                                                                                                                                           \
@@ -114,10 +105,7 @@
       ({                                                                                                                                                         \
       UnitTest::CheckArrayEqual(*UnitTest::CurrentTest::Results(), expected, actual, count, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
    })                                                                                                                                                            \
-   UT_CATCH (UnitTest::RequiredCheckException, ,                                                                                                                 \
-   {                                                                                                                                                             \
-      UT_THROW();                                                                                                                                                \
-   })                                                                                                                                                            \
+   UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                  \
    {                                                                                                                                                             \
       UnitTest::MemoryOutStream message;                                                                                                                         \
@@ -138,10 +126,7 @@
       ({                                                                                                                                                                    \
       UnitTest::CheckArrayClose(*UnitTest::CurrentTest::Results(), expected, actual, count, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
    })                                                                                                                                                                       \
-   UT_CATCH (UnitTest::RequiredCheckException, ,                                                                                                                            \
-   {                                                                                                                                                                        \
-      UT_THROW();                                                                                                                                                           \
-   })                                                                                                                                                                       \
+   UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                             \
    {                                                                                                                                                                        \
       UnitTest::MemoryOutStream message;                                                                                                                                    \
@@ -162,10 +147,7 @@
       ({                                                                                                                                                                              \
       UnitTest::CheckArray2DClose(*UnitTest::CurrentTest::Results(), expected, actual, rows, columns, tolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
    })                                                                                                                                                                                 \
-   UT_CATCH (UnitTest::RequiredCheckException, ,                                                                                                                                      \
-   {                                                                                                                                                                                  \
-      UT_THROW();                                                                                                                                                                     \
-   })                                                                                                                                                                                 \
+   UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                                       \
    {                                                                                                                                                                                  \
       UnitTest::MemoryOutStream message;                                                                                                                                              \
