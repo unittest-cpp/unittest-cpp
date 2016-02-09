@@ -646,14 +646,9 @@ namespace {
          UnitTest::TestResults testResults;
          ScopedCurrentTest scopedResults(testResults);
 
-         const float data[] = { 0, 1, 2, 3 };
+         const float data[] = { 1, 2, 3, 4 };
 
-         try
-         {
-            REQUIRE CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
-         }
-         catch (const UnitTest::RequiredCheckException&)
-         {}
+         REQUIRE CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
       }
       CHECK_EQUAL(1, g_sideEffect);
    }
