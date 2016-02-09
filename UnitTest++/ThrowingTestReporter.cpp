@@ -1,6 +1,10 @@
 #include "ThrowingTestReporter.h"
 #include "RequiredCheckException.h"
 
+#ifdef UNITTEST_NO_EXCEPTIONS
+#include "ReportAssertImpl.h"
+#endif 
+
 namespace UnitTest {
 
    ThrowingTestReporter::ThrowingTestReporter(TestReporter* decoratedReporter)
@@ -27,7 +31,13 @@ namespace UnitTest {
       {
          m_decoratedReporter->ReportFailure(test, failure);
       }
-      throw RequiredCheckException();
+      
+      #ifndef UNITTEST_NO_EXCEPTIONS
+         throw RequiredCheckException();
+      #else
+         static const int stopTest = 1;
+         UNITTEST_LONGJMP(*UnitTest::Detail::GetAssertJmpBuf(), stopTest);
+      #endif
    }
 
    //virtual

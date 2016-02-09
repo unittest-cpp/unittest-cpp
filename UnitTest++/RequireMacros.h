@@ -7,12 +7,6 @@
     #error UnitTest++ redefines REQUIRE
 #endif
 
-#ifndef UNITTEST_NO_EXCEPTIONS
-   #define REQUIRE for(UnitTest::RequiredCheckTestReporter decoratedReporter(*UnitTest::CurrentTest::Results()); decoratedReporter.Next(); )
-#endif
-
-#ifdef UNITTEST_NO_EXCEPTIONS
-   #define REQUIRE
-#endif
+#define REQUIRE for(UnitTest::RequiredCheckTestReporter decoratedReporter(*UnitTest::CurrentTest::Results()); decoratedReporter.Next(); )
 
 #endif
