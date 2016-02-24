@@ -1,10 +1,26 @@
+version: 1.6.0.{build}
+
 os:
   - Windows Server 2012 R2
 
-install:
+environment:
+  matrix:
+
+  - CMAKE_GENERATOR: Visual Studio 9
+    BUILD_FOLDER: 'vs2008'
+  - CMAKE_GENERATOR: Visual Studio 10
+    BUILD_FOLDER: 'vs2010'
+  - CMAKE_GENERATOR: Visual Studio 11
+    BUILD_FOLDER: 'vs2012'
+  - CMAKE_GENERATOR: Visual Studio 12
+    BUILD_FOLDER: 'vs2013'
+  - CMAKE_GENERATOR: Visual Studio 14
+    BUILD_FOLDER: 'vs2015'
+
+before_build:
   # Generate solution files using cmake, in 'builds' directory.
   # No need to create it because it's part of the repo.
-  - cd builds && cmake -G "Visual Studio 12" ../ && cd ..
+  - mkdir builds\%BUILD_FOLDER% && cd builds\%BUILD_FOLDER% && cmake -G %CMAKE_GENERATOR% ..\..\ && cd ..\..
 
 configuration:
   - Debug
