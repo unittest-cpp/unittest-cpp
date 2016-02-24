@@ -1,14 +1,30 @@
+version: 1.6.0.{build}
+
 os:
   - Windows Server 2012 R2
 
-install:
+environment:
+  matrix:
+
+  - CMAKE_GENERATOR: Visual Studio 9 2008
+  - CMAKE_GENERATOR: Visual Studio 10 2010
+  - CMAKE_GENERATOR: Visual Studio 11 2012
+  - CMAKE_GENERATOR: Visual Studio 12 2013
+  - CMAKE_GENERATOR: Visual Studio 14 2015
+
+before_build:
   # Generate solution files using cmake, in 'builds' directory.
   # No need to create it because it's part of the repo.
-  - cd builds && cmake -G "Visual Studio 12" ../ && cd ..
+  - pushd builds && cmake -G "%CMAKE_GENERATOR%" ..\ && popd
 
 configuration:
   - Debug
   - Release
 
-build:
-  project: builds/UnitTest++.sln
+build_script:
+  - pushd builds && cmake --build . && popd
+
+matrix:
+  fast_finish: true
+
+
