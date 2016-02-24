@@ -7,6 +7,7 @@
 #include "TestResults.h"
 #include "MemoryOutStream.h"
 #include "AssertException.h"
+#include "RequiredCheckException.h"
 #include "CurrentTest.h"
 
 #ifdef UNITTEST_NO_EXCEPTIONS
@@ -38,6 +39,7 @@ namespace UnitTest {
          testObject.RunImpl();
       })
 #endif
+      UT_CATCH(RequiredCheckException, e, { (void)e; })
       UT_CATCH(AssertException, e, { (void)e; })
       UT_CATCH(std::exception, e,
       {
