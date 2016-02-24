@@ -6,21 +6,16 @@ os:
 environment:
   matrix:
 
-  - CMAKE_GENERATOR: Visual Studio 9
-    BUILD_FOLDER: 'vs2008'
-  - CMAKE_GENERATOR: Visual Studio 10
-    BUILD_FOLDER: 'vs2010'
-  - CMAKE_GENERATOR: Visual Studio 11
-    BUILD_FOLDER: 'vs2012'
-  - CMAKE_GENERATOR: Visual Studio 12
-    BUILD_FOLDER: 'vs2013'
-  - CMAKE_GENERATOR: Visual Studio 14
-    BUILD_FOLDER: 'vs2015'
+  - CMAKE_GENERATOR: Visual Studio 9 2008
+  - CMAKE_GENERATOR: Visual Studio 10 2010
+  - CMAKE_GENERATOR: Visual Studio 11 2012
+  - CMAKE_GENERATOR: Visual Studio 12 2013
+  - CMAKE_GENERATOR: Visual Studio 14 2015
 
 before_build:
   # Generate solution files using cmake, in 'builds' directory.
   # No need to create it because it's part of the repo.
-  - mkdir builds\%BUILD_FOLDER% && cd builds\%BUILD_FOLDER% && cmake -G "%CMAKE_GENERATOR%" ..\..\ && cd ..\..
+  - pushd builds && cmake -G "%CMAKE_GENERATOR%" ..\ && popd
 
 configuration:
   - Debug
@@ -28,3 +23,8 @@ configuration:
 
 build:
   project: builds/UnitTest++.sln
+
+matrix:
+  fast_finish: true
+
+
