@@ -12,7 +12,7 @@
 #else
    #define UT_TRY(x) x
    #define UT_THROW(x)
-   #define UT_RETHROW()
+   #define UT_RETHROW(ExceptionType)
    #define UT_CATCH(ExceptionType, ExceptionName, CatchBody)
    #define UT_CATCH_ALL(CatchBody)
 #endif
