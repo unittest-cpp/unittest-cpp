@@ -19,6 +19,8 @@ AC_SUBST([LIBUNITTEST_SO_VERSION], [1:5:1])
 AC_PROG_CXX
 AC_PROG_CC
 
+AX_CXX_COMPILE_STDCXX_11(noext, optional)
+
 # Checks for libraries.
 
 # Checks for header files.
