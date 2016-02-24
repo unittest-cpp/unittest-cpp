@@ -20,7 +20,7 @@ environment:
 before_build:
   # Generate solution files using cmake, in 'builds' directory.
   # No need to create it because it's part of the repo.
-  - mkdir builds\%BUILD_FOLDER% && cd builds\%BUILD_FOLDER% && cmake -G %CMAKE_GENERATOR% ..\..\ && cd ..\..
+  - mkdir builds\%BUILD_FOLDER% && cd builds\%BUILD_FOLDER% && cmake -G "%CMAKE_GENERATOR%" ..\..\ && cd ..\..
 
 configuration:
   - Debug
