@@ -21,8 +21,8 @@ configuration:
   - Debug
   - Release
 
-build:
-  project: builds/UnitTest++.sln
+build_script:
+  - pushd builds && cmake --build . && popd
 
 matrix:
   fast_finish: true
