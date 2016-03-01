@@ -4,7 +4,7 @@
 UnitTest++
 ===========
 
-UnitTest++ is a lightweight unit testing framework for C++. It was designed to do test-driven development on a wide variety of platforms. Simplicity, portability, speed, and small footprint are all very important aspects of UnitTest++. UnitTest++ is ANSI portable C++ and makes minimal use of advanced library and languages features, which means it should be easily portable to just about any platform. Out of the box, the following platforms are supported:
+UnitTest++ is a lightweight unit testing framework for C++. It was designed to do test-driven development on a wide variety of platforms. Simplicity, portability, speed, and small footprint are all very important aspects of UnitTest++. UnitTest++ is mostly standard C++ and makes minimal use of advanced library and language features, which means it should be easily portable to just about any platform. Out of the box, the following platforms are supported:
 
 * Windows
 * Linux
@@ -16,7 +16,7 @@ The full documentation for building and using UnitTest++ can be found on the [Gi
 
 Pre-requisites
 ---------------
-While there are currently some bundled makefiles and projects, UnitTest++ is primarily built and supported using [CMake](http://cmake.org).
+While there are currently some bundled automake files, UnitTest++ is primarily built and supported using [CMake](http://cmake.org).
 
 Downloading
 ------------
@@ -30,17 +30,17 @@ Via svn:
 
     svn checkout https://github.com/unittest-cpp/unittest-cpp/trunk unittest-cpp
 
-### Latest release (v1.5.1) ###
+### Latest release (v1.6.0) ###
 
 Via git:
 
     git clone https://github.com/unittest-cpp/unittest-cpp
     cd unittest-cpp
-    git checkout v1.5.1
+    git checkout v1.6.0
 
 Via svn:
 
-    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.5.1 unittest-cpp
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.6.0 unittest-cpp
 
 License
 ---------
@@ -76,6 +76,10 @@ Contributors
 
 Historic release notes
 ----------------------
+
+### Version 1.6.0 (2016-02-29) ###
+- Add REQUIRE macro to end tests early when selected checks fail
+- [Full List](https://github.com/unittest-cpp/unittest-cpp/issues?q=milestone%3A1.6.0+)
 
 ### Version 1.5.1 (2016-01-30) ###
 - pkg-config support
