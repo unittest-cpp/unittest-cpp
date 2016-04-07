@@ -9,8 +9,14 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([UnitTest++.pc])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])
+
+AC_CANONICAL_HOST
+
+dnl Detect OS and set automake variables
+dnl Always the red-headed stepchild...
 AM_CONDITIONAL([WINDOWS],
-	  [test "${host#*mingw}" != "${host}" -o "${host#*msvc}" != "${host}"])
+               [test "${host//mingw/}" != "${host}" -o "${host//msvc/}" != "${host}"])
+
 LT_INIT()
 
 AC_SUBST([LIBUNITTEST_SO_VERSION], [1:6:0])
