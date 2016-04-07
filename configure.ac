@@ -12,8 +12,7 @@ AM_INIT_AUTOMAKE([foreign subdir-objects])
 
 AC_CANONICAL_HOST
 
-dnl Detect OS and set automake variables
-dnl Always the red-headed stepchild...
+dnl Detect Windows, as it doesn't implement UNIX signals and requires special code
 AM_CONDITIONAL([WINDOWS],
                [test "${host//mingw/}" != "${host}" -o "${host//msvc/}" != "${host}"])
 
