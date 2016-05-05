@@ -30,17 +30,17 @@ Via svn:
 
     svn checkout https://github.com/unittest-cpp/unittest-cpp/trunk unittest-cpp
 
-### Latest release (v1.6.0) ###
+### Latest release (v1.6.1) ###
 
 Via git:
 
     git clone https://github.com/unittest-cpp/unittest-cpp
     cd unittest-cpp
-    git checkout v1.6.0
+    git checkout v1.6.1
 
 Via svn:
 
-    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.6.0 unittest-cpp
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.6.1 unittest-cpp
 
 License
 ---------
@@ -58,7 +58,7 @@ Contributors
 * Charles Nicholson (charles.nicholson@gmail.com) @charlesnicholson
 
 ### Original Authors: ###
-* Noel Llopis (llopis@convexhull.com) 
+* Noel Llopis (llopis@convexhull.com)
 * Charles Nicholson (charles.nicholson@gmail.com)
 
 ### Contributors not included in github history ###
@@ -114,7 +114,7 @@ Historic release notes
 - Standard streams can be optionally compiled off by defining UNITTEST_USE_CUSTOM_STREAMS
   in Config.h
 - Added named test suites
-- Added CHECK_ARRAY2D_CLOSE 
+- Added CHECK_ARRAY2D_CLOSE
 - Posix library name is libUnitTest++.a now
 - Floating point numbers are postfixed with 'f' in the failure reports
 

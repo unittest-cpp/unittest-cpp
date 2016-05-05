@@ -2,7 +2,11 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([UnitTest++], [1.6.0], [pjohnmeyer@gmail.com])
+AC_INIT([UnitTest++],
+        m4_esyscmd_s([git describe --tags | cut -c2-]),
+        [pjohnmeyer@gmail.com],
+        [unittest-cpp])
+
 AC_CONFIG_SRCDIR([UnitTest++/TestDetails.cpp])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
