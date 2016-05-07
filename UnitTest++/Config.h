@@ -16,7 +16,7 @@
    #ifdef _USRDLL
       #define UNITTEST_WIN32_DLL
    #endif
- 
+
    #define UNITTEST_WIN32
 #endif
 
@@ -70,5 +70,11 @@
 #else
    #define UNIITEST_NS_QUAL_STD(x) ::std::x
 #endif
+
+// By default, UnitTest++ will attempt to define "short" macro names like CHECK, CHECK_EQUAL,
+// etc. Setting UNITTEST_ENABLE_SHORT_MACROS to 0 will disable this behavior, leaving
+// only the longer macros "namespaced" with the UNITTEST_ prefix.
+
+#define UNITTEST_ENABLE_SHORT_MACROS 1
 
 #endif
