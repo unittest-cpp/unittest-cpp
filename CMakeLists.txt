@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 2.8.1)
 project(UnitTest++)
 
-option(UTPP_USE_PLUS_SIGN "Set this to OFF if you wish to use '-cpp' instead of '++' in lib/include paths" ON)
+option(UTPP_USE_PLUS_SIGN
+    "Set this to OFF if you wish to use '-cpp' instead of '++' in lib/include paths"
+    ON)
+option(UTPP_SKIP_TESTS_AS_BUILD_STEP
+    "Set this to ON if you do not wish unit tests to run as part of cmake --build"
+    OFF)
 
 if(MSVC14 OR MSVC12)
     # has the support we need
@@ -55,10 +60,15 @@ endif()
 
 target_link_libraries(TestUnitTest++ UnitTest++)
 
-# run unit tests as post build step
-add_custom_command(TARGET TestUnitTest++
-	POST_BUILD COMMAND TestUnitTest++
-	COMMENT "Running unit tests")
+if(${UTPP_SKIP_TESTS_AS_BUILD_STEP})
+    add_custom_command(TARGET TestUnitTest++
+        POST_BUILD COMMAND echo "TestUnitTest++ was not run as a build step because UTPP_SKIP_TESTS_AS_BUILD_STEP is ON")
+else()
+    # run unit tests as post build step
+    add_custom_command(TARGET TestUnitTest++
+    	POST_BUILD COMMAND TestUnitTest++
+    	COMMENT "Running unit tests")
+endif()
 
 # add install targets
 # need a custom install path?
