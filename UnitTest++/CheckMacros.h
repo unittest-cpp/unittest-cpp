@@ -138,7 +138,7 @@
    })                                                                                                                                                                                 \
    UNITTEST_MULTILINE_MACRO_END
 
-#if UNITTEST_ENABLE_SHORT_MACROS
+#ifndef UNITTEST_DISABLE_SHORT_MACROS
    #ifdef CHECK
       #error CHECK already defined, re-configure with UNITTEST_ENABLE_SHORT_MACROS set to 0 and use UNITTEST_CHECK instead
    #else
@@ -198,7 +198,7 @@
    UNITTEST_MULTILINE_MACRO_END
 #endif
 
-#if UNITTEST_ENABLE_SHORT_MACROS
+#ifndef UNITTEST_DISABLE_SHORT_MACROS
    #ifdef CHECK_THROW
       #error CHECK_THROW already defined, re-configure with UNITTEST_ENABLE_SHORT_MACROS set to 0 and use UNITTEST_CHECK_THROW instead
    #else
