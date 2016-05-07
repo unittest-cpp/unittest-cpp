@@ -71,10 +71,10 @@
    #define UNIITEST_NS_QUAL_STD(x) ::std::x
 #endif
 
-// By default, UnitTest++ will attempt to define "short" macro names like CHECK, CHECK_EQUAL,
-// etc. Setting UNITTEST_ENABLE_SHORT_MACROS to 0 will disable this behavior, leaving
-// only the longer macros "namespaced" with the UNITTEST_ prefix.
-
+// By default, UnitTest++ will attempt to define "short" macro names like CHECK and  CHECK_EQUAL
+// for "public" interface macros etc. Setting UNITTEST_ENABLE_SHORT_MACROS to 0 will disable
+// this behavior, leaving only the longer macros "namespaced" with the UNITTEST_ prefix.
+// "Internal" utility macros will only have the UNITTEST_IMPL_ prefix.
 #define UNITTEST_ENABLE_SHORT_MACROS 1
 
 #endif

@@ -79,23 +79,23 @@
    void Test ## Fixture ## Name::RunImpl() const                                                                         \
    {                                                                                                                     \
       volatile bool ctorOk = false;                                                                                      \
-      UT_TRY                                                                                                             \
+      UNITTEST_IMPL_TRY                                                                                                             \
          ({                                                                                                              \
          Fixture ## Name ## Helper fixtureHelper(m_details);                                                             \
          ctorOk = true;                                                                                                  \
          UnitTest::ExecuteTest(fixtureHelper, m_details, false);                                                         \
       })                                                                                                                 \
-      UT_CATCH (UnitTest::AssertException, e,                                                                            \
+      UNITTEST_IMPL_CATCH (UnitTest::AssertException, e,                                                                            \
       {                                                                                                                  \
          (void)e;                                                                                                        \
       })                                                                                                                 \
-      UT_CATCH (std::exception, e,                                                                                       \
+      UNITTEST_IMPL_CATCH (std::exception, e,                                                                                       \
       {                                                                                                                  \
          UnitTest::MemoryOutStream stream;                                                                               \
          stream << "Unhandled exception: " << e.what();                                                                  \
          UnitTest::CurrentTest::Results()->OnTestFailure(m_details, stream.GetText());                                   \
       })                                                                                                                 \
-      UT_CATCH_ALL                                                                                                       \
+      UNITTEST_IMPL_CATCH_ALL                                                                                                       \
          ({                                                                                                              \
          if (ctorOk)                                                                                                     \
          {                                                                                                               \
