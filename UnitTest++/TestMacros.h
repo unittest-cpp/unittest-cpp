@@ -15,19 +15,7 @@
 #include "Posix/SignalTranslator.h"
 #endif
 
-#ifdef TEST
-#error UnitTest++ redefines TEST
-#endif
-
-#ifdef TEST_EX
-#error UnitTest++ redefines TEST_EX
-#endif
-
-#ifdef TEST_FIXTURE_EX
-#error UnitTest++ redefines TEST_FIXTURE_EX
-#endif
-
-#define SUITE(Name)                           \
+#define UNITTEST_SUITE(Name)                  \
    namespace Suite ## Name {                  \
       namespace UnitTestSuite {               \
          inline char const* GetSuiteName () { \
@@ -37,7 +25,7 @@
    }                                          \
    namespace Suite ## Name
 
-#define TEST_EX(Name, List)                                                              \
+#define UNITTEST_IMPL_TEST(Name, List)                                                              \
    class Test ## Name : public UnitTest::Test                                            \
    {                                                                                     \
    public:                                                                               \
@@ -51,10 +39,10 @@
    void Test ## Name::RunImpl() const
 
 
-#define TEST(Name) TEST_EX(Name, UnitTest::Test::GetTestList())
+#define UNITTEST_TEST(Name) UNITTEST_IMPL_TEST(Name, UnitTest::Test::GetTestList())
 
 
-#define TEST_FIXTURE_EX(Fixture, Name, List)                                                                             \
+#define UNITTEST_IMPL_TEST_FIXTURE(Fixture, Name, List)                                                                             \
    class Fixture ## Name ## Helper : public Fixture                                                                      \
    {                                                                                                                     \
    public:                                                                                                               \
@@ -111,7 +99,26 @@
    }                                                                                                                     \
    void Fixture ## Name ## Helper::RunImpl()
 
-#define TEST_FIXTURE(Fixture,Name) TEST_FIXTURE_EX(Fixture, Name, UnitTest::Test::GetTestList())
+#define UNITTEST_TEST_FIXTURE(Fixture,Name) UNITTEST_IMPL_TEST_FIXTURE(Fixture, Name, UnitTest::Test::GetTestList())
 
+#if UNITTEST_ENABLE_SHORT_MACROS
+   #ifdef SUITE
+      #error SUITE already defined, re-configure with UNITTEST_ENABLE_SHORT_MACROS set to 0 and use UNITTEST_SUITE instead
+   #else
+      #define SUITE UNITTEST_SUITE
+   #endif
+
+   #ifdef TEST
+      #error TEST already defined, re-configure with UNITTEST_ENABLE_SHORT_MACROS set to 0 and use UNITTEST_TEST instead
+   #else
+      #define TEST UNITTEST_TEST
+   #endif
+
+   #ifdef TEST_FIXTURE
+      #error TEST_FIXTURE already defined, re-configure with UNITTEST_ENABLE_SHORT_MACROS set to 0 and use UNITTEST_TEST_FIXTURE instead
+   #else
+      #define TEST_FIXTURE UNITTEST_TEST_FIXTURE
+   #endif
+#endif
 
 #endif
