@@ -2,7 +2,6 @@
 #define UNITTEST_PARAMETERIZEDSUITE_H
 
 #include <vector>
-#include <memory>
 #include <iostream>
 
 #include "Test.h"
@@ -17,11 +16,21 @@ namespace UnitTest
 
 		ParameterizedSuiteAbstract(const string & suiteName)
 			: _suiteName(suiteName),
-			_testName(suiteName + "ParameterizedSuite_starter")
+			_testName(suiteName + "ParameterizedSuite_starter"),
+			_testAnchor(nullptr) // Important, even if defined just above (please read comment)
 		{
 			// WARNING: this is pointer because of memory problems with suiteName/testName.c_str(),
 			// the constructor does not initialize them in the right order
-			_testAnchor = make_unique<TestAnchor>(*this);
+			_testAnchor = new TestAnchor(*this);
+		}
+
+		virtual ~ParameterizedSuiteAbstract()
+		{
+			if (_testAnchor != nullptr)
+			{
+				delete _testAnchor;
+				_testAnchor = nullptr;
+			}
 		}
 
 		size_t getIteration()
@@ -100,11 +109,11 @@ namespace UnitTest
 				return false;
 			}
 
-			for (Test* iTest = _testAnchor.get(); iTest != nullptr; iTest = iTest->m_nextTest)
+			for (Test* iTest = _testAnchor; iTest != nullptr; iTest = iTest->m_nextTest)
 			{
 				bool inSameSuite = (strcmp(iTest->m_details.suiteName, _suiteName.c_str()) == 0);
-				bool ownAnchor = (iTest == _testAnchor.get());
-				bool isOtherParameterizedSuite = (iTest != _testAnchor.get() && dynamic_cast<TestAnchor*>(iTest) != nullptr);
+				bool ownAnchor = (iTest == _testAnchor);
+				bool isOtherParameterizedSuite = (iTest != _testAnchor && dynamic_cast<TestAnchor*>(iTest) != nullptr);
 				if (!inSameSuite || isOtherParameterizedSuite)
 				{
 					_firstOuterTest = iTest;
@@ -113,7 +122,7 @@ namespace UnitTest
 				_lastOfSuite = iTest;
 			}
 
-			_lastOfSuite->m_nextTest = _testAnchor.get();
+			_lastOfSuite->m_nextTest = _testAnchor;
 
 			_iterationBranched = true;
 			return true;
@@ -164,7 +173,7 @@ namespace UnitTest
 		const string _testName;
 		Test* _firstOuterTest = nullptr;
 		Test* _lastOfSuite = nullptr;
-		unique_ptr<TestAnchor> _testAnchor;
+		TestAnchor* _testAnchor;
 	};
 
 
