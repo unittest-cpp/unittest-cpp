@@ -22,7 +22,7 @@ SUITE(ParameterizedSuite)
 	}
 
 	vector<int> values = { 1, 2, 3, 4 };
-	ParameterizedSuite<int, values> parameterized(UnitTestSuite::GetSuiteName());
+	ParameterizedSuite<int> parameterized(UnitTestSuite::GetSuiteName(), values);
 
 	size_t lastIteration = -1;
 	int lastValue = 0;
@@ -47,7 +47,7 @@ SUITE(ParameterizedSuite)
 	}
 
 	vector<int> values2 = { 1000, 2000 };
-	ParameterizedSuite<int, values2> parameterized2(UnitTestSuite::GetSuiteName());
+	ParameterizedSuite<int> parameterized2(UnitTestSuite::GetSuiteName(), values2);
 
 	TEST(OtherPSIgnoredFromFirstPS)
 	{
@@ -59,7 +59,7 @@ SUITE(ParameterizedSuite)
 SUITE(ParameterizedSuite_LessValues)
 {
 	vector<int> noValues = {};
-	ParameterizedSuite<int, noValues> parameterizedEmpty(UnitTestSuite::GetSuiteName());
+	ParameterizedSuite<int> parameterizedEmpty(UnitTestSuite::GetSuiteName(), noValues);
 
 	TEST(WhenNoValue_zeroExecution)
 	{
@@ -69,7 +69,7 @@ SUITE(ParameterizedSuite_LessValues)
 
 
 	vector<int> singleValue = { 2 };
-	ParameterizedSuite<int, singleValue> parameterizedSingle(UnitTestSuite::GetSuiteName());
+	ParameterizedSuite<int> parameterizedSingle(UnitTestSuite::GetSuiteName(), singleValue);
 
 	TEST(WhenSingleValue_singleExecution)
 	{

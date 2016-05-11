@@ -175,7 +175,7 @@ namespace UnitTest
 	 * @code
 	 * SUITE(Testing) {
 	 *   vector<int> suitesParams { 1, 5, 10 };
-	 *   ParameterizedSuite<int, suitesParams> parameters(UnitTestSuite::GetSuiteName());
+	 *   ParameterizedSuite<int> parameters(UnitTestSuite::GetSuiteName(), suitesParams);
 	 *   TEST(Show)
 	 *   {
 	 *     cout << parameters.getCurrent() << endl;
@@ -183,7 +183,7 @@ namespace UnitTest
 	 * }
 	 * @endcode
 	 */
-	template<class T_Value, const vector<T_Value> & V_Values>
+	template<class T_Value>
 	class ParameterizedSuite : public ParameterizedSuiteAbstract
 	{
 	public:
@@ -193,13 +193,14 @@ namespace UnitTest
 		};
 
 
-		ParameterizedSuite(const string & suiteName)
-			: ParameterizedSuite(suiteName, nullptr)
+		ParameterizedSuite(const string & suiteName, vector<T_Value> values)
+			: ParameterizedSuite(suiteName, values, nullptr)
 		{
 		}
 
-		ParameterizedSuite(const string & suiteName, ISuiteIterationListener* const suiteIterationListener)
+		ParameterizedSuite(const string & suiteName, vector<T_Value> values, ISuiteIterationListener* const suiteIterationListener)
 			: ParameterizedSuiteAbstract(suiteName),
+			_values(values),
 			_suiteIterationListener(suiteIterationListener)
 		{
 		}
@@ -219,7 +220,7 @@ namespace UnitTest
 
 		virtual void peekCurrentValue() override
 		{
-			_currentValue = V_Values[getIteration()];
+			_currentValue = _values[getIteration()];
 
 			if (_suiteIterationListener != nullptr)
 			{
@@ -229,12 +230,14 @@ namespace UnitTest
 
 		virtual size_t valuesSize() override
 		{
-			return V_Values.size();
+			return _values.size();
 		}
 
 	private:
 
 		ISuiteIterationListener* const _suiteIterationListener;
+
+		vector<T_Value> _values;
 		T_Value _currentValue;
 	};
 }
