@@ -16,7 +16,7 @@ namespace UnitTest
 
 		ParameterizedSuiteAbstract(const string & suiteName)
 			: _suiteName(suiteName),
-			_testName(suiteName + "ParameterizedSuite_starter"),
+			_testName(suiteName + "ParameterizedSuite_anchor"),
 			_testAnchor(nullptr) // Important, even if defined just above (please read comment)
 		{
 			// WARNING: this is pointer because of memory problems with suiteName/testName.c_str(),
