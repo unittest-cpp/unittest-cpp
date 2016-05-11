@@ -1,7 +1,6 @@
 #ifndef UNITTEST_PARAMETERIZEDSUITE_H
 #define UNITTEST_PARAMETERIZEDSUITE_H
 
-#include <functional>
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -188,14 +187,20 @@ namespace UnitTest
 	class ParameterizedSuite : public ParameterizedSuiteAbstract
 	{
 	public:
+		struct ISuiteIterationListener
+		{
+			virtual void onNextIteration(T_Value current, size_t iteration) = 0;
+		};
+
+
 		ParameterizedSuite(const string & suiteName)
-			: ParameterizedSuite(suiteName, [](T_Value) {})
+			: ParameterizedSuite(suiteName, nullptr)
 		{
 		}
 
-		ParameterizedSuite(const string & suiteName, function<void(T_Value current)> onNextIterationMethod)
+		ParameterizedSuite(const string & suiteName, ISuiteIterationListener* const suiteIterationListener)
 			: ParameterizedSuiteAbstract(suiteName),
-			_onNextIterationMethod(onNextIterationMethod)
+			_suiteIterationListener(suiteIterationListener)
 		{
 		}
 
@@ -215,7 +220,11 @@ namespace UnitTest
 		virtual void peekCurrentValue() override
 		{
 			_currentValue = V_Values[getIteration()];
-			_onNextIterationMethod(_currentValue);
+
+			if (_suiteIterationListener != nullptr)
+			{
+				_suiteIterationListener->onNextIteration(_currentValue, getIteration());
+			}
 		}
 
 		virtual size_t valuesSize() override
@@ -225,7 +234,7 @@ namespace UnitTest
 
 	private:
 
-		function<void(T_Value current)> _onNextIterationMethod;
+		ISuiteIterationListener* const _suiteIterationListener;
 		T_Value _currentValue;
 	};
 }
