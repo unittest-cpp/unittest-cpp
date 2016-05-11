@@ -192,13 +192,7 @@ namespace UnitTest
 			virtual void onNextIteration(T_Value current, size_t iteration) = 0;
 		};
 
-
-		ParameterizedSuite(const string & suiteName, vector<T_Value> values)
-			: ParameterizedSuite(suiteName, values, nullptr)
-		{
-		}
-
-		ParameterizedSuite(const string & suiteName, vector<T_Value> values, ISuiteIterationListener* const suiteIterationListener)
+		ParameterizedSuite(const string & suiteName, vector<T_Value> values, ISuiteIterationListener* const suiteIterationListener = nullptr)
 			: ParameterizedSuiteAbstract(suiteName),
 			_values(values),
 			_suiteIterationListener(suiteIterationListener)
