@@ -96,7 +96,8 @@ namespace UnitTest
 			if (!messageDisplayed)
 			{
 				messageDisplayed = true;
-				cout << "WARNING: test of parameterized suite " << _suiteName << " can not be executed alone, test will be executed with first value only.";
+				cout << "WARNING: test of parameterized suite " << _suiteName
+					<< " can not be executed alone, test will be executed with first value only." << endl;
 			}
 
 			return true;
