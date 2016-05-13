@@ -15,14 +15,21 @@ static int noValueSuiteSum = 0;
 
 SUITE(ParameterizedSuite)
 {
+
+
 	TEST(TestsOfBelowAreIgnored)
 	{
 		ignoredCounter++;
 		CHECK_EQUAL(1, ignoredCounter);
 	}
 
-	vector<int> values = { 1, 2, 3, 4 };
-	ParameterizedSuite<int> parameterized(UnitTestSuite::GetSuiteName(), values);
+	SET_SUITE_PARAMETERS(parameterized, int)
+	{
+		parameters.push_back(1);
+		parameters.push_back(2);
+		parameters.push_back(3);
+		parameters.push_back(4);
+	}
 
 	size_t lastIteration = -1;
 	int lastValue = 0;
@@ -46,8 +53,12 @@ SUITE(ParameterizedSuite)
 		CHECK_EQUAL(parameterized.getIteration() + 1, parameterized.getCurrent());
 	}
 
-	vector<int> values2 = { 1000, 2000 };
-	ParameterizedSuite<int> parameterized2(UnitTestSuite::GetSuiteName(), values2);
+
+	SET_SUITE_PARAMETERS(parameterized2, int)
+	{
+		parameters.push_back(1000);
+		parameters.push_back(2000);
+	}
 
 	TEST(OtherPSIgnoredFromFirstPS)
 	{
@@ -58,8 +69,9 @@ SUITE(ParameterizedSuite)
 
 SUITE(ParameterizedSuite_LessValues)
 {
-	vector<int> noValues = {};
-	ParameterizedSuite<int> parameterizedEmpty(UnitTestSuite::GetSuiteName(), noValues);
+	SET_SUITE_PARAMETERS(parameterizedEmpty, int)
+	{
+	}
 
 	TEST(WhenNoValue_zeroExecution)
 	{
@@ -67,9 +79,10 @@ SUITE(ParameterizedSuite_LessValues)
 		throw exception("Should not have been reached");
 	}
 
-
-	vector<int> singleValue = { 2 };
-	ParameterizedSuite<int> parameterizedSingle(UnitTestSuite::GetSuiteName(), singleValue);
+	SET_SUITE_PARAMETERS(parameterizedSingle, int)
+	{
+		parameters.push_back(2);
+	}
 
 	TEST(WhenSingleValue_singleExecution)
 	{
