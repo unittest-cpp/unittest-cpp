@@ -5,13 +5,28 @@
 using namespace std;
 using namespace UnitTest;
 
-
+static int simpleValuesSum = 0;
 static int valuesSum = 0;
 static int iterationsSum = 0;
 static int ignoredCounter = 0;
 static int otherParameterizedSuiteSum = 0;
 static int singleValueSuiteSum = 0;
 static int noValueSuiteSum = 0;
+
+
+PARAMETERIZED_SUITE(ParameterizedSuiteSimple, iVal, int, {
+	parameters.push_back(10);
+	parameters.push_back(20);
+	parameters.push_back(30);
+	parameters.push_back(40);
+})
+{
+	TEST(SimpleSum)
+	{
+		simpleValuesSum += iVal();
+	}
+}
+
 
 SUITE(ParameterizedSuite)
 {
@@ -90,6 +105,7 @@ SUITE(ParameterizedSuite_Validation)
 {
 	TEST(ParameterizedSuiteHasBeenIterated)
 	{
+		CHECK_EQUAL(100, simpleValuesSum);
 		CHECK_EQUAL(1, ignoredCounter);
 		CHECK_EQUAL(10, valuesSum);
 		CHECK_EQUAL(4, iterationsSum);
