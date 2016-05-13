@@ -15,21 +15,18 @@ static int noValueSuiteSum = 0;
 
 SUITE(ParameterizedSuite)
 {
-
-
 	TEST(TestsOfBelowAreIgnored)
 	{
 		ignoredCounter++;
 		CHECK_EQUAL(1, ignoredCounter);
 	}
 
-	SET_SUITE_PARAMETERS(parameterized, int)
-	{
+	SET_SUITE_PARAMETERS(parameterized, int, {
 		parameters.push_back(1);
 		parameters.push_back(2);
 		parameters.push_back(3);
 		parameters.push_back(4);
-	}
+	})
 
 	size_t lastIteration = -1;
 	int lastValue = 0;
@@ -54,11 +51,10 @@ SUITE(ParameterizedSuite)
 	}
 
 
-	SET_SUITE_PARAMETERS(parameterized2, int)
-	{
+	SET_SUITE_PARAMETERS(parameterized2, int, {
 		parameters.push_back(1000);
 		parameters.push_back(2000);
-	}
+	})
 
 	TEST(OtherPSIgnoredFromFirstPS)
 	{
@@ -69,9 +65,8 @@ SUITE(ParameterizedSuite)
 
 SUITE(ParameterizedSuite_LessValues)
 {
-	SET_SUITE_PARAMETERS(parameterizedEmpty, int)
-	{
-	}
+	SET_SUITE_PARAMETERS(parameterizedEmpty, int, {
+	})
 
 	TEST(WhenNoValue_zeroExecution)
 	{
@@ -79,10 +74,9 @@ SUITE(ParameterizedSuite_LessValues)
 		throw exception("Should not have been reached");
 	}
 
-	SET_SUITE_PARAMETERS(parameterizedSingle, int)
-	{
+	SET_SUITE_PARAMETERS(parameterizedSingle, int, {
 		parameters.push_back(2);
-	}
+	})
 
 	TEST(WhenSingleValue_singleExecution)
 	{

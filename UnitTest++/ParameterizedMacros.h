@@ -4,7 +4,7 @@
 #include "ParameterizedSuite.h"
 
 
-#define SET_SUITE_PARAMETERS(Name, Type) \
+#define SET_SUITE_PARAMETERS(Name, Type, SetUpBody) \
 	class ParameterizedCreator ## Name\
 	{ \
 		friend class ParameterizedSuite<## Type>; \
@@ -17,6 +17,7 @@
 	\
 	ParameterizedSuite<##Type>  ## Name(UnitTestSuite::GetSuiteName(), parameterizedCreator ## Name ## Instance.parameters); \
 	\
-	void ParameterizedCreator ## Name::create()
+	void ParameterizedCreator ## Name::create() \
+	## SetUpBody
 
 #endif
