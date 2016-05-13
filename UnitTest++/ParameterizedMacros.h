@@ -4,20 +4,27 @@
 #include "ParameterizedSuite.h"
 
 
-#define SET_SUITE_PARAMETERS(Name, Type, SetUpBody) \
-	class ParameterizedCreator ## Name\
+#define SET_SUITE_PARAMETERS(IterationName, Type, SetUpBody) \
+	class ParameterizedCreator ## IterationName\
 	{ \
 		friend class ParameterizedSuite<## Type>; \
 	public: \
-		ParameterizedCreator ## Name() { create(); } \
+		ParameterizedCreator ## IterationName() { create(); } \
 		vector<## Type> parameters; \
 	private: \
 		void create(); \
-	} parameterizedCreator ## Name ## Instance; \
+	} parameterizedCreator ## IterationName ## Instance; \
 	\
-	ParameterizedSuite<##Type>  ## Name(UnitTestSuite::GetSuiteName(), parameterizedCreator ## Name ## Instance.parameters); \
+	ParameterizedSuite<##Type>  ## IterationName(UnitTestSuite::GetSuiteName(), parameterizedCreator ## IterationName ## Instance.parameters); \
 	\
-	void ParameterizedCreator ## Name::create() \
+	void ParameterizedCreator ## IterationName::create() \
 	## SetUpBody
+
+#define PARAMETERIZED_SUITE(Name, IterationName, Type, SetUpBody) \
+	SUITE(## Name) \
+	{ \
+	SET_SUITE_PARAMETERS(## IterationName, ## Type, ## SetUpBody) \
+	} \
+	namespace Suite ## Name
 
 #endif
