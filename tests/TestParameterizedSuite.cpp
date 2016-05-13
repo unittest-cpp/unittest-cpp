@@ -14,7 +14,7 @@ static int singleValueSuiteSum = 0;
 static int noValueSuiteSum = 0;
 
 
-PARAMETERIZED_SUITE(ParameterizedSuiteSimple, iVal, int, {
+PARAMETERIZED_SUITE(ParameterizedSuiteSimple, int, iVal, {
 	parameters.push_back(10);
 	parameters.push_back(20);
 	parameters.push_back(30);
@@ -36,7 +36,7 @@ SUITE(ParameterizedSuite)
 		CHECK_EQUAL(1, ignoredCounter);
 	}
 
-	SET_SUITE_PARAMETERS(parameterized, int, {
+	SET_SUITE_PARAMETERS(int, parameterized, {
 		parameters.push_back(1);
 		parameters.push_back(2);
 		parameters.push_back(3);
@@ -66,7 +66,7 @@ SUITE(ParameterizedSuite)
 	}
 
 
-	SET_SUITE_PARAMETERS(parameterized2, int, {
+	SET_SUITE_PARAMETERS(int, parameterized2, {
 		parameters.push_back(1000);
 		parameters.push_back(2000);
 	})
@@ -80,7 +80,7 @@ SUITE(ParameterizedSuite)
 
 SUITE(ParameterizedSuite_LessValues)
 {
-	SET_SUITE_PARAMETERS(parameterizedEmpty, int, {
+	SET_SUITE_PARAMETERS(int, parameterizedEmpty, {
 	})
 
 	TEST(WhenNoValue_zeroExecution)
@@ -89,7 +89,7 @@ SUITE(ParameterizedSuite_LessValues)
 		throw exception("Should not have been reached");
 	}
 
-	SET_SUITE_PARAMETERS(parameterizedSingle, int, {
+	SET_SUITE_PARAMETERS(int, parameterizedSingle, {
 		parameters.push_back(2);
 	})
 

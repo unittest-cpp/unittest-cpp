@@ -4,7 +4,7 @@
 #include "ParameterizedSuite.h"
 
 
-#define SET_SUITE_PARAMETERS(IterationName, Type, SetUpBody) \
+#define SET_SUITE_PARAMETERS(Type, IterationName, SetUpBody) \
 	class ParameterizedCreator ## IterationName\
 	{ \
 		friend class ParameterizedSuite<## Type>; \
@@ -20,10 +20,11 @@
 	void ParameterizedCreator ## IterationName::create() \
 	## SetUpBody
 
-#define PARAMETERIZED_SUITE(Name, IterationName, Type, SetUpBody) \
+
+#define PARAMETERIZED_SUITE(Name, Type, IterationName, SetUpBody) \
 	SUITE(## Name) \
 	{ \
-	SET_SUITE_PARAMETERS(## IterationName, ## Type, ## SetUpBody) \
+		SET_SUITE_PARAMETERS(## Type, ## IterationName, ## SetUpBody) \
 	} \
 	namespace Suite ## Name
 
