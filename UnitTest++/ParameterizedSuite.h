@@ -15,8 +15,12 @@ namespace UnitTest
 	public:
 
 		ParameterizedSuiteAbstract(const string & suiteName)
-			: _suiteName(suiteName),
+			: _iterationBranched(false),
+			_iteration(0),
+			_suiteName(suiteName),
 			_testName(suiteName + "ParameterizedSuite_anchor"),
+			_firstOuterTest(nullptr),
+			_lastOfSuite(nullptr),
 			_testAnchor(nullptr) // Important, even if defined just above (please read comment)
 		{
 			// WARNING: this is pointer because of memory problems with suiteName/testName.c_str(),
@@ -168,12 +172,12 @@ namespace UnitTest
 			peekCurrentValue();
 		}
 
-		volatile bool _iterationBranched = false;
-		size_t _iteration = 0;
+		volatile bool _iterationBranched;
+		size_t _iteration;
 		const string _suiteName;
 		const string _testName;
-		Test* _firstOuterTest = nullptr;
-		Test* _lastOfSuite = nullptr;
+		Test* _firstOuterTest;
+		Test* _lastOfSuite;
 		TestAnchor* _testAnchor;
 	};
 
