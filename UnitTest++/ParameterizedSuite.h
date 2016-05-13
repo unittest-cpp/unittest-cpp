@@ -37,7 +37,7 @@ namespace UnitTest
 			}
 		}
 
-		size_t getIteration()
+		inline size_t getIteration() const
 		{
 			return _iteration;
 		}
@@ -45,7 +45,7 @@ namespace UnitTest
 	protected:
 
 		virtual void peekCurrentValue() = 0;
-		virtual size_t valuesSize() = 0;
+		virtual size_t valuesSize() const = 0;
 
 		void ensureInitialized()
 		{
@@ -53,7 +53,7 @@ namespace UnitTest
 			tryBranchUniqueTest();
 		}
 
-		bool hasMoreValues(int advance = 0)
+		bool hasMoreValues(int advance = 0) const
 		{
 			return (_iteration + advance < (int)valuesSize());
 		}
