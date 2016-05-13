@@ -2,8 +2,6 @@
 #define UNITTEST_PARAMETERIZEDSUITE_H
 
 #include <vector>
-#include <iostream>
-
 #include "Test.h"
 
 namespace UnitTest
@@ -13,164 +11,31 @@ namespace UnitTest
 	class ParameterizedSuiteAbstract
 	{
 	public:
-
-		ParameterizedSuiteAbstract(const string & suiteName)
-			: _iterationBranched(false),
-			_iteration(0),
-			_suiteName(suiteName),
-			_testName(suiteName + "ParameterizedSuite_anchor"),
-			_firstOuterTest(nullptr),
-			_lastOfSuite(nullptr),
-			_testAnchor(nullptr) // Important, even if defined just above (please read comment)
-		{
-			// WARNING: this is pointer because of memory problems with suiteName/testName.c_str(),
-			// the constructor does not initialize them in the right order
-			_testAnchor = new TestAnchor(*this);
-		}
-
-		virtual ~ParameterizedSuiteAbstract()
-		{
-			if (_testAnchor != nullptr)
-			{
-				delete _testAnchor;
-				_testAnchor = nullptr;
-			}
-		}
-
-		inline size_t getIteration() const
-		{
-			return _iteration;
-		}
+		ParameterizedSuiteAbstract(const string & suiteName);
+		virtual ~ParameterizedSuiteAbstract();
+		size_t getIteration() const;
 
 	protected:
-
 		virtual void peekCurrentValue() = 0;
 		virtual size_t valuesSize() const = 0;
-
-		void ensureInitialized()
-		{
-			tryPeekFirstValue();
-			tryBranchUniqueTest();
-		}
-
-		bool hasMoreValues(int advance = 0) const
-		{
-			return (_iteration + advance < (int)valuesSize());
-		}
+		void ensureInitialized();
+		bool hasMoreValues(int advance = 0) const;
 
 	private:
-
 		class TestAnchor : public Test
 		{
 		public:
-			TestAnchor(ParameterizedSuiteAbstract & parameterized)
-				: Test(parameterized._testName.c_str(), parameterized._suiteName.c_str()),
-				_parameterized(parameterized)
-			{
-				Test::GetTestList().Add(this);
-			}
-			virtual void RunImpl() const override
-			{
-				_parameterized.onNewIteration();
-			}
+			TestAnchor(ParameterizedSuiteAbstract & parameterized);
+			virtual void RunImpl() const override;
 		private:
 			ParameterizedSuiteAbstract & _parameterized;
 		};
 
-		bool tryPeekFirstValue()
-		{
-			if (_iterationBranched)
-			{
-				return false;
-			}
-
-			peekCurrentValue();
-			return false;
-		}
-
-		bool tryBranchUniqueTest()
-		{
-			if (_iterationBranched)
-			{
-				return false;
-			}
-
-			//TODO find a way to allow single parameterized test execution
-			static bool messageDisplayed = false;
-			if (!messageDisplayed)
-			{
-				messageDisplayed = true;
-				cout << "WARNING: test of parameterized suite " << _suiteName
-					<< " can not be executed alone, test will be executed with first value only." << endl;
-			}
-
-			return true;
-		}
-
-		bool branchTestsForIteration()
-		{
-			if (_iterationBranched)
-			{
-				return false;
-			}
-
-			for (Test* iTest = _testAnchor; iTest != nullptr; iTest = iTest->m_nextTest)
-			{
-				bool inSameSuite = (strcmp(iTest->m_details.suiteName, _suiteName.c_str()) == 0);
-				bool ownAnchor = (iTest == _testAnchor);
-				bool isOtherParameterizedSuite = (iTest != _testAnchor && dynamic_cast<TestAnchor*>(iTest) != nullptr);
-				if (!inSameSuite || isOtherParameterizedSuite)
-				{
-					_firstOuterTest = iTest;
-					break;
-				}
-				_lastOfSuite = iTest;
-			}
-
-			_lastOfSuite->m_nextTest = _testAnchor;
-
-			_iterationBranched = true;
-			return true;
-		}
-
-		bool unbranchIterationIfLast()
-		{
-			if (!_iterationBranched)
-			{
-				return false;
-			}
-
-			if (hasMoreValues(1))
-			{
-				return false;
-			}
-
-			_lastOfSuite->m_nextTest = _firstOuterTest;
-			return true;
-		}
-
-		void onNewIteration()
-		{
-			if (_iterationBranched)
-			{
-				_iteration++;
-			}
-
-			bool justBranched = branchTestsForIteration();
-			bool justUnbranched = unbranchIterationIfLast();
-
-			if (justBranched && justUnbranched)
-			{
-				// If no values to test, skip all tests
-				if (valuesSize() == 0)
-				{
-					_testAnchor->m_nextTest = _firstOuterTest;
-					return;
-				}
-			}
-
-			peekCurrentValue();
-		}
+		bool tryPeekFirstValue();
+		bool tryBranchUniqueTest();
+		bool branchTestsForIteration();
+		bool unbranchIterationIfLast();
+		void onNewIteration();
 
 		volatile bool _iterationBranched;
 		size_t _iteration;
@@ -229,22 +94,19 @@ namespace UnitTest
 		virtual void peekCurrentValue() override
 		{
 			_currentValue = _values[getIteration()];
-
 			if (_suiteIterationListener != nullptr)
 			{
 				_suiteIterationListener->onNextIteration(_currentValue, getIteration());
 			}
 		}
 
-		virtual size_t valuesSize() override
+		virtual size_t valuesSize() const override
 		{
 			return _values.size();
 		}
 
 	private:
-
 		ISuiteIterationListener* const _suiteIterationListener;
-
 		vector<T_Value> _values;
 		T_Value _currentValue;
 	};
