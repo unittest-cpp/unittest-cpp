@@ -18,9 +18,9 @@ namespace UnitTest
 		virtual ~ParameterizedTest();
 
 	private:
-		static Details2Test & getFastSearchMap();
-		static Test* const retrieveCurrentTest();
-		static Test* const retrieveTest(TestDetails const * const details);
+		Test* const retrieveCurrentTest();
+		Test* const retrieveTest(TestDetails const * const details);
+		Details2Test _tests;
 	};
 }
 

@@ -17,13 +17,6 @@ ParameterizedTest::~ParameterizedTest()
 }
 
 
-Details2Test & ParameterizedTest::getFastSearchMap()
-{
-	static Details2Test storedMap;
-	return storedMap;
-}
-
-
 Test* const ParameterizedTest::retrieveCurrentTest()
 {
 	return retrieveTest(CurrentTest::Details());
@@ -33,9 +26,9 @@ Test* const ParameterizedTest::retrieveCurrentTest()
 Test* const ParameterizedTest::retrieveTest(TestDetails const * const details)
 {
 	//TODO This workaround is too far complicated, why not simply add pointer to current test in class CurrentTest ?
-	Details2Test::iterator it = getFastSearchMap().find(details);
+	Details2Test::iterator it = _tests.find(details);
 
-	if (it != getFastSearchMap().end())
+	if (it != _tests.end())
 	{
 		return it->second;
 	}
@@ -44,7 +37,7 @@ Test* const ParameterizedTest::retrieveTest(TestDetails const * const details)
 	{
 		if (&iTest->m_details == details)
 		{
-			getFastSearchMap()[details] = iTest;
+			_tests[details] = iTest;
 			return iTest;
 		}
 	}
