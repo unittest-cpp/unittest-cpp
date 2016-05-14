@@ -91,6 +91,10 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 	if (first)
 	{
 		_iteration = 0;
+		if (!hasMoreValues())
+		{
+			throw runtime_error("No values for parameterized test");
+		}
 	}
 	else
 	{
