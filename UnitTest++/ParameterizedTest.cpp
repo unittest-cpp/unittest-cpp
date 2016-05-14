@@ -49,5 +49,5 @@ Test* const ParameterizedTest::retrieveTest(TestDetails const * const details)
 		}
 	}
 
-	return nullptr;
+	throw runtime_error(string("Impossible to retrieve test ") + details->testName);
 }
