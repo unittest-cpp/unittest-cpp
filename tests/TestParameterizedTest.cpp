@@ -15,14 +15,18 @@ SUITE(ParameterizedTest)
 	{
 		InitVoyelle()
 		{
-			voyelleValues.push_back("A");
-			voyelleValues.push_back("E");
-			voyelleValues.push_back("I");
-			voyelleValues.push_back("O");
-			voyelleValues.push_back("U");
-			voyelleValues.push_back("Y");
+			values.push_back("A");
+			values.push_back("E");
+			values.push_back("I");
+			values.push_back("O");
+			values.push_back("U");
+			values.push_back("Y");
 		}
+		vector<string> values;
 	} InitVoyelleInstance;
+
+	
+	ParameterizedTest<string> voyelle(InitVoyelleInstance.values);
 
 	
 	static string buildVoyellesStringOutput;
