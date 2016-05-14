@@ -101,7 +101,7 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 		_iteration++;
 	}
 
-	if (hasMoreValues(1))
+	if (hasMoreValues())
 	{
 		_lastTest->m_nextTest = _testAnchor;
 		_testAnchor->m_nextTest = _lastTest;
@@ -109,7 +109,8 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 	else
 	{
 		_lastTest->m_nextTest = _nextTestBackup;
-		_testAnchor->m_nextTest = nullptr;
+		_testAnchor->m_nextTest = _nextTestBackup;
+		return;
 	}
 
 	peekCurrentValue(_iteration);
