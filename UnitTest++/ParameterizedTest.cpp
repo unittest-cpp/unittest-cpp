@@ -109,6 +109,8 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 	else
 	{
 		_lastTest->m_nextTest = _nextTestBackup;
+		_lastTest = nullptr;
+
 		_testAnchor->m_nextTest = _nextTestBackup;
 		return;
 	}
