@@ -94,4 +94,36 @@ SUITE(ParameterizedTestSimple)
 		CHECK_EQUAL(2, singleValueSuiteSum);
 		CHECK_EQUAL(1, hitCountSingle);
 	}
+
+	//////////
+
+	string voyelReuse;
+	TEST(ReusePreviousParameterized)
+	{
+		voyelReuse += vowel() + "-"; // Add a separator for 
+	}
+
+	TEST(ReusePreviousParameterized_Verify)
+	{
+		CHECK_EQUAL("A-E-I-O-U-Y-", voyelReuse);
+	}
+
+	//////////
+
+	SET_SUITE_PARAMETERS(string, xyz, {
+		parameters.push_back("X");
+		parameters.push_back("Y");
+		parameters.push_back("Z");
+	});
+
+	string nestedParameters;
+	TEST(NestedParameters)
+	{
+		nestedParameters += vowel() + xyz(); // Add a separator for 
+	}
+
+	TEST(NestedParameters_Verify)
+	{
+		CHECK_EQUAL("AXEXIXOXUXYXAYEYIYOYUYYYAZEZIZOZUZYZ", nestedParameters);
+	}
 }
