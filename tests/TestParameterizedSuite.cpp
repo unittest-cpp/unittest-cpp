@@ -11,16 +11,17 @@ static int iterationsSum = 0;
 static int ignoredCounter = 0;
 static int otherParameterizedSuiteSum = 0;
 static int singleValueSuiteSum = 0;
-static int noValueSuiteSum = 0;
 
 
-PARAMETERIZED_SUITE(ParameterizedSuiteSimple, int, iVal, {
-	parameters.push_back(10);
-	parameters.push_back(20);
-	parameters.push_back(30);
-	parameters.push_back(40);
-})
+SUITE(ParameterizedSuiteSimpl)
 {
+	SET_SUITE_PARAMETERS(int, iVal, {
+		parameters.push_back(10);
+		parameters.push_back(20);
+		parameters.push_back(30);
+		parameters.push_back(40);
+	})
+
 	TEST(SimpleSum)
 	{
 		simpleValuesSum += iVal();
@@ -55,14 +56,14 @@ SUITE(ParameterizedSuite)
 
 	TEST(ValuesAreFollowing)
 	{
-		CHECK_EQUAL(lastValue + 1, parameterized.getCurrent());
-		lastValue = parameterized.getCurrent();
-		valuesSum += parameterized.getCurrent();
+		CHECK_EQUAL(lastValue + 1, parameterized());
+		lastValue = parameterized();
+		valuesSum += parameterized();
 	}
 
 	TEST(ValueAndIterationAreSync)
 	{
-		CHECK_EQUAL(parameterized.getIteration() + 1, parameterized.getCurrent());
+		CHECK_EQUAL(parameterized.getIteration() + 1, parameterized());
 	}
 
 
@@ -73,7 +74,7 @@ SUITE(ParameterizedSuite)
 
 	TEST(OtherPSIgnoredFromFirstPS)
 	{
-		otherParameterizedSuiteSum += parameterized2.getCurrent();
+		otherParameterizedSuiteSum += parameterized2();
 	}
 }
 
@@ -83,10 +84,9 @@ SUITE(ParameterizedSuite_LessValues)
 	SET_SUITE_PARAMETERS(int, parameterizedEmpty, {
 	})
 
-	TEST(WhenNoValue_zeroExecution)
+	TEST(WhenNoValue_throwsException)
 	{
-		noValueSuiteSum++;
-		throw exception("Should not have been reached");
+		CHECK_THROW(parameterizedEmpty(), runtime_error);
 	}
 
 	SET_SUITE_PARAMETERS(int, parameterizedSingle, {
@@ -95,7 +95,7 @@ SUITE(ParameterizedSuite_LessValues)
 
 	TEST(WhenSingleValue_singleExecution)
 	{
-		singleValueSuiteSum += parameterizedSingle.getCurrent();
+		singleValueSuiteSum += parameterizedSingle();
 		CHECK_EQUAL(2, singleValueSuiteSum);
 	}
 }
@@ -111,6 +111,5 @@ SUITE(ParameterizedSuite_Validation)
 		CHECK_EQUAL(4, iterationsSum);
 		CHECK_EQUAL(3000, otherParameterizedSuiteSum);
 		CHECK_EQUAL(2, singleValueSuiteSum);
-		CHECK_EQUAL(0, noValueSuiteSum);
 	}
 }
