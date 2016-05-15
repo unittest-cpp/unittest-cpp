@@ -9,11 +9,11 @@ static int simpleValuesSum = 0;
 static int valuesSum = 0;
 static int iterationsSum = 0;
 static int ignoredCounter = 0;
-static int otherParameterizedSuiteSum = 0;
+static int otherParameterizedTestSum = 0;
 static int singleValueSuiteSum = 0;
 
 
-SUITE(ParameterizedSuiteSimpl)
+SUITE(ParameterizedTestSimpl)
 {
 	SET_SUITE_PARAMETERS(int, iVal, {
 		parameters.push_back(10);
@@ -29,7 +29,7 @@ SUITE(ParameterizedSuiteSimpl)
 }
 
 
-SUITE(ParameterizedSuite)
+SUITE(ParameterizedTest)
 {
 	TEST(TestsOfBelowAreIgnored)
 	{
@@ -74,12 +74,12 @@ SUITE(ParameterizedSuite)
 
 	TEST(OtherPSIgnoredFromFirstPS)
 	{
-		otherParameterizedSuiteSum += parameterized2();
+		otherParameterizedTestSum += parameterized2();
 	}
 }
 
 
-SUITE(ParameterizedSuite_LessValues)
+SUITE(ParameterizedTest_LessValues)
 {
 	SET_SUITE_PARAMETERS(int, parameterizedEmpty, {
 	})
@@ -101,15 +101,15 @@ SUITE(ParameterizedSuite_LessValues)
 }
 
 
-SUITE(ParameterizedSuite_Validation)
+SUITE(ParameterizedTest_Validation)
 {
-	TEST(ParameterizedSuiteHasBeenIterated)
+	TEST(ParameterizedTest_HasBeenIterated)
 	{
 		CHECK_EQUAL(100, simpleValuesSum);
 		CHECK_EQUAL(1, ignoredCounter);
 		CHECK_EQUAL(10, valuesSum);
 		CHECK_EQUAL(4, iterationsSum);
-		CHECK_EQUAL(3000, otherParameterizedSuiteSum);
+		CHECK_EQUAL(3000, otherParameterizedTestSum);
 		CHECK_EQUAL(2, singleValueSuiteSum);
 	}
 }
