@@ -24,6 +24,7 @@ namespace UnitTest
 		virtual void peekCurrentValue(size_t iteration) = 0;
 		virtual size_t valuesSize() const = 0;
 		void ensureInitialized();
+		Test* const getLastTest() const;
 
 	private:
 		class TestAnchor : public Test
@@ -53,8 +54,14 @@ namespace UnitTest
 	class ParameterizedTest : public ParameterizedTestAbstract
 	{
 	public:
-		ParameterizedTest(vector<T_Value> values)
-			: _values(values)
+		struct IParameterizedTestListener
+		{
+			virtual void onNextIteration(Test* const test, T_Value current, size_t iteration) = 0;
+		};
+
+		ParameterizedTest(vector<T_Value> values, IParameterizedTestListener* const listener = nullptr)
+			: _values(values),
+			_listener(listener)
 		{
 		}
 
@@ -68,6 +75,11 @@ namespace UnitTest
 		virtual void peekCurrentValue(size_t iteration) override
 		{
 			_currentValue = _values[iteration];
+
+			if (_listener != nullptr)
+			{
+				_listener->onNextIteration(getLastTest(), _currentValue, iteration);
+			}
 		}
 
 		virtual size_t valuesSize() const override
@@ -78,6 +90,7 @@ namespace UnitTest
 	private:
 		vector<T_Value> _values;
 		T_Value _currentValue;
+		IParameterizedTestListener* const _listener;
 	};
 }
 

@@ -33,6 +33,12 @@ size_t ParameterizedTestAbstract::getIteration()
 }
 
 
+Test* const ParameterizedTestAbstract::getLastTest() const
+{
+	return _lastTest;
+}
+
+
 void ParameterizedTestAbstract::ensureInitialized()
 {
 	Test* currentTest = retrieveCurrentTest();
