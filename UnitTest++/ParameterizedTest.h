@@ -6,12 +6,13 @@
 #include <vector>
 
 #include "Test.h"
+#include "TestList.h"
 
 namespace UnitTest
 {
 	using namespace std;
 
-	typedef map<TestDetails const * const, Test*> Details2Test;
+	typedef map<TestDetails const * const, TestListNode*> Details2Test;
 
 	class ParameterizedTestAbstract
 	{
@@ -36,15 +37,16 @@ namespace UnitTest
 			ParameterizedTestAbstract & _pt;
 		};
 
-		Test* const retrieveCurrentTest();
-		Test* const retrieveTest(TestDetails const * const details);
+		TestListNode* const retrieveCurrentTest();
+		TestListNode* const retrieveTest(TestDetails const * const details);
 
 		bool hasMoreValues(int advance = 0) const;
 		void onNewIteration(bool first);
 
 		size_t _iteration;
-		Test* _lastTest;
-		Test* _nextTestBackup;
+		TestListNode* _lastTest;
+		TestListNode* _nextTestBackup;
+		TestListNode* _testAnchorNode;
 		TestAnchor* _testAnchor;
 		Details2Test _tests;
 	};

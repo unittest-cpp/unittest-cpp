@@ -1,6 +1,5 @@
 #include "ParameterizedTest.h"
 
-#include "TestList.h"
 #include "CurrentTest.h"
 
 using namespace std;
@@ -10,6 +9,7 @@ using namespace UnitTest;
 ParameterizedTestAbstract::ParameterizedTestAbstract()
 	: _iteration(0),
 	_testAnchor(nullptr),
+	_testAnchorNode(nullptr),
 	_lastTest(nullptr),
 	_nextTestBackup(nullptr)
 {
@@ -23,6 +23,11 @@ ParameterizedTestAbstract::~ParameterizedTestAbstract()
 		delete _testAnchor;
 		_testAnchor = nullptr;
 	}
+	if (_testAnchorNode != nullptr)
+	{
+		delete _testAnchorNode;
+		_testAnchorNode = nullptr;
+	}
 }
 
 
@@ -35,35 +40,39 @@ size_t ParameterizedTestAbstract::getIteration()
 
 Test* const ParameterizedTestAbstract::getLastTest() const
 {
-	return _lastTest;
+	return _lastTest->m_test;
 }
 
 
 void ParameterizedTestAbstract::ensureInitialized()
 {
-	Test* currentTest = retrieveCurrentTest();
+	TestListNode* currentTest = retrieveCurrentTest();
 
 	if (_testAnchor == nullptr)
 	{
-		_testAnchor = new TestAnchor("ParameterizedTestAnchor", currentTest->m_details.suiteName, *this);
+		_testAnchor = new TestAnchor("ParameterizedTestAnchor", currentTest->m_test->m_details.suiteName, *this);
+	}
+	if (_testAnchorNode == nullptr)
+	{
+		_testAnchorNode = new TestListNode(_testAnchor);
 	}
 
 	if (_lastTest != currentTest)
 	{
 		_lastTest = currentTest;
-		_nextTestBackup = currentTest->m_nextTest;
+		_nextTestBackup = currentTest->m_next;
 		onNewIteration(true);
 	}
 }
 
 
-Test* const ParameterizedTestAbstract::retrieveCurrentTest()
+TestListNode* const ParameterizedTestAbstract::retrieveCurrentTest()
 {
 	return retrieveTest(CurrentTest::Details());
 }
 
 
-Test* const ParameterizedTestAbstract::retrieveTest(TestDetails const * const details)
+TestListNode* const ParameterizedTestAbstract::retrieveTest(TestDetails const * const details)
 {
 	//TODO This workaround is too far complicated, why not simply add pointer to current test in class CurrentTest ?
 	Details2Test::iterator it = _tests.find(details);
@@ -73,12 +82,12 @@ Test* const ParameterizedTestAbstract::retrieveTest(TestDetails const * const de
 		return it->second;
 	}
 
-	for(Test* iTest = Test::GetTestList().GetHead() ; iTest!= nullptr ; iTest=iTest->m_nextTest)
+	for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
 	{
-		if (&iTest->m_details == details)
+		if (&iNode->m_test->m_details == details)
 		{
-			_tests[details] = iTest;
-			return iTest;
+			_tests[details] = iNode;
+			return iNode;
 		}
 	}
 
@@ -109,15 +118,15 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 
 	if (hasMoreValues())
 	{
-		_lastTest->m_nextTest = _testAnchor;
-		_testAnchor->m_nextTest = _lastTest;
+		_lastTest->m_next = _testAnchorNode;
+		_testAnchorNode->m_next = _lastTest;
 	}
 	else
 	{
-		_lastTest->m_nextTest = _nextTestBackup;
+		_lastTest->m_next= _nextTestBackup;
 		_lastTest = nullptr;
 
-		_testAnchor->m_nextTest = _nextTestBackup;
+		_testAnchorNode->m_next = _nextTestBackup;
 		return;
 	}
 
