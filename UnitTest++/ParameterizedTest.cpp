@@ -48,15 +48,6 @@ void ParameterizedTestAbstract::ensureInitialized()
 {
 	TestListNode* currentTest = retrieveCurrentTest();
 
-	if (_testAnchor == nullptr)
-	{
-		_testAnchor = new TestAnchor("ParameterizedTestAnchor", currentTest->m_test->m_details.suiteName, *this);
-	}
-	if (_testAnchorNode == nullptr)
-	{
-		_testAnchorNode = new TestListNode(_testAnchor);
-	}
-
 	if (_lastTest != currentTest)
 	{
 		_lastTest = currentTest;
@@ -110,6 +101,7 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 		{
 			throw runtime_error("No values for parameterized test");
 		}
+		newAnchor();
 	}
 	else
 	{
@@ -131,6 +123,23 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 	}
 
 	peekCurrentValue(_iteration);
+}
+
+
+void ParameterizedTestAbstract::newAnchor()
+{
+	if (_testAnchor != nullptr)
+	{
+		delete _testAnchor;
+	}
+	if (_testAnchorNode != nullptr)
+	{
+		delete _testAnchorNode;
+	}
+
+	// Important: create anchor with exactly same details than original test for ensure it will pass all test filters the same way as original
+	_testAnchor = new TestAnchor(_lastTest->m_test->m_details.testName, _lastTest->m_test->m_details.suiteName, *this);
+	_testAnchorNode = new TestListNode(_testAnchor);
 }
 
 

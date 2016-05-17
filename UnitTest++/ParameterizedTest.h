@@ -42,6 +42,7 @@ namespace UnitTest
 
 		bool hasMoreValues(int advance = 0) const;
 		void onNewIteration(bool first);
+		void newAnchor();
 
 		size_t _iteration;
 		TestListNode* _lastTest;
