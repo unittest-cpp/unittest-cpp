@@ -16,22 +16,26 @@ namespace UnitTest {
       , m_tail(0)
    {}
 
-   void TestList::Add(Test* test)
+   TestListNode* TestList::Add(Test* test)
    {
+      TestListNode* node = 0;
       if (m_tail == 0)
       {
          assert(m_head == 0);
-         m_head = test;
-         m_tail = test;
+         node = new TestListNode(test);
+		 m_head = node;
+		 m_tail = node;
       }
       else
       {
-         m_tail->m_nextTest = test;
-         m_tail = test;
+         node = new TestListNode(test);
+		 m_tail->m_next = node;
+		 m_tail = node;
       }
+	  return node;
    }
 
-   Test* TestList::GetHead() const
+   TestListNode* TestList::GetHead() const
    {
       return m_head;
    }

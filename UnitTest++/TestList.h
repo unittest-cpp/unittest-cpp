@@ -19,13 +19,13 @@ namespace UnitTest {
    {
    public:
       TestList();
-      void Add (Test* test);
+	  TestListNode* Add(Test* test);
 
-      Test* GetHead() const;
+	  TestListNode* GetHead() const;
 
    private:
-      Test* m_head;
-      Test* m_tail;
+      TestListNode* m_head;
+      TestListNode* m_tail;
    };
 
 
