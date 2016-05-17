@@ -12,6 +12,7 @@ namespace UnitTest {
    class Timer;
 
    UNITTEST_LINKAGE int RunAllTests();
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, char const* suiteArgument = "--suite");
 
    struct True
    {

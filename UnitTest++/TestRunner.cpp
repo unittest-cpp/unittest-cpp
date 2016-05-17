@@ -4,6 +4,7 @@
 #include "TestReporterStdout.h"
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
+#include "SuitePredicate.h"
 
 #include <cstring>
 
@@ -17,6 +18,37 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
    }
 
+   int RunTestsCmd(int argc, char**argv, char const* suiteArgument)
+   {
+	   if (argc <= 1)
+	   {
+		   return UnitTest::RunAllTests();
+	   }
+
+	   //if first arg is "--suite", we search for suite names instead of test names
+	   const bool suite = strcmp(suiteArgument, argv[1]) == 0;
+
+	   SuitePredicate predicate;
+	   int from = (suite) ? 2 : 1;
+	   for (int i = from; i < argc; ++i)
+	   {
+		   string name = argv[i];
+		   if (suite)
+		   {
+			   predicate.addSuite(name);
+		   }
+		   else
+		   {
+			   predicate.addTest(name);
+		   }
+	   }
+
+	   //run selected test(s) only
+	   TestReporterStdout reporter;
+	   TestRunner runner(reporter);
+
+	   return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
+   }
 
    TestRunner::TestRunner(TestReporter& reporter)
       : m_reporter(&reporter)
