@@ -5,6 +5,12 @@
 
 namespace UnitTest {
 
+	TestListNode::TestListNode(Test* test)
+		: m_test(test),
+		m_next(0)
+	{
+	}
+
    TestList::TestList()
       : m_head(0)
       , m_tail(0)

@@ -7,6 +7,14 @@ namespace UnitTest {
 
    class Test;
 
+   class UNITTEST_LINKAGE TestListNode
+   {
+   public:
+	   TestListNode(Test* test);
+	   Test* m_test;
+	   TestListNode* m_next;
+   };
+
    class UNITTEST_LINKAGE TestList
    {
    public:
