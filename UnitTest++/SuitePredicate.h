@@ -9,14 +9,14 @@ namespace UnitTest
 {
 	using namespace std;
 
-	class SuitePredicate
+	class UNITTEST_LINKAGE SuitePredicate
 	{
 	public:
 		SuitePredicate();
 		virtual ~SuitePredicate();
 
-		void addSuite(const string & suiteName);
-		void addTest(const string & testName);
+		void addSuite(char const* suiteName);
+		void addTest(char const* testName);
 
 		bool operator()(Test const * const test) const;
 
