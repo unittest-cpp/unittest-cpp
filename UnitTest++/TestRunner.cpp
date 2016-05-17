@@ -32,14 +32,13 @@ namespace UnitTest {
 	   int from = (suite) ? 2 : 1;
 	   for (int i = from; i < argc; ++i)
 	   {
-		   string name = argv[i];
 		   if (suite)
 		   {
-			   predicate.addSuite(name);
+			   predicate.addSuite(argv[i]);
 		   }
 		   else
 		   {
-			   predicate.addTest(name);
+			   predicate.addTest(argv[i]);
 		   }
 	   }
 

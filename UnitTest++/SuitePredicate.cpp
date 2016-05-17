@@ -14,13 +14,13 @@ SuitePredicate::~SuitePredicate()
 }
 
 
-void SuitePredicate::addSuite(const string & suiteName)
+void SuitePredicate::addSuite(char const* suiteName)
 {
 	_suiteNames.push_back(suiteName);
 }
 
 
-void SuitePredicate::addTest(const string & testName)
+void SuitePredicate::addTest(char const* testName)
 {
 	_testNames.push_back(testName);
 }
