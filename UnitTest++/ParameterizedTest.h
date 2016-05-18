@@ -70,18 +70,15 @@ namespace UnitTest
 
 		T_Value operator()()
 		{
-			ensureInitialized();
-			return _currentValue;
+			return _values[getIteration()];
 		}
 
 	protected:
 		virtual void peekCurrentValue(size_t iteration) override
 		{
-			_currentValue = _values[iteration];
-
 			if (_listener != nullptr)
 			{
-				_listener->onNextIteration(getLastTest(), _currentValue, iteration);
+				_listener->onNextIteration(getLastTest(), _values[iteration], iteration);
 			}
 		}
 
@@ -92,7 +89,6 @@ namespace UnitTest
 
 	private:
 		vector<T_Value> _values;
-		T_Value _currentValue;
 		IParameterizedTestListener* const _listener;
 	};
 }
