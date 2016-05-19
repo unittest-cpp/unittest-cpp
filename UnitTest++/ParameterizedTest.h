@@ -22,8 +22,8 @@ namespace UnitTest
 		size_t getIteration();
 
 	protected:
-		virtual void peekCurrentValue(size_t iteration) = 0;
-		virtual size_t valuesSize() const = 0;
+		virtual void peekCurrentParameter(size_t iteration) = 0;
+		virtual size_t parametersCount() const = 0;
 		void ensureInitialized();
 		Test* const getLastTest() const;
 
@@ -40,7 +40,7 @@ namespace UnitTest
 		TestListNode* const retrieveCurrentTest();
 		TestListNode* const retrieveTest(TestDetails const * const details);
 
-		bool hasMoreValues(int advance = 0) const;
+		bool hasMoreParameters(int advance = 0) const;
 		void onNewIteration(bool first);
 		void newAnchor();
 
@@ -53,42 +53,47 @@ namespace UnitTest
 	};
 
 
-	template<class T_Value>
+	template<class T_Parameter>
 	class ParameterizedTest : public ParameterizedTestAbstract
 	{
 	public:
 		struct IParameterizedTestListener
 		{
-			virtual void onNextIteration(Test* const test, T_Value current, size_t iteration) = 0;
+			virtual void onNextIteration(Test* const test, T_Parameter current, size_t iteration) = 0;
 		};
 
-		ParameterizedTest(vector<T_Value> values, IParameterizedTestListener* const listener = nullptr)
-			: _values(values),
+		ParameterizedTest(vector<T_Parameter> parameters, IParameterizedTestListener* const listener = nullptr)
+			: _parameters(parameters),
 			_listener(listener)
 		{
 		}
 
-		T_Value operator()()
+		T_Parameter operator()()
 		{
-			return _values[getIteration()];
+			return _parameters[getIteration()];
+		}
+
+		const vector<T_Parameter> & parameters() const
+		{
+			return _parameters;
 		}
 
 	protected:
-		virtual void peekCurrentValue(size_t iteration) override
+		virtual void peekCurrentParameter(size_t iteration) override
 		{
 			if (_listener != nullptr)
 			{
-				_listener->onNextIteration(getLastTest(), _values[iteration], iteration);
+				_listener->onNextIteration(getLastTest(), _parameters[iteration], iteration);
 			}
 		}
 
-		virtual size_t valuesSize() const override
+		virtual size_t parametersCount() const override
 		{
-			return _values.size();
+			return _parameters.size();
 		}
 
 	private:
-		vector<T_Value> _values;
+		vector<T_Parameter> _parameters;
 		IParameterizedTestListener* const _listener;
 	};
 }

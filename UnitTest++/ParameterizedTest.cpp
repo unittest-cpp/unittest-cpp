@@ -86,9 +86,9 @@ TestListNode* const ParameterizedTestAbstract::retrieveTest(TestDetails const * 
 }
 
 
-bool ParameterizedTestAbstract::hasMoreValues(int advance) const
+bool ParameterizedTestAbstract::hasMoreParameters(int advance) const
 {
-	return (_iteration + advance < (int)valuesSize());
+	return (_iteration + advance < (int)parametersCount());
 }
 
 
@@ -96,7 +96,7 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 {
 	if (first)
 	{
-		if (valuesSize() == 0)
+		if (parametersCount() == 0)
 		{
 			throw runtime_error("No values for parameterized test");
 		}
@@ -108,7 +108,7 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 		_iteration++;
 	}
 
-	if (hasMoreValues())
+	if (hasMoreParameters())
 	{
 		_lastTest->m_next = _testAnchorNode;
 		_testAnchorNode->m_next = _lastTest;
@@ -122,7 +122,7 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 		return;
 	}
 
-	peekCurrentValue(_iteration);
+	peekCurrentParameter(_iteration);
 }
 
 
