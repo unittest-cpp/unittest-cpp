@@ -13,9 +13,9 @@
 	private: \
 		void create() \
 		## SetUpBody \
-	} parameterizedCreator ## IterationName ## Instance; \
+	} static parameterizedCreator ## IterationName ## Instance; \
 	\
-	UnitTest::ParameterizedTest<## Type>  ## IterationName(parameterizedCreator ## IterationName ## Instance.parameters);
+	static UnitTest::ParameterizedTest<## Type>  ## IterationName(parameterizedCreator ## IterationName ## Instance.parameters);
 
 
 #endif
