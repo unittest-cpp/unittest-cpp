@@ -7,18 +7,15 @@
 #define SET_SUITE_PARAMETERS(Type, IterationName, SetUpBody) \
 	class ParameterizedCreator ## IterationName\
 	{ \
-		friend class ParameterizedTest<## Type>; \
 	public: \
 		ParameterizedCreator ## IterationName() { create(); } \
 		vector<## Type> parameters; \
 	private: \
-		void create(); \
+		void create() \
+		## SetUpBody \
 	} parameterizedCreator ## IterationName ## Instance; \
 	\
-	ParameterizedTest<##Type>  ## IterationName(parameterizedCreator ## IterationName ## Instance.parameters); \
-	\
-	void ParameterizedCreator ## IterationName::create() \
-	## SetUpBody
+	UnitTest::ParameterizedTest<## Type>  ## IterationName(parameterizedCreator ## IterationName ## Instance.parameters);
 
 
 #endif
