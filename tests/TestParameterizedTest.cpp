@@ -110,20 +110,20 @@ SUITE(ParameterizedTestSimple)
 
 	//////////
 
-	SET_SUITE_PARAMETERS(string, xyz, {
-		parameters.push_back("X");
-		parameters.push_back("Y");
-		parameters.push_back("Z");
+	SET_SUITE_PARAMETERS(string, oneTwo, {
+		parameters.push_back("1");
+		parameters.push_back("2");
 	});
 
 	string nestedParameters;
 	TEST(NestedParameters)
 	{
-		nestedParameters += vowel() + xyz(); // Add a separator for 
+		nestedParameters += vowel();
+		nestedParameters += oneTwo();
 	}
 
 	TEST(NestedParameters_Verify)
 	{
-		CHECK_EQUAL("AXEXIXOXUXYXAYEYIYOYUYYYAZEZIZOZUZYZ", nestedParameters);
+		CHECK_EQUAL("A1A2E1E2I1I2O1O2U1U2Y1Y2", nestedParameters);
 	}
 }
