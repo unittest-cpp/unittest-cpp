@@ -57,7 +57,7 @@ SUITE(ParameterizedTestSimple)
 		{
 			parameterizedEmpty();
 		}
-		catch(runtime_error e) // Expected case
+		catch (runtime_error e) // Expected case
 		{
 			CHECK_EQUAL("No values for parameterized test", e.what());
 			return;
@@ -125,5 +125,20 @@ SUITE(ParameterizedTestSimple)
 	TEST(NestedParameters_Verify)
 	{
 		CHECK_EQUAL("A1A2E1E2I1I2O1O2U1U2Y1Y2", nestedParameters);
+	}
+
+	//////////
+
+	struct Fixture {};
+
+	string withFixture;
+	TEST_FIXTURE(Fixture, WorksWithFixture)
+	{
+		withFixture += oneTwo();
+	}
+
+	TEST(WorksWithFixture_Verify)
+	{
+		CHECK_EQUAL("12", withFixture);
 	}
 }
