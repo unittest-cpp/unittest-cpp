@@ -12,7 +12,6 @@ namespace UnitTest
 	
 	class ParameterizedTestAbstract;
 
-	typedef map<TestDetails const * const, TestListNode*> Details2Test;
 
 	class ParameterizedManager
 	{
@@ -37,7 +36,6 @@ namespace UnitTest
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
-		Details2Test _tests;
 		vector<ParameterizedTestAbstract*> _stack;
 	};
 }

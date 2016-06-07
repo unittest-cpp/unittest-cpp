@@ -28,19 +28,11 @@ ParameterizedManager & ParameterizedManager::getInstance()
 
 TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const details)
 {
-	//TODO This workaround is too far complicated, why not simply add pointer to current test in class CurrentTest ?
-	Details2Test::iterator it = _tests.find(details);
-
-	if (it != _tests.end())
-	{
-		return it->second;
-	}
-
+	//TODO This workaround is a bit too complicated, why not simply add pointer to current test in class CurrentTest ?
 	for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
 	{
 		if (&iNode->m_test->m_details == details)
 		{
-			_tests[details] = iNode;
 			return iNode;
 		}
 	}
