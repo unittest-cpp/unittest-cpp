@@ -70,7 +70,7 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 void ParameterizedManager::finishExecute(TestDetails const * const details)
 {
 	// Protection against nested tests
-	if (&_currentTest->m_test->m_details != details)
+	if (_currentTest == nullptr || &_currentTest->m_test->m_details != details)
 	{
 		return;
 	}
