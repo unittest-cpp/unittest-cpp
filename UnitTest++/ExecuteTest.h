@@ -9,6 +9,7 @@
 #include "AssertException.h"
 #include "RequiredCheckException.h"
 #include "CurrentTest.h"
+#include "ParameterizedManager.h"
 
 #ifdef UNITTEST_NO_EXCEPTIONS
 #include "ReportAssertImpl.h"
@@ -26,6 +27,7 @@ namespace UnitTest {
       if (isMockTest == false)
          CurrentTest::Details() = &details;
 
+      ParameterizedManager::getInstance().beginExecute(&details);
 #ifdef UNITTEST_NO_EXCEPTIONS
       if (UNITTEST_SET_ASSERT_JUMP_TARGET() == 0)
       {
@@ -54,6 +56,7 @@ namespace UnitTest {
 #ifdef UNITTEST_NO_EXCEPTIONS
    }
 #endif
+      ParameterizedManager::getInstance().finishExecute(&details);
    }
 
 }

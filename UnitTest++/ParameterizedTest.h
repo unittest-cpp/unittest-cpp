@@ -13,6 +13,7 @@ namespace UnitTest
 
 	class ParameterizedTestAbstract
 	{
+		friend class ParameterizedManager;
 	public:
 		ParameterizedTestAbstract();
 		virtual ~ParameterizedTestAbstract();
@@ -25,24 +26,10 @@ namespace UnitTest
 		Test* const getLastTest() const;
 
 	private:
-		class TestAnchor : public Test
-		{
-		public:
-			TestAnchor(char const* testName, char const* suiteName, ParameterizedTestAbstract & pt);
-			virtual void RunImpl() const override;
-		private:
-			ParameterizedTestAbstract & _pt;
-		};
-
 		bool hasMoreParameters(int advance = 0) const;
 		void onNewIteration(bool first);
-		void newAnchor();
 
 		size_t _iteration;
-		TestListNode* _lastTest;
-		TestListNode* _nextTestBackup;
-		TestListNode* _testAnchorNode;
-		TestAnchor* _testAnchor;
 	};
 
 
