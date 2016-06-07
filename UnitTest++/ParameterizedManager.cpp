@@ -57,18 +57,24 @@ Test* const ParameterizedManager::getCurrentTest() const
 
 void ParameterizedManager::beginExecute(TestDetails const * const details)
 {
-	TestListNode* test = retrieveTest(details);
-	if (_currentTest != test)
+	if (_currentTest != nullptr)
 	{
-		_currentTest = test;
-		_nextTestBackup = _currentTest->m_next;
-		_currentTest->m_next = _currentTest; // Loop itself
+		return;
 	}
+	_currentTest = retrieveTest(details);
+	_nextTestBackup = _currentTest->m_next;
+	_currentTest->m_next = _currentTest; // Loop itself
 }
 
 
 void ParameterizedManager::finishExecute(TestDetails const * const details)
 {
+	// Protection against nested tests
+	if (&_currentTest->m_test->m_details != details)
+	{
+		return;
+	}
+
 	while (!_stack.empty())
 	{
 		ParameterizedTestAbstract* iParameterized = _stack.back();
