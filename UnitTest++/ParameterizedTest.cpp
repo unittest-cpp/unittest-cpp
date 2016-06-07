@@ -1,6 +1,7 @@
 #include "ParameterizedTest.h"
 
 #include "CurrentTest.h"
+#include "ParameterizedManager.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -46,7 +47,7 @@ Test* const ParameterizedTestAbstract::getLastTest() const
 
 void ParameterizedTestAbstract::ensureInitialized()
 {
-	TestListNode* currentTest = retrieveCurrentTest();
+	TestListNode* currentTest = ParameterizedManager::getInstance().retrieveTest(CurrentTest::Details());
 
 	if (_lastTest != currentTest)
 	{
@@ -54,35 +55,6 @@ void ParameterizedTestAbstract::ensureInitialized()
 		_nextTestBackup = currentTest->m_next;
 		onNewIteration(true);
 	}
-}
-
-
-TestListNode* const ParameterizedTestAbstract::retrieveCurrentTest()
-{
-	return retrieveTest(CurrentTest::Details());
-}
-
-
-TestListNode* const ParameterizedTestAbstract::retrieveTest(TestDetails const * const details)
-{
-	//TODO This workaround is too far complicated, why not simply add pointer to current test in class CurrentTest ?
-	Details2Test::iterator it = _tests.find(details);
-
-	if (it != _tests.end())
-	{
-		return it->second;
-	}
-
-	for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
-	{
-		if (&iNode->m_test->m_details == details)
-		{
-			_tests[details] = iNode;
-			return iNode;
-		}
-	}
-
-	throw runtime_error(string("Impossible to retrieve test ") + details->testName);
 }
 
 

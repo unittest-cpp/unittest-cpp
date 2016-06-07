@@ -2,7 +2,6 @@
 #define UNITTEST_PARAMETERIZEDTEST_H
 
 #include <string>
-#include <map>
 #include <vector>
 
 #include "Test.h"
@@ -11,8 +10,6 @@
 namespace UnitTest
 {
 	using namespace std;
-
-	typedef map<TestDetails const * const, TestListNode*> Details2Test;
 
 	class ParameterizedTestAbstract
 	{
@@ -37,9 +34,6 @@ namespace UnitTest
 			ParameterizedTestAbstract & _pt;
 		};
 
-		TestListNode* const retrieveCurrentTest();
-		TestListNode* const retrieveTest(TestDetails const * const details);
-
 		bool hasMoreParameters(int advance = 0) const;
 		void onNewIteration(bool first);
 		void newAnchor();
@@ -49,7 +43,6 @@ namespace UnitTest
 		TestListNode* _nextTestBackup;
 		TestListNode* _testAnchorNode;
 		TestAnchor* _testAnchor;
-		Details2Test _tests;
 	};
 
 
