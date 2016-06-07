@@ -21,13 +21,16 @@
 
 namespace UnitTest {
 
+   //TODO remove template and parameter "templateIsTest", replace with an interface
    template< typename T >
-   void ExecuteTest(T& testObject, TestDetails const& details, bool isMockTest)
+   void ExecuteTest(T& testObject, TestDetails const& details, bool isMockTest, bool templateIsTest)
    {
       if (isMockTest == false)
          CurrentTest::Details() = &details;
 
-      ParameterizedManager::getInstance().beginExecute(&details);
+	  if (templateIsTest)
+         ParameterizedManager::getInstance().beginExecute(&details);
+
 #ifdef UNITTEST_NO_EXCEPTIONS
       if (UNITTEST_SET_ASSERT_JUMP_TARGET() == 0)
       {
@@ -56,7 +59,8 @@ namespace UnitTest {
 #ifdef UNITTEST_NO_EXCEPTIONS
    }
 #endif
-      ParameterizedManager::getInstance().finishExecute(&details);
+	  if (templateIsTest)
+         ParameterizedManager::getInstance().finishExecute(&details);
    }
 
 }
