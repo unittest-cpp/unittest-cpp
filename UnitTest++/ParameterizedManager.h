@@ -9,9 +9,7 @@
 namespace UnitTest
 {
 	using namespace std;
-	
 	class ParameterizedTestAbstract;
-
 
 	class ParameterizedManager
 	{
@@ -24,15 +22,15 @@ namespace UnitTest
 		};
 
 		static ParameterizedManager & getInstance();
-		TestListNode* const retrieveTest(TestDetails const * const details);
 		Test* const getCurrentTest() const;
 		void beginExecute(TestDetails const * const details);
-		void finishExecute(TestDetails const * const details);
+		void endExecute(TestDetails const * const details);
 		RegisterThen registerParameter(ParameterizedTestAbstract* const parameterized);
 
 	private:
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
+		TestListNode* const retrieveTest(TestDetails const * const details);
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;

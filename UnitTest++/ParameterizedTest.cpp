@@ -1,7 +1,5 @@
 #include "ParameterizedTest.h"
 
-#include "CurrentTest.h"
-#include "ParameterizedManager.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -20,18 +18,12 @@ ParameterizedTestAbstract::~ParameterizedTestAbstract()
 
 size_t ParameterizedTestAbstract::getIteration()
 {
-	ensureInitialized();
+	updateIteration();
 	return _iteration;
 }
 
 
-Test* const ParameterizedTestAbstract::getLastTest() const
-{
-	return ParameterizedManager::getInstance().getCurrentTest();
-}
-
-
-void ParameterizedTestAbstract::ensureInitialized()
+void ParameterizedTestAbstract::updateIteration()
 {
 	ParameterizedManager::RegisterThen then = ParameterizedManager::getInstance().registerParameter(this);
 	if (then == ParameterizedManager::FIRST)
@@ -53,6 +45,11 @@ bool ParameterizedTestAbstract::hasMoreParameters(int advance) const
 
 void ParameterizedTestAbstract::onNewIteration(bool first)
 {
+	if (!first && !hasMoreParameters(1))
+	{
+		first = true;
+	}
+
 	if (first)
 	{
 		if (parametersCount() == 0)
@@ -63,7 +60,7 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 	}
 	else
 	{
-		_iteration = (hasMoreParameters(1)) ? _iteration + 1 : 0;
+		_iteration++;
 	}
 
 	peekCurrentParameter(_iteration);

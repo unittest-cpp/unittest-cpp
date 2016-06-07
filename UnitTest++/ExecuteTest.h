@@ -56,7 +56,7 @@ namespace UnitTest {
 #ifdef UNITTEST_NO_EXCEPTIONS
    }
 #endif
-      ParameterizedManager::getInstance().finishExecute(&details);
+      ParameterizedManager::getInstance().endExecute(&details);
    }
 
 }
