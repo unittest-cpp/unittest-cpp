@@ -107,3 +107,23 @@ ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(Param
 	}
 	return RegisterThen::IDLE;
 }
+
+
+const vector<ParameterizedTestAbstract*> & ParameterizedManager::getStack(TestDetails const * const details)
+{
+	static vector<ParameterizedTestAbstract*> emptyStored;
+
+	if (!isCurrentTest(details))
+	{
+		return emptyStored;
+	}
+
+	return _stack;
+	/*
+	for (size_t i = 0; i < _stack.size(); i++)
+	{
+		outDump += _stack[i]->getNameCurrent();
+	}
+	return true;
+	*/
+}

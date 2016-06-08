@@ -1,5 +1,6 @@
 #include "ParameterizedTest.h"
 
+#include <sstream>
 
 using namespace std;
 using namespace UnitTest;
@@ -21,6 +22,14 @@ size_t ParameterizedTestAbstract::getIteration()
 {
 	updateIteration();
 	return _iteration;
+}
+
+
+string ParameterizedTestAbstract::getNameCurrent() const
+{
+	stringstream output;
+	output << (_name.empty() ? "unknown" : _name) << "[" << _iteration << "]";
+	return output.str();
 }
 
 

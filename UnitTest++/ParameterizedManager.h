@@ -27,6 +27,7 @@ namespace UnitTest
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);
 		RegisterThen registerParameter(ParameterizedTestAbstract* const parameterized);
+		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details);
 
 	private:
 		ParameterizedManager();

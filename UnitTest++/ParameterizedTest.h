@@ -20,6 +20,7 @@ namespace UnitTest
 		virtual ~ParameterizedTestAbstract();
 		size_t getIteration();
 		const string & getName() const { return _name; }
+		string getNameCurrent() const;
 
 	protected:
 		void updateIteration();
