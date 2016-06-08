@@ -129,6 +129,20 @@ SUITE(ParameterizedTestSimple)
 
 	//////////
 
+	string useSeveralTimes;
+	TEST(UseSeveralTimes_DoesNotIncrement)
+	{
+		useSeveralTimes += oneTwo();
+		useSeveralTimes += oneTwo();
+	}
+
+	TEST(UseSeveralTimes_DoesNotIncrement_Verify)
+	{
+		CHECK_EQUAL("1122", useSeveralTimes);
+	}
+
+	//////////
+
 	struct Fixture {};
 
 	string withFixture;
