@@ -119,11 +119,4 @@ const vector<ParameterizedTestAbstract*> & ParameterizedManager::getStack(TestDe
 	}
 
 	return _stack;
-	/*
-	for (size_t i = 0; i < _stack.size(); i++)
-	{
-		outDump += _stack[i]->getNameCurrent();
-	}
-	return true;
-	*/
 }
