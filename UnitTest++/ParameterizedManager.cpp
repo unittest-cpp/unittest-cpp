@@ -47,6 +47,12 @@ Test* const ParameterizedManager::getCurrentTest() const
 }
 
 
+bool ParameterizedManager::isCurrentTest(TestDetails const * const details) const
+{
+	return (_currentTest != nullptr && &_currentTest->m_test->m_details == details);
+}
+
+
 void ParameterizedManager::beginExecute(TestDetails const * const details)
 {
 	if (_currentTest != nullptr)
@@ -61,8 +67,7 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 
 void ParameterizedManager::endExecute(TestDetails const * const details)
 {
-	// Protection against nested tests
-	if (_currentTest == nullptr || &_currentTest->m_test->m_details != details)
+	if (!isCurrentTest(details))
 	{
 		return;
 	}

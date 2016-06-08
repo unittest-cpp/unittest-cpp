@@ -23,6 +23,7 @@ namespace UnitTest
 
 		static ParameterizedManager & getInstance();
 		Test* const getCurrentTest() const;
+		bool isCurrentTest(TestDetails const * const details) const;
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);
 		RegisterThen registerParameter(ParameterizedTestAbstract* const parameterized);
