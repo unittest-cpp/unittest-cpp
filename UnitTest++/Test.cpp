@@ -28,7 +28,7 @@ namespace UnitTest {
 
    void Test::Run()
    {
-      ExecuteTest(*this, m_details, m_isMockTest);
+      ExecuteTest(*this, m_details, m_isMockTest, true);
    }
 
    void Test::RunImpl() const
