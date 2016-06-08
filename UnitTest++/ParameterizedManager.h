@@ -37,6 +37,7 @@ namespace UnitTest
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
 		vector<ParameterizedTestAbstract*> _stack;
+		volatile bool _iterationDone;
 	};
 }
 

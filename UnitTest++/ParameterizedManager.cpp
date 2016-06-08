@@ -8,7 +8,8 @@ using namespace UnitTest;
 
 ParameterizedManager::ParameterizedManager()
 	: _currentTest(nullptr),
-	_nextTestBackup(nullptr)
+	_nextTestBackup(nullptr),
+	_iterationDone(false)
 {
 }
 
@@ -61,6 +62,7 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	_currentTest = retrieveTest(details);
 	_nextTestBackup = _currentTest->m_next;
 	_currentTest->m_next = _currentTest; // Loop itself
+	_iterationDone = false;
 }
 
 
@@ -90,19 +92,25 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 		_currentTest = nullptr;
 		_nextTestBackup = nullptr;
 	}
+	_iterationDone = false;
 }
 
 
 ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized)
 {
-	if (!_stack.empty() && _stack.back() == parameterized)
-	{
-		return RegisterThen::ITERATE;
-	}
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
+		_iterationDone = true;
 		_stack.push_back(parameterized);
 		return RegisterThen::FIRST;
+	}
+	if (!_iterationDone)
+	{
+		if (!_stack.empty() && _stack.back() == parameterized)
+		{
+			_iterationDone = true;
+			return RegisterThen::ITERATE;
+		}
 	}
 	return RegisterThen::IDLE;
 }
