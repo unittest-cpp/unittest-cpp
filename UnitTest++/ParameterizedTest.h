@@ -16,9 +16,10 @@ namespace UnitTest
 	{
 		friend class ParameterizedManager;
 	public:
-		ParameterizedTestAbstract();
+		ParameterizedTestAbstract(const string & name);
 		virtual ~ParameterizedTestAbstract();
 		size_t getIteration();
+		const string & getName() const { return _name; }
 
 	protected:
 		void updateIteration();
@@ -29,6 +30,7 @@ namespace UnitTest
 		bool hasMoreParameters(int advance = 0) const;
 		void onNewIteration(bool first);
 
+		string _name;
 		size_t _iteration;
 	};
 
@@ -42,8 +44,9 @@ namespace UnitTest
 			virtual void onNextIteration(Test* const test, T_Parameter current, size_t iteration) = 0;
 		};
 
-		ParameterizedTest(vector<T_Parameter> parameters, IParameterizedTestListener* const listener = nullptr)
-			: _parameters(parameters),
+		ParameterizedTest(vector<T_Parameter> parameters, const string & name = "", IParameterizedTestListener* const listener = nullptr)
+			: ParameterizedTestAbstract(name),
+			_parameters(parameters),
 			_listener(listener)
 		{
 		}

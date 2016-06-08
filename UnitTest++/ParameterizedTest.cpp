@@ -5,8 +5,9 @@ using namespace std;
 using namespace UnitTest;
 
 
-ParameterizedTestAbstract::ParameterizedTestAbstract()
-	: _iteration(0)
+ParameterizedTestAbstract::ParameterizedTestAbstract(const string & name)
+	: _name(name),
+	_iteration(0)
 {
 }
 

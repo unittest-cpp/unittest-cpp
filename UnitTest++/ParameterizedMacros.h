@@ -15,7 +15,7 @@
 		## SetUpBody \
 	} static parameterizedCreator ## IterationName ## Instance; \
 	\
-	static UnitTest::ParameterizedTest<## Type>  ## IterationName(parameterizedCreator ## IterationName ## Instance.parameters);
+	static UnitTest::ParameterizedTest<## Type>  ## IterationName(parameterizedCreator ## IterationName ## Instance.parameters, #IterationName);
 
 
 #endif
