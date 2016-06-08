@@ -5,11 +5,11 @@
 #include <map>
 #include "TestDetails.h"
 #include "TestList.h"
+#include "ParameterizedTest.h"
 
 namespace UnitTest
 {
 	using namespace std;
-	class ParameterizedTestAbstract;
 
 	class ParameterizedManager
 	{

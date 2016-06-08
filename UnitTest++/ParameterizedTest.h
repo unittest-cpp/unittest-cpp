@@ -6,7 +6,6 @@
 
 #include "Test.h"
 #include "TestList.h"
-#include "ParameterizedManager.h"
 
 namespace UnitTest
 {
@@ -24,7 +23,7 @@ namespace UnitTest
 
 	protected:
 		void updateIteration();
-		virtual void peekCurrentParameter(size_t iteration) = 0;
+		virtual void peekCurrentParameter(TestDetails const * const details, size_t iteration) = 0;
 		virtual size_t parametersCount() const = 0;
 
 	private:
@@ -42,7 +41,7 @@ namespace UnitTest
 	public:
 		struct IParameterizedTestListener
 		{
-			virtual void onNextIteration(Test* const test, T_Parameter current, size_t iteration) = 0;
+			virtual void onNextIteration(TestDetails const * const details, T_Parameter current, size_t iteration) = 0;
 		};
 
 		ParameterizedTest(vector<T_Parameter> parameters, const string & name = "", IParameterizedTestListener* const listener = nullptr)
@@ -63,11 +62,11 @@ namespace UnitTest
 		}
 
 	protected:
-		virtual void peekCurrentParameter(size_t iteration) override
+		virtual void peekCurrentParameter(TestDetails const * const details, size_t iteration) override
 		{
 			if (_listener != nullptr)
 			{
-				_listener->onNextIteration(ParameterizedManager::getInstance().getCurrentTest(), _parameters[iteration], iteration);
+				_listener->onNextIteration(details, _parameters[iteration], iteration);
 			}
 		}
 

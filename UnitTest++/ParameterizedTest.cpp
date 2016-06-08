@@ -1,6 +1,7 @@
 #include "ParameterizedTest.h"
 
 #include <sstream>
+#include "ParameterizedManager.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -73,5 +74,5 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 		_iteration++;
 	}
 
-	peekCurrentParameter(_iteration);
+	peekCurrentParameter(& ParameterizedManager::getInstance().getCurrentTest()->m_details, _iteration);
 }

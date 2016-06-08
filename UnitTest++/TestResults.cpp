@@ -3,7 +3,6 @@
 
 #include "TestDetails.h"
 #include "MemoryOutStream.h"
-#include "ParameterizedTest.h"
 #include "ParameterizedManager.h"
 
 namespace UnitTest {

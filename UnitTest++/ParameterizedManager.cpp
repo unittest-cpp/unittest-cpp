@@ -1,7 +1,6 @@
 #include "ParameterizedManager.h"
 
 #include "Test.h"
-#include "ParameterizedTest.h"
 
 using namespace std;
 using namespace UnitTest;
