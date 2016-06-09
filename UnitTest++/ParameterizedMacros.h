@@ -13,7 +13,7 @@
 	private: \
 		static UnitTest::ParameterizedTest<## Type> & getGlobalInstance() \
 		{ \
-			static UnitTest::ParameterizedTest<## Type> instance(create(), #IterationName); \
+			static UnitTest::ParameterizedTest<## Type> instance(#IterationName, create()); \
 			return instance; \
 		} \
 		static vector<## Type> create() { vector<## Type> parameters; SetUpBody return parameters; } \

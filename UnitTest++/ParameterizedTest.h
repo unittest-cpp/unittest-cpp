@@ -44,7 +44,7 @@ namespace UnitTest
 			virtual void onNextIteration(TestDetails const * const details, T_Parameter current, size_t iteration) = 0;
 		};
 
-		ParameterizedTest(vector<T_Parameter> parameters, const string & name = "", IParameterizedTestListener* const listener = nullptr)
+		ParameterizedTest(const string & name, vector<T_Parameter> parameters, IParameterizedTestListener* const listener = nullptr)
 			: ParameterizedTestAbstract(name),
 			_parameters(parameters),
 			_listener(listener)
