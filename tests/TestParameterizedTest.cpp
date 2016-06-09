@@ -29,7 +29,7 @@ SUITE(ParameterizedTestSimple)
 
 	TEST(SimpleVoyelConcat_Verify)
 	{
-		CHECK_EQUAL(parameterizedCreatorvowelInstance.parameters.size(), simpleVowelsHitCount);
+		CHECK_EQUAL(6, simpleVowelsHitCount);
 		CHECK_EQUAL("AEIOUY", simpleVowels);
 	}
 
