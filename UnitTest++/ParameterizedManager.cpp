@@ -37,7 +37,9 @@ TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const
 		}
 	}
 
-	throw runtime_error(string("Impossible to retrieve test ") + details->testName);
+	string errorMessage = "Impossible to retrieve test ";
+	errorMessage += details->testName;
+	throw runtime_error(errorMessage);
 }
 
 
