@@ -198,7 +198,7 @@ SUITE(ParameterizedTestSimple)
 		ostringstream expectedFailMessage;
 		expectedFailMessage
 			<< "false" << endl // this is because of the failing test
-			<< "With parameterized indexes:" << endl
+			<< "With parameters:" << endl
 			<< " - " << parameterizedSingle.getName() << "[0]" << endl;
 
 		CHECK_EQUAL(makeMessageReadable(expectedFailMessage.str()), str);

@@ -40,7 +40,7 @@ namespace UnitTest {
          vector<ParameterizedTestAbstract*> parameterizeds = ParameterizedManager::getInstance().getStack(&test);
          if (!parameterizeds.empty())
          {
-            stream << endl << "With parameterized indexes:" << endl;
+            stream << endl << "With parameters:" << endl;
             for (size_t i = 0; i < parameterizeds.size(); i++)
             {
                stream << " - " << parameterizeds[i]->getNameCurrent() << endl;
