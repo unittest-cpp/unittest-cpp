@@ -31,6 +31,7 @@ TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const
 	//TODO This workaround is a bit too complicated, why not simply add pointer to current test in class CurrentTest ?
 	for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
 	{
+		// Note: do not use TestDetails::sameTest here for optimisation reason
 		if (&iNode->m_test->m_details == details)
 		{
 			return iNode;
@@ -51,7 +52,12 @@ Test* const ParameterizedManager::getCurrentTest() const
 
 bool ParameterizedManager::isCurrentTest(TestDetails const * const details) const
 {
-	return (_currentTest != nullptr && &_currentTest->m_test->m_details == details);
+	if (_currentTest == nullptr)
+	{
+		return false;
+	}
+
+	return _currentTest->m_test->m_details.sameTest(*details);
 }
 
 
