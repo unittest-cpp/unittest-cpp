@@ -2,6 +2,8 @@
 
 #include <string>
 #include "UnitTest++/ParameterizedTest.h"
+#include "ScopedCurrentTest.h"
+#include "RecordingReporter.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -154,5 +156,36 @@ SUITE(ParameterizedTestSimple)
 	TEST(WorksWithFixture_Verify)
 	{
 		CHECK_EQUAL("12", withFixture);
+	}
+
+	//////////
+
+	TEST(FailedMessage_ContainsIndexes)
+	{
+		class FailingParameterizedTest : public Test
+		{
+		public:
+			FailingParameterizedTest() : Test("FailingParameterizedTest") {}
+			virtual void RunImpl() const
+			{
+				parameterizedSingle();
+				REQUIRE CHECK(false);
+			}
+		};
+
+		RecordingReporter reporter;
+		TestResults results(&reporter);
+		{
+			ScopedCurrentTest scopedResults(results);
+			FailingParameterizedTest().Run();
+		}
+
+		MemoryOutStream expectedFailMessage;
+		expectedFailMessage
+			<< "false" << endl
+			<< "With parameterized indexes:" << endl
+			<< " - " << parameterizedSingle.getName() << "[0]";
+
+		CHECK_EQUAL(expectedFailMessage.str(), string(reporter.lastFailedMessage));
 	}
 }
