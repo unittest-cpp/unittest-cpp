@@ -160,12 +160,24 @@ SUITE(ParameterizedTestSimple)
 
 	//////////
 
+	string makeMessageReadable(string message)
+	{
+		string::size_type pos = 0;
+		while ((pos = message.find_first_of("\r\n", pos)) != string::npos)
+		{
+			message.erase(pos, 1);
+		}
+		message = "<" + message + ">";
+		return message;
+	}
+
 	TEST(FailedMessage_ContainsIndexes)
 	{
 		class FailingParameterizedTest : public Test
 		{
 		public:
-			FailingParameterizedTest() : Test("FailingParameterizedTest") {}
+			FailingParameterizedTest()
+				: Test(CurrentTest::Details()->testName, CurrentTest::Details()->suiteName, CurrentTest::Details()->filename) {}
 			virtual void RunImpl() const
 			{
 				parameterizedSingle();
@@ -180,12 +192,15 @@ SUITE(ParameterizedTestSimple)
 			FailingParameterizedTest().Run();
 		}
 
-		MemoryOutStream expectedFailMessage;
-		expectedFailMessage
-			<< "false" << endl
-			<< "With parameterized indexes:" << endl
-			<< " - " << parameterizedSingle.getName() << "[0]";
+		// Improve error reading: remove line breaks and add <>
+		string str = makeMessageReadable(reporter.lastFailedMessage);
 
-		CHECK_EQUAL(expectedFailMessage.str(), string(reporter.lastFailedMessage));
+		ostringstream expectedFailMessage;
+		expectedFailMessage
+			<< "false" << endl // this is because of the failing test
+			<< "With parameterized indexes:" << endl
+			<< " - " << parameterizedSingle.getName() << "[0]" << endl;
+
+		CHECK_EQUAL(makeMessageReadable(expectedFailMessage.str()), str);
 	}
 }
