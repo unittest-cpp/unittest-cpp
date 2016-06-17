@@ -40,10 +40,14 @@ namespace UnitTest {
          vector<ParameterizedTestAbstract*> parameterizeds = ParameterizedManager::getInstance().getStack(&test);
          if (!parameterizeds.empty())
          {
-            stream << endl << "With parameters:" << endl;
+            stream << " Parameters: ";
             for (size_t i = 0; i < parameterizeds.size(); i++)
             {
-               stream << " - " << parameterizeds[i]->getNameCurrent() << endl;
+               if (i != 0)
+               {
+                  stream << ", ";
+               }
+               stream << parameterizeds[i]->getNameCurrent();
             }
          }
          m_testReporter->ReportFailure(test, stream.GetText());

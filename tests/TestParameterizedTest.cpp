@@ -160,16 +160,9 @@ SUITE(ParameterizedTestSimple)
 
 	//////////
 
-	string makeMessageReadable(string message)
-	{
-		string::size_type pos = 0;
-		while ((pos = message.find_first_of("\r\n", pos)) != string::npos)
-		{
-			message.erase(pos, 1);
-		}
-		message = "<" + message + ">";
-		return message;
-	}
+	SET_SUITE_PARAMETERS(int, parameterizedSingleBis, {
+		parameters.push_back(3);
+	});
 
 	TEST(FailedMessage_ContainsIndexes)
 	{
@@ -181,6 +174,7 @@ SUITE(ParameterizedTestSimple)
 			virtual void RunImpl() const
 			{
 				parameterizedSingle();
+				parameterizedSingleBis();
 				REQUIRE CHECK(false);
 			}
 		};
@@ -192,15 +186,10 @@ SUITE(ParameterizedTestSimple)
 			FailingParameterizedTest().Run();
 		}
 
-		// Improve error reading: remove line breaks and add <>
-		string str = makeMessageReadable(reporter.lastFailedMessage);
+		string expectedFailMessage = "false Parameters: "
+			+ parameterizedSingle.getName() + "[0], "
+			+ parameterizedSingleBis.getName() + "[0]";
 
-		ostringstream expectedFailMessage;
-		expectedFailMessage
-			<< "false" << endl // this is because of the failing test
-			<< "With parameters:" << endl
-			<< " - " << parameterizedSingle.getName() << "[0]" << endl;
-
-		CHECK_EQUAL(makeMessageReadable(expectedFailMessage.str()), str);
+		CHECK_EQUAL(expectedFailMessage, string(reporter.lastFailedMessage));
 	}
 }
