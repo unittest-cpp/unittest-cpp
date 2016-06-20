@@ -14,25 +14,26 @@ namespace UnitTest
 	class ParameterizedManager
 	{
 	public:
-		enum RegisterThen
+		static ParameterizedManager & getInstance();
+		Test* const getCurrentTest() const;
+		bool isCurrentTest(TestDetails const * const details) const;
+		void beginExecute(TestDetails const * const details);
+		void endExecute(TestDetails const * const details);
+		void updateParameter(ParameterizedTestAbstract* const parameterized);
+		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details) const;
+
+	private:
+		enum RegisterThen //TODO Can remove this ?
 		{
 			FIRST,
 			ITERATE,
 			IDLE
 		};
 
-		static ParameterizedManager & getInstance();
-		Test* const getCurrentTest() const;
-		bool isCurrentTest(TestDetails const * const details) const;
-		void beginExecute(TestDetails const * const details);
-		void endExecute(TestDetails const * const details);
-		RegisterThen registerParameter(ParameterizedTestAbstract* const parameterized);
-		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details) const;
-
-	private:
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
 		TestListNode* const retrieveTest(TestDetails const * const details);
+		RegisterThen registerParameter(ParameterizedTestAbstract* const parameterized);
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;

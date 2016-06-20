@@ -36,15 +36,7 @@ string ParameterizedTestAbstract::getNameCurrent() const
 
 void ParameterizedTestAbstract::updateIteration()
 {
-	ParameterizedManager::RegisterThen then = ParameterizedManager::getInstance().registerParameter(this);
-	if (then == ParameterizedManager::FIRST)
-	{
-		onNewIteration(true);
-	}
-	else if (then == ParameterizedManager::ITERATE)
-	{
-		onNewIteration(false);
-	}
+	ParameterizedManager::getInstance().updateParameter(this);
 }
 
 

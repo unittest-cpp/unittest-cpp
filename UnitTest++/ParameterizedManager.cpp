@@ -109,6 +109,24 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 }
 
 
+void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const parameterized)
+{
+	RegisterThen then = registerParameter(parameterized);
+	if (then == ParameterizedManager::IDLE)
+	{
+		return;
+	}
+	if (then == ParameterizedManager::FIRST)
+	{
+		parameterized->onNewIteration(true);
+	}
+	else if (then == ParameterizedManager::ITERATE)
+	{
+		parameterized->onNewIteration(false);
+	}
+}
+
+
 ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized)
 {
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
