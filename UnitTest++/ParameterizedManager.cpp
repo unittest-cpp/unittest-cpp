@@ -46,7 +46,12 @@ TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const
 
 Test* const ParameterizedManager::getCurrentTest() const
 {
-	return (_currentTest != nullptr) ? _currentTest->m_test : nullptr;
+	if (_currentTest == nullptr)
+	{
+		return nullptr;
+	}
+
+	return _currentTest->m_test;
 }
 
 
@@ -99,6 +104,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 		_currentTest = nullptr;
 		_nextTestBackup = nullptr;
 	}
+
 	_iterationDone = false;
 }
 
@@ -124,14 +130,12 @@ ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(Param
 }
 
 
-const vector<ParameterizedTestAbstract*> & ParameterizedManager::getStack(TestDetails const * const details)
+const vector<ParameterizedTestAbstract*> & ParameterizedManager::getStack(TestDetails const * const details) const
 {
-	static vector<ParameterizedTestAbstract*> emptyStored;
-
 	if (!isCurrentTest(details))
 	{
+		static vector<ParameterizedTestAbstract*> emptyStored;
 		return emptyStored;
 	}
-
 	return _stack;
 }
