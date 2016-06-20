@@ -164,6 +164,11 @@ ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(Param
 
 void ParameterizedManager::excludeIndex(ParameterizedTestAbstract* const parameterized, size_t index)
 {
+	if (_iterationDone)
+	{
+		throw runtime_error("can not exclude indexes after iteration began");
+	}
+
 	vector<size_t> & excludedIndexes = _excludedIndexes[parameterized];
 
 	if (index >= parameterized->parametersCount())

@@ -203,7 +203,7 @@ SUITE(ParameterizedTestSimple)
 
 	TEST(ExcludeIndex_ExcludeAll_ThrowsException)
 	{
-		size_t last = vowel.parameters().size()-1;
+		size_t last = vowel.parameters().size() - 1;
 		for (size_t i = 0; i < last; i++)
 		{
 			vowel.excludeIndex(i);
@@ -247,5 +247,14 @@ SUITE(ParameterizedTestSimple)
 	TEST(ExcludeIndex_ExcludeWithNested_Verify)
 	{
 		CHECK_EQUAL("E1E2Y1Y2", excludeWithNested);
+	}
+
+	//////////
+
+	TEST(ExcludeIndex_ExcludeAfterIterationBegan_ThrowsException)
+	{
+		vowel.excludeIndex(0);
+		vowel();
+		CHECK_THROW(vowel.excludeIndex(1), runtime_error);
 	}
 }
