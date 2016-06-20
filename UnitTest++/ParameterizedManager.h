@@ -20,7 +20,7 @@ namespace UnitTest
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);
 		void updateParameter(ParameterizedTestAbstract* const parameterized);
-		void excludeIndex(ParameterizedTestAbstract* const parameterized, size_t index);
+		void ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index);
 		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details) const;
 
 	private:
@@ -40,7 +40,7 @@ namespace UnitTest
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
 		vector<ParameterizedTestAbstract*> _stack;
-		unordered_map<ParameterizedTestAbstract*, vector<size_t>> _excludedIndexes;
+		unordered_map<ParameterizedTestAbstract*, vector<size_t>> _ignoredIndexes;
 		volatile bool _iterationDone;
 	};
 }

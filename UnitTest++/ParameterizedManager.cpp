@@ -74,7 +74,7 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	}
 	_currentTest = retrieveTest(details);
 	_nextTestBackup = _currentTest->m_next;
-	_excludedIndexes.clear();
+	_ignoredIndexes.clear();
 	_iterationDone = false;
 }
 
@@ -112,13 +112,13 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 
 void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const parameterized)
 {
-	const vector<size_t> & excludedIndexes = _excludedIndexes[parameterized];
+	const vector<size_t> & ignoredIndexes = _ignoredIndexes[parameterized];
 	bool repeat = true;
 	while (repeat)
 	{
 		iterate(parameterized);
 
-		repeat = (find(excludedIndexes.begin(), excludedIndexes.end(), parameterized->_iteration) != excludedIndexes.end());
+		repeat = (find(ignoredIndexes.begin(), ignoredIndexes.end(), parameterized->_iteration) != ignoredIndexes.end());
 		if (repeat)
 		{
 			_iterationDone = false;
@@ -162,31 +162,31 @@ ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(Param
 }
 
 
-void ParameterizedManager::excludeIndex(ParameterizedTestAbstract* const parameterized, size_t index)
+void ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index)
 {
 	if (_iterationDone)
 	{
-		throw runtime_error("can not exclude indexes after iteration began");
+		throw runtime_error("can not ignore indexes after iteration began");
 	}
 
-	vector<size_t> & excludedIndexes = _excludedIndexes[parameterized];
+	vector<size_t> & ignoredIndexes = _ignoredIndexes[parameterized];
 
 	if (index >= parameterized->parametersCount())
 	{
-		throw out_of_range("excluded index is out of range");
+		throw out_of_range("ignore index is out of range");
 	}
 
-	if (find(excludedIndexes.begin(), excludedIndexes.end(), index) != excludedIndexes.end())
+	if (find(ignoredIndexes.begin(), ignoredIndexes.end(), index) != ignoredIndexes.end())
 	{
 		return; // already inserted
 	}
 
-	if (excludedIndexes.size() + 1 == parameterized->parametersCount())
+	if (ignoredIndexes.size() + 1 == parameterized->parametersCount())
 	{
-		throw runtime_error("all parameters have been excluded, can not proceed");
+		throw runtime_error("all parameters have been ignored, can not proceed");
 	}
 
-	excludedIndexes.push_back(index);
+	ignoredIndexes.push_back(index);
 }
 
 

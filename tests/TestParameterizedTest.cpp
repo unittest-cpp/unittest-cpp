@@ -195,66 +195,66 @@ SUITE(ParameterizedTestSimple)
 
 	//////////
 
-	TEST(ExcludeIndex_OutOfRange_ThrowsException)
+	TEST(IgnoreIndex_OutOfRange_ThrowsException)
 	{
 		size_t out = vowel.parameters().size();
-		CHECK_THROW(vowel.excludeIndex(out), out_of_range);
+		CHECK_THROW(vowel.ignoreIndex(out), out_of_range);
 	}
 
-	TEST(ExcludeIndex_ExcludeAll_ThrowsException)
+	TEST(IgnoreIndex_IgnoreAll_ThrowsException)
 	{
 		size_t last = vowel.parameters().size() - 1;
 		for (size_t i = 0; i < last; i++)
 		{
-			vowel.excludeIndex(i);
+			vowel.ignoreIndex(i);
 		}
 
-		CHECK_THROW(vowel.excludeIndex(last), runtime_error);
+		CHECK_THROW(vowel.ignoreIndex(last), runtime_error);
 	}
 
 	//////////
 
-	string excludeSomeVowels;
-	TEST(ExcludeIndex_ExcludeSome)
+	string ignoreSomeVowels;
+	TEST(IgnoreIndex_IgnoreSome)
 	{
 		vowel
-			.excludeIndex(1) // "E"
-			.excludeIndex(4); // "U"
+			.ignoreIndex(1) // "E"
+			.ignoreIndex(4); // "U"
 
-		excludeSomeVowels += vowel();
+		ignoreSomeVowels += vowel();
 	}
 
-	TEST(ExcludeIndex_ExcludeSome_Verify)
+	TEST(IgnoreIndex_IgnoreSome_Verify)
 	{
-		CHECK_EQUAL("AIOY", excludeSomeVowels);
+		CHECK_EQUAL("AIOY", ignoreSomeVowels);
 	}
 
 	//////////
 
-	string excludeWithNested;
-	TEST(ExcludeIndex_ExcludeWithNested)
+	string ignoreWithNested;
+	TEST(IgnoreIndex_IgnoreWithNested)
 	{
 		vowel
-			.excludeIndex(0) // "A"
-			.excludeIndex(2) // "I"
-			.excludeIndex(3) // "O"
-			.excludeIndex(4); // "U"
+			.ignoreIndex(0) // "A"
+			.ignoreIndex(2) // "I"
+			.ignoreIndex(3) // "O"
+			.ignoreIndex(4); // "U"
 
-		excludeWithNested += vowel();
-		excludeWithNested += oneTwo();
+		ignoreWithNested += vowel();
+		ignoreWithNested += oneTwo();
 	}
 
-	TEST(ExcludeIndex_ExcludeWithNested_Verify)
+	TEST(IgnoreIndex_IgnoreWithNested_Verify)
 	{
-		CHECK_EQUAL("E1E2Y1Y2", excludeWithNested);
+		CHECK_EQUAL("E1E2Y1Y2", ignoreWithNested);
 	}
 
 	//////////
 
-	TEST(ExcludeIndex_ExcludeAfterIterationBegan_ThrowsException)
+	TEST(IgnoreIndex_IgnoreAfterIterationBegan_ThrowsException)
 	{
-		vowel.excludeIndex(0);
+		vowel.ignoreIndex(0);
 		vowel();
-		CHECK_THROW(vowel.excludeIndex(1), runtime_error);
+		CHECK_THROW(vowel.ignoreIndex(1), runtime_error);
 	}
 }

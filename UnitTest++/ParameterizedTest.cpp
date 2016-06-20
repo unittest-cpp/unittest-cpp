@@ -70,8 +70,8 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 }
 
 
-ParameterizedTestAbstract & ParameterizedTestAbstract::excludeIndex(size_t index)
+ParameterizedTestAbstract & ParameterizedTestAbstract::ignoreIndex(size_t index)
 {
-	ParameterizedManager::getInstance().excludeIndex(this, index);
+	ParameterizedManager::getInstance().ignoreIndex(this, index);
 	return *this;
 }

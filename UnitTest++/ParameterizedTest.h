@@ -20,7 +20,7 @@ namespace UnitTest
 		size_t getIteration();
 		const string & getName() const { return _name; }
 		string getNameCurrent() const;
-		ParameterizedTestAbstract & excludeIndex(size_t index);
+		ParameterizedTestAbstract & ignoreIndex(size_t index);
 
 	protected:
 		void updateIteration();
@@ -62,9 +62,9 @@ namespace UnitTest
 			return _parameters;
 		}
 
-		ParameterizedTest<T_Parameter> & excludeIndex(size_t index)
+		ParameterizedTest<T_Parameter> & ignoreIndex(size_t index)
 		{
-			ParameterizedTestAbstract::excludeIndex(index);
+			ParameterizedTestAbstract::ignoreIndex(index);
 			return *this;
 		}
 
