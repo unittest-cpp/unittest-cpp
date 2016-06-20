@@ -108,7 +108,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 		_currentTest->m_next = _nextTestBackup;
 		_currentTest = nullptr;
 		_nextTestBackup = nullptr;
-		_ignoredIndexes.clear();
+		clearNonGlobalIgnoredIndexes();
 	}
 
 	_iterationDone = false;
@@ -116,23 +116,31 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 }
 
 
-void ParameterizedManager::dumpGlobalIgnoredIndexes(ParameterizedTestAbstract* const parameterized)
+void ParameterizedManager::clearNonGlobalIgnoredIndexes()
 {
-	ParameterizedIndexes::iterator it = _ignoredIndexesGlobal.find(parameterized);
-	if (it == _ignoredIndexesGlobal.end())
+	for (IgnoredIndexesMap::iterator it1 = _ignoredIndexes.begin(); it1 != _ignoredIndexes.end();)
 	{
-		return;
-	}
+		vector<IgnoredIndex> & ignoredIndexes = it1->second;
 
-	vector<size_t> & ignoredIndexesLocal = _ignoredIndexes[parameterized];
-
-	const vector<size_t> & ignoredIndexesGlobal = it->second;
-	for (size_t i = 0; i < ignoredIndexesGlobal.size(); i++)
-	{
-		size_t iIndex = ignoredIndexesGlobal[i];
-		if (find(ignoredIndexesLocal.begin(), ignoredIndexesLocal.end(), iIndex) == ignoredIndexesLocal.end())
+		for (vector<IgnoredIndex>::iterator it2 = ignoredIndexes.begin(); it2 != ignoredIndexes.end();)
 		{
-			ignoredIndexesLocal.push_back(iIndex);
+			if (!it2->global)
+			{
+				it2 = ignoredIndexes.erase(it2);
+			}
+			else
+			{
+				it2++;
+			}
+		}
+
+		if (ignoredIndexes.empty())
+		{
+			_ignoredIndexes.erase(it1++); // Note: map erase is a bit special
+		}
+		else
+		{
+			it1++;
 		}
 	}
 }
@@ -140,13 +148,14 @@ void ParameterizedManager::dumpGlobalIgnoredIndexes(ParameterizedTestAbstract* c
 
 void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const parameterized)
 {
-	const vector<size_t> & ignoredIndexes = _ignoredIndexes[parameterized];
+	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 	bool repeat = true;
 	while (repeat)
 	{
 		iterate(parameterized);
 
-		repeat = (find(ignoredIndexes.begin(), ignoredIndexes.end(), parameterized->_iteration) != ignoredIndexes.end());
+		vector<IgnoredIndex>::iterator ignoredIt = findIgnored(ignoredIndexes, parameterized->_iteration);
+		repeat = (ignoredIt != ignoredIndexes.end());
 		if (repeat)
 		{
 			_iterationDone = false;
@@ -160,10 +169,6 @@ void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterize
 	bool firstIteration = false;
 	if (registerParameter(parameterized, firstIteration))
 	{
-		if (firstIteration)
-		{
-			dumpGlobalIgnoredIndexes(parameterized);
-		}
 		parameterized->onNewIteration(firstIteration);
 	}
 }
@@ -192,6 +197,19 @@ bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const pa
 }
 
 
+vector<ParameterizedManager::IgnoredIndex>::iterator ParameterizedManager::findIgnored(vector<IgnoredIndex> & ignoredIndexes, size_t index)
+{
+	for (vector<IgnoredIndex>::iterator it = ignoredIndexes.begin(); it != ignoredIndexes.end(); it++)
+	{
+		if (index == it->index)
+		{
+			return it;
+		}
+	}
+	return ignoredIndexes.end();
+}
+
+
 ParameterizedManager & ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index)
 {
 	if (_iterationDone)
@@ -199,18 +217,23 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(ParameterizedTestAbstra
 		throw runtime_error("can not ignore indexes after iteration began");
 	}
 
-	vector<size_t> & ignoredIndexes = (_executing)
-		? _ignoredIndexes[parameterized]
-		: _ignoredIndexesGlobal[parameterized];
+	bool global = !_executing;
+	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 
 	if (index >= parameterized->parametersCount())
 	{
 		throw out_of_range("ignore index is out of range");
 	}
 
-	if (find(ignoredIndexes.begin(), ignoredIndexes.end(), index) != ignoredIndexes.end())
+	vector<IgnoredIndex>::iterator ignoredIt = findIgnored(ignoredIndexes, index);
+	if (ignoredIt != ignoredIndexes.end())
 	{
-		return *this; // already inserted
+		// Upgrade to global if required
+		if (!ignoredIt->global && global)
+		{
+			ignoredIt->global = global;
+		}
+		return *this;
 	}
 
 	if (ignoredIndexes.size() + 1 == parameterized->parametersCount())
@@ -218,7 +241,8 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(ParameterizedTestAbstra
 		throw runtime_error("all parameters have been ignored, can not proceed");
 	}
 
-	ignoredIndexes.push_back(index);
+	ignoredIndexes.push_back(IgnoredIndex(index, global));
+
 	return *this;
 }
 

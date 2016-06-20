@@ -24,20 +24,27 @@ namespace UnitTest
 		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details) const;
 
 	private:
-		typedef unordered_map<ParameterizedTestAbstract*, vector<size_t>> ParameterizedIndexes;
+		struct IgnoredIndex
+		{
+			IgnoredIndex(size_t index, bool global) : index(index), global(global) {}
+			size_t index;
+			bool global;
+		};
+		
+		typedef unordered_map<ParameterizedTestAbstract*, vector<IgnoredIndex>> IgnoredIndexesMap;
 
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
 		TestListNode* const retrieveTest(TestDetails const * const details);
-		void dumpGlobalIgnoredIndexes(ParameterizedTestAbstract* const parameterized);
 		void iterate(ParameterizedTestAbstract* const parameterized);
 		bool registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirst);
+		vector<IgnoredIndex>::iterator findIgnored(vector<IgnoredIndex> & ignoredIndexes, size_t index);
+		void clearNonGlobalIgnoredIndexes();
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
 		vector<ParameterizedTestAbstract*> _stack;
-		ParameterizedIndexes _ignoredIndexes;
-		ParameterizedIndexes _ignoredIndexesGlobal;
+		IgnoredIndexesMap _ignoredIndexes;
 		volatile bool _iterationDone;
 		volatile bool _executing;
 	};
