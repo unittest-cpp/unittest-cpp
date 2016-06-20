@@ -68,3 +68,10 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 
 	peekCurrentParameter(& ParameterizedManager::getInstance().getCurrentTest()->m_details, _iteration);
 }
+
+
+ParameterizedTestAbstract & ParameterizedTestAbstract::excludeIndex(size_t index)
+{
+	ParameterizedManager::getInstance().excludeIndex(this, index);
+	return *this;
+}

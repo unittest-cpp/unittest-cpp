@@ -74,6 +74,7 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	}
 	_currentTest = retrieveTest(details);
 	_nextTestBackup = _currentTest->m_next;
+	_excludedIndexes.clear();
 	_iterationDone = false;
 }
 
@@ -111,11 +112,24 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 
 void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const parameterized)
 {
-	RegisterThen then = registerParameter(parameterized);
-	if (then == ParameterizedManager::IDLE)
+	const vector<size_t> & excludedIndexes = _excludedIndexes[parameterized];
+	bool repeat = true;
+	while (repeat)
 	{
-		return;
+		iterate(parameterized);
+
+		repeat = (find(excludedIndexes.begin(), excludedIndexes.end(), parameterized->_iteration) != excludedIndexes.end());
+		if (repeat)
+		{
+			_iterationDone = false;
+		}
 	}
+}
+
+
+void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterized)
+{
+	RegisterThen then = registerParameter(parameterized);
 	if (then == ParameterizedManager::FIRST)
 	{
 		parameterized->onNewIteration(true);
@@ -145,6 +159,29 @@ ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(Param
 		}
 	}
 	return RegisterThen::IDLE;
+}
+
+
+void ParameterizedManager::excludeIndex(ParameterizedTestAbstract* const parameterized, size_t index)
+{
+	vector<size_t> & excludedIndexes = _excludedIndexes[parameterized];
+
+	if (index >= parameterized->parametersCount())
+	{
+		throw out_of_range("excluded index is out of range");
+	}
+
+	if (find(excludedIndexes.begin(), excludedIndexes.end(), index) != excludedIndexes.end())
+	{
+		return; // already inserted
+	}
+
+	if (excludedIndexes.size() + 1 == parameterized->parametersCount())
+	{
+		throw runtime_error("all parameters have been excluded, can not proceed");
+	}
+
+	excludedIndexes.push_back(index);
 }
 
 

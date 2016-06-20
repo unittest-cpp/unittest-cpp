@@ -192,4 +192,60 @@ SUITE(ParameterizedTestSimple)
 
 		CHECK_EQUAL(expectedFailMessage, string(reporter.lastFailedMessage));
 	}
+
+	//////////
+
+	TEST(ExcludeIndex_OutOfRange_ThrowsException)
+	{
+		size_t out = vowel.parameters().size();
+		CHECK_THROW(vowel.excludeIndex(out), out_of_range);
+	}
+
+	TEST(ExcludeIndex_ExcludeAll_ThrowsException)
+	{
+		size_t last = vowel.parameters().size()-1;
+		for (size_t i = 0; i < last; i++)
+		{
+			vowel.excludeIndex(i);
+		}
+
+		CHECK_THROW(vowel.excludeIndex(last), runtime_error);
+	}
+
+	//////////
+
+	string excludeSomeVowels;
+	TEST(ExcludeIndex_ExcludeSome)
+	{
+		vowel
+			.excludeIndex(1) // "E"
+			.excludeIndex(4); // "U"
+
+		excludeSomeVowels += vowel();
+	}
+
+	TEST(ExcludeIndex_ExcludeSome_Verify)
+	{
+		CHECK_EQUAL("AIOY", excludeSomeVowels);
+	}
+
+	//////////
+
+	string excludeWithNested;
+	TEST(ExcludeIndex_ExcludeWithNested)
+	{
+		vowel
+			.excludeIndex(0) // "A"
+			.excludeIndex(2) // "I"
+			.excludeIndex(3) // "O"
+			.excludeIndex(4); // "U"
+
+		excludeWithNested += vowel();
+		excludeWithNested += oneTwo();
+	}
+
+	TEST(ExcludeIndex_ExcludeWithNested_Verify)
+	{
+		CHECK_EQUAL("E1E2Y1Y2", excludeWithNested);
+	}
 }
