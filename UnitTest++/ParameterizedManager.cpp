@@ -73,7 +73,6 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	}
 	_currentTest = retrieveTest(details);
 	_nextTestBackup = _currentTest->m_next;
-	_ignoredIndexes.clear();
 	_iterationDone = false;
 }
 
@@ -103,6 +102,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 		_currentTest->m_next = _nextTestBackup;
 		_currentTest = nullptr;
 		_nextTestBackup = nullptr;
+		_ignoredIndexes.clear();
 	}
 
 	_iterationDone = false;
