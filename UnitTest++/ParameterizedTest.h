@@ -68,6 +68,16 @@ namespace UnitTest
 			return *this;
 		}
 
+		ParameterizedTest<T_Parameter> & ignore(T_Parameter p)
+		{
+			vector<T_Parameter>::iterator it = find(_parameters.begin(), _parameters.end(), p);
+			if (it == _parameters.end())
+			{
+				return *this;
+			}
+			return ignoreIndex(it - _parameters.begin());
+		}
+
 	protected:
 		virtual void peekCurrentParameter(TestDetails const * const details, size_t iteration) override
 		{

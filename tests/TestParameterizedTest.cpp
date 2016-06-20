@@ -257,4 +257,21 @@ SUITE(ParameterizedTestSimple)
 		vowel();
 		CHECK_THROW(vowel.ignoreIndex(1), runtime_error);
 	}
+
+	//////////
+
+	string ignoreSomeVowelsByValue;
+	TEST(Ignore_IgnoreSome)
+	{
+		vowel
+			.ignore("E")
+			.ignore("U");
+
+		ignoreSomeVowelsByValue += vowel();
+	}
+
+	TEST(Ignore_IgnoreSome_Verify)
+	{
+		CHECK_EQUAL("AIOY", ignoreSomeVowelsByValue);
+	}
 }
