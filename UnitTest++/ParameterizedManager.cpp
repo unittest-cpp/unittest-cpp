@@ -69,7 +69,6 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	}
 	_currentTest = retrieveTest(details);
 	_nextTestBackup = _currentTest->m_next;
-	_currentTest->m_next = _currentTest; // Loop itself
 	_iterationDone = false;
 }
 
@@ -109,6 +108,7 @@ ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(Param
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
 		_iterationDone = true;
+		_currentTest->m_next = _currentTest; // Loop itself
 		_stack.push_back(parameterized);
 		return RegisterThen::FIRST;
 	}
