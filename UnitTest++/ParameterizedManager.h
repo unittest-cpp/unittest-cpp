@@ -24,18 +24,11 @@ namespace UnitTest
 		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details) const;
 
 	private:
-		enum RegisterThen //TODO Can remove this ?
-		{
-			FIRST,
-			ITERATE,
-			IDLE
-		};
-
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
 		TestListNode* const retrieveTest(TestDetails const * const details);
 		void iterate(ParameterizedTestAbstract* const parameterized);
-		RegisterThen registerParameter(ParameterizedTestAbstract* const parameterized);
+		bool registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirst);
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;

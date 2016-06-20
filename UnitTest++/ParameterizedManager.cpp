@@ -28,10 +28,9 @@ ParameterizedManager & ParameterizedManager::getInstance()
 
 TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const details)
 {
-	//TODO This workaround is a bit too complicated, why not simply add pointer to current test in class CurrentTest ?
 	for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
 	{
-		// Note: do not use TestDetails::sameTest here for optimisation reason
+		// Warning: do not use TestDetails::sameTest here for optimisation reason
 		if (&iNode->m_test->m_details == details)
 		{
 			return iNode;
@@ -129,36 +128,34 @@ void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const para
 
 void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterized)
 {
-	RegisterThen then = registerParameter(parameterized);
-	if (then == ParameterizedManager::FIRST)
+	bool firstIteration = false;
+	if (registerParameter(parameterized, firstIteration))
 	{
-		parameterized->onNewIteration(true);
-	}
-	else if (then == ParameterizedManager::ITERATE)
-	{
-		parameterized->onNewIteration(false);
+		parameterized->onNewIteration(firstIteration);
 	}
 }
 
 
-ParameterizedManager::RegisterThen ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized)
+bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirstIteration)
 {
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
 		_iterationDone = true;
 		_currentTest->m_next = _currentTest; // Loop itself
 		_stack.push_back(parameterized);
-		return RegisterThen::FIRST;
+		outFirstIteration = true;
+		return true;
 	}
 	if (!_iterationDone)
 	{
 		if (!_stack.empty() && _stack.back() == parameterized)
 		{
 			_iterationDone = true;
-			return RegisterThen::ITERATE;
+			outFirstIteration = false;
+			return true;
 		}
 	}
-	return RegisterThen::IDLE;
+	return false;
 }
 
 
