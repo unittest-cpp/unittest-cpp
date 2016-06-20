@@ -2,6 +2,7 @@
 
 #include <string>
 #include "UnitTest++/ParameterizedTest.h"
+#include "UnitTest++/ParameterizedManager.h"
 #include "ScopedCurrentTest.h"
 #include "RecordingReporter.h"
 
@@ -273,5 +274,38 @@ SUITE(ParameterizedTestSimple)
 	TEST(Ignore_IgnoreSome_Verify)
 	{
 		CHECK_EQUAL("AIOY", ignoreSomeVowelsByValue);
+	}
+
+	//////////
+
+	SET_SUITE_PARAMETERS(string, pzVowelPartial, {
+		parameters = vowel.parameters();
+	});
+
+	struct Initializer
+	{
+		Initializer()
+		{
+			ParameterizedManager::getInstance()
+				.ignoreIndex(&pzVowelPartial, 1) // "E"
+				.ignoreIndex(&pzVowelPartial, 4); // "U"
+		}
+	} initializerInstance;
+
+	string globalIgnoreSomeVowels;
+
+	// Note: the test is executed twice (A/B)
+	TEST(GlobalIgnore_IgnoreSome_A)
+	{
+		globalIgnoreSomeVowels += pzVowelPartial();
+	}
+	TEST(GlobalIgnore_IgnoreSome_B)
+	{
+		globalIgnoreSomeVowels += pzVowelPartial();
+	}
+
+	TEST(GlobalIgnore_IgnoreSome_Verify)
+	{
+		CHECK_EQUAL("AIOYAIOY", globalIgnoreSomeVowels);
 	}
 }

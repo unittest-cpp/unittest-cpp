@@ -20,21 +20,26 @@ namespace UnitTest
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);
 		void updateParameter(ParameterizedTestAbstract* const parameterized);
-		void ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index);
+		ParameterizedManager & ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index);
 		const vector<ParameterizedTestAbstract*> & getStack(TestDetails const * const details) const;
 
 	private:
+		typedef unordered_map<ParameterizedTestAbstract*, vector<size_t>> ParameterizedIndexes;
+
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
 		TestListNode* const retrieveTest(TestDetails const * const details);
+		void dumpGlobalIgnoredIndexes(ParameterizedTestAbstract* const parameterized);
 		void iterate(ParameterizedTestAbstract* const parameterized);
 		bool registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirst);
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
 		vector<ParameterizedTestAbstract*> _stack;
-		unordered_map<ParameterizedTestAbstract*, vector<size_t>> _ignoredIndexes;
+		ParameterizedIndexes _ignoredIndexes;
+		ParameterizedIndexes _ignoredIndexesGlobal;
 		volatile bool _iterationDone;
+		volatile bool _executing;
 	};
 }
 

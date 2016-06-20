@@ -9,7 +9,8 @@ using namespace UnitTest;
 ParameterizedManager::ParameterizedManager()
 	: _currentTest(nullptr),
 	_nextTestBackup(nullptr),
-	_iterationDone(false)
+	_iterationDone(false),
+	_executing(false)
 {
 }
 
@@ -69,11 +70,16 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 {
 	if (_currentTest != nullptr)
 	{
+		if (isCurrentTest(details))
+		{
+			_executing = true;
+		}
 		return;
 	}
 	_currentTest = retrieveTest(details);
 	_nextTestBackup = _currentTest->m_next;
 	_iterationDone = false;
+	_executing = true;
 }
 
 
@@ -106,6 +112,29 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 	}
 
 	_iterationDone = false;
+	_executing = false;
+}
+
+
+void ParameterizedManager::dumpGlobalIgnoredIndexes(ParameterizedTestAbstract* const parameterized)
+{
+	ParameterizedIndexes::iterator it = _ignoredIndexesGlobal.find(parameterized);
+	if (it == _ignoredIndexesGlobal.end())
+	{
+		return;
+	}
+
+	vector<size_t> & ignoredIndexesLocal = _ignoredIndexes[parameterized];
+
+	const vector<size_t> & ignoredIndexesGlobal = it->second;
+	for (size_t i = 0; i < ignoredIndexesGlobal.size(); i++)
+	{
+		size_t iIndex = ignoredIndexesGlobal[i];
+		if (find(ignoredIndexesLocal.begin(), ignoredIndexesLocal.end(), iIndex) == ignoredIndexesLocal.end())
+		{
+			ignoredIndexesLocal.push_back(iIndex);
+		}
+	}
 }
 
 
@@ -131,6 +160,10 @@ void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterize
 	bool firstIteration = false;
 	if (registerParameter(parameterized, firstIteration))
 	{
+		if (firstIteration)
+		{
+			dumpGlobalIgnoredIndexes(parameterized);
+		}
 		parameterized->onNewIteration(firstIteration);
 	}
 }
@@ -159,14 +192,16 @@ bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const pa
 }
 
 
-void ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index)
+ParameterizedManager & ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index)
 {
 	if (_iterationDone)
 	{
 		throw runtime_error("can not ignore indexes after iteration began");
 	}
 
-	vector<size_t> & ignoredIndexes = _ignoredIndexes[parameterized];
+	vector<size_t> & ignoredIndexes = (_executing)
+		? _ignoredIndexes[parameterized]
+		: _ignoredIndexesGlobal[parameterized];
 
 	if (index >= parameterized->parametersCount())
 	{
@@ -175,7 +210,7 @@ void ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const paramete
 
 	if (find(ignoredIndexes.begin(), ignoredIndexes.end(), index) != ignoredIndexes.end())
 	{
-		return; // already inserted
+		return *this; // already inserted
 	}
 
 	if (ignoredIndexes.size() + 1 == parameterized->parametersCount())
@@ -184,6 +219,7 @@ void ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const paramete
 	}
 
 	ignoredIndexes.push_back(index);
+	return *this;
 }
 
 
