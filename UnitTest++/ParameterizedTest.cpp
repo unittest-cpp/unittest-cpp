@@ -48,11 +48,6 @@ bool ParameterizedTestAbstract::hasMoreParameters(int advance) const
 
 void ParameterizedTestAbstract::onNewIteration(bool first)
 {
-	if (!first && !hasMoreParameters(1))
-	{
-		first = true;
-	}
-
 	if (first)
 	{
 		if (parametersCount() == 0)
