@@ -215,6 +215,27 @@ SUITE(ParameterizedTestSimple)
 
 	//////////
 
+	size_t ignoreIndexLast_count = 0;
+	string ignoreIndexLast;
+	TEST(IgnoreIndex_IgnoreLast)
+	{
+		size_t lastIndex = oneTwo.parameters().size() - 1;
+		oneTwo.ignoreIndex(lastIndex);
+
+		ignoreIndexLast += oneTwo();
+
+		// WARNING: this is not the test itself, it is only for reveal a "dead loop"
+		REQUIRE CHECK(ignoreIndexLast_count < lastIndex);
+		ignoreIndexLast_count++;
+	}
+
+	TEST(IgnoreIndex_IgnoreLast_Verify)
+	{
+		CHECK_EQUAL("1", ignoreIndexLast);
+	}
+
+	//////////
+
 	string ignoreSomeVowels;
 	TEST(IgnoreIndex_IgnoreSome)
 	{
