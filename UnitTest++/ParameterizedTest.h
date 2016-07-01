@@ -17,22 +17,22 @@ namespace UnitTest
 	public:
 		ParameterizedTestAbstract(const string & name);
 		virtual ~ParameterizedTestAbstract();
-		size_t getIteration();
+		size_t getCurrentIndex();
 		const string & getName() const { return _name; }
 		string getNameCurrent() const;
 		ParameterizedTestAbstract & ignoreIndex(size_t index);
 
 	protected:
-		void updateIteration();
-		virtual void peekCurrentParameter(TestDetails const * const details, size_t iteration) = 0;
+		void updateCurrentIndex();
+		virtual void peekCurrentParameter(TestDetails const * const details, size_t index) = 0;
 		virtual size_t parametersCount() const = 0;
 
 	private:
 		bool hasMoreParameters(int advance = 0) const;
-		void onNewIteration(bool first);
+		void nextIndex(bool first);
 
 		string _name;
-		size_t _iteration;
+		size_t _index;
 	};
 
 
@@ -42,7 +42,7 @@ namespace UnitTest
 	public:
 		struct IParameterizedTestListener
 		{
-			virtual void onNextIteration(TestDetails const * const details, T_Parameter current, size_t iteration) = 0;
+			virtual void onNext(TestDetails const * const details, T_Parameter current, size_t index) = 0;
 		};
 
 		ParameterizedTest(const string & name, vector<T_Parameter> parameters, IParameterizedTestListener* const listener = nullptr)
@@ -54,7 +54,7 @@ namespace UnitTest
 
 		T_Parameter operator()()
 		{
-			return _parameters[getIteration()];
+			return _parameters[getCurrentIndex()];
 		}
 
 		const vector<T_Parameter> & parameters() const
@@ -79,11 +79,11 @@ namespace UnitTest
 		}
 
 	protected:
-		virtual void peekCurrentParameter(TestDetails const * const details, size_t iteration) override
+		virtual void peekCurrentParameter(TestDetails const * const details, size_t index) override
 		{
 			if (_listener != nullptr)
 			{
-				_listener->onNextIteration(details, _parameters[iteration], iteration);
+				_listener->onNext(details, _parameters[index], index);
 			}
 		}
 

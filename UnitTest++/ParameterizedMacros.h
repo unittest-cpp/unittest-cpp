@@ -4,22 +4,22 @@
 #include "ParameterizedTest.h"
 
 
-#define SET_SUITE_PARAMETERS(Type, IterationName, SetUpBody) \
-	class ParameterizedCreator ## IterationName \
+#define SET_SUITE_PARAMETERS(Type, Name, SetUpBody) \
+	class ParameterizedCreator ## Name \
 	{ \
 	public: \
-		ParameterizedCreator ## IterationName() : globalInstance(getGlobalInstance()) {} \
+		ParameterizedCreator ## Name() : globalInstance(getGlobalInstance()) {} \
 		UnitTest::ParameterizedTest<## Type> & globalInstance; \
 	private: \
 		static UnitTest::ParameterizedTest<## Type> & getGlobalInstance() \
 		{ \
-			static UnitTest::ParameterizedTest<## Type> instance(#IterationName, create()); \
+			static UnitTest::ParameterizedTest<## Type> instance(#Name, create()); \
 			return instance; \
 		} \
 		static vector<## Type> create() { vector<## Type> parameters; SetUpBody return parameters; } \
-	} static parameterizedCreator ## IterationName ## Instance; \
+	} static parameterizedCreator ## Name ## Instance; \
 	\
-	static UnitTest::ParameterizedTest<## Type> & ## IterationName(parameterizedCreator ## IterationName ## Instance.globalInstance)
+	static UnitTest::ParameterizedTest<## Type> & ## Name(parameterizedCreator ## Name ## Instance.globalInstance)
 
 
 #endif

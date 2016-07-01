@@ -9,7 +9,7 @@ using namespace UnitTest;
 
 ParameterizedTestAbstract::ParameterizedTestAbstract(const string & name)
 	: _name(name),
-	_iteration(0)
+	_index(0)
 {
 }
 
@@ -19,22 +19,22 @@ ParameterizedTestAbstract::~ParameterizedTestAbstract()
 }
 
 
-size_t ParameterizedTestAbstract::getIteration()
+size_t ParameterizedTestAbstract::getCurrentIndex()
 {
-	updateIteration();
-	return _iteration;
+	updateCurrentIndex();
+	return _index;
 }
 
 
 string ParameterizedTestAbstract::getNameCurrent() const
 {
 	stringstream output;
-	output << (_name.empty() ? "unknown" : _name) << "[" << _iteration << "]";
+	output << (_name.empty() ? "unknown" : _name) << "[" << _index << "]";
 	return output.str();
 }
 
 
-void ParameterizedTestAbstract::updateIteration()
+void ParameterizedTestAbstract::updateCurrentIndex()
 {
 	ParameterizedManager::getInstance().updateParameter(this);
 }
@@ -42,11 +42,11 @@ void ParameterizedTestAbstract::updateIteration()
 
 bool ParameterizedTestAbstract::hasMoreParameters(int advance) const
 {
-	return (_iteration + advance < (int)parametersCount());
+	return (_index + advance < (int)parametersCount());
 }
 
 
-void ParameterizedTestAbstract::onNewIteration(bool first)
+void ParameterizedTestAbstract::nextIndex(bool first)
 {
 	if (first)
 	{
@@ -54,14 +54,14 @@ void ParameterizedTestAbstract::onNewIteration(bool first)
 		{
 			throw runtime_error("No values for parameterized test");
 		}
-		_iteration = 0;
+		_index = 0;
 	}
 	else
 	{
-		_iteration++;
+		_index++;
 	}
 
-	peekCurrentParameter(& ParameterizedManager::getInstance().getCurrentTest()->m_details, _iteration);
+	peekCurrentParameter(&ParameterizedManager::getInstance().getCurrentTest()->m_details, _index);
 }
 
 

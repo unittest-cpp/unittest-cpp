@@ -66,7 +66,7 @@ bool ParameterizedManager::isCurrentTest(TestDetails const * const details) cons
 }
 
 
-bool ParameterizedManager::hasMoreIterations(ParameterizedTestAbstract* const parameterized)
+bool ParameterizedManager::hasMoreIndexes(ParameterizedTestAbstract* const parameterized)
 {
 	if (!parameterized->hasMoreParameters(1))
 	{
@@ -77,7 +77,7 @@ bool ParameterizedManager::hasMoreIterations(ParameterizedTestAbstract* const pa
 	if (!ignoredIndexes.empty())
 	{
 		bool allRemainingsAreIgnored = true;
-		for (size_t iIndex = parameterized->_iteration + 1; iIndex < parameterized->parametersCount(); iIndex++)
+		for (size_t iIndex = parameterized->_index + 1; iIndex < parameterized->parametersCount(); iIndex++)
 		{
 			if (findIgnored(ignoredIndexes, iIndex) == ignoredIndexes.end())
 			{
@@ -122,7 +122,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 	while (!_stack.empty())
 	{
 		ParameterizedTestAbstract* iParameterized = _stack.back();
-		if (hasMoreIterations(iParameterized))
+		if (hasMoreIndexes(iParameterized))
 		{
 			break;
 		}
@@ -183,7 +183,7 @@ void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const para
 	{
 		iterate(parameterized);
 
-		vector<IgnoredIndex>::iterator ignoredIt = findIgnored(ignoredIndexes, parameterized->_iteration);
+		vector<IgnoredIndex>::iterator ignoredIt = findIgnored(ignoredIndexes, parameterized->_index);
 		repeat = (ignoredIt != ignoredIndexes.end());
 		if (repeat)
 		{
@@ -195,22 +195,22 @@ void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const para
 
 void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterized)
 {
-	bool firstIteration = false;
-	if (registerParameter(parameterized, firstIteration))
+	bool firstIndex = false;
+	if (registerParameter(parameterized, firstIndex))
 	{
-		parameterized->onNewIteration(firstIteration);
+		parameterized->nextIndex(firstIndex);
 	}
 }
 
 
-bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirstIteration)
+bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirstIndex)
 {
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
 		_iterationDone = true;
 		_currentTest->m_next = _currentTest; // Loop itself
 		_stack.push_back(parameterized);
-		outFirstIteration = true;
+		outFirstIndex = true;
 		return true;
 	}
 	if (!_iterationDone)
@@ -218,10 +218,11 @@ bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const pa
 		if (!_stack.empty() && _stack.back() == parameterized)
 		{
 			_iterationDone = true;
-			outFirstIteration = false;
+			outFirstIndex = false;
 			return true;
 		}
 	}
+	outFirstIndex = false;
 	return false;
 }
 
