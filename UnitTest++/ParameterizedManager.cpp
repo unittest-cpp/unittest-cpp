@@ -66,6 +66,35 @@ bool ParameterizedManager::isCurrentTest(TestDetails const * const details) cons
 }
 
 
+bool ParameterizedManager::hasMoreIterations(ParameterizedTestAbstract* const parameterized)
+{
+	if (!parameterized->hasMoreParameters(1))
+	{
+		return false;
+	}
+
+	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
+	if (!ignoredIndexes.empty())
+	{
+		bool allRemainingsAreIgnored = true;
+		for (size_t iIndex = parameterized->_iteration + 1; iIndex < parameterized->parametersCount(); iIndex++)
+		{
+			if (findIgnored(ignoredIndexes, iIndex) == ignoredIndexes.end())
+			{
+				allRemainingsAreIgnored = false;
+				break;
+			}
+		}
+		if (allRemainingsAreIgnored)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
 void ParameterizedManager::beginExecute(TestDetails const * const details)
 {
 	if (_currentTest != nullptr)
@@ -93,7 +122,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 	while (!_stack.empty())
 	{
 		ParameterizedTestAbstract* iParameterized = _stack.back();
-		if (iParameterized->hasMoreParameters(1))
+		if (hasMoreIterations(iParameterized))
 		{
 			break;
 		}

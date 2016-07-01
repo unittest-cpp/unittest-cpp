@@ -38,6 +38,7 @@ namespace UnitTest
 		TestListNode* const retrieveTest(TestDetails const * const details);
 		void iterate(ParameterizedTestAbstract* const parameterized);
 		bool registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirst);
+		bool hasMoreIterations(ParameterizedTestAbstract* const parameterized);
 		vector<IgnoredIndex>::iterator findIgnored(vector<IgnoredIndex> & ignoredIndexes, size_t index);
 		void clearNonGlobalIgnoredIndexes();
 
