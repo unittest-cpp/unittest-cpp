@@ -15,7 +15,7 @@ SUITE(ParameterizedTest)
 	string simpleVowels;
 	int simpleVowelsHitCount = 0;
 
-	SET_SUITE_PARAMETERS(string, vowel, {
+	SET_SUITE_PARAMETERS(string, pzVowel, {
 		parameters.push_back("A");
 		parameters.push_back("E");
 		parameters.push_back("I");
@@ -24,13 +24,13 @@ SUITE(ParameterizedTest)
 		parameters.push_back("Y");
 	});
 
-	TEST(SimpleVoyelConcat)
+	TEST(SimpleVowelConcat)
 	{
-		simpleVowels += vowel();
+		simpleVowels += pzVowel();
 		simpleVowelsHitCount++;
 	}
 
-	TEST(SimpleVoyelConcat_Verify)
+	TEST(SimpleVowelConcat_Verify)
 	{
 		CHECK_EQUAL(6, simpleVowelsHitCount);
 		CHECK_EQUAL("AEIOUY", simpleVowels);
@@ -50,7 +50,7 @@ SUITE(ParameterizedTest)
 	bool enteredEmpty = false;
 	int hitCountEmpty = 0;
 
-	SET_SUITE_PARAMETERS(int, parameterizedEmpty, {
+	SET_SUITE_PARAMETERS(int, pzEmpty, {
 	});
 
 	TEST(WhenNoParameters_throwsException)
@@ -58,7 +58,7 @@ SUITE(ParameterizedTest)
 		enteredEmpty = true;
 		try
 		{
-			parameterizedEmpty();
+			pzEmpty();
 		}
 		catch (runtime_error e) // Expected case
 		{
@@ -81,13 +81,13 @@ SUITE(ParameterizedTest)
 	int hitCountSingle = 0;
 	static int singleValueSuiteSum = 0;
 
-	SET_SUITE_PARAMETERS(int, parameterizedSingle, {
+	SET_SUITE_PARAMETERS(int, pzSingle, {
 		parameters.push_back(2);
 	});
 
 	TEST(WhenSingleValue_singleExecution)
 	{
-		singleValueSuiteSum += parameterizedSingle();
+		singleValueSuiteSum += pzSingle();
 		CHECK_EQUAL(2, singleValueSuiteSum);
 		hitCountSingle++;
 	}
@@ -103,7 +103,7 @@ SUITE(ParameterizedTest)
 	string voyelReuse;
 	TEST(ReusePreviousParameterized)
 	{
-		voyelReuse += vowel() + "-"; // Add a separator for 
+		voyelReuse += pzVowel() + "-"; // Add a separator for 
 	}
 
 	TEST(ReusePreviousParameterized_Verify)
@@ -113,7 +113,7 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_SUITE_PARAMETERS(string, oneTwo, {
+	SET_SUITE_PARAMETERS(string, pzOneTwo, {
 		parameters.push_back("1");
 		parameters.push_back("2");
 	});
@@ -121,8 +121,8 @@ SUITE(ParameterizedTest)
 	string nestedParameters;
 	TEST(NestedParameters)
 	{
-		nestedParameters += vowel();
-		nestedParameters += oneTwo();
+		nestedParameters += pzVowel();
+		nestedParameters += pzOneTwo();
 	}
 
 	TEST(NestedParameters_Verify)
@@ -135,8 +135,8 @@ SUITE(ParameterizedTest)
 	string useSeveralTimes;
 	TEST(UseSeveralTimes_DoesNotIncrement)
 	{
-		useSeveralTimes += oneTwo();
-		useSeveralTimes += oneTwo();
+		useSeveralTimes += pzOneTwo();
+		useSeveralTimes += pzOneTwo();
 	}
 
 	TEST(UseSeveralTimes_DoesNotIncrement_Verify)
@@ -151,7 +151,7 @@ SUITE(ParameterizedTest)
 	string withFixture;
 	TEST_FIXTURE(Fixture, WorksWithFixture)
 	{
-		withFixture += oneTwo();
+		withFixture += pzOneTwo();
 	}
 
 	TEST(WorksWithFixture_Verify)
@@ -161,7 +161,7 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_SUITE_PARAMETERS(int, parameterizedSingleBis, {
+	SET_SUITE_PARAMETERS(int, pzSingleBis, {
 		parameters.push_back(3);
 	});
 
@@ -174,8 +174,8 @@ SUITE(ParameterizedTest)
 				: Test(CurrentTest::Details()->testName, CurrentTest::Details()->suiteName, CurrentTest::Details()->filename) {}
 			virtual void RunImpl() const
 			{
-				parameterizedSingle();
-				parameterizedSingleBis();
+				pzSingle();
+				pzSingleBis();
 				REQUIRE CHECK(false);
 			}
 		};
@@ -188,8 +188,8 @@ SUITE(ParameterizedTest)
 		}
 
 		string expectedFailMessage = "false Parameters: "
-			+ parameterizedSingle.getName() + "[0], "
-			+ parameterizedSingleBis.getName() + "[0]";
+			+ pzSingle.getName() + "[0], "
+			+ pzSingleBis.getName() + "[0]";
 
 		CHECK_EQUAL(expectedFailMessage, string(reporter.lastFailedMessage));
 	}
@@ -198,19 +198,19 @@ SUITE(ParameterizedTest)
 
 	TEST(IgnoreIndex_OutOfRange_ThrowsException)
 	{
-		size_t out = vowel.parameters().size();
-		CHECK_THROW(vowel.ignoreIndex(out), out_of_range);
+		size_t out = pzVowel.parameters().size();
+		CHECK_THROW(pzVowel.ignoreIndex(out), out_of_range);
 	}
 
 	TEST(IgnoreIndex_IgnoreAll_ThrowsException)
 	{
-		size_t last = vowel.parameters().size() - 1;
+		size_t last = pzVowel.parameters().size() - 1;
 		for (size_t i = 0; i < last; i++)
 		{
-			vowel.ignoreIndex(i);
+			pzVowel.ignoreIndex(i);
 		}
 
-		CHECK_THROW(vowel.ignoreIndex(last), runtime_error);
+		CHECK_THROW(pzVowel.ignoreIndex(last), runtime_error);
 	}
 
 	//////////
@@ -219,10 +219,10 @@ SUITE(ParameterizedTest)
 	string ignoreIndexLast;
 	TEST(IgnoreIndex_IgnoreLast)
 	{
-		size_t lastIndex = oneTwo.parameters().size() - 1;
-		oneTwo.ignoreIndex(lastIndex);
+		size_t lastIndex = pzOneTwo.parameters().size() - 1;
+		pzOneTwo.ignoreIndex(lastIndex);
 
-		ignoreIndexLast += oneTwo();
+		ignoreIndexLast += pzOneTwo();
 
 		// WARNING: this is not the test itself, it is only for reveal a "dead loop"
 		REQUIRE CHECK(ignoreIndexLast_count < lastIndex);
@@ -239,11 +239,11 @@ SUITE(ParameterizedTest)
 	string ignoreSomeVowels;
 	TEST(IgnoreIndex_IgnoreSome)
 	{
-		vowel
+		pzVowel
 			.ignoreIndex(1) // "E"
 			.ignoreIndex(4); // "U"
 
-		ignoreSomeVowels += vowel();
+		ignoreSomeVowels += pzVowel();
 	}
 
 	TEST(IgnoreIndex_IgnoreSome_Verify)
@@ -256,14 +256,14 @@ SUITE(ParameterizedTest)
 	string ignoreWithNested;
 	TEST(IgnoreIndex_IgnoreWithNested)
 	{
-		vowel
+		pzVowel
 			.ignoreIndex(0) // "A"
 			.ignoreIndex(2) // "I"
 			.ignoreIndex(3) // "O"
 			.ignoreIndex(4); // "U"
 
-		ignoreWithNested += vowel();
-		ignoreWithNested += oneTwo();
+		ignoreWithNested += pzVowel();
+		ignoreWithNested += pzOneTwo();
 	}
 
 	TEST(IgnoreIndex_IgnoreWithNested_Verify)
@@ -275,9 +275,9 @@ SUITE(ParameterizedTest)
 
 	TEST(IgnoreIndex_IgnoreAfterIterationBegan_ThrowsException)
 	{
-		vowel.ignoreIndex(0);
-		vowel();
-		CHECK_THROW(vowel.ignoreIndex(1), runtime_error);
+		pzVowel.ignoreIndex(0);
+		pzVowel();
+		CHECK_THROW(pzVowel.ignoreIndex(1), runtime_error);
 	}
 
 	//////////
@@ -285,11 +285,11 @@ SUITE(ParameterizedTest)
 	string ignoreSomeVowelsByValue;
 	TEST(Ignore_IgnoreSome)
 	{
-		vowel
+		pzVowel
 			.ignore("E")
 			.ignore("U");
 
-		ignoreSomeVowelsByValue += vowel();
+		ignoreSomeVowelsByValue += pzVowel();
 	}
 
 	TEST(Ignore_IgnoreSome_Verify)
@@ -300,7 +300,7 @@ SUITE(ParameterizedTest)
 	//////////
 
 	SET_SUITE_PARAMETERS(string, pzVowelPartial, {
-		parameters = vowel.parameters();
+		parameters = pzVowel.parameters();
 	});
 
 	struct Initializer
