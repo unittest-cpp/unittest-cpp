@@ -15,7 +15,7 @@ SUITE(ParameterizedTest)
 	string simpleVowels;
 	int simpleVowelsHitCount = 0;
 
-	SET_SUITE_PARAMETERS(string, pzVowel, {
+	SET_SUITE_PARAMETER(string, pzVowel, {
 		parameters.push_back("A");
 		parameters.push_back("E");
 		parameters.push_back("I");
@@ -50,7 +50,7 @@ SUITE(ParameterizedTest)
 	bool enteredEmpty = false;
 	int hitCountEmpty = 0;
 
-	SET_SUITE_PARAMETERS(int, pzEmpty, {
+	SET_SUITE_PARAMETER(int, pzEmpty, {
 	});
 
 	TEST(WhenNoParameters_throwsException)
@@ -81,7 +81,7 @@ SUITE(ParameterizedTest)
 	int hitCountSingle = 0;
 	static int singleValueSuiteSum = 0;
 
-	SET_SUITE_PARAMETERS(int, pzSingle, {
+	SET_SUITE_PARAMETER(int, pzSingle, {
 		parameters.push_back(2);
 	});
 
@@ -113,7 +113,7 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_SUITE_PARAMETERS(string, pzOneTwo, {
+	SET_SUITE_PARAMETER(string, pzOneTwo, {
 		parameters.push_back("1");
 		parameters.push_back("2");
 	});
@@ -161,7 +161,7 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_SUITE_PARAMETERS(int, pzSingleBis, {
+	SET_SUITE_PARAMETER(int, pzSingleBis, {
 		parameters.push_back(3);
 	});
 
@@ -299,7 +299,7 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_SUITE_PARAMETERS(string, pzVowelPartial, {
+	SET_SUITE_PARAMETER(string, pzVowelPartial, {
 		parameters = pzVowel.parameters();
 	});
 
