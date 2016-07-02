@@ -66,7 +66,7 @@ bool ParameterizedManager::isCurrentTest(TestDetails const * const details) cons
 }
 
 
-bool ParameterizedManager::hasMoreIndexes(ParameterizedTestAbstract* const parameterized)
+bool ParameterizedManager::hasMoreIndexes(TestParameterAbstract* const parameterized)
 {
 	if (!parameterized->hasMoreParameters(1))
 	{
@@ -121,7 +121,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 
 	while (!_stack.empty())
 	{
-		ParameterizedTestAbstract* iParameterized = _stack.back();
+		TestParameterAbstract* iParameterized = _stack.back();
 		if (hasMoreIndexes(iParameterized))
 		{
 			break;
@@ -175,7 +175,7 @@ void ParameterizedManager::clearNonGlobalIgnoredIndexes()
 }
 
 
-void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const parameterized)
+void ParameterizedManager::updateParameter(TestParameterAbstract* const parameterized)
 {
 	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 	bool repeat = true;
@@ -193,7 +193,7 @@ void ParameterizedManager::updateParameter(ParameterizedTestAbstract* const para
 }
 
 
-void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterized)
+void ParameterizedManager::iterate(TestParameterAbstract* const parameterized)
 {
 	bool firstIndex = false;
 	if (registerParameter(parameterized, firstIndex))
@@ -203,7 +203,7 @@ void ParameterizedManager::iterate(ParameterizedTestAbstract* const parameterize
 }
 
 
-bool ParameterizedManager::registerParameter(ParameterizedTestAbstract* const parameterized, bool & outFirstIndex)
+bool ParameterizedManager::registerParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex)
 {
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
@@ -240,7 +240,7 @@ vector<ParameterizedManager::IgnoredIndex>::iterator ParameterizedManager::findI
 }
 
 
-ParameterizedManager & ParameterizedManager::ignoreIndex(ParameterizedTestAbstract* const parameterized, size_t index)
+ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* const parameterized, size_t index)
 {
 	if (_iterationDone)
 	{
@@ -277,11 +277,11 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(ParameterizedTestAbstra
 }
 
 
-const vector<ParameterizedTestAbstract*> & ParameterizedManager::getStack(TestDetails const * const details) const
+const vector<TestParameterAbstract*> & ParameterizedManager::getStack(TestDetails const * const details) const
 {
 	if (!isCurrentTest(details))
 	{
-		static vector<ParameterizedTestAbstract*> emptyStored;
+		static vector<TestParameterAbstract*> emptyStored;
 		return emptyStored;
 	}
 	return _stack;

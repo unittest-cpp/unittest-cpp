@@ -1,7 +1,7 @@
 #ifndef UNITTEST_PARAMETERIZEDMACROS_H
 #define UNITTEST_PARAMETERIZEDMACROS_H
 
-#include "ParameterizedTest.h"
+#include "TestParameter.h"
 
 
 #define SET_SUITE_PARAMETERS(Type, Name, SetUpBody) \
@@ -9,17 +9,17 @@
 	{ \
 	public: \
 		ParameterizedCreator##Name() : globalInstance(getGlobalInstance()) {} \
-		UnitTest::ParameterizedTest<Type> & globalInstance; \
+		UnitTest::TestParameter<Type> & globalInstance; \
 	private: \
-		static UnitTest::ParameterizedTest<Type> & getGlobalInstance() \
+		static UnitTest::TestParameter<Type> & getGlobalInstance() \
 		{ \
-			static UnitTest::ParameterizedTest<Type> instance(#Name, create()); \
+			static UnitTest::TestParameter<Type> instance(#Name, create()); \
 			return instance; \
 		} \
 		static vector<Type> create() { vector<Type> parameters; SetUpBody return parameters; } \
 	} static parameterizedCreator##Name##Instance; \
 	\
-	static UnitTest::ParameterizedTest<Type> & Name(parameterizedCreator##Name##Instance.globalInstance)
+	static UnitTest::TestParameter<Type> & Name(parameterizedCreator##Name##Instance.globalInstance)
 
 
 #endif

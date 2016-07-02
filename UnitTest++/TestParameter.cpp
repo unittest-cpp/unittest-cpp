@@ -1,4 +1,4 @@
-#include "ParameterizedTest.h"
+#include "TestParameter.h"
 
 #include <sstream>
 #include "ParameterizedManager.h"
@@ -7,26 +7,26 @@ using namespace std;
 using namespace UnitTest;
 
 
-ParameterizedTestAbstract::ParameterizedTestAbstract(const string & name)
+TestParameterAbstract::TestParameterAbstract(const string & name)
 	: _name(name),
 	_index(0)
 {
 }
 
 
-ParameterizedTestAbstract::~ParameterizedTestAbstract()
+TestParameterAbstract::~TestParameterAbstract()
 {
 }
 
 
-size_t ParameterizedTestAbstract::getCurrentIndex()
+size_t TestParameterAbstract::getCurrentIndex()
 {
 	updateCurrentIndex();
 	return _index;
 }
 
 
-string ParameterizedTestAbstract::getNameCurrent() const
+string TestParameterAbstract::getNameCurrent() const
 {
 	stringstream output;
 	output << (_name.empty() ? "unknown" : _name) << "[" << _index << "]";
@@ -34,19 +34,19 @@ string ParameterizedTestAbstract::getNameCurrent() const
 }
 
 
-void ParameterizedTestAbstract::updateCurrentIndex()
+void TestParameterAbstract::updateCurrentIndex()
 {
 	ParameterizedManager::getInstance().updateParameter(this);
 }
 
 
-bool ParameterizedTestAbstract::hasMoreParameters(int advance) const
+bool TestParameterAbstract::hasMoreParameters(int advance) const
 {
 	return (_index + advance < (int)parametersCount());
 }
 
 
-void ParameterizedTestAbstract::nextIndex(bool first)
+void TestParameterAbstract::nextIndex(bool first)
 {
 	if (first)
 	{
@@ -65,7 +65,7 @@ void ParameterizedTestAbstract::nextIndex(bool first)
 }
 
 
-ParameterizedTestAbstract & ParameterizedTestAbstract::ignoreIndex(size_t index)
+TestParameterAbstract & TestParameterAbstract::ignoreIndex(size_t index)
 {
 	ParameterizedManager::getInstance().ignoreIndex(this, index);
 	return *this;

@@ -1,5 +1,5 @@
-#ifndef UNITTEST_PARAMETERIZEDTEST_H
-#define UNITTEST_PARAMETERIZEDTEST_H
+#ifndef UNITTEST_TESTPARAMETER_H
+#define UNITTEST_TESTPARAMETER_H
 
 #include <string>
 #include <vector>
@@ -12,16 +12,16 @@ namespace UnitTest
 {
 	using namespace std;
 
-	class ParameterizedTestAbstract
+	class TestParameterAbstract
 	{
 		friend class ParameterizedManager;
 	public:
-		ParameterizedTestAbstract(const string & name);
-		virtual ~ParameterizedTestAbstract();
+		TestParameterAbstract(const string & name);
+		virtual ~TestParameterAbstract();
 		size_t getCurrentIndex();
 		const string & getName() const { return _name; }
 		string getNameCurrent() const;
-		ParameterizedTestAbstract & ignoreIndex(size_t index);
+		TestParameterAbstract & ignoreIndex(size_t index);
 
 	protected:
 		void updateCurrentIndex();
@@ -38,16 +38,16 @@ namespace UnitTest
 
 
 	template<class T_Parameter>
-	class ParameterizedTest : public ParameterizedTestAbstract
+	class TestParameter : public TestParameterAbstract
 	{
 	public:
-		struct IParameterizedTestListener
+		struct IParameterListener
 		{
 			virtual void onNext(TestDetails const * const details, T_Parameter current, size_t index) = 0;
 		};
 
-		ParameterizedTest(const string & name, vector<T_Parameter> parameters, IParameterizedTestListener* const listener = nullptr)
-			: ParameterizedTestAbstract(name),
+		TestParameter(const string & name, vector<T_Parameter> parameters, IParameterListener* const listener = nullptr)
+			: TestParameterAbstract(name),
 			_parameters(parameters),
 			_listener(listener)
 		{
@@ -63,13 +63,13 @@ namespace UnitTest
 			return _parameters;
 		}
 
-		ParameterizedTest<T_Parameter> & ignoreIndex(size_t index)
+		TestParameter<T_Parameter> & ignoreIndex(size_t index)
 		{
-			ParameterizedTestAbstract::ignoreIndex(index);
+			TestParameterAbstract::ignoreIndex(index);
 			return *this;
 		}
 
-		ParameterizedTest<T_Parameter> & ignore(T_Parameter p)
+		TestParameter<T_Parameter> & ignore(T_Parameter p)
 		{
 			vector<T_Parameter>::iterator it = find(_parameters.begin(), _parameters.end(), p);
 			if (it == _parameters.end())
@@ -95,7 +95,7 @@ namespace UnitTest
 
 	private:
 		vector<T_Parameter> _parameters;
-		IParameterizedTestListener* const _listener;
+		IParameterListener* const _listener;
 	};
 }
 

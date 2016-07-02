@@ -36,17 +36,17 @@ namespace UnitTest {
 	  {
          MemoryOutStream stream;
          stream << failure;
-         vector<ParameterizedTestAbstract*> parameterizeds = ParameterizedManager::getInstance().getStack(&test);
-         if (!parameterizeds.empty())
+         vector<TestParameterAbstract*> parameters = ParameterizedManager::getInstance().getStack(&test);
+         if (!parameters.empty())
          {
             stream << " Parameters: ";
-            for (size_t i = 0; i < parameterizeds.size(); i++)
+            for (size_t i = 0; i < parameters.size(); i++)
             {
                if (i != 0)
                {
                   stream << ", ";
                }
-               stream << parameterizeds[i]->getNameCurrent();
+               stream << parameters[i]->getNameCurrent();
             }
          }
          m_testReporter->ReportFailure(test, stream.GetText());

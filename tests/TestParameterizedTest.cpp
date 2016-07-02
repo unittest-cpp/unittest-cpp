@@ -1,7 +1,7 @@
 #include "UnitTest++/UnitTest++.h"
 
 #include <string>
-#include "UnitTest++/ParameterizedTest.h"
+#include "UnitTest++/TestParameter.h"
 #include "UnitTest++/ParameterizedManager.h"
 #include "ScopedCurrentTest.h"
 #include "RecordingReporter.h"
@@ -10,7 +10,7 @@ using namespace std;
 using namespace UnitTest;
 
 
-SUITE(ParameterizedTestSimple)
+SUITE(ParameterizedTest)
 {
 	string simpleVowels;
 	int simpleVowelsHitCount = 0;
