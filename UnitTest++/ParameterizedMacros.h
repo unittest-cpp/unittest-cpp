@@ -4,7 +4,7 @@
 #include "TestParameter.h"
 
 
-#define SET_SUITE_PARAMETER(Type, Name, SetUpBody) \
+#define SET_TEST_PARAMETER(Type, Name, SetUpBody) \
 	class ParameterizedCreator##Name \
 	{ \
 	public: \
