@@ -16,7 +16,7 @@
 			static UnitTest::TestParameter<Type> instance(#Name, create()); \
 			return instance; \
 		} \
-		static vector<Type> create() { vector<Type> parameters; SetUpBody return parameters; } \
+		static vector<Type> create() { vector<Type> values; SetUpBody return values; } \
 	} static parameterizedCreator##Name##Instance; \
 	\
 	static UnitTest::TestParameter<Type> & Name(parameterizedCreator##Name##Instance.globalInstance)

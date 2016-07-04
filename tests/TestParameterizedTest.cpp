@@ -16,12 +16,12 @@ SUITE(ParameterizedTest)
 	int simpleVowelsHitCount = 0;
 
 	SET_TEST_PARAMETER(string, pzVowel, {
-		parameters.push_back("A");
-		parameters.push_back("E");
-		parameters.push_back("I");
-		parameters.push_back("O");
-		parameters.push_back("U");
-		parameters.push_back("Y");
+		values.push_back("A");
+		values.push_back("E");
+		values.push_back("I");
+		values.push_back("O");
+		values.push_back("U");
+		values.push_back("Y");
 	});
 
 	TEST(SimpleVowelConcat)
@@ -50,8 +50,7 @@ SUITE(ParameterizedTest)
 	bool enteredEmpty = false;
 	int hitCountEmpty = 0;
 
-	SET_TEST_PARAMETER(int, pzEmpty, {
-	});
+	SET_TEST_PARAMETER(int, pzEmpty, {});
 
 	TEST(WhenNoParameters_throwsException)
 	{
@@ -82,7 +81,7 @@ SUITE(ParameterizedTest)
 	static int singleValueSuiteSum = 0;
 
 	SET_TEST_PARAMETER(int, pzSingle, {
-		parameters.push_back(2);
+		values.push_back(2);
 	});
 
 	TEST(WhenSingleValue_singleExecution)
@@ -114,8 +113,8 @@ SUITE(ParameterizedTest)
 	//////////
 
 	SET_TEST_PARAMETER(string, pzOneTwo, {
-		parameters.push_back("1");
-		parameters.push_back("2");
+		values.push_back("1");
+		values.push_back("2");
 	});
 
 	string nestedParameters;
@@ -162,7 +161,7 @@ SUITE(ParameterizedTest)
 	//////////
 
 	SET_TEST_PARAMETER(int, pzSingleBis, {
-		parameters.push_back(3);
+		values.push_back(3);
 	});
 
 	TEST(FailedMessage_ContainsIndexes)
@@ -198,13 +197,13 @@ SUITE(ParameterizedTest)
 
 	TEST(IgnoreIndex_OutOfRange_ThrowsException)
 	{
-		size_t out = pzVowel.parameters().size();
+		size_t out = pzVowel.values().size();
 		CHECK_THROW(pzVowel.ignoreIndex(out), out_of_range);
 	}
 
 	TEST(IgnoreIndex_IgnoreAll_ThrowsException)
 	{
-		size_t last = pzVowel.parameters().size() - 1;
+		size_t last = pzVowel.values().size() - 1;
 		for (size_t i = 0; i < last; i++)
 		{
 			pzVowel.ignoreIndex(i);
@@ -219,7 +218,7 @@ SUITE(ParameterizedTest)
 	string ignoreIndexLast;
 	TEST(IgnoreIndex_IgnoreLast)
 	{
-		size_t lastIndex = pzOneTwo.parameters().size() - 1;
+		size_t lastIndex = pzOneTwo.values().size() - 1;
 		pzOneTwo.ignoreIndex(lastIndex);
 
 		ignoreIndexLast += pzOneTwo();
@@ -300,7 +299,7 @@ SUITE(ParameterizedTest)
 	//////////
 
 	SET_TEST_PARAMETER(string, pzVowelPartial, {
-		parameters = pzVowel.parameters();
+		values = pzVowel.values();
 	});
 
 	struct Initializer

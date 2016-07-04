@@ -61,7 +61,7 @@ void TestParameterAbstract::nextIndex(bool first)
 		_index++;
 	}
 
-	peekCurrentParameter(&ParameterizedManager::getInstance().getCurrentTest()->m_details, _index);
+	peekCurrent(&ParameterizedManager::getInstance().getCurrentTest()->m_details, _index);
 }
 
 

@@ -25,7 +25,7 @@ namespace UnitTest
 
 	protected:
 		void updateCurrentIndex();
-		virtual void peekCurrentParameter(TestDetails const * const details, size_t index) = 0;
+		virtual void peekCurrent(TestDetails const * const details, size_t index) = 0;
 		virtual size_t parametersCount() const = 0;
 
 	private:
@@ -37,64 +37,64 @@ namespace UnitTest
 	};
 
 
-	template<class T_Parameter>
+	template<class T>
 	class TestParameter : public TestParameterAbstract
 	{
 	public:
 		struct IParameterListener
 		{
-			virtual void onNext(TestDetails const * const details, T_Parameter current, size_t index) = 0;
+			virtual void onNext(TestDetails const * const details, T currentValue, size_t currentIndex) = 0;
 		};
 
-		TestParameter(const string & name, vector<T_Parameter> parameters, IParameterListener* const listener = nullptr)
+		TestParameter(const string & name, vector<T> values, IParameterListener* const listener = nullptr)
 			: TestParameterAbstract(name),
-			_parameters(parameters),
+			_values(values),
 			_listener(listener)
 		{
 		}
 
-		T_Parameter operator()()
+		T operator()()
 		{
-			return _parameters[getCurrentIndex()];
+			return _values[getCurrentIndex()];
 		}
 
-		const vector<T_Parameter> & parameters() const
+		const vector<T> & values() const
 		{
-			return _parameters;
+			return _values;
 		}
 
-		TestParameter<T_Parameter> & ignoreIndex(size_t index)
+		TestParameter<T> & ignoreIndex(size_t index)
 		{
 			TestParameterAbstract::ignoreIndex(index);
 			return *this;
 		}
 
-		TestParameter<T_Parameter> & ignore(T_Parameter p)
+		TestParameter<T> & ignore(T p)
 		{
-			vector<T_Parameter>::iterator it = find(_parameters.begin(), _parameters.end(), p);
-			if (it == _parameters.end())
+			vector<T>::iterator it = find(_values.begin(), _values.end(), p);
+			if (it == _values.end())
 			{
 				return *this;
 			}
-			return ignoreIndex(it - _parameters.begin());
+			return ignoreIndex(it - _values.begin());
 		}
 
 	protected:
-		virtual void peekCurrentParameter(TestDetails const * const details, size_t index) override
+		virtual void peekCurrent(TestDetails const * const details, size_t index) override
 		{
 			if (_listener != nullptr)
 			{
-				_listener->onNext(details, _parameters[index], index);
+				_listener->onNext(details, _values[index], index);
 			}
 		}
 
 		virtual size_t parametersCount() const override
 		{
-			return _parameters.size();
+			return _values.size();
 		}
 
 	private:
-		vector<T_Parameter> _parameters;
+		vector<T> _values;
 		IParameterListener* const _listener;
 	};
 }
