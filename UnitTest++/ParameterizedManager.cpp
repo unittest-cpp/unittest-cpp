@@ -101,6 +101,7 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	{
 		if (isCurrentTest(details))
 		{
+			_currentTest->m_next = _nextTestBackup;
 			_executing = true;
 		}
 		return;
@@ -134,10 +135,13 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 
 	if (_stack.empty())
 	{
-		_currentTest->m_next = _nextTestBackup;
 		_currentTest = nullptr;
 		_nextTestBackup = nullptr;
 		clearNonGlobalIgnoredIndexes();
+	}
+	else
+	{
+		_currentTest->m_next = _currentTest; // Loop itself
 	}
 
 	_iterationDone = false;
@@ -208,7 +212,6 @@ bool ParameterizedManager::registerParameter(TestParameterAbstract* const parame
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
 		_iterationDone = true;
-		_currentTest->m_next = _currentTest; // Loop itself
 		_stack.push_back(parameterized);
 		outFirstIndex = true;
 		return true;
