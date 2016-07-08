@@ -331,6 +331,7 @@ SUITE(ParameterizedTest)
 
 	//////////
 
+	vector<TestListNode*> currentTestsNodes;
 	TEST(LoopIsNotDetectableInTestList)
 	{
 		pzOneTwo(); // Important for perform looping
@@ -338,6 +339,23 @@ SUITE(ParameterizedTest)
 		for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
 		{
 			REQUIRE CHECK(iNode != iNode->m_next);
+
+			if (pzOneTwo.getCurrentIndex() == 0)
+			{
+				currentTestsNodes.push_back(iNode);
+			}
 		}
+	}
+
+	TEST(LoopIsNotDetectableInTestList_Verify)
+	{
+		vector<TestListNode*> expectedNodes;
+		for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+		{
+			expectedNodes.push_back(iNode);
+		}
+
+		REQUIRE CHECK_EQUAL(expectedNodes.size(), currentTestsNodes.size());
+		CHECK_ARRAY_EQUAL(expectedNodes, currentTestsNodes, expectedNodes.size());
 	}
 }
