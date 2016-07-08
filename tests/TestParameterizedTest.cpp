@@ -332,7 +332,7 @@ SUITE(ParameterizedTest)
 	//////////
 
 	vector<TestListNode*> currentTestsNodes;
-	TEST(LoopIsNotDetectableInTestList)
+	TEST(NoDeadLoopInTestList)
 	{
 		pzOneTwo(); // Important for perform looping
 
@@ -343,7 +343,7 @@ SUITE(ParameterizedTest)
 		}
 	}
 
-	TEST(LoopIsNotDetectableInTestList_Verify)
+	TEST(NoDeadLoopInTestList_Verify)
 	{
 		vector<TestListNode*> expectedNodes;
 
