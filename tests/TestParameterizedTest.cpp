@@ -339,20 +339,20 @@ SUITE(ParameterizedTest)
 		for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
 		{
 			REQUIRE CHECK(iNode != iNode->m_next);
-
-			if (pzOneTwo.getCurrentIndex() == 0)
-			{
-				currentTestsNodes.push_back(iNode);
-			}
+			currentTestsNodes.push_back(iNode);
 		}
 	}
 
 	TEST(LoopIsNotDetectableInTestList_Verify)
 	{
 		vector<TestListNode*> expectedNodes;
-		for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+
+		for (size_t i = 0; i < pzOneTwo.values().size(); i++) // tested vector contains repeated values because it is filled by parameterized test
 		{
-			expectedNodes.push_back(iNode);
+			for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+			{
+				expectedNodes.push_back(iNode);
+			}
 		}
 
 		REQUIRE CHECK_EQUAL(expectedNodes.size(), currentTestsNodes.size());
