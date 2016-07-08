@@ -328,4 +328,16 @@ SUITE(ParameterizedTest)
 	{
 		CHECK_EQUAL("AIOYAIOY", globalIgnoreSomeVowels);
 	}
+
+	//////////
+
+	TEST(LoopIsNotDetectableInTestList)
+	{
+		pzOneTwo(); // Important for perform looping
+
+		for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+		{
+			REQUIRE CHECK(iNode != iNode->m_next);
+		}
+	}
 }
