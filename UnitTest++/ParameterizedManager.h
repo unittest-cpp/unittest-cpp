@@ -15,7 +15,7 @@ namespace UnitTest
 	{
 	public:
 		static ParameterizedManager & getInstance();
-		Test* const getCurrentTest() const;
+		TestListNode* const getCurrentTest() const { return _currentTest; }
 		bool isCurrentTest(TestDetails const * const details) const;
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);

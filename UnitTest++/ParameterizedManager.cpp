@@ -44,17 +44,6 @@ TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const
 }
 
 
-Test* const ParameterizedManager::getCurrentTest() const
-{
-	if (_currentTest == nullptr)
-	{
-		return nullptr;
-	}
-
-	return _currentTest->m_test;
-}
-
-
 bool ParameterizedManager::isCurrentTest(TestDetails const * const details) const
 {
 	if (_currentTest == nullptr)
