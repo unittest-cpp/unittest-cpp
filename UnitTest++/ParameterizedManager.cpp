@@ -201,8 +201,8 @@ bool ParameterizedManager::registerParameter(TestParameterAbstract* const parame
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{
 		_iterationDone = true;
-		_stack.push_back(parameterized);
 		outFirstIndex = true;
+		_stack.push_back(parameterized);
 		return true;
 	}
 	if (!_iterationDone)
@@ -251,20 +251,19 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* 
 	if (ignoredIt != ignoredIndexes.end())
 	{
 		// Upgrade to global if required
-		if (!ignoredIt->global && global)
+		if (global && !ignoredIt->global)
 		{
-			ignoredIt->global = global;
+			ignoredIt->global = true;
 		}
-		return *this;
 	}
-
-	if (ignoredIndexes.size() + 1 == parameterized->valuesCount())
+	else
 	{
-		throw runtime_error("all parameters have been ignored, can not proceed");
+		if (ignoredIndexes.size() + 1 == parameterized->valuesCount())
+		{
+			throw runtime_error("all parameters have been ignored, can not proceed");
+		}
+		ignoredIndexes.push_back(IgnoredIndex(index, global));
 	}
-
-	ignoredIndexes.push_back(IgnoredIndex(index, global));
-
 	return *this;
 }
 

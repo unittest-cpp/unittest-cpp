@@ -55,7 +55,8 @@ namespace UnitTest
 
 		T operator()()
 		{
-			return _values[getCurrentIndex()];
+			size_t index = getCurrentIndex();
+			return _values[index];
 		}
 
 		const vector<T> & values() const
