@@ -36,7 +36,7 @@ namespace UnitTest {
 	  {
          MemoryOutStream stream;
          stream << failure;
-         vector<TestParameterAbstract*> parameters = ParameterizedManager::getInstance().getStack(&test);
+         const vector<TestParameterAbstract*> & parameters = ParameterizedManager::getInstance().getStack(&test);
          if (!parameters.empty())
          {
             stream << " Parameters: ";
