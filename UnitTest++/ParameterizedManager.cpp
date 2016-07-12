@@ -57,7 +57,7 @@ bool ParameterizedManager::isCurrentTest(TestDetails const * const details) cons
 
 bool ParameterizedManager::hasMoreIndexes(TestParameterAbstract* const parameterized)
 {
-	if (!parameterized->hasMoreParameters(1))
+	if (!parameterized->hasMoreValues(1))
 	{
 		return false;
 	}
@@ -66,7 +66,7 @@ bool ParameterizedManager::hasMoreIndexes(TestParameterAbstract* const parameter
 	if (!ignoredIndexes.empty())
 	{
 		bool allRemainingsAreIgnored = true;
-		for (size_t iIndex = parameterized->_index + 1; iIndex < parameterized->parametersCount(); iIndex++)
+		for (size_t iIndex = parameterized->_index + 1; iIndex < parameterized->valuesCount(); iIndex++)
 		{
 			if (findIgnored(ignoredIndexes, iIndex) == ignoredIndexes.end())
 			{
@@ -242,7 +242,7 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* 
 	bool global = !_executing;
 	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 
-	if (index >= parameterized->parametersCount())
+	if (index >= parameterized->valuesCount())
 	{
 		throw out_of_range("ignore index is out of range");
 	}
@@ -258,7 +258,7 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* 
 		return *this;
 	}
 
-	if (ignoredIndexes.size() + 1 == parameterized->parametersCount())
+	if (ignoredIndexes.size() + 1 == parameterized->valuesCount())
 	{
 		throw runtime_error("all parameters have been ignored, can not proceed");
 	}

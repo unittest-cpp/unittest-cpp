@@ -26,10 +26,10 @@ namespace UnitTest
 	protected:
 		void updateCurrentIndex();
 		virtual void peekCurrent(TestDetails const * const details, size_t index) = 0;
-		virtual size_t parametersCount() const = 0;
+		virtual size_t valuesCount() const = 0;
 
 	private:
-		bool hasMoreParameters(int advance = 0) const;
+		bool hasMoreValues(int advance = 0) const;
 		void nextIndex(bool first);
 
 		string _name;
@@ -88,7 +88,7 @@ namespace UnitTest
 			}
 		}
 
-		virtual size_t parametersCount() const override
+		virtual size_t valuesCount() const override
 		{
 			return _values.size();
 		}

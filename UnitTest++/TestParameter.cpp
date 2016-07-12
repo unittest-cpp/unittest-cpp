@@ -40,9 +40,9 @@ void TestParameterAbstract::updateCurrentIndex()
 }
 
 
-bool TestParameterAbstract::hasMoreParameters(int advance) const
+bool TestParameterAbstract::hasMoreValues(int advance) const
 {
-	return (_index + advance < (int)parametersCount());
+	return (_index + advance < (int)valuesCount());
 }
 
 
@@ -50,7 +50,7 @@ void TestParameterAbstract::nextIndex(bool first)
 {
 	if (first)
 	{
-		if (parametersCount() == 0)
+		if (valuesCount() == 0)
 		{
 			throw runtime_error("No values for parameterized test");
 		}
