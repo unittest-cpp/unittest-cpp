@@ -195,10 +195,10 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	TEST(IgnoreIndex_OutOfRange_ThrowsException)
+	TEST(IgnoreIndex_OutOfRange_DoesNotThrowException)
 	{
 		size_t out = pzVowel.values().size();
-		CHECK_THROW(pzVowel.ignoreIndex(out), out_of_range);
+		pzVowel.ignoreIndex(out);
 	}
 
 	TEST(IgnoreIndex_IgnoreAll_ThrowsException)

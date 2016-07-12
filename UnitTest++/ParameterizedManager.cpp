@@ -244,7 +244,7 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* 
 
 	if (index >= parameterized->valuesCount())
 	{
-		throw out_of_range("ignore index is out of range");
+		return *this;
 	}
 
 	vector<IgnoredIndex>::iterator ignoredIt = findIgnored(ignoredIndexes, index);
