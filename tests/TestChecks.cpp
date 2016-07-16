@@ -323,7 +323,7 @@ namespace {
       {
       }
 
-      TruthyUnlessCopied(const TruthyUnlessCopied& orig)
+      TruthyUnlessCopied(const TruthyUnlessCopied&)
       : truthy_(false)
       {
       }
