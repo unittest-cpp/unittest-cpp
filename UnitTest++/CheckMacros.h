@@ -45,10 +45,10 @@
    UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                       \
    {                                                                                                                                  \
-      UnitTest::MemoryOutStream message;                                                                                              \
-      message << "Unhandled exception (" << e.what() << ") in CHECK(" #value ")";                                                     \
+      UnitTest::MemoryOutStream UnitTest_message;                                                                                     \
+      UnitTest_message << "Unhandled exception (" << e.what() << ") in CHECK(" #value ")";                                            \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),             \
-                                                      message.GetText());                                                             \
+                                                      UnitTest_message.GetText());                                                    \
    })                                                                                                                                 \
    UT_CATCH_ALL                                                                                                                       \
       ({                                                                                                                              \
@@ -66,10 +66,10 @@
    UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                      \
    {                                                                                                                                                 \
-      UnitTest::MemoryOutStream message;                                                                                                             \
-      message << "Unhandled exception (" << e.what() << ") in CHECK_EQUAL(" #expected ", " #actual ")";                                              \
+      UnitTest::MemoryOutStream UnitTest_message;                                                                                                    \
+      UnitTest_message << "Unhandled exception (" << e.what() << ") in CHECK_EQUAL(" #expected ", " #actual ")";                                     \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                            \
-                                                      message.GetText());                                                                            \
+                                                      UnitTest_message.GetText());                                                                   \
    })                                                                                                                                                \
    UT_CATCH_ALL                                                                                                                                      \
    ({                                                                                                                                                \
@@ -87,10 +87,10 @@
    UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                 \
    {                                                                                                                                                            \
-      UnitTest::MemoryOutStream message;                                                                                                                        \
-      message << "Unhandled exception (" << e.what() << ") in CHECK_CLOSE(" #expected ", " #actual ")";                                                         \
+      UnitTest::MemoryOutStream UnitTest_message;                                                                                                               \
+      UnitTest_message << "Unhandled exception (" << e.what() << ") in CHECK_CLOSE(" #expected ", " #actual ")";                                                \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                                       \
-                                                      message.GetText());                                                                                       \
+                                                      UnitTest_message.GetText());                                                                              \
    })                                                                                                                                                           \
    UT_CATCH_ALL                                                                                                                                                 \
    ({                                                                                                                                                           \
@@ -108,10 +108,10 @@
    UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                  \
    {                                                                                                                                                             \
-      UnitTest::MemoryOutStream message;                                                                                                                         \
-      message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY_EQUAL(" #expected ", " #actual ")";                                                    \
+      UnitTest::MemoryOutStream UnitTest_message;                                                                                                                \
+      UnitTest_message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY_EQUAL(" #expected ", " #actual ")";                                           \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                                        \
-                                                      message.GetText());                                                                                        \
+                                                      UnitTest_message.GetText());                                                                               \
    })                                                                                                                                                            \
    UT_CATCH_ALL                                                                                                                                                  \
       ({                                                                                                                                                         \
@@ -129,10 +129,10 @@
    UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                             \
    {                                                                                                                                                                        \
-      UnitTest::MemoryOutStream message;                                                                                                                                    \
-      message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")";                                                               \
+      UnitTest::MemoryOutStream UnitTest_message;                                                                                                                           \
+      UnitTest_message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")";                                                      \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                                                   \
-                                                      message.GetText());                                                                                                   \
+                                                      UnitTest_message.GetText());                                                                                          \
    })                                                                                                                                                                       \
    UT_CATCH_ALL                                                                                                                                                             \
       ({                                                                                                                                                                    \
@@ -150,10 +150,10 @@
    UT_RETHROW (UnitTest::RequiredCheckException)                                                                                                               \
    UT_CATCH (std::exception, e,                                                                                                                                                       \
    {                                                                                                                                                                                  \
-      UnitTest::MemoryOutStream message;                                                                                                                                              \
-      message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")";                                                                       \
+      UnitTest::MemoryOutStream UnitTest_message;                                                                                                                                     \
+      UnitTest_message << "Unhandled exception (" << e.what() << ") in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")";                                                              \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__),                                                             \
-                                                      message.GetText());                                                                                                             \
+                                                      UnitTest_message.GetText());                                                                                                    \
    })                                                                                                                                                                                 \
    UT_CATCH_ALL                                                                                                                                                                       \
       ({                                                                                                                                                                              \
