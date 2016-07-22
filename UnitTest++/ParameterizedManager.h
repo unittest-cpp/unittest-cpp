@@ -21,6 +21,7 @@ namespace UnitTest
 		void endExecute(TestDetails const * const details);
 		void updateParameter(TestParameterAbstract* const parameterized);
 		ParameterizedManager & ignoreIndex(TestParameterAbstract* const parameterized, size_t index);
+		bool isIndexIgnored(TestParameterAbstract* const parameterized, size_t index);
 		const vector<TestParameterAbstract*> & getStack(TestDetails const * const details) const;
 
 	private:

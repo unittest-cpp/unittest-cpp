@@ -331,6 +331,21 @@ SUITE(ParameterizedTest)
 
 	//////////
 
+	TEST(Ignore_Getter)
+	{
+		pzVowel.ignore("E");
+		CHECK(pzVowel.isIgnored("E"));
+		CHECK(!pzVowel.isIgnored("Y"));
+	}
+
+	TEST(IgnoreGlobal_Getter)
+	{
+		CHECK(pzVowelPartial.isIgnored("E"));
+		CHECK(!pzVowelPartial.isIgnored("Y"));
+	}
+
+	//////////
+
 	vector<TestListNode*> currentTestsNodes;
 	TEST(NoDeadLoopInTestList)
 	{

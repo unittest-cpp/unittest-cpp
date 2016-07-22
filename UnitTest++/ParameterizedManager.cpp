@@ -268,6 +268,14 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* 
 }
 
 
+bool ParameterizedManager::isIndexIgnored(TestParameterAbstract* const parameterized, size_t index)
+{
+	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
+	vector<IgnoredIndex>::iterator ignoredIt = findIgnored(ignoredIndexes, index);
+	return (ignoredIt != ignoredIndexes.end());
+}
+
+
 const vector<TestParameterAbstract*> & ParameterizedManager::getStack(TestDetails const * const details) const
 {
 	if (!isCurrentTest(details))

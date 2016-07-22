@@ -70,3 +70,9 @@ TestParameterAbstract & TestParameterAbstract::ignoreIndex(size_t index)
 	ParameterizedManager::getInstance().ignoreIndex(this, index);
 	return *this;
 }
+
+
+bool TestParameterAbstract::isIndexIgnored(size_t index)
+{
+	return ParameterizedManager::getInstance().isIndexIgnored(this, index);
+}

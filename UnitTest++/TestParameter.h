@@ -22,6 +22,7 @@ namespace UnitTest
 		const string & getName() const { return _name; }
 		string getNameCurrent() const;
 		TestParameterAbstract & ignoreIndex(size_t index);
+		bool isIndexIgnored(size_t index);
 
 	protected:
 		void updateCurrentIndex();
@@ -78,6 +79,16 @@ namespace UnitTest
 				return *this;
 			}
 			return ignoreIndex(it - _values.begin());
+		}
+
+		bool isIgnored(T p)
+		{
+			vector<T>::iterator it = find(_values.begin(), _values.end(), p);
+			if (it == _values.end())
+			{
+				return true;
+			}
+			return isIndexIgnored(it - _values.begin());
 		}
 
 	protected:
