@@ -26,6 +26,10 @@
    #define UNITTEST_POSIX
 #endif
 
+#if defined (_WRS_VXWORKS_5_X)
+   #define UNITTEST_VXWORKS
+#endif
+
 #if defined(__MINGW32__)
    #define UNITTEST_MINGW
 #endif
