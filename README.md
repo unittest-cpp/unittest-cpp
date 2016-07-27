@@ -9,6 +9,7 @@ UnitTest++ is a lightweight unit testing framework for C++. It was designed to d
 * Windows
 * Linux
 * Mac OS X
+* VxWorks 5.5
 
 Documentation
 --------------
