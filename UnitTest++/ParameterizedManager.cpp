@@ -189,14 +189,14 @@ void ParameterizedManager::updateParameter(TestParameterAbstract* const paramete
 void ParameterizedManager::iterate(TestParameterAbstract* const parameterized)
 {
 	bool firstIndex = false;
-	if (registerParameter(parameterized, firstIndex))
+	if (stackParameter(parameterized, firstIndex))
 	{
 		parameterized->nextIndex(firstIndex);
 	}
 }
 
 
-bool ParameterizedManager::registerParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex)
+bool ParameterizedManager::stackParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex)
 {
 	if (find(_stack.begin(), _stack.end(), parameterized) == _stack.end())
 	{

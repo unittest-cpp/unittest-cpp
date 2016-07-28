@@ -38,7 +38,7 @@ namespace UnitTest
 		virtual ~ParameterizedManager();
 		TestListNode* const retrieveTest(TestDetails const * const details);
 		void iterate(TestParameterAbstract* const parameterized);
-		bool registerParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex);
+		bool stackParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex);
 		bool hasMoreIndexes(TestParameterAbstract* const parameterized);
 		vector<IgnoredIndex>::iterator findIgnored(vector<IgnoredIndex> & ignoredIndexes, size_t index);
 		void clearNonGlobalIgnoredIndexes();
