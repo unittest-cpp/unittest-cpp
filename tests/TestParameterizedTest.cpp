@@ -373,4 +373,45 @@ SUITE(ParameterizedTest)
 		REQUIRE CHECK_EQUAL(expectedNodes.size(), currentTestsNodes.size());
 		CHECK_ARRAY_EQUAL(expectedNodes, currentTestsNodes, expectedNodes.size());
 	}
+	
+	//////////
+
+	struct Initializer4pzIgnoredByNameVowel
+	{
+		Initializer4pzIgnoredByNameVowel()
+		{
+			ParameterizedManager::getInstance()
+				.ignoreIndex("pzIgnoredByNameVowel", 2) // "I"
+				.ignoreIndex("pzIgnoredByNameVowel", 5); // "Y"
+		}
+	} initializer4pzIgnoredByNameVowelInstance;
+
+	SET_TEST_PARAMETER(string, pzIgnoredByNameVowel, {
+		values = pzVowel.values();
+	});
+
+	string ignoreSomeVowelsByName_Global;
+	TEST(Ignore_IgnoreByName_Global)
+	{
+		ignoreSomeVowelsByName_Global += pzIgnoredByNameVowel();
+	}
+
+	TEST(Ignore_IgnoreByName_Global_Verify)
+	{
+		CHECK_EQUAL("AEOU", ignoreSomeVowelsByName_Global);
+	}
+
+	string ignoreSomeVowelsByName_Local;
+	TEST(Ignore_IgnoreByName_Local)
+	{
+		ParameterizedManager::getInstance()
+			.ignoreIndex("pzIgnoredByNameVowel", 3); // "O"
+
+		ignoreSomeVowelsByName_Local += pzIgnoredByNameVowel();
+	}
+
+	TEST(Ignore_IgnoreByName_Local_Verify)
+	{
+		CHECK_EQUAL("AEU", ignoreSomeVowelsByName_Local);
+	}
 }
