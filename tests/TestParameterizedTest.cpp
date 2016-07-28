@@ -373,7 +373,7 @@ SUITE(ParameterizedTest)
 		REQUIRE CHECK_EQUAL(expectedNodes.size(), currentTestsNodes.size());
 		CHECK_ARRAY_EQUAL(expectedNodes, currentTestsNodes, expectedNodes.size());
 	}
-	
+
 	//////////
 
 	struct Initializer4pzIgnoredByNameVowel
@@ -413,5 +413,48 @@ SUITE(ParameterizedTest)
 	TEST(Ignore_IgnoreByName_Local_Verify)
 	{
 		CHECK_EQUAL("AEU", ignoreSomeVowelsByName_Local);
+	}
+
+
+	//////////
+
+	SET_TEST_PARAMETER(string, pzIgnoredByNameVowelSome, {
+		values = pzVowel.values();
+	});
+
+	string ignoreByNameRangeEmptyIsAllowed;
+	TEST(Ignore_IgnoreByNameRange_EmptyIsAllowed)
+	{
+		ParameterizedManager::getInstance().ignoreIndexes("pzIgnoredByNameVowelSome[]");
+		ignoreByNameRangeEmptyIsAllowed += pzIgnoredByNameVowelSome();
+	}
+
+	TEST(Ignore_IgnoreByNameRange_EmptyIsAllowed_Verify)
+	{
+		CHECK_EQUAL("AEIOUY", ignoreByNameRangeEmptyIsAllowed);
+	}
+
+	string ignoreByNameRangeSingleValue;
+	TEST(Ignore_IgnoreByNameRange_SingleValue)
+	{
+		ParameterizedManager::getInstance().ignoreIndexes("pzIgnoredByNameVowelSome[2]");
+		ignoreByNameRangeSingleValue += pzIgnoredByNameVowelSome();
+	}
+
+	TEST(Ignore_IgnoreByNameRange_SingleValue_Verify)
+	{
+		CHECK_EQUAL("AEOUY", ignoreByNameRangeSingleValue);
+	}
+
+	string ignoreByNameRangeSeveralUnorderedValues;
+	TEST(Ignore_IgnoreByNameRange_SeveralUnorderedValues)
+	{
+		ParameterizedManager::getInstance().ignoreIndexes("pzIgnoredByNameVowelSome[3,4,0]");
+		ignoreByNameRangeSeveralUnorderedValues += pzIgnoredByNameVowelSome();
+	}
+
+	TEST(Ignore_IgnoreByNameRange_SeveralUnorderedValues_Verify)
+	{
+		CHECK_EQUAL("EIY", ignoreByNameRangeSeveralUnorderedValues);
 	}
 }
