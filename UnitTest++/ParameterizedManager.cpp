@@ -317,30 +317,43 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(const string & paramete
 
 ParameterizedManager & ParameterizedManager::ignoreIndexes(const string & parametersArrayRange, IgnoreScope scope)
 {
+	string parameterName;
+	vector<int> indexes = parseParameter(parametersArrayRange, parameterName);
+	for (size_t i = 0; i < indexes.size(); i++)
+	{
+		ignoreIndex(parameterName, indexes[i], scope);
+	}
+	return *this;
+}
+
+
+vector<int> ParameterizedManager::parseParameter(const string & parametersArrayRange, string & outParameterName)
+{
 	if (parametersArrayRange.empty())
 	{
-		throw invalid_argument("Empty parameter array range given in ignore index");
+		throw invalid_argument("Empty parameter array range given");
 	}
 
 	size_t openPos = parametersArrayRange.find('[');
 	size_t closePos = parametersArrayRange.find(']');
 	if (openPos == 0 || openPos == string::npos || closePos == string::npos || closePos < openPos)
 	{
-		throw invalid_argument("Misformatted ignore index, should be pzMyParam[0,1,2]");
+		throw invalid_argument("Misformatted parameter array range index, should be pzMyParam[0,1,2]");
 	}
 
-	string parameterName = parametersArrayRange.substr(0, openPos);
+	outParameterName = parametersArrayRange.substr(0, openPos);
 	string indexes = parametersArrayRange.substr(openPos + 1, closePos - openPos - 1);
 
 	stringstream stream(indexes);
 	string item;
+	vector<int> indexesList;
 	while (getline(stream, item, ','))
 	{
 		int index = stoi(item);
-		ignoreIndex(parameterName, index, scope);
+		indexesList.push_back(index);
 	}
 
-	return *this;
+	return indexesList;
 }
 
 

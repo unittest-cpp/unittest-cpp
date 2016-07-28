@@ -48,6 +48,8 @@ namespace UnitTest
 		void importIgnoredParameter(TestParameterAbstract* const parameterized);
 		void clearNonGlobalIgnoredIndexes();
 
+		static vector<int> parseParameter(const string & parametersArrayRange, string & outParameterName);
+
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
 		vector<TestParameterAbstract*> _stack;
