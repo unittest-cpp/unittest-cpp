@@ -22,6 +22,7 @@ namespace UnitTest
 		void updateParameter(TestParameterAbstract* const parameterized);
 		ParameterizedManager & ignoreIndex(TestParameterAbstract* const parameterized, size_t index, IgnoreScope scope = AUTO);
 		ParameterizedManager & ignoreIndex(const string & parameterName, size_t index, IgnoreScope scope = AUTO);
+		ParameterizedManager & ignoreIndexes(const string & parametersArrayRange, IgnoreScope scope = AUTO);
 		bool isIndexIgnored(TestParameterAbstract* const parameterized, size_t index);
 		const vector<TestParameterAbstract*> & getStack(TestDetails const * const details) const;
 

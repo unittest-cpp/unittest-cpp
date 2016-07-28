@@ -1,6 +1,7 @@
 #include "ParameterizedManager.h"
 
 #include "Test.h"
+#include <sstream>
 
 using namespace std;
 using namespace UnitTest;
@@ -309,6 +310,35 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(const string & paramete
 	// Note: do not care about duplicates indexes for now
 	bool global = isGlobal(scope);
 	_pendingIgnoredIndexes[parameterName].push_back(IgnoredIndex(index, global));
+
+	return *this;
+}
+
+
+ParameterizedManager & ParameterizedManager::ignoreIndexes(const string & parametersArrayRange, IgnoreScope scope)
+{
+	if (parametersArrayRange.empty())
+	{
+		throw invalid_argument("Empty parameter array range given in ignore index");
+	}
+
+	size_t openPos = parametersArrayRange.find('[');
+	size_t closePos = parametersArrayRange.find(']');
+	if (openPos == 0 || openPos == string::npos || closePos == string::npos || closePos < openPos)
+	{
+		throw invalid_argument("Misformatted ignore index, should be pzMyParam[0,1,2]");
+	}
+
+	string parameterName = parametersArrayRange.substr(0, openPos);
+	string indexes = parametersArrayRange.substr(openPos + 1, closePos - openPos - 1);
+
+	stringstream stream(indexes);
+	string item;
+	while (getline(stream, item, ','))
+	{
+		int index = stoi(item);
+		ignoreIndex(parameterName, index, scope);
+	}
 
 	return *this;
 }
