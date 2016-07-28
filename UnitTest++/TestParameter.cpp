@@ -65,9 +65,9 @@ void TestParameterAbstract::nextIndex(bool first)
 }
 
 
-TestParameterAbstract & TestParameterAbstract::ignoreIndex(size_t index)
+TestParameterAbstract & TestParameterAbstract::ignoreIndex(size_t index, IgnoreScope scope)
 {
-	ParameterizedManager::getInstance().ignoreIndex(this, index);
+	ParameterizedManager::getInstance().ignoreIndex(this, index, scope);
 	return *this;
 }
 

@@ -232,14 +232,26 @@ vector<ParameterizedManager::IgnoredIndex>::iterator ParameterizedManager::findI
 }
 
 
-ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* const parameterized, size_t index)
+bool ParameterizedManager::isGlobal(IgnoreScope scope)
+{
+	switch (scope)
+	{
+	case AUTO: return !_executing;
+	case LOCAL: return false;
+	case GLOBAL:return true;
+	}
+	throw runtime_error("Invalid enum value for ignore scope");
+}
+
+
+ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* const parameterized, size_t index, IgnoreScope scope)
 {
 	if (_iterationDone)
 	{
 		throw runtime_error("can not ignore indexes after iteration began");
 	}
 
-	bool global = !_executing;
+	bool global = isGlobal(scope);
 	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 
 	if (index >= parameterized->valuesCount())

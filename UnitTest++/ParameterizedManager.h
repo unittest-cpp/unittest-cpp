@@ -20,7 +20,7 @@ namespace UnitTest
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);
 		void updateParameter(TestParameterAbstract* const parameterized);
-		ParameterizedManager & ignoreIndex(TestParameterAbstract* const parameterized, size_t index);
+		ParameterizedManager & ignoreIndex(TestParameterAbstract* const parameterized, size_t index, IgnoreScope scope = AUTO);
 		bool isIndexIgnored(TestParameterAbstract* const parameterized, size_t index);
 		const vector<TestParameterAbstract*> & getStack(TestDetails const * const details) const;
 
@@ -40,6 +40,7 @@ namespace UnitTest
 		void iterate(TestParameterAbstract* const parameterized);
 		bool stackParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex);
 		bool hasMoreIndexes(TestParameterAbstract* const parameterized);
+		bool isGlobal(IgnoreScope scope);
 		vector<IgnoredIndex>::iterator findIgnored(vector<IgnoredIndex> & ignoredIndexes, size_t index);
 		void clearNonGlobalIgnoredIndexes();
 

@@ -12,6 +12,13 @@ namespace UnitTest
 {
 	using namespace std;
 
+	enum IgnoreScope
+	{
+		AUTO,
+		LOCAL,
+		GLOBAL
+	};
+
 	class TestParameterAbstract
 	{
 		friend class ParameterizedManager;
@@ -21,7 +28,7 @@ namespace UnitTest
 		size_t getCurrentIndex();
 		const string & getName() const { return _name; }
 		string getNameCurrent() const;
-		TestParameterAbstract & ignoreIndex(size_t index);
+		TestParameterAbstract & ignoreIndex(size_t index, IgnoreScope scope = AUTO);
 		bool isIndexIgnored(size_t index);
 
 	protected:
