@@ -5,6 +5,7 @@
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
 #include "SuitePredicate.h"
+#include "ParameterizedManager.h"
 
 #include <cstring>
 
@@ -81,13 +82,29 @@ namespace UnitTest {
       return true;
    }
 
-   int RunTestsCmd(int argc, char**argv, char const* suiteArgument, char const* testArgument)
+   bool readIgnoreParamArgument(int argc, char**argv, char const* argument)
+   {
+	   int from, count;
+	   if (!findArgumentListIndex(argc, argv, argument, from, count))
+	   {
+		   return false;
+	   }
+	   for (int i = from; i < from + count; i++)
+	   {
+		   ParameterizedManager::getInstance().ignoreIndexes(argv[i]);
+	   }
+	   return true;
+   }
+
+   int RunTestsCmd(int argc, char**argv, char const* suiteArgument, char const* testArgument, char const* ignoreParamArgument)
    {
       SuitePredicate predicate;
 
       bool specific = false;
       specific |= readSuiteArgument(predicate, argc, argv, suiteArgument);
       specific |= readTestArgument(predicate, argc, argv, testArgument);
+
+	  readIgnoreParamArgument(argc, argv, ignoreParamArgument);
 
       if (!specific)
       {
