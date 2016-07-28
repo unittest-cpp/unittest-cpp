@@ -17,7 +17,7 @@ namespace UnitTest {
 	* Commands:
 	*  --suite One or multiple suite names to execute, can be combined with --test
 	*  --test One or multiple test names to execute, can be combined with --suite
-	*  --ignoretest One or multiple test parameter name, with index(es) specified, using this syntax: pzMyParam[4,8,12,7]
+	*  --ignoreparam One or multiple test parameter name, with index(es) specified, using this syntax: pzMyParam[4,8,12,7]
 	*
 	* Usage example: myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest --ignoreparam pzMyPlatforms[0,2,3] pzMyParam[4,8]
 	*/
