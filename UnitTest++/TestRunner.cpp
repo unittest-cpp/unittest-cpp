@@ -18,37 +18,87 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
    }
 
-   int RunTestsCmd(int argc, char**argv, char const* suiteArgument)
+   bool findArgumentListIndex(int argc, char**argv, char const* argument, int & outFrom, int & outCount)
    {
-	   SuitePredicate predicate;
-	   if (argc > 1)
-	   {
-		   //if first arg is "--suite", we search for suite names instead of test names
-		   const bool suite = strcmp(suiteArgument, argv[1]) == 0;
+      if (argc <= 1)
+      {
+         return false;
+      }
 
-		   int from = (suite) ? 2 : 1;
-		   for (int i = from; i < argc; ++i)
-		   {
-			   if (suite)
-			   {
-				   predicate.addSuite(argv[i]);
-			   }
-			   else
-			   {
-				   predicate.addTest(argv[i]);
-			   }
-		   }
-	   }
-	   else
-	   {
-		   predicate.addAll();
-	   }
+      outFrom = -1;
+      for (int i = 1; i < argc; i++)
+      {
+         if (strcmp(argument, argv[i]) == 0)
+         {
+            outFrom = i;
+            break;
+         }
+      }
+      if (outFrom == -1)
+      {
+         return false;
+      }
+      outFrom++;
+      outCount = 0;
+      for (int i = outFrom; i < argc; i++)
+      {
+         char* value = argv[i];
+         if (strlen(value) >= 2 && value[0] == '-'&& value[1] == '-')
+         {
+            break;
+         }
+         outCount++;
+      }
 
-	   //run selected test(s) only
-	   TestReporterStdout reporter;
-	   TestRunner runner(reporter);
+      return true;
+   }
 
-	   return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
+   bool readSuiteArgument(SuitePredicate & predicate, int argc, char**argv, char const* argument)
+   {
+      int from, count;
+      if (!findArgumentListIndex(argc, argv, argument, from, count))
+      {
+         return false;
+      }
+      for (int i = from; i < from + count; i++)
+      {
+         predicate.addSuite(argv[i]);
+      }
+      return true;
+   }
+
+   bool readTestArgument(SuitePredicate & predicate, int argc, char**argv, char const* argument)
+   {
+      int from, count;
+      if (!findArgumentListIndex(argc, argv, argument, from, count))
+      {
+         return false;
+      }
+      for (int i = from; i < from + count; i++)
+      {
+         predicate.addTest(argv[i]);
+      }
+      return true;
+   }
+
+   int RunTestsCmd(int argc, char**argv, char const* suiteArgument, char const* testArgument)
+   {
+      SuitePredicate predicate;
+
+      bool specific = false;
+      specific |= readSuiteArgument(predicate, argc, argv, suiteArgument);
+      specific |= readTestArgument(predicate, argc, argv, testArgument);
+
+      if (!specific)
+      {
+         predicate.addAll();
+      }
+
+      //run selected test(s) only
+      TestReporterStdout reporter;
+      TestRunner runner(reporter);
+
+      return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
    }
 
    TestRunner::TestRunner(TestReporter& reporter)
