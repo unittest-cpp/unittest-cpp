@@ -170,6 +170,7 @@ void ParameterizedManager::clearNonGlobalIgnoredIndexes()
 
 void ParameterizedManager::updateParameter(TestParameterAbstract* const parameterized)
 {
+	importIgnoredParameter(parameterized);
 	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 	bool repeat = true;
 	while (repeat)
@@ -232,6 +233,24 @@ vector<ParameterizedManager::IgnoredIndex>::iterator ParameterizedManager::findI
 }
 
 
+void ParameterizedManager::importIgnoredParameter(TestParameterAbstract* const parameterized)
+{
+	IgnoredIndexesByNameMap::iterator it = _pendingIgnoredIndexes.find(parameterized->getName());
+	if (it == _pendingIgnoredIndexes.end())
+	{
+		return;
+	}
+
+	vector<IgnoredIndex> & pendingIgnoredIndexes = it->second;
+	while (!pendingIgnoredIndexes.empty())
+	{
+		const IgnoredIndex & iIgnored = pendingIgnoredIndexes.back();
+		ignoreIndex(parameterized, iIgnored.index, iIgnored.global ? GLOBAL : LOCAL);
+		pendingIgnoredIndexes.pop_back();
+	}
+}
+
+
 bool ParameterizedManager::isGlobal(IgnoreScope scope)
 {
 	switch (scope)
@@ -276,6 +295,21 @@ ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* 
 		}
 		ignoredIndexes.push_back(IgnoredIndex(index, global));
 	}
+	return *this;
+}
+
+
+ParameterizedManager & ParameterizedManager::ignoreIndex(const string & parameterName, size_t index, IgnoreScope scope)
+{
+	if (parameterName.empty())
+	{
+		throw invalid_argument("Empty parameter name given in ignore index");
+	}
+
+	// Note: do not care about duplicates indexes for now
+	bool global = isGlobal(scope);
+	_pendingIgnoredIndexes[parameterName].push_back(IgnoredIndex(index, global));
+
 	return *this;
 }
 

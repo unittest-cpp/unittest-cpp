@@ -21,6 +21,7 @@ namespace UnitTest
 		void endExecute(TestDetails const * const details);
 		void updateParameter(TestParameterAbstract* const parameterized);
 		ParameterizedManager & ignoreIndex(TestParameterAbstract* const parameterized, size_t index, IgnoreScope scope = AUTO);
+		ParameterizedManager & ignoreIndex(const string & parameterName, size_t index, IgnoreScope scope = AUTO);
 		bool isIndexIgnored(TestParameterAbstract* const parameterized, size_t index);
 		const vector<TestParameterAbstract*> & getStack(TestDetails const * const details) const;
 
@@ -31,8 +32,9 @@ namespace UnitTest
 			size_t index;
 			bool global;
 		};
-		
+
 		typedef unordered_map<TestParameterAbstract*, vector<IgnoredIndex>> IgnoredIndexesMap;
+		typedef unordered_map<string, vector<IgnoredIndex>> IgnoredIndexesByNameMap;
 
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
@@ -42,12 +44,14 @@ namespace UnitTest
 		bool hasMoreIndexes(TestParameterAbstract* const parameterized);
 		bool isGlobal(IgnoreScope scope);
 		vector<IgnoredIndex>::iterator findIgnored(vector<IgnoredIndex> & ignoredIndexes, size_t index);
+		void importIgnoredParameter(TestParameterAbstract* const parameterized);
 		void clearNonGlobalIgnoredIndexes();
 
 		TestListNode* _currentTest;
 		TestListNode* _nextTestBackup;
 		vector<TestParameterAbstract*> _stack;
 		IgnoredIndexesMap _ignoredIndexes;
+		IgnoredIndexesByNameMap _pendingIgnoredIndexes;
 		volatile bool _iterationDone;
 		volatile bool _executing;
 	};
