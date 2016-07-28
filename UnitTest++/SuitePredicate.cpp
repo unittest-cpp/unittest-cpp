@@ -5,6 +5,7 @@ using namespace UnitTest;
 
 
 SuitePredicate::SuitePredicate()
+	: _all(false)
 {
 }
 
@@ -26,8 +27,18 @@ void SuitePredicate::addTest(char const* testName)
 }
 
 
+void SuitePredicate::addAll()
+{
+	_all = true;
+}
+
+
 bool SuitePredicate::operator()(Test const * const test) const
 {
+	if (_all)
+	{
+		return true;
+	}
 	return (mustExecuteSuite(test) || mustExecuteTest(test));
 }
 

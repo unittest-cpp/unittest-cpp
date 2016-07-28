@@ -20,26 +20,28 @@ namespace UnitTest {
 
    int RunTestsCmd(int argc, char**argv, char const* suiteArgument)
    {
-	   if (argc <= 1)
-	   {
-		   return UnitTest::RunAllTests();
-	   }
-
-	   //if first arg is "--suite", we search for suite names instead of test names
-	   const bool suite = strcmp(suiteArgument, argv[1]) == 0;
-
 	   SuitePredicate predicate;
-	   int from = (suite) ? 2 : 1;
-	   for (int i = from; i < argc; ++i)
+	   if (argc > 1)
 	   {
-		   if (suite)
+		   //if first arg is "--suite", we search for suite names instead of test names
+		   const bool suite = strcmp(suiteArgument, argv[1]) == 0;
+
+		   int from = (suite) ? 2 : 1;
+		   for (int i = from; i < argc; ++i)
 		   {
-			   predicate.addSuite(argv[i]);
+			   if (suite)
+			   {
+				   predicate.addSuite(argv[i]);
+			   }
+			   else
+			   {
+				   predicate.addTest(argv[i]);
+			   }
 		   }
-		   else
-		   {
-			   predicate.addTest(argv[i]);
-		   }
+	   }
+	   else
+	   {
+		   predicate.addAll();
 	   }
 
 	   //run selected test(s) only

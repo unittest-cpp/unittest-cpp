@@ -17,6 +17,7 @@ namespace UnitTest
 
 		void addSuite(char const* suiteName);
 		void addTest(char const* testName);
+		void addAll();
 
 		bool operator()(Test const * const test) const;
 
@@ -26,6 +27,7 @@ namespace UnitTest
 
 		vector<string> _suiteNames;
 		vector<string> _testNames;
+		bool _all;
 	};
 }
 
