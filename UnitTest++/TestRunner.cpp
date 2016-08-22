@@ -26,21 +26,28 @@ namespace UnitTest {
          return false;
       }
 
-      outFrom = -1;
-      for (int i = 1; i < argc; i++)
+      outCount = 0;
+      if (strlen(argument) > 0)
       {
-         if (strcmp(argument, argv[i]) == 0)
+         outFrom = 0;
+         for (int i = 1; i < argc; i++)
          {
-            outFrom = i;
-            break;
+            if (strcmp(argument, argv[i]) == 0)
+            {
+               outFrom = i + 1;
+               break;
+            }
+         }
+         if (outFrom == 0)
+         {
+            return false;
          }
       }
-      if (outFrom == -1)
+      else
       {
-         return false;
+         outFrom = 1;
       }
-      outFrom++;
-      outCount = 0;
+
       for (int i = outFrom; i < argc; i++)
       {
          char* value = argv[i];
@@ -103,6 +110,7 @@ namespace UnitTest {
       bool specific = false;
       specific |= readSuiteArgument(predicate, argc, argv, suiteArgument);
       specific |= readTestArgument(predicate, argc, argv, testArgument);
+	  specific |= readTestArgument(predicate, argc, argv, "");
 
 	  readIgnoreParamArgument(argc, argv, ignoreParamArgument);
 
