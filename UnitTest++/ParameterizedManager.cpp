@@ -266,11 +266,6 @@ bool ParameterizedManager::isGlobal(IgnoreScope scope)
 
 ParameterizedManager & ParameterizedManager::ignoreIndex(TestParameterAbstract* const parameterized, size_t index, IgnoreScope scope)
 {
-	if (_iterationDone)
-	{
-		throw runtime_error("can not ignore indexes after iteration began");
-	}
-
 	bool global = isGlobal(scope);
 	vector<IgnoredIndex> & ignoredIndexes = _ignoredIndexes[parameterized];
 
