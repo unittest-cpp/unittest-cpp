@@ -272,15 +272,6 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	TEST(IgnoreIndex_IgnoreAfterIterationBegan_ThrowsException)
-	{
-		pzVowel.ignoreIndex(0);
-		pzVowel();
-		CHECK_THROW(pzVowel.ignoreIndex(1), runtime_error);
-	}
-
-	//////////
-
 	string ignoreSomeVowelsByValue;
 	TEST(Ignore_IgnoreSome)
 	{
