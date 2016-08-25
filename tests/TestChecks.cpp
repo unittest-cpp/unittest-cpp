@@ -315,4 +315,32 @@ namespace {
       CHECK_EQUAL(1234, reporter.lastFailedLine);
    }
 
+   class TruthyUnlessCopied
+   {
+   public:
+      TruthyUnlessCopied()
+      : truthy_(true)
+      {
+      }
+
+      TruthyUnlessCopied(const TruthyUnlessCopied&)
+      : truthy_(false)
+      {
+      }
+
+      operator bool() const
+      {
+         return truthy_;
+      }
+
+   private:
+      bool truthy_;
+   };
+
+   TEST(CheckProperlyDealsWithOperatorBoolOverrides)
+   {
+      TruthyUnlessCopied objectThatShouldBeTruthy;
+      CHECK(objectThatShouldBeTruthy);
+   }
+
 }

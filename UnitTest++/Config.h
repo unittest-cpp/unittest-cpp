@@ -16,12 +16,13 @@
    #ifdef _USRDLL
       #define UNITTEST_WIN32_DLL
    #endif
- 
+
    #define UNITTEST_WIN32
 #endif
 
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
-   defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)
+   defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__) \
+   || defined (__HAIKU__)
    #define UNITTEST_POSIX
 #endif
 
@@ -70,5 +71,14 @@
 #else
    #define UNIITEST_NS_QUAL_STD(x) ::std::x
 #endif
+
+// By default, UnitTest++ will attempt to define "short" macro names like CHECK and  CHECK_EQUAL
+// for "public" interface macros etc. Defining UNITTEST_DISABLE_SHORT_MACROS in your project
+// will disable this behavior, leaving only the longer macros "namespaced" with the UNITTEST_
+// prefix.
+//
+// "Internal" utility macros will only have the UNITTEST_IMPL_ prefix.
+
+// #define UNITTEST_DISABLE_SHORT_MACROS
 
 #endif

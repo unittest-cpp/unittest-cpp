@@ -3,10 +3,14 @@
 
 #include "RequiredCheckTestReporter.h"
 
-#ifdef REQUIRE
-    #error UnitTest++ redefines REQUIRE
-#endif
+#define UNITTEST_REQUIRE for(UnitTest::RequiredCheckTestReporter decoratedReporter(*UnitTest::CurrentTest::Results()); decoratedReporter.Next(); )
 
-#define REQUIRE for(UnitTest::RequiredCheckTestReporter decoratedReporter(*UnitTest::CurrentTest::Results()); decoratedReporter.Next(); )
+#ifndef UNITTEST_DISABLE_SHORT_MACROS
+   #ifdef REQUIRE
+      #error REQUIRE already defined, re-configure with UNITTEST_ENABLE_SHORT_MACROS set to 0 and use UNITTEST_REQUIRE instead
+   #else
+      #define REQUIRE UNITTEST_REQUIRE
+   #endif
+#endif
 
 #endif

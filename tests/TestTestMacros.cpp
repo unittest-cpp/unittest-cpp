@@ -46,7 +46,7 @@ using namespace std;
 namespace {
 
    TestList list1;
-   TEST_EX(DummyTest, list1)
+   UNITTEST_IMPL_TEST(DummyTest, list1)
    {}
 
    TEST (TestsAreAddedToTheListThroughMacro)
@@ -69,7 +69,7 @@ namespace {
    };
 
    TestList list2;
-   TEST_FIXTURE_EX(ThrowingThingie, DummyTestName, list2)
+   UNITTEST_IMPL_TEST_FIXTURE(ThrowingThingie, DummyTestName, list2)
    {}
 
    TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
@@ -113,7 +113,7 @@ namespace {
    }
 
    TestList macroTestList1;
-   TEST_EX(MacroTestHelper1, macroTestList1)
+   UNITTEST_IMPL_TEST(MacroTestHelper1, macroTestList1)
    {}
 
    TEST(TestAddedWithTEST_EXMacroGetsDefaultSuite)
@@ -124,7 +124,7 @@ namespace {
    }
 
    TestList macroTestList2;
-   TEST_FIXTURE_EX(DummyFixture, MacroTestHelper2, macroTestList2)
+   UNITTEST_IMPL_TEST_FIXTURE(DummyFixture, MacroTestHelper2, macroTestList2)
    {}
 
    TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
@@ -144,7 +144,7 @@ namespace {
    };
 
    TestList throwingFixtureTestList1;
-   TEST_FIXTURE_EX(FixtureCtorThrows, FixtureCtorThrowsTestName, throwingFixtureTestList1)
+   UNITTEST_IMPL_TEST_FIXTURE(FixtureCtorThrows, FixtureCtorThrowsTestName, throwingFixtureTestList1)
    {}
 
    TEST(FixturesWithThrowingCtorsAreFailures)
@@ -170,7 +170,7 @@ namespace {
    };
 
    TestList throwingFixtureTestList2;
-   TEST_FIXTURE_EX(FixtureDtorThrows, FixtureDtorThrowsTestName, throwingFixtureTestList2)
+   UNITTEST_IMPL_TEST_FIXTURE(FixtureDtorThrows, FixtureDtorThrowsTestName, throwingFixtureTestList2)
    {}
 
    TEST(FixturesWithThrowingDtorsAreFailures)
@@ -200,7 +200,7 @@ namespace {
    };
 
    TestList ctorAssertFixtureTestList;
-   TEST_FIXTURE_EX(FixtureCtorAsserts, CorrectlyReportsAssertFailureInCtor, ctorAssertFixtureTestList)
+   UNITTEST_IMPL_TEST_FIXTURE(FixtureCtorAsserts, CorrectlyReportsAssertFailureInCtor, ctorAssertFixtureTestList)
    {}
 
    TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
