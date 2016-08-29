@@ -11,8 +11,6 @@ namespace UnitTest {
    class TestResults;
    class Timer;
 
-   UNITTEST_LINKAGE int RunAllTests();
-
    /**
 	* Commands:
 	*  --test One or multiple test names to execute (specify "--test" is optional if it is the first argument), can be combined with --suite
@@ -22,7 +20,9 @@ namespace UnitTest {
 	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
 	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
 	*/
-   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, char const* suiteArgument = "--suite", char const* testArgument = "--test");
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv);
+   
+   UNITTEST_LINKAGE int RunAllTests();
 
    struct True
    {
