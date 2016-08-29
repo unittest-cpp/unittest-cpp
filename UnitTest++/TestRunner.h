@@ -13,6 +13,17 @@ namespace UnitTest {
 
    UNITTEST_LINKAGE int RunAllTests();
 
+   /**
+	* Commands:
+	*  --test One or multiple test names to execute (specify "--test" is optional if it is the first argument), can be combined with --suite
+	*  --suite One or multiple suite names to execute, can be combined with --test
+	*
+	* Usage examples:
+	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
+	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
+	*/
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, char const* suiteArgument = "--suite", char const* testArgument = "--test");
+
    struct True
    {
       bool operator()(const Test* const) const
