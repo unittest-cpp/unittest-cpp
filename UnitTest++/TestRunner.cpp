@@ -5,6 +5,7 @@
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
 #include "SuitePredicate.h"
+#include "ArgumentsReader.h"
 
 #include <cstring>
 
@@ -18,84 +19,44 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
    }
 
-   bool findArgumentListIndex(int argc, char**argv, char const* argument, int & outFrom, int & outCount)
-   {
-      if (argc <= 1)
-      {
-         return false;
-      }
 
-      outCount = 0;
-      if (strlen(argument) > 0)
-      {
-         outFrom = 0;
-         for (int i = 1; i < argc; i++)
-         {
-            if (strcmp(argument, argv[i]) == 0)
-            {
-               outFrom = i + 1;
-               break;
-            }
-         }
-         if (outFrom == 0)
-         {
-            return false;
-         }
-      }
-      else
-      {
-         outFrom = 1;
-      }
-
-      for (int i = outFrom; i < argc; i++)
-      {
-         char* value = argv[i];
-         if (strlen(value) >= 2 && value[0] == '-'&& value[1] == '-')
-         {
-            break;
-         }
-         outCount++;
-      }
-
-      return true;
-   }
-
-   bool readSuiteArgument(SuitePredicate & predicate, int argc, char**argv, char const* argument)
+   bool readSuiteArgument(ArgumentsReader & arguments, SuitePredicate & predicate, char const* argument)
    {
       int from, count;
-      if (!findArgumentListIndex(argc, argv, argument, from, count))
+      if (!arguments.findArgumentListIndex(argument, from, count))
       {
          return false;
       }
       for (int i = from; i < from + count; i++)
       {
-         predicate.addSuite(argv[i]);
+         predicate.addSuite(arguments.getArgument(i).c_str());
       }
       return true;
    }
 
-   bool readTestArgument(SuitePredicate & predicate, int argc, char**argv, char const* argument)
+   bool readTestArgument(ArgumentsReader & arguments, SuitePredicate & predicate, char const* argument)
    {
       int from, count;
-      if (!findArgumentListIndex(argc, argv, argument, from, count))
+      if (!arguments.findArgumentListIndex(argument, from, count))
       {
          return false;
       }
       for (int i = from; i < from + count; i++)
       {
-         predicate.addTest(argv[i]);
+         predicate.addTest(arguments.getArgument(i).c_str());
       }
       return true;
    }
 
    int RunTestsCmd(int argc, char**argv)
    {
+      ArgumentsReader arguments(argc, argv);
       SuitePredicate predicate;
 
       bool specific = false;
-      specific |= readSuiteArgument(predicate, argc, argv, "--suite");
-      specific |= readTestArgument(predicate, argc, argv, "--test");
-	  specific |= readTestArgument(predicate, argc, argv, "");
+      specific |= readSuiteArgument(arguments, predicate, "--suite");
+      specific |= readTestArgument(arguments, predicate, "--test");
+	  specific |= readTestArgument(arguments, predicate, "");
 
       if (!specific)
       {
