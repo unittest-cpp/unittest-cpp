@@ -32,7 +32,7 @@ namespace {
       TestListNode* test2Node = list.Add(&test2);
 
       CHECK(list.GetHead()->m_test == &test1);
-	  CHECK(test1Node->m_next->m_test == &test2);
+      CHECK(test1Node->m_next->m_test == &test2);
       CHECK(test2Node->m_next == 0);
    }
 

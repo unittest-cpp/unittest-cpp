@@ -10,18 +10,18 @@ namespace UnitTest {
    class UNITTEST_LINKAGE TestListNode
    {
    public:
-	   TestListNode(Test* test);
-	   Test* m_test;
-	   TestListNode* m_next;
+      TestListNode(Test* test);
+      Test* m_test;
+      TestListNode* m_next;
    };
 
    class UNITTEST_LINKAGE TestList
    {
    public:
       TestList();
-	  TestListNode* Add(Test* test);
 
-	  TestListNode* GetHead() const;
+      TestListNode* Add(Test* test);
+      TestListNode* GetHead() const;
 
    private:
       TestListNode* m_head;
