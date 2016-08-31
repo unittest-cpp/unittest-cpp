@@ -19,6 +19,9 @@ namespace UnitTest {
       bool Next();
 
    private:
+      RequiredCheckTestReporter(RequiredCheckTestReporter const&);
+      RequiredCheckTestReporter& operator =(RequiredCheckTestReporter const&);
+
       TestResults& m_results;
       TestReporter* m_originalTestReporter;
       ThrowingTestReporter m_throwingReporter;
