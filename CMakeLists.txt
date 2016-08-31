@@ -32,6 +32,8 @@ if (${UTPP_AMPLIFY_WARNINGS})
     # we are dealing with an MSVC or MSVC-like compiler (e.g. Intel on Windows)
     if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
         string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+    else()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
     endif()
 endif()
 
