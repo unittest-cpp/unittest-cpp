@@ -1,5 +1,5 @@
 #include "TestDetails.h"
-#include <cstring>
+#include <string>
 
 namespace UnitTest {
 
