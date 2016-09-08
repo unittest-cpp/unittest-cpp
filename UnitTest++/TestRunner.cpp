@@ -5,7 +5,7 @@
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
 #include "SuitePredicate.h"
-#include "ArgumentsReader.h"
+#include "SuitePredicateCmdBuilder.h"
 
 #include <cstring>
 
@@ -20,54 +20,13 @@ namespace UnitTest {
    }
 
 
-   bool readSuiteArgument(ArgumentsReader & arguments, SuitePredicate & predicate, char const* argument)
-   {
-      int from, count;
-      if (!arguments.findArgumentListIndex(argument, from, count))
-      {
-         return false;
-      }
-      for (int i = from; i < from + count; i++)
-      {
-         predicate.addSuite(arguments.getArgument(i).c_str());
-      }
-      return true;
-   }
-
-   bool readTestArgument(ArgumentsReader & arguments, SuitePredicate & predicate, char const* argument)
-   {
-      int from, count;
-      if (!arguments.findArgumentListIndex(argument, from, count))
-      {
-         return false;
-      }
-      for (int i = from; i < from + count; i++)
-      {
-         predicate.addTest(arguments.getArgument(i).c_str());
-      }
-      return true;
-   }
-
    int RunTestsCmd(int argc, char**argv)
    {
-      ArgumentsReader arguments(argc, argv);
-      SuitePredicate predicate;
-
-      bool specific = false;
-      specific |= readSuiteArgument(arguments, predicate, "--suite");
-      specific |= readTestArgument(arguments, predicate, "--test");
-	  specific |= readTestArgument(arguments, predicate, "");
-
-      if (!specific)
-      {
-         predicate.addAll();
-      }
-
-      //run selected test(s) only
+      SuitePredicateCmdBuilder suiteCmd(argc, argv);
       TestReporterStdout reporter;
       TestRunner runner(reporter);
 
-      return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
+      return runner.RunTestsIf(Test::GetTestList(), 0, suiteCmd.buildPredicate(), 0);
    }
 
    TestRunner::TestRunner(TestReporter& reporter)
