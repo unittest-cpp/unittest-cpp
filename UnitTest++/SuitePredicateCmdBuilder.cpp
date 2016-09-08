@@ -9,13 +9,19 @@ SuitePredicateCmdBuilder::SuitePredicateCmdBuilder(int argc, char**argv)
 }
 
 
-SuitePredicate SuitePredicateCmdBuilder::buildPredicate(bool allowImplicitTestArg)
+SuitePredicate SuitePredicateCmdBuilder::buildPredicate(bool allowImplicitArgs)
 {
 	SuitePredicate predicate;
 
 	predicate.addSuites(_arguments.extractValues("--suite"));
 	predicate.addTests(_arguments.extractValues("--test"));
-	predicate.addTests(_arguments.extractValues(""));
+
+	if (allowImplicitArgs)
+	{
+		vector<string> implicitArguments = _arguments.extractValues("");
+		predicate.addSuites(implicitArguments);
+		predicate.addTests(implicitArguments);
+	}
 
 	if (predicate.empty())
 	{

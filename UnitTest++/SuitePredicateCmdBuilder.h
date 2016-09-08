@@ -10,7 +10,7 @@ namespace UnitTest {
 	{
 	public:
 		SuitePredicateCmdBuilder(int argc, char**argv);
-		SuitePredicate buildPredicate();
+		SuitePredicate buildPredicate(bool allowImplicitArgs = true);
 
 	private:
 		ArgumentsReader _arguments;
