@@ -8,77 +8,10 @@ namespace UnitTest {
 	class ArgumentsReader
 	{
 	public:
-		ArgumentsReader(int argc, char**argv)
-		{
-			_arguments.reserve(argc);
-			for (int i = 1; i < argc; i++)
-			{
-				_arguments.push_back(argv[i]);
-			}
-		}
-		
-		bool findArgumentListIndex(const string & argumentName, int & outFrom, int & outCount)
-		{
-			if (_arguments.empty())
-			{
-				return false;
-			}
-			outCount = 0;
-			if (argumentName.empty())
-			{
-				outFrom = 1;
-			}
-			else
-			{
-				outFrom = 0;
-				for (size_t i = 1; i < _arguments.size(); i++)
-				{
-					if (argumentName == _arguments[i])
-					{
-						outFrom = i + 1;
-						break;
-					}
-				}
-				if (outFrom == 0)
-				{
-					return false;
-				}
-			}
-
-			for (size_t i = outFrom; i < _arguments.size(); i++)
-			{
-				string value = _arguments[i];
-				if (value.size() >= 2 && value.substr(0, 2) == "--")
-				{
-					break;
-				}
-				outCount++;
-			}
-
-			return true;
-		}
-
-
-		vector<string> extractValues(const string & argumentName)
-		{
-			int from, count;
-			if (!findArgumentListIndex(argumentName, from, count))
-			{
-				return vector<string>();
-			}
-			vector<string> values;
-			for (int i = from; i < from + count; i++)
-			{
-				values.push_back(getArgument(i));
-			}
-			return values;
-		}
-
-
-		string getArgument(int index)
-		{
-			return _arguments[index];
-		}
+		ArgumentsReader(int argc, char**argv);
+		bool findArgumentListIndex(const string & argumentName, int & outFrom, int & outCount);
+		vector<string> extractValues(const string & argumentName);
+		string getArgument(int index);
 
 	private:
 		vector<string> _arguments;
