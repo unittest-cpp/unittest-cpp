@@ -5,7 +5,7 @@ using namespace UnitTest;
 ArgumentsReader::ArgumentsReader(int argc, char**argv)
 {
 	_arguments.reserve(argc);
-	for (int i = 1; i < argc; i++)
+	for (int i = 0; i < argc; i++)
 	{
 		_arguments.push_back(argv[i]);
 	}
