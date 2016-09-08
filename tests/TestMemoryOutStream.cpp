@@ -11,7 +11,7 @@ using namespace std;
 
 namespace {
 
-   const char* const maxSignedIntegralStr(size_t nBytes)
+   const char* maxSignedIntegralStr(size_t nBytes)
    {
       switch(nBytes)
       {
@@ -28,7 +28,7 @@ namespace {
       }
    }
 
-   const char* const minSignedIntegralStr(size_t nBytes)
+   const char* minSignedIntegralStr(size_t nBytes)
    {
       switch(nBytes)
       {
@@ -45,7 +45,7 @@ namespace {
       }
    }
 
-   const char* const maxUnsignedIntegralStr(size_t nBytes)
+   const char* maxUnsignedIntegralStr(size_t nBytes)
    {
       switch(nBytes)
       {

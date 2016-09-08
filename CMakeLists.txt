@@ -7,6 +7,9 @@ option(UTPP_USE_PLUS_SIGN
 option(UTPP_INCLUDE_TESTS_IN_BUILD
     "Set this to OFF if you do not wish to automatically build or run unit tests as part of the default cmake --build"
     ON)
+option(UTPP_AMPLIFY_WARNINGS
+    "Set this to OFF if you wish to use CMake default warning levels; should generally only use to work around support issues for your specific compiler"
+    ON)
 
 if(MSVC14 OR MSVC12)
     # has the support we need
@@ -20,6 +23,17 @@ else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     else()
             message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+    endif()
+endif()
+
+# up warning level for project
+if (${UTPP_AMPLIFY_WARNINGS})
+    # instead of getting compiler specific, we're going to try making an assumption that an existing /W# means
+    # we are dealing with an MSVC or MSVC-like compiler (e.g. Intel on Windows)
+    if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+        string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+    else()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
     endif()
 endif()
 
