@@ -16,6 +16,7 @@ namespace UnitTest {
       void Run();
 
       TestDetails const m_details;
+      Test* m_nextTest;
 
       mutable bool m_isMockTest;
 

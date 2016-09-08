@@ -42,14 +42,14 @@ namespace UnitTest {
       int RunTestsIf(TestList const& list, char const* suiteName,
                      const Predicate& predicate, int maxTestTimeInMs) const
       {
-         TestListNode* curTest = list.GetHead();
+         Test* curTest = list.GetHead();
 
          while (curTest != 0)
          {
-            if (IsTestInSuite(curTest->m_test, suiteName) && predicate(curTest->m_test))
-               RunTest(m_result, curTest->m_test, maxTestTimeInMs);
+            if (IsTestInSuite(curTest, suiteName) && predicate(curTest))
+               RunTest(m_result, curTest, maxTestTimeInMs);
 
-            curTest = curTest->m_next;
+            curTest = curTest->m_nextTest;
          }
 
          return Finish();

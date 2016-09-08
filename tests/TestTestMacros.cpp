@@ -52,7 +52,7 @@ namespace {
    TEST (TestsAreAddedToTheListThroughMacro)
    {
       CHECK(list1.GetHead() != 0);
-      CHECK(list1.GetHead()->m_next == 0);
+      CHECK(list1.GetHead()->m_nextTest == 0);
    }
 
 #ifndef UNITTEST_NO_EXCEPTIONS
@@ -78,7 +78,7 @@ namespace {
       TestResults result(&reporter);
       {
          ScopedCurrentTest scopedResults(result);
-         list2.GetHead()->m_test->Run();
+         list2.GetHead()->Run();
       }
 
       CHECK(strstr(reporter.lastFailedMessage, "xception"));
@@ -119,8 +119,8 @@ namespace {
    TEST(TestAddedWithTEST_EXMacroGetsDefaultSuite)
    {
       CHECK(macroTestList1.GetHead() != NULL);
-      CHECK_EQUAL ("MacroTestHelper1", macroTestList1.GetHead()->m_test->m_details.testName);
-      CHECK_EQUAL ("DefaultSuite", macroTestList1.GetHead()->m_test->m_details.suiteName);
+      CHECK_EQUAL ("MacroTestHelper1", macroTestList1.GetHead()->m_details.testName);
+      CHECK_EQUAL ("DefaultSuite", macroTestList1.GetHead()->m_details.suiteName);
    }
 
    TestList macroTestList2;
@@ -130,8 +130,8 @@ namespace {
    TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
    {
       CHECK(macroTestList2.GetHead() != NULL);
-      CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_test->m_details.testName);
-      CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_test->m_details.suiteName);
+      CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_details.testName);
+      CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
    }
 
 #ifndef UNITTEST_NO_EXCEPTIONS
@@ -154,7 +154,7 @@ namespace {
       TestResults result(&reporter);
       {
          ScopedCurrentTest scopedResult(result);
-         throwingFixtureTestList1.GetHead()->m_test->Run();
+         throwingFixtureTestList1.GetHead()->Run();
       }
 
       int const failureCount = result.GetFailedTestCount();
@@ -181,7 +181,7 @@ namespace {
       TestResults result(&reporter);
       {
          ScopedCurrentTest scopedResult(result);
-         throwingFixtureTestList2.GetHead()->m_test->Run();
+         throwingFixtureTestList2.GetHead()->Run();
       }
 
       int const failureCount = result.GetFailedTestCount();
@@ -209,7 +209,7 @@ namespace {
       TestResults result(&reporter);
       {
          ScopedCurrentTest scopedResults(result);
-         ctorAssertFixtureTestList.GetHead()->m_test->Run();
+         ctorAssertFixtureTestList.GetHead()->Run();
       }
 
       const int failureCount = result.GetFailedTestCount();
