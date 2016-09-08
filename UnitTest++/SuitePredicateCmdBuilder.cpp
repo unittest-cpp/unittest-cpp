@@ -9,48 +9,19 @@ SuitePredicateCmdBuilder::SuitePredicateCmdBuilder(int argc, char**argv)
 }
 
 
-SuitePredicate SuitePredicateCmdBuilder::buildPredicate()
+SuitePredicate SuitePredicateCmdBuilder::buildPredicate(bool allowImplicitTestArg)
 {
 	SuitePredicate predicate;
 
-	bool specific = false;
-	specific |= readSuiteArgument(_arguments, predicate, "--suite");
-	specific |= readTestArgument(_arguments, predicate, "--test");
-	specific |= readTestArgument(_arguments, predicate, "");
+	predicate.addSuites(_arguments.extractValues("--suite"));
+	predicate.addTests(_arguments.extractValues("--test"));
+	predicate.addTests(_arguments.extractValues(""));
 
-	if (!specific)
+	if (predicate.empty())
 	{
 		predicate.addAll();
 	}
+
 	return predicate;
 }
 
-
-bool SuitePredicateCmdBuilder::readSuiteArgument(ArgumentsReader & arguments, SuitePredicate & predicate, const string & arg)
-{
-	int from, count;
-	if (!arguments.findArgumentListIndex(arg, from, count))
-	{
-		return false;
-	}
-	for (int i = from; i < from + count; i++)
-	{
-		predicate.addSuite(arguments.getArgument(i).c_str());
-	}
-	return true;
-}
-
-
-bool SuitePredicateCmdBuilder::readTestArgument(ArgumentsReader & arguments, SuitePredicate & predicate, const string & arg)
-{
-	int from, count;
-	if (!arguments.findArgumentListIndex(arg, from, count))
-	{
-		return false;
-	}
-	for (int i = from; i < from + count; i++)
-	{
-		predicate.addTest(arguments.getArgument(i).c_str());
-	}
-	return true;
-}

@@ -58,6 +58,23 @@ namespace UnitTest {
 			return true;
 		}
 
+
+		vector<string> extractValues(const string & argumentName)
+		{
+			int from, count;
+			if (!findArgumentListIndex(argumentName, from, count))
+			{
+				return vector<string>();
+			}
+			vector<string> values;
+			for (int i = from; i < from + count; i++)
+			{
+				values.push_back(getArgument(i));
+			}
+			return values;
+		}
+
+
 		string getArgument(int index)
 		{
 			return _arguments[index];

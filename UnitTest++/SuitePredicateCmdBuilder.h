@@ -12,10 +12,6 @@ namespace UnitTest {
 		SuitePredicateCmdBuilder(int argc, char**argv);
 		SuitePredicate buildPredicate();
 
-	protected:
-		bool readSuiteArgument(ArgumentsReader & arguments, SuitePredicate & predicate, const string & arg);
-		bool readTestArgument(ArgumentsReader & arguments, SuitePredicate & predicate, const string & arg);
-
 	private:
 		ArgumentsReader _arguments;
 	};

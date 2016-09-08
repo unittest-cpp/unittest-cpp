@@ -15,9 +15,12 @@ namespace UnitTest
 		SuitePredicate();
 		virtual ~SuitePredicate();
 
-		void addSuite(char const* suiteName);
-		void addTest(char const* testName);
+		void addSuite(const string & suiteName);
+		void addTest(const string & testName);
+		void addSuites(const vector<string> & suiteNames);
+		void addTests(const vector<string> & testNames);
 		void addAll();
+		bool empty();
 
 		bool operator()(Test const * const test) const;
 

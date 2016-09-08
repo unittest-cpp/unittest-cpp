@@ -15,21 +15,57 @@ SuitePredicate::~SuitePredicate()
 }
 
 
-void SuitePredicate::addSuite(char const* suiteName)
+void SuitePredicate::addSuite(const string & suiteName)
 {
 	_suiteNames.push_back(suiteName);
 }
 
 
-void SuitePredicate::addTest(char const* testName)
+void SuitePredicate::addTest(const string & testName)
 {
 	_testNames.push_back(testName);
+}
+
+
+void SuitePredicate::addSuites(const vector<string> & suiteNames)
+{
+	for (size_t i = 0; i < suiteNames.size(); i++)
+	{
+		_suiteNames.push_back(suiteNames[i]);
+	}
+}
+
+
+void SuitePredicate::addTests(const vector<string> & testNames)
+{
+	for (size_t i = 0; i < testNames.size(); i++)
+	{
+		_testNames.push_back(testNames[i]);
+	}
 }
 
 
 void SuitePredicate::addAll()
 {
 	_all = true;
+}
+
+
+bool SuitePredicate::empty()
+{
+	if (!_suiteNames.empty())
+	{
+		return false;
+	}
+	if (!_testNames.empty())
+	{
+		return false;
+	}
+	if (_all)
+	{
+		return false;
+	}
+	return true;
 }
 
 
