@@ -11,7 +11,7 @@ ArgumentsReader::ArgumentsReader(int argc, char**argv)
 	}
 }
 
-bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & outFrom, int & outCount)
+bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & outFrom, int & outCount) const
 {
 	if (_arguments.empty())
 	{
@@ -53,7 +53,7 @@ bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & o
 }
 
 
-vector<string> ArgumentsReader::extractValues(const string & argumentName)
+vector<string> ArgumentsReader::extractValues(const string & argumentName) const
 {
 	int from, count;
 	if (!findArgumentListIndex(argumentName, from, count))
@@ -69,7 +69,7 @@ vector<string> ArgumentsReader::extractValues(const string & argumentName)
 }
 
 
-string ArgumentsReader::getArgument(int index)
+string ArgumentsReader::getArgument(int index) const
 {
 	return _arguments[index];
 }
