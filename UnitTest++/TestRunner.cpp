@@ -5,7 +5,7 @@
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
 #include "SuitePredicate.h"
-#include "SuitePredicateCmdBuilder.h"
+#include "PredicateCmdBuilder.h"
 
 #include <cstring>
 
@@ -19,14 +19,15 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
    }
 
-
    int RunTestsCmd(int argc, char**argv)
    {
-      SuitePredicateCmdBuilder suiteCmd(argc, argv);
+      SuitePredicate predicate;
+      ArgumentsReader arguments(argc, argv);
+	  PredicateCmdBuilder::fillSuitePredicate(arguments, predicate);
+
       TestReporterStdout reporter;
       TestRunner runner(reporter);
-
-      return runner.RunTestsIf(Test::GetTestList(), 0, suiteCmd.buildPredicate(), 0);
+      return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
    }
 
    TestRunner::TestRunner(TestReporter& reporter)
