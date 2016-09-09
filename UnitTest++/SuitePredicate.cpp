@@ -31,7 +31,7 @@ void SuitePredicate::addSuites(const vector<string> & suiteNames)
 {
 	for (size_t i = 0; i < suiteNames.size(); i++)
 	{
-		_suiteNames.push_back(suiteNames[i]);
+		addSuite(suiteNames[i]);
 	}
 }
 
@@ -40,7 +40,7 @@ void SuitePredicate::addTests(const vector<string> & testNames)
 {
 	for (size_t i = 0; i < testNames.size(); i++)
 	{
-		_testNames.push_back(testNames[i]);
+		addTest(testNames[i]);
 	}
 }
 

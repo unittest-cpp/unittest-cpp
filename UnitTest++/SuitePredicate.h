@@ -24,6 +24,9 @@ namespace UnitTest
 
 		bool operator()(Test const * const test) const;
 
+		const vector<string> & getSuites() const { return _suiteNames; }
+		const vector<string> & getTests() const { return _testNames; }
+
 	private:
 		bool mustExecuteSuite(Test const * const test) const;
 		bool mustExecuteTest(Test const * const test) const;
