@@ -1,9 +1,10 @@
 #include "UnitTest++/UnitTestPP.h"
 #include "UnitTest++/TestDetails.h"
 
-using namespace UnitTest;
 
-namespace {
+SUITE(TestDetails)
+{
+	using namespace UnitTest;
 
 	TEST(SameTest_SameValues_AreEqual)
 	{
