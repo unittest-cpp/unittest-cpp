@@ -1,5 +1,5 @@
 #include "TestDetails.h"
-#include <string>
+#include <cstring> // "c" version required for gcc
 
 namespace UnitTest {
 
