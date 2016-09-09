@@ -47,7 +47,7 @@ bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & o
 
 	for (size_t i = outFrom; i < _arguments.size(); i++)
 	{
-		string value = _arguments[i];
+		const string & value = _arguments[i];
 		if (value.size() >= 2 && value.substr(0, 2) == "--")
 		{
 			break;
