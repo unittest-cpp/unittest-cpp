@@ -24,8 +24,8 @@ namespace UnitTest {
 	* For disabling this feature, set allowImplicitArgs=false
 	*
 	* Usage examples:
-	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
-	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
+	*  Explicit: myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
+	*  Implicit: myTests.exe MySpecialTest MyOtherTest MySuite1
 	*/
    UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs = true);
    
