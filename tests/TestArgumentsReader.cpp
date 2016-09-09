@@ -25,7 +25,7 @@ SUITE(ArgumentsReader)
 		ArgumentsReader args(3, argv);
 
 		vector<string> values = args.extractValues("");
-		REQUIRE CHECK_EQUAL(2, values.size());
+		REQUIRE CHECK_EQUAL(2u, values.size());
 		CHECK_EQUAL(val1, values[0]);
 		CHECK_EQUAL(val2, values[1]);
 	}
@@ -40,7 +40,7 @@ SUITE(ArgumentsReader)
 		ArgumentsReader args(3, argv);
 
 		vector<string> values = args.extractValues(paramToto);
-		REQUIRE CHECK_EQUAL(1, values.size());
+		REQUIRE CHECK_EQUAL(1u, values.size());
 		CHECK_EQUAL(val1, values[0]);
 	}
 
@@ -58,7 +58,7 @@ SUITE(ArgumentsReader)
 		CHECK(args.extractValues("--unexisting").empty());
 
 		vector<string> values = args.extractValues(paramToto);
-		REQUIRE CHECK_EQUAL(2, values.size());
+		REQUIRE CHECK_EQUAL(2u, values.size());
 		CHECK_EQUAL(val1, values[0]);
 		CHECK_EQUAL(val2, values[1]);
 	}
@@ -77,12 +77,12 @@ SUITE(ArgumentsReader)
 		ArgumentsReader args(7, argv);
 
 		vector<string> valuesToto = args.extractValues(paramToto);
-		REQUIRE CHECK_EQUAL(2, valuesToto.size());
+		REQUIRE CHECK_EQUAL(2u, valuesToto.size());
 		CHECK_EQUAL(totoVal1, valuesToto[0]);
 		CHECK_EQUAL(totoVal2, valuesToto[1]);
 
 		vector<string> valuesTiti = args.extractValues(paramTiti);
-		REQUIRE CHECK_EQUAL(1, valuesTiti.size());
+		REQUIRE CHECK_EQUAL(1u, valuesTiti.size());
 		CHECK_EQUAL(titiVal, valuesTiti[0]);
 	}
 }
