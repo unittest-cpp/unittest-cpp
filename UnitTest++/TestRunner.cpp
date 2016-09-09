@@ -4,7 +4,6 @@
 #include "TestReporterStdout.h"
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
-#include "SuitePredicate.h"
 #include "PredicateCmdBuilder.h"
 
 #include <cstring>
