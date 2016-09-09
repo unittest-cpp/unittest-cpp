@@ -11,6 +11,12 @@ ArgumentsReader::ArgumentsReader(int argc, char**argv)
 	}
 }
 
+
+ArgumentsReader::~ArgumentsReader()
+{
+}
+
+
 bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & outFrom, int & outCount) const
 {
 	if (_arguments.empty())
