@@ -20,13 +20,14 @@ namespace UnitTest {
 	*
 	* Special feature: You do not have to specify explicitely --test and --suite, you
 	* can mix suite names and test names and the cmd will find the way. The
-	* constraint is that it must have no arguments beginning with -- before
+	* constraint is that it must have no arguments beginning with --.
+	* For disabling this feature, set allowImplicitArgs=false
 	*
 	* Usage examples:
 	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
 	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
 	*/
-   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv);
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs = true);
    
    UNITTEST_LINKAGE int RunAllTests();
 

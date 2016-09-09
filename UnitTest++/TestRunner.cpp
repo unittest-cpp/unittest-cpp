@@ -18,11 +18,11 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
    }
 
-   int RunTestsCmd(int argc, char**argv)
+   int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs)
    {
       SuitePredicate predicate;
       ArgumentsReader arguments(argc, argv);
-	  PredicateCmdBuilder::fillSuitePredicate(arguments, predicate);
+      PredicateCmdBuilder::fillSuitePredicate(arguments, predicate, allowImplicitArgs);
 
       TestReporterStdout reporter;
       TestRunner runner(reporter);
