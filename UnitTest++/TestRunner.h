@@ -12,9 +12,15 @@ namespace UnitTest {
    class Timer;
 
    /**
+    * Run tests/suites using custom selection from command line.
+	*
 	* Commands:
-	*  --test One or multiple test names to execute (specify "--test" is optional if it is the first argument), can be combined with --suite
+	*  --test One or multiple test names to execute, can be combined with --suite
 	*  --suite One or multiple suite names to execute, can be combined with --test
+	*
+	* Special feature: You do not have to specify explicitely --test and --suite, you
+	* can mix suite names and test names and the cmd will find the way. The
+	* constraint is that it must have no arguments beginning with -- before
 	*
 	* Usage examples:
 	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
