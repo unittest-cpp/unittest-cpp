@@ -28,7 +28,7 @@ namespace UnitTest {
 	*  Implicit: myTests.exe MySpecialTest MyOtherTest MySuite1
 	*/
    UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs);
-   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv);
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv); // Important: keep version with same signature as int main()
    
    UNITTEST_LINKAGE int RunAllTests();
 
