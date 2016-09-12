@@ -29,6 +29,11 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
    }
 
+   int RunTestsCmd(int argc, char**argv)
+   {
+      return RunTestsCmd(argc, argv, true);
+   }
+
    TestRunner::TestRunner(TestReporter& reporter)
       : m_reporter(&reporter)
       , m_result(new TestResults(&reporter))
