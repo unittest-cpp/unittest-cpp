@@ -17,7 +17,7 @@ ArgumentsReader::~ArgumentsReader()
 }
 
 
-bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & outFrom, int & outCount) const
+bool ArgumentsReader::findArgumentListIndex(const string & argumentName, size_t & outFrom, size_t & outCount) const
 {
 	if (_arguments.empty())
 	{
@@ -61,13 +61,13 @@ bool ArgumentsReader::findArgumentListIndex(const string & argumentName, int & o
 
 vector<string> ArgumentsReader::extractValues(const string & argumentName) const
 {
-	int from, count;
+	size_t from, count;
 	if (!findArgumentListIndex(argumentName, from, count))
 	{
 		return vector<string>();
 	}
 	vector<string> values;
-	for (int i = from; i < from + count; i++)
+	for (size_t i = from; i < from + count; i++)
 	{
 		values.push_back(getArgument(i));
 	}
@@ -75,7 +75,7 @@ vector<string> ArgumentsReader::extractValues(const string & argumentName) const
 }
 
 
-string ArgumentsReader::getArgument(int index) const
+string ArgumentsReader::getArgument(size_t index) const
 {
 	return _arguments[index];
 }
