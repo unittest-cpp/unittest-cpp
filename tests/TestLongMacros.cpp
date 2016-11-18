@@ -2,6 +2,8 @@
 
 #include "UnitTest++/UnitTestPP.h"
 
+using namespace UnitTest;
+
 // This file is not intended to test every little thing, just a few basics to hopefully ensure
 // the macros are working and the short macros are not defined.
 UNITTEST_SUITE(LongMacros)

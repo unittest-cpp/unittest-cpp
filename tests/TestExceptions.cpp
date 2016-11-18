@@ -9,6 +9,7 @@
 #include <stdexcept>
 
 using namespace std;
+using namespace UnitTest;
 
 namespace {
 

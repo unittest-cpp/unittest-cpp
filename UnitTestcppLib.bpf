@@ -1,0 +1,30 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+USEUNIT("UnitTest++\AssertException.cpp");
+USEUNIT("UnitTest++\Checks.cpp");
+USEUNIT("UnitTest++\CompositeTestReporter.cpp");
+USEUNIT("UnitTest++\CurrentTest.cpp");
+USEUNIT("UnitTest++\DeferredTestReporter.cpp");
+USEUNIT("UnitTest++\DeferredTestResult.cpp");
+USEUNIT("UnitTest++\MemoryOutStream.cpp");
+USEUNIT("UnitTest++\ReportAssert.cpp");
+USEUNIT("UnitTest++\Test.cpp");
+USEUNIT("UnitTest++\TestDetails.cpp");
+USEUNIT("UnitTest++\TestList.cpp");
+USEUNIT("UnitTest++\TestReporter.cpp");
+USEUNIT("UnitTest++\TestReporterStdout.cpp");
+USEUNIT("UnitTest++\TestResults.cpp");
+USEUNIT("UnitTest++\TestRunner.cpp");
+USEUNIT("UnitTest++\TimeConstraint.cpp");
+USEUNIT("UnitTest++\XmlTestReporter.cpp");
+USEUNIT("UnitTest++\Win32\TimeHelpers.cpp");
+USEUNIT("UnitTest++\RequiredCheckException.cpp");
+USEUNIT("UnitTest++\RequiredCheckTestReporter.cpp");
+USEUNIT("UnitTest++\ThrowingTestReporter.cpp");
+//---------------------------------------------------------------------------
+#define Library
+
+// To add a file to the library use the Project menu 'Add to Project'.
+

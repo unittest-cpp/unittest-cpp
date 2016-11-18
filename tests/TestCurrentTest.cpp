@@ -2,6 +2,8 @@
 #include "UnitTest++/CurrentTest.h"
 #include "ScopedCurrentTest.h"
 
+using namespace UnitTest;
+
 namespace
 {
 

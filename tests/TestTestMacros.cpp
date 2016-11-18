@@ -30,6 +30,8 @@ using namespace std;
          #else
             #define _NOEXCEPT_OP(x)
          #endif
+      #else
+         #define _NOEXCEPT_OP(x)
       #endif
    #endif
 
@@ -42,6 +44,7 @@ using namespace std;
    #endif
 
 #endif
+
 
 namespace {
 

@@ -4,6 +4,8 @@
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"
 
+using namespace UnitTest;
+
 namespace {
 
    TEST(TimeConstraintMacroQualifiesNamespace)

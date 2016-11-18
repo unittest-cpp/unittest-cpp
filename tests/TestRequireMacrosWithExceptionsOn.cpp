@@ -4,6 +4,7 @@
 #include "ScopedCurrentTest.h"
 
 using namespace std;
+using namespace UnitTest;
 
 #ifndef UNITTEST_NO_EXCEPTIONS
 
