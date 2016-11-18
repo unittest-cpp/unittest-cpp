@@ -184,7 +184,6 @@
    bool caught_ = false;                                                                                                                                                                    \
    try { expression; }                                                                                                                                                                      \
    catch (ExpectedExceptionType const&) { caught_ = true; }                                                                                                                                 \
-   catch (...) {}                                                                                                                                                                           \
    if (!caught_)                                                                                                                                                                            \
       UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
    UNITTEST_MULTILINE_MACRO_END
