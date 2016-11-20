@@ -1,6 +1,8 @@
 #include "UnitTest++/UnitTestPP.h"
 
+#ifdef __BORLANDC__
 using namespace UnitTest;
+#endif
 
 // We're really testing if it's possible to use the same suite in two files
 // to compile and link successfuly (TestTestSuite.cpp has suite with the same name)

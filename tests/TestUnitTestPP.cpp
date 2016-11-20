@@ -2,7 +2,9 @@
 #include "ScopedCurrentTest.h"
 
 // These are sample tests that show the different features of the framework
+#ifdef __BORLANDC__
 using namespace UnitTest;
+#endif
 
 namespace {
 
