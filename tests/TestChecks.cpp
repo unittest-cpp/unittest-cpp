@@ -3,6 +3,11 @@
 
 #include <cstring>
 
+#ifdef __BORLANDC__
+	#include <math.h>
+	#include <float.h>
+#endif
+
 using namespace UnitTest;
 
 
@@ -148,6 +153,11 @@ namespace {
 
    TEST(CheckCloseWithNaNFails)
    {
+#ifdef __BORLANDC__
+      // This is to allow the check test to pass when using Nan (invalid float numbers), otherwise, they throw an exception
+      // and the test fails (CheckCloseWithNaNFails and CheckCloseWithNaNAgainstItselfFails)
+      _control87(MCW_EM, MCW_EM);
+#endif
       const unsigned int bitpattern = 0xFFFFFFFF;
       float nan;
       UNIITEST_NS_QUAL_STD(memcpy)(&nan, &bitpattern, sizeof(bitpattern));

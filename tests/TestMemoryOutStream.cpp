@@ -257,7 +257,6 @@ namespace {
       CHECK_EQUAL("53124", stream.GetText());
    }
 
-#ifndef __BORLANDC__
    // Not sure why but this test fails with the Borland C++ 5.5 compiler.
    // It throws an unhandled exception:
    // unexpected NULL pointer in function: basic_string( const charT*,size_type,const Allocator&)
@@ -268,7 +267,6 @@ namespace {
       stream.Clear();
       CHECK_EQUAL("", stream.GetText());
    }
-#endif
 
 #ifndef UNITTEST_MEMORYOUTSTREAM_IS_STD_OSTRINGSTREAM
 

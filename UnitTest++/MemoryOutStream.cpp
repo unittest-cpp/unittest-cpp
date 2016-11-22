@@ -6,14 +6,19 @@ namespace UnitTest {
 
    char const* MemoryOutStream::GetText() const
    {
-      m_text = this->str();
+      try
+      {
+            m_text = this->str();
+      }
+      catch (...) { m_text = ""; }
+
       return m_text.c_str();
    }
 
    void MemoryOutStream::Clear()
    {
       this->str(std::string());
-      m_text = this->str();
+      m_text = std::string();
    }
 
 #ifdef UNITTEST_COMPILER_IS_MSVC6
