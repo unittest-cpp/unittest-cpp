@@ -100,3 +100,11 @@ install(FILES ${headers_} DESTINATION ${UTPP_INSTALL_DESTINATION})
 install(FILES ${platformHeaders_} DESTINATION ${UTPP_INSTALL_DESTINATION}/${platformDir_})
 install(FILES cmake/UnitTest++Config.cmake DESTINATION "${config_install_dir_}")
 install(EXPORT "${targets_export_name_}" DESTINATION "${config_install_dir_}")
+
+set(prefix      ${CMAKE_INSTALL_PREFIX})
+set(exec_prefix ${CMAKE_INSTALL_PREFIX}/bin)
+set(libdir      ${CMAKE_INSTALL_PREFIX}/lib)
+set(includedir  ${CMAKE_INSTALL_PREFIX}/include/UnitTest++)
+configure_file("UnitTest++.pc.in" "UnitTest++.pc" @ONLY)
+install(FILES       "${CMAKE_CURRENT_BINARY_DIR}/UnitTest++.pc"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
