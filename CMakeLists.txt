@@ -11,22 +11,24 @@ option(UTPP_AMPLIFY_WARNINGS
     "Set this to OFF if you wish to use CMake default warning levels; should generally only use to work around support issues for your specific compiler"
     ON)
 
-message(STATUS "CMAKE_CXX_COMPILER_ID = ${CMAKE_CXX_COMPILER_ID}")
-if(MSVC14 OR MSVC12)
-	message(STATUS "Using MSVC compiler")
-    # has the support we need
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	# CHECK_CXX_COMPILER_FLAG could be used
+	# but MSVC version is preferred for feature requirements
+	if (MSVC14 OR MSVC12)
+		# has the support we need
+	else()
+		message(WARNING "The MSVC compiler version does not support required C++11 features. Please use a different C++ compiler.")
+	endif()
 else()
     include(CheckCXXCompilerFlag)
     CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
     CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
     if(COMPILER_SUPPORTS_CXX14)
-		message(STATUS "Specify C++14")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
     elseif(COMPILER_SUPPORTS_CXX11)
-		message(STATUS "Specify C++11")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     else()
-            message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+        message(WARNING "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
     endif()
 endif()
 
