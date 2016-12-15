@@ -11,7 +11,7 @@ option(UTPP_AMPLIFY_WARNINGS
     "Set this to OFF if you wish to use CMake default warning levels; should generally only use to work around support issues for your specific compiler"
     ON)
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+if(${CMAKE_CXX_COMPILER_ID} MATCHES "MSVC")
 	# CHECK_CXX_COMPILER_FLAG could be used
 	# but MSVC version is preferred for feature requirements
 	if (MSVC14 OR MSVC12)
