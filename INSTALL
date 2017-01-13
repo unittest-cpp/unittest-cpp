@@ -1,3 +1,9 @@
+
+Preamble: If you are installing UnitTest++ from source, or from a
+release prior to 1.6.1, you will need to have autotools installed and
+run `autoreconf -i; autoconf` prior to following the standard
+instructions below.
+
 Installation Instructions
 *************************
 
