@@ -4,6 +4,7 @@
 #include "TestReporterStdout.h"
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
+#include "PredicateCmdBuilder.h"
 
 #include <cstring>
 
@@ -17,6 +18,21 @@ namespace UnitTest {
       return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
    }
 
+   int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs)
+   {
+      SuitePredicate predicate;
+      ArgumentsReader arguments(argc, argv);
+      PredicateCmdBuilder::fillSuitePredicate(arguments, predicate, allowImplicitArgs);
+
+      TestReporterStdout reporter;
+      TestRunner runner(reporter);
+      return runner.RunTestsIf(Test::GetTestList(), 0, predicate, 0);
+   }
+
+   int RunTestsCmd(int argc, char**argv)
+   {
+      return RunTestsCmd(argc, argv, true);
+   }
 
    TestRunner::TestRunner(TestReporter& reporter)
       : m_reporter(&reporter)

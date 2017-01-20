@@ -1,4 +1,5 @@
 #include "TestDetails.h"
+#include <cstring> // "c" version required for gcc
 
 namespace UnitTest {
 
@@ -18,5 +19,29 @@ namespace UnitTest {
       , timeConstraintExempt(details.timeConstraintExempt)
    {}
 
+   bool TestDetails::sameTest(const TestDetails & details) const
+   {
+      if (&details == this)
+      {
+         return true;
+      }
 
+      // Fast pointer comparison
+      if (details.suiteName == suiteName &&
+         details.testName == testName &&
+         details.filename == filename)
+      {
+         return true;
+      }
+
+      // Long string comparison
+      if (!strcmp(details.suiteName, suiteName) &&
+         !strcmp(details.testName, testName) &&
+         !strcmp(details.filename, filename))
+      {
+         return true;
+      }
+
+      return false;
+   }
 }
