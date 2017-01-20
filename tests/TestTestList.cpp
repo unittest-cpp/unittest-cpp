@@ -18,8 +18,8 @@ namespace {
       TestList list;
       list.Add(&test);
 
-      CHECK(list.GetHead() == &test);
-      CHECK(test.m_nextTest == 0);
+      CHECK(list.GetHead()->m_test == &test);
+      CHECK(list.GetHead()->m_next == 0);
    }
 
    TEST(AddingSecondTestAddsItToEndOfList)
@@ -28,12 +28,12 @@ namespace {
       Test test2("test2");
 
       TestList list;
-      list.Add(&test1);
-      list.Add(&test2);
+      TestListNode* test1Node = list.Add(&test1);
+      TestListNode* test2Node = list.Add(&test2);
 
-      CHECK(list.GetHead() == &test1);
-      CHECK(test1.m_nextTest == &test2);
-      CHECK(test2.m_nextTest == 0);
+      CHECK(list.GetHead()->m_test == &test1);
+      CHECK(test1Node->m_next->m_test == &test2);
+      CHECK(test2Node->m_next == 0);
    }
 
    TEST(ListAdderAddsTestToList)
@@ -43,8 +43,8 @@ namespace {
       Test test("");
       ListAdder adder(list, &test);
 
-      CHECK(list.GetHead() == &test);
-      CHECK(test.m_nextTest == 0);
+      CHECK(list.GetHead()->m_test == &test);
+      CHECK(list.GetHead()->m_next == 0);
    }
 
 }
