@@ -9,6 +9,9 @@
 #include <stdexcept>
 
 using namespace std;
+#ifdef __BORLANDC__
+using namespace UnitTest;
+#endif
 
 namespace {
 

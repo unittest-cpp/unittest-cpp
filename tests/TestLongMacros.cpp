@@ -2,6 +2,10 @@
 
 #include "UnitTest++/UnitTestPP.h"
 
+#ifdef __BORLANDC__
+using namespace UnitTest;
+#endif
+
 // This file is not intended to test every little thing, just a few basics to hopefully ensure
 // the macros are working and the short macros are not defined.
 UNITTEST_SUITE(LongMacros)

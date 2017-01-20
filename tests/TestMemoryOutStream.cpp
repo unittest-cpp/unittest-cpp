@@ -170,7 +170,7 @@ namespace {
    TEST(StreamingLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
-#ifdef UNITTEST_COMPILER_IS_MSVC6
+#if defined(UNITTEST_COMPILER_IS_MSVC6) || defined(__BORLANDC__)
       stream << (__int64)-12345i64;
 #else
       stream << (long long)-12345ll;
@@ -199,7 +199,7 @@ namespace {
    TEST(StreamingUnsignedLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
-#ifdef UNITTEST_COMPILER_IS_MSVC6
+#if defined(UNITTEST_COMPILER_IS_MSVC6) || defined(__BORLANDC__)
       stream << (unsigned __int64)85899ui64;
 #else
       stream << (unsigned long long)85899ull;
@@ -219,7 +219,7 @@ namespace {
    TEST(StreamingMinUnsignedLongLongWritesCorrectCharacters)
    {
       MemoryOutStream stream;
-#ifdef UNITTEST_COMPILER_IS_MSVC6
+#if defined(UNITTEST_COMPILER_IS_MSVC6) || defined(__BORLANDC__)
       stream << (unsigned __int64)0ui64;
 #else
       stream << (unsigned long long)0ull;
@@ -257,6 +257,9 @@ namespace {
       CHECK_EQUAL("53124", stream.GetText());
    }
 
+   // Not sure why but this test fails with the Borland C++ 5.5 compiler.
+   // It throws an unhandled exception:
+   // unexpected NULL pointer in function: basic_string( const charT*,size_type,const Allocator&)
    TEST(ClearEmptiesMemoryOutStreamContents)
    {
       MemoryOutStream stream;

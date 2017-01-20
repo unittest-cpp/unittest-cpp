@@ -4,6 +4,10 @@
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"
 
+#ifdef __BORLANDC__
+using namespace UnitTest;
+#endif
+
 namespace {
 
    TEST(TimeConstraintMacroQualifiesNamespace)

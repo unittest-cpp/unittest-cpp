@@ -10,7 +10,12 @@ option(UTPP_INCLUDE_TESTS_IN_BUILD
 option(UTPP_AMPLIFY_WARNINGS
     "Set this to OFF if you wish to use CMake default warning levels; should generally only use to work around support issues for your specific compiler"
     ON)
-
+    
+if(BORLAND)
+    set(UTPP_USE_PLUS_SIGN OFF)
+    string(APPEND CMAKE_CXX_STANDARD_LIBRARIES " cp32mti.lib Vcl50.bpi Vclx50.bpi bcbsmp50.bpi Qrpt50.bpi Vcldb50.bpi Vclbde50.bpi ibsmp50.bpi vcldbx50.bpi TeeUI50.bpi TeeDB50.bpi Tee50.bpi TeeQR50.bpi VCLIB50.bpi bcbie50.bpi vclie50.bpi Inetdb50.bpi Inet50.bpi NMFast50.bpi dclocx50.bpi bcb2kaxserver50.bpi Memmgr.Lib ")
+endif()
+    
 if(MSVC14 OR MSVC12)
     # has the support we need
 else()
@@ -32,6 +37,8 @@ if (${UTPP_AMPLIFY_WARNINGS})
     # we are dealing with an MSVC or MSVC-like compiler (e.g. Intel on Windows)
     if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
         string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+	elseif(BORLAND)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w-par")
     else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
     endif()
@@ -59,28 +66,34 @@ add_library(UnitTest++ STATIC ${headers_} ${sources_} ${platformHeaders_} ${plat
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(UnitTest++ PROPERTIES OUTPUT_NAME UnitTest++)
+else()
+	set_target_properties(UnitTest++ PROPERTIES OUTPUT_NAME UnitTestpp)
 endif()
 
+
+if(${UTPP_USE_PLUS_SIGN})
+    set(UTPP_TEST_NAME TestUnitTest++)
+else()
+    set(UTPP_TEST_NAME TestUnitTestPP)
+endif()
 
 # build the test runner
 file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} tests/*.cpp tests/*.h)
 source_group( "" FILES ${TEST_SRCS})
-add_executable(TestUnitTest++ ${TEST_SRCS})
+add_executable(${UTPP_TEST_NAME} ${TEST_SRCS})
 include_directories(.)
 
-if(${UTPP_USE_PLUS_SIGN})
-	set_target_properties(TestUnitTest++ PROPERTIES OUTPUT_NAME TestUnitTest++)
-endif()
+set_target_properties(${UTPP_TEST_NAME} PROPERTIES OUTPUT_NAME ${UTPP_TEST_NAME})
 
-target_link_libraries(TestUnitTest++ UnitTest++)
+target_link_libraries(${UTPP_TEST_NAME} UnitTest++)
 
 # run unit tests as post build step
-add_custom_command(TARGET TestUnitTest++
-    POST_BUILD COMMAND TestUnitTest++
+add_custom_command(TARGET ${UTPP_TEST_NAME}
+    POST_BUILD COMMAND ${UTPP_TEST_NAME}
     COMMENT "Running unit tests")
 
 if(NOT ${UTPP_INCLUDE_TESTS_IN_BUILD})
-    set_target_properties(TestUnitTest++ PROPERTIES EXCLUDE_FROM_ALL 1)
+    set_target_properties(${UTPP_TEST_NAME} PROPERTIES EXCLUDE_FROM_ALL 1)
 endif()
 
 # add install targets

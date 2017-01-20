@@ -4,6 +4,9 @@
 #include "ScopedCurrentTest.h"
 
 using namespace std;
+#ifdef __BORLANDC__
+using namespace UnitTest;
+#endif
 
 #ifndef UNITTEST_NO_EXCEPTIONS
 
