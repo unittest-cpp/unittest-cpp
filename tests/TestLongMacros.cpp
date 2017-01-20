@@ -37,7 +37,9 @@ UNITTEST_SUITE(LongMacros)
     defined(SUITE) || \
     defined(TEST) || \
     defined(TEST_FIXTURE) || \
-    defined(REQUIRE)
+    defined(REQUIRE) || \
+    defined(SET_TEST_PARAMETER_LISTENER) || \
+    defined(SET_TEST_PARAMETER)
 
       UNITTEST_CHECK(false);
 #endif

@@ -8,5 +8,6 @@
 #include "TestRunner.h"
 #include "TimeConstraint.h"
 #include "ReportAssert.h"
+#include "ParameterizedMacros.h"
 
 #endif

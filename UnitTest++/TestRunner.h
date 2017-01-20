@@ -13,6 +13,18 @@ namespace UnitTest {
 
    UNITTEST_LINKAGE int RunAllTests();
 
+   /**
+	* Commands:
+	*  --test One or multiple test names to execute (specify "--test" is optional if it is the first argument), can be combined with --suite
+	*  --suite One or multiple suite names to execute, can be combined with --test
+	*  --ignoreparam One or multiple test parameter name, with index(es) specified, using this syntax: pzMyParam[4,8,12,7]
+	*
+	* Usage examples:
+	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest --ignoreparam pzMyPlatforms[0,2,3] pzMyParam[4,8]
+	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
+	*/
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, char const* suiteArgument = "--suite", char const* testArgument = "--test", char const* ignoreParamArgument = "--ignoreparam");
+
    struct True
    {
       bool operator()(const Test* const) const
@@ -31,14 +43,14 @@ namespace UnitTest {
       int RunTestsIf(TestList const& list, char const* suiteName,
                      const Predicate& predicate, int maxTestTimeInMs) const
       {
-         Test* curTest = list.GetHead();
+         TestListNode* curTest = list.GetHead();
 
          while (curTest != 0)
          {
-            if (IsTestInSuite(curTest, suiteName) && predicate(curTest))
-               RunTest(m_result, curTest, maxTestTimeInMs);
+            if (IsTestInSuite(curTest->m_test, suiteName) && predicate(curTest->m_test))
+               RunTest(m_result, curTest->m_test, maxTestTimeInMs);
 
-            curTest = curTest->m_nextTest;
+            curTest = curTest->m_next;
          }
 
          return Finish();

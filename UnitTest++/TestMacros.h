@@ -71,7 +71,7 @@
          ({                                                                                                              \
          Fixture ## Name ## Helper fixtureHelper(m_details);                                                             \
          ctorOk = true;                                                                                                  \
-         UnitTest::ExecuteTest(fixtureHelper, m_details, false);                                                         \
+         UnitTest::ExecuteTest(fixtureHelper, m_details, false, false);                                                  \
       })                                                                                                                 \
       UNITTEST_IMPL_CATCH (UnitTest::AssertException, e,                                                                            \
       {                                                                                                                  \

@@ -2,6 +2,8 @@
 #include "TestReporter.h"
 
 #include "TestDetails.h"
+#include "MemoryOutStream.h"
+#include "ParameterizedManager.h"
 
 namespace UnitTest {
 
@@ -31,7 +33,24 @@ namespace UnitTest {
       }
 
       if (m_testReporter)
-         m_testReporter->ReportFailure(test, failure);
+	  {
+         MemoryOutStream stream;
+         stream << failure;
+         const vector<TestParameterAbstract*> & parameters = ParameterizedManager::getInstance().getStack(&test);
+         if (!parameters.empty())
+         {
+            stream << " Parameters: ";
+            for (size_t i = 0; i < parameters.size(); i++)
+            {
+               if (i != 0)
+               {
+                  stream << ", ";
+               }
+               stream << parameters[i]->getNameCurrent();
+            }
+         }
+         m_testReporter->ReportFailure(test, stream.GetText());
+      }
    }
 
    void TestResults::OnTestFinish(TestDetails const& test, float secondsElapsed)
