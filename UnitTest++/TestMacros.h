@@ -54,7 +54,7 @@
       Fixture ## Name ## Helper(Fixture ## Name ## Helper const&);                                                       \
       Fixture ## Name ## Helper& operator =(Fixture ## Name ## Helper const&);                                           \
    };                                                                                                                    \
-   Fixture ## Name ## Helper::~Fixture ## Name ## Helper(){};                                                            \
+   Fixture ## Name ## Helper::~Fixture ## Name ## Helper(){}                                                             \
                                                                                                                          \
    class Test ## Fixture ## Name : public UnitTest::Test                                                                 \
    {                                                                                                                     \
