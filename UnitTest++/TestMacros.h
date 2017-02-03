@@ -25,16 +25,16 @@
    }                                          \
    namespace Suite ## Name
 
-#define UNITTEST_IMPL_TEST(Name, List)                                                              \
+#define UNITTEST_IMPL_TEST(Name, List)                                                   \
    class Test ## Name : public UnitTest::Test                                            \
    {                                                                                     \
    public:                                                                               \
       Test ## Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {} \
    private:                                                                              \
       virtual void RunImpl() const;                                                      \
-   } test ## Name ## Instance;                                                           \
+   } static test ## Name ## Instance;                                                    \
                                                                                          \
-   UnitTest::ListAdder adder ## Name (List, &test ## Name ## Instance);                  \
+   static UnitTest::ListAdder adder ## Name (List, &test ## Name ## Instance);           \
                                                                                          \
    void Test ## Name::RunImpl() const
 
@@ -62,9 +62,9 @@
       Test ## Fixture ## Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}                      \
    private:                                                                                                              \
       virtual void RunImpl() const;                                                                                      \
-   } static test ## Fixture ## Name ## Instance;                                                                                \
+   } static test ## Fixture ## Name ## Instance;                                                                         \
                                                                                                                          \
-   static UnitTest::ListAdder adder ## Fixture ## Name (List, &test ## Fixture ## Name ## Instance);                            \
+   static UnitTest::ListAdder adder ## Fixture ## Name (List, &test ## Fixture ## Name ## Instance);                     \
                                                                                                                          \
    void Test ## Fixture ## Name::RunImpl() const                                                                         \
    {                                                                                                                     \
