@@ -11,6 +11,8 @@ option(UTPP_AMPLIFY_WARNINGS
     "Set this to OFF if you wish to use CMake default warning levels; should generally only use to work around support issues for your specific compiler"
     ON)
 
+set(LIB_SUFFIX "" CACHE STRING "Identifier to add to end of lib directory name e.g. 64 for lib64")
+
 if(MSVC14 OR MSVC12)
     # has the support we need
 else()
@@ -92,10 +94,10 @@ else()
 	set (UTPP_INSTALL_DESTINATION "include/UnitTestPP")
 endif()
 
-set(config_install_dir_ lib/cmake/${PROJECT_NAME})
+set(config_install_dir_ lib${LIB_SUFFIX}/cmake/${PROJECT_NAME})
 set(targets_export_name_ "${PROJECT_NAME}Targets")
 
-install(TARGETS UnitTest++ EXPORT "${targets_export_name_}" DESTINATION lib)
+install(TARGETS UnitTest++ EXPORT "${targets_export_name_}" DESTINATION lib${LIB_SUFFIX})
 install(FILES ${headers_} DESTINATION ${UTPP_INSTALL_DESTINATION})
 install(FILES ${platformHeaders_} DESTINATION ${UTPP_INSTALL_DESTINATION}/${platformDir_})
 install(FILES cmake/UnitTest++Config.cmake DESTINATION "${config_install_dir_}")
@@ -103,13 +105,13 @@ install(EXPORT "${targets_export_name_}" DESTINATION "${config_install_dir_}")
 
 set(prefix      ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix ${CMAKE_INSTALL_PREFIX}/bin)
-set(libdir      ${CMAKE_INSTALL_PREFIX}/lib)
+set(libdir      ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX})
 set(includedir  ${CMAKE_INSTALL_PREFIX}/include/UnitTest++)
 configure_file("UnitTest++.pc.in" "UnitTest++.pc" @ONLY)
 if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
     set(pkgconfdir  ${CMAKE_INSTALL_PREFIX}/libdata/pkgconfig)
 else()
-    set(pkgconfdir  ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
+    set(pkgconfdir  ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig)
 endif()
 install(FILES       "${CMAKE_CURRENT_BINARY_DIR}/UnitTest++.pc"
         DESTINATION "${pkgconfdir}")
