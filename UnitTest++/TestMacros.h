@@ -25,16 +25,16 @@
    }                                          \
    namespace Suite ## Name
 
-#define UNITTEST_IMPL_TEST(Name, List)                                                              \
+#define UNITTEST_IMPL_TEST(Name, List)                                                   \
    class Test ## Name : public UnitTest::Test                                            \
    {                                                                                     \
    public:                                                                               \
       Test ## Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {} \
    private:                                                                              \
       virtual void RunImpl() const;                                                      \
-   } test ## Name ## Instance;                                                           \
+   } static test ## Name ## Instance;                                                    \
                                                                                          \
-   UnitTest::ListAdder adder ## Name (List, &test ## Name ## Instance);                  \
+   static UnitTest::ListAdder adder ## Name (List, &test ## Name ## Instance);           \
                                                                                          \
    void Test ## Name::RunImpl() const
 
@@ -49,10 +49,12 @@
       explicit Fixture ## Name ## Helper(UnitTest::TestDetails const& details) : m_details(details) {}                   \
       void RunImpl();                                                                                                    \
       UnitTest::TestDetails const& m_details;                                                                            \
+      virtual ~Fixture ## Name ## Helper();										                                                 \
    private:                                                                                                              \
       Fixture ## Name ## Helper(Fixture ## Name ## Helper const&);                                                       \
       Fixture ## Name ## Helper& operator =(Fixture ## Name ## Helper const&);                                           \
    };                                                                                                                    \
+   Fixture ## Name ## Helper::~Fixture ## Name ## Helper(){}                                                             \
                                                                                                                          \
    class Test ## Fixture ## Name : public UnitTest::Test                                                                 \
    {                                                                                                                     \
@@ -60,9 +62,9 @@
       Test ## Fixture ## Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}                      \
    private:                                                                                                              \
       virtual void RunImpl() const;                                                                                      \
-   } test ## Fixture ## Name ## Instance;                                                                                \
+   } static test ## Fixture ## Name ## Instance;                                                                         \
                                                                                                                          \
-   UnitTest::ListAdder adder ## Fixture ## Name (List, &test ## Fixture ## Name ## Instance);                            \
+   static UnitTest::ListAdder adder ## Fixture ## Name (List, &test ## Fixture ## Name ## Instance);                     \
                                                                                                                          \
    void Test ## Fixture ## Name::RunImpl() const                                                                         \
    {                                                                                                                     \
