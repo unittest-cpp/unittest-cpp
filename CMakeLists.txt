@@ -13,7 +13,7 @@ option(UTPP_AMPLIFY_WARNINGS
 
 set(LIB_SUFFIX "" CACHE STRING "Identifier to add to end of lib directory name e.g. 64 for lib64")
 
-if(${CMAKE_CXX_COMPILER_ID} MATCHES "MSVC")
+if (MSVC)
 	# CHECK_CXX_COMPILER_FLAG could be used
 	# but MSVC version is preferred for feature requirements
 	if (MSVC14 OR MSVC12)
