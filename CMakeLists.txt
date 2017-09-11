@@ -10,6 +10,9 @@ option(UTPP_INCLUDE_TESTS_IN_BUILD
 option(UTPP_AMPLIFY_WARNINGS
     "Set this to OFF if you wish to use CMake default warning levels; should generally only use to work around support issues for your specific compiler"
     ON)
+option(UTPP_RUN_TESTS
+    "Set this to OFF if you do not wish to let CMake run the tests"
+    ON)
 
 set(LIB_SUFFIX "" CACHE STRING "Identifier to add to end of lib directory name e.g. 64 for lib64")
 
@@ -82,10 +85,12 @@ endif()
 
 target_link_libraries(TestUnitTest++ UnitTest++)
 
-# run unit tests as post build step
-add_custom_command(TARGET TestUnitTest++
-    POST_BUILD COMMAND TestUnitTest++
-    COMMENT "Running unit tests")
+IF(${UTPP_RUN_TESTS})
+  # run unit tests as post build step
+  add_custom_command(TARGET TestUnitTest++
+      POST_BUILD COMMAND TestUnitTest++
+      COMMENT "Running unit tests")
+endif()
 
 if(NOT ${UTPP_INCLUDE_TESTS_IN_BUILD})
     set_target_properties(TestUnitTest++ PROPERTIES EXCLUDE_FROM_ALL 1)
