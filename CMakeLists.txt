@@ -60,6 +60,10 @@ endif(WIN32)
 
 file(GLOB platformHeaders_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${platformDir_}/*.h)
 file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${platformDir_}/*.cpp)
+if(CYGWIN)
+    list(REMOVE_ITEM platformHeaders_ UnitTest++/${platformDir_}/SignalTranslator.h)
+    list(REMOVE_ITEM platformSources_ UnitTest++/${platformDir_}/SignalTranslator.cpp)
+endif()
 source_group(${platformDir_} FILES ${platformHeaders_} ${platformSources_})
 
 # create the lib
