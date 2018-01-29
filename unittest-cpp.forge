@@ -1,0 +1,3 @@
+
+buildfile "tests/tests.forge";
+buildfile 'UnitTest++/UnitTest++.forge';

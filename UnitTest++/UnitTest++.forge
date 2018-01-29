@@ -1,0 +1,48 @@
+
+for _, forge in forge:builds('cc.*') do
+    local forge = forge:inherit {
+        warning_level = 0;
+    };
+
+    local library = forge:StaticLibrary '${lib}/UnitTest++_${architecture}' {
+        forge:Cxx '${obj}/%1' {
+            'RequiredCheckException.cpp',
+            'RequiredCheckTestReporter.cpp',
+            'CompositeTestReporter.cpp',
+            'Checks.cpp',
+            'TestReporter.cpp',
+            'Test.cpp',
+            'TestRunner.cpp',
+            'ThrowingTestReporter.cpp',
+            'XmlTestReporter.cpp',
+            'TestList.cpp',
+            'DeferredTestReporter.cpp',
+            'DeferredTestResult.cpp',
+            'CurrentTest.cpp',
+            'TestDetails.cpp',
+            'ReportAssert.cpp',
+            'TimeConstraint.cpp',
+            'TestResults.cpp',
+            'MemoryOutStream.cpp',
+            'AssertException.cpp',
+            'TestReporterStdout.cpp'
+        };    
+    };
+
+    if forge:platform_matches('windows') then
+        library {
+            forge:Cxx '${obj}/%1' {
+                'Win32/TimeHelpers.cpp'
+            };
+        };
+    end
+
+    if forge:platform_matches('macos') or forge:platform_matches('linux') then
+        library {
+            forge:Cxx '${obj}/%1' {
+                'Posix/SignalTranslator.cpp',
+                'Posix/TimeHelpers.cpp'
+            };
+        };
+    end
+end
