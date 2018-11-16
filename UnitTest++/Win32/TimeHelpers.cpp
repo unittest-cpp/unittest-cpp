@@ -4,8 +4,9 @@
 #include <windows.h>
 
 namespace UnitTest {
+namespace Detail {
 
-   Timer::Timer()
+   TimerImplWin32::TimerImplWin32()
       : m_threadHandle(::GetCurrentThread())
       , m_startTime(0)
    {
@@ -20,19 +21,19 @@ namespace UnitTest {
       ::SetThreadAffinityMask(m_threadHandle, m_processAffinityMask);
    }
 
-   void Timer::Start()
+   void TimerImplWin32::Start()
    {
       m_startTime = GetTime();
    }
 
-   double Timer::GetTimeInMs() const
+   double TimerImplWin32::GetTimeInMs() const
    {
       __int64 const elapsedTime = GetTime() - m_startTime;
       double const seconds = double(elapsedTime) / double(m_frequency);
       return seconds * 1000.0;
    }
 
-   __int64 Timer::GetTime() const
+   __int64 TimerImplWin32::GetTime() const
    {
       LARGE_INTEGER curTime;
       ::SetThreadAffinityMask(m_threadHandle, 1);
@@ -41,9 +42,10 @@ namespace UnitTest {
       return curTime.QuadPart;
    }
 
-   void TimeHelpers::SleepMs(int ms)
+   void SleepMsImplWin32(int ms)
    {
       ::Sleep(ms);
    }
 
+}
 }

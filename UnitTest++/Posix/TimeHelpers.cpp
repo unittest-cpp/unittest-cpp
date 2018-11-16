@@ -2,19 +2,20 @@
 #include <unistd.h>
 
 namespace UnitTest {
+namespace Detail {
 
-   Timer::Timer()
+   TimerImplPosix::TimerImplPosix()
    {
       m_startTime.tv_sec = 0;
       m_startTime.tv_usec = 0;
    }
 
-   void Timer::Start()
+   void TimerImplPosix::Start()
    {
       gettimeofday(&m_startTime, 0);
    }
 
-   double Timer::GetTimeInMs() const
+   double TimerImplPosix::GetTimeInMs() const
    {
       struct timeval currentTime;
       gettimeofday(&currentTime, 0);
@@ -25,9 +26,10 @@ namespace UnitTest {
       return (dsecs * 1000.0) + (dus / 1000.0);
    }
 
-   void TimeHelpers::SleepMs(int ms)
+   void SleepMsImplPosix(int ms)
    {
       usleep(static_cast<useconds_t>(ms * 1000));
    }
 
+}
 }
