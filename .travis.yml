@@ -1,21 +1,11 @@
 language: cpp
-
-# Build with gcc and clang.
-compiler:
-  - gcc
-  - clang
-
-# Build both debug and release configurations, through use of an environment variable in the build matrix.
-env:
-  - CONFIGURATION=Debug
-  - CONFIGURATION=Release
-
-# Run cmake to generate makefiles in 'builds' directory.
-# No need to create it because it's part of the repo.
-# Pass along configuration type to cmake.
-before_script:
-  - cd builds && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$CONFIGURATION ../ && cd ..
-
-# Run make in the directory containing generated makefiles.
+os:
+  - linux
+  - osx
+  - windows
+install:
+  - wget https://github.com/cwbaker/forge/releases/download/v0.0.2-rc.6/forge-${TRAVIS_OS_NAME}-v0.0.2-rc.6.tar.gz
+  - tar -xvf forge-*.tar.gz
 script:
-  - make -C builds
+  - forge/bin/forge variant=release
+  - release/bin/TestUnitTest++
