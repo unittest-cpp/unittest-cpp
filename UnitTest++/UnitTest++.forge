@@ -1,5 +1,5 @@
 
-for _, forge in forge:builds('cc.*') do
+for _, forge in toolsets('cc.*') do
     local forge = forge:inherit {
         warning_level = 0;
     };
