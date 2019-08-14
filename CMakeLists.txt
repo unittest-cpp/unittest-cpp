@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8.1)
-project(UnitTest++)
+cmake_minimum_required(VERSION 3.0)
+project(UnitTest++ VERSION 2.1)
 
 option(UTPP_USE_PLUS_SIGN
     "Set this to OFF if you wish to use '-cpp' instead of '++' in lib/include paths"
@@ -74,7 +74,7 @@ endif()
 file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} tests/*.cpp tests/*.h)
 source_group( "" FILES ${TEST_SRCS})
 add_executable(TestUnitTest++ ${TEST_SRCS})
-include_directories(.)
+
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(TestUnitTest++ PROPERTIES OUTPUT_NAME TestUnitTest++)
@@ -100,13 +100,30 @@ else()
 	set (UTPP_INSTALL_DESTINATION "include/UnitTestPP")
 endif()
 
+target_include_directories( UnitTest++
+	PUBLIC
+		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+		$<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/UnitTest++>
+	) 
+set_target_properties(UnitTest++ PROPERTIES DEBUG_POSTFIX "-d")
+set_target_properties(TestUnitTest++ PROPERTIES DEBUG_POSTFIX "-d")
+
 set(config_install_dir_ lib${LIB_SUFFIX}/cmake/${PROJECT_NAME})
 set(targets_export_name_ "${PROJECT_NAME}Targets")
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+	cmake/UnitTest++ConfigVersion.cmake
+	VERSION ${UnitTest++_VERSION}
+	COMPATIBILITY SameMajorVersion
+	)
 
 install(TARGETS UnitTest++ EXPORT "${targets_export_name_}" DESTINATION lib${LIB_SUFFIX})
 install(FILES ${headers_} DESTINATION ${UTPP_INSTALL_DESTINATION})
 install(FILES ${platformHeaders_} DESTINATION ${UTPP_INSTALL_DESTINATION}/${platformDir_})
-install(FILES cmake/UnitTest++Config.cmake DESTINATION "${config_install_dir_}")
+install(FILES 
+	cmake/UnitTest++Config.cmake 
+	${CMAKE_CURRENT_BINARY_DIR}/cmake/UnitTest++ConfigVersion.cmake
+	DESTINATION "${config_install_dir_}")
 install(EXPORT "${targets_export_name_}" DESTINATION "${config_install_dir_}")
 
 set(prefix      ${CMAKE_INSTALL_PREFIX})
