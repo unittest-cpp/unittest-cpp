@@ -63,11 +63,25 @@ file(GLOB platformSources_ RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} UnitTest++/${pla
 source_group(${platformDir_} FILES ${platformHeaders_} ${platformSources_})
 
 # create the lib
-add_library(UnitTest++ STATIC ${headers_} ${sources_} ${platformHeaders_} ${platformSources_})
+add_library(UnitTest++ STATIC ${sources_} ${platformSources_})
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(UnitTest++ PROPERTIES OUTPUT_NAME UnitTest++)
 endif()
+
+if(${UTPP_USE_PLUS_SIGN})
+	set (UTPP_INSTALL_DESTINATION "include/UnitTest++")
+else()
+	set (UTPP_INSTALL_DESTINATION "include/UnitTestPP")
+endif()
+
+
+# indicate where to find includes during build and after installation
+target_include_directories(UnitTest++ PUBLIC
+  $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+  $<INSTALL_INTERFACE:${UTPP_INSTALL_DESTINATION}>
+  )
 
 
 # build the test runner
@@ -77,7 +91,7 @@ add_executable(TestUnitTest++ ${TEST_SRCS})
 include_directories(.)
 
 if(${UTPP_USE_PLUS_SIGN})
-	set_target_properties(TestUnitTest++ PROPERTIES OUTPUT_NAME TestUnitTest++)
+  set_target_properties(TestUnitTest++ PROPERTIES OUTPUT_NAME TestUnitTest++)
 endif()
 
 target_link_libraries(TestUnitTest++ UnitTest++)
@@ -94,16 +108,13 @@ endif()
 # add install targets
 # need a custom install path?
 # define CMAKE_INSTALL_PREFIX to change root folder
-if(${UTPP_USE_PLUS_SIGN})
-	set (UTPP_INSTALL_DESTINATION "include/UnitTest++")
-else()
-	set (UTPP_INSTALL_DESTINATION "include/UnitTestPP")
-endif()
-
 set(config_install_dir_ lib${LIB_SUFFIX}/cmake/${PROJECT_NAME})
 set(targets_export_name_ "${PROJECT_NAME}Targets")
 
-install(TARGETS UnitTest++ EXPORT "${targets_export_name_}" DESTINATION lib${LIB_SUFFIX})
+install(TARGETS UnitTest++ EXPORT "${targets_export_name_}"
+  ARCHIVE DESTINATION lib${LIB_SUFFIX}
+  LIBRARY DESTINATION lib${LIB_SUFFIX}
+  RUNTIME DESTINATION bin)
 install(FILES ${headers_} DESTINATION ${UTPP_INSTALL_DESTINATION})
 install(FILES ${platformHeaders_} DESTINATION ${UTPP_INSTALL_DESTINATION}/${platformDir_})
 install(FILES cmake/UnitTest++Config.cmake DESTINATION "${config_install_dir_}")
