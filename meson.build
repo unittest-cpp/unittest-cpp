@@ -1,4 +1,4 @@
-project('UnitTest++', 'cpp', meson_version: '>=0.53.0')
+project('UnitTest++', 'cpp', meson_version: '>=0.52.0')
 
 subdir('UnitTest++')
 
