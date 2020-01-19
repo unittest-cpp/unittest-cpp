@@ -1,4 +1,4 @@
-unittest_cpp_dir = include_directories('.')
+unittest_cpp_dir = include_directories('.', '.' / 'Posix')
 unittest_cpp_src = files(
     'AssertException.cpp',
     'Checks.cpp',
@@ -21,6 +21,7 @@ unittest_cpp_src = files(
     'TimeConstraint.cpp',
     'XmlTestReporter.cpp'
 )
+subdir('Posix')
 
 unittest_cpp_lib = static_library(meson.project_name(), 
     sources: unittest_cpp_src,
