@@ -22,6 +22,7 @@ unittest_cpp_src = files(
     'XmlTestReporter.cpp'
 )
 subdir('Posix')
+subdir('Win32')
 
 unittest_cpp_lib = library('unittest-cpp', 
     sources: unittest_cpp_src,
