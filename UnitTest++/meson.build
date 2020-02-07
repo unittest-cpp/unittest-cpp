@@ -1,4 +1,4 @@
-unittest_cpp_dir = include_directories('.', '.' / 'Posix')
+unittest_cpp_dir = include_directories('.', '.' / 'Win32', '.' / 'Posix')
 unittest_cpp_src = files(
     'AssertException.cpp',
     'Checks.cpp',
@@ -21,8 +21,11 @@ unittest_cpp_src = files(
     'TimeConstraint.cpp',
     'XmlTestReporter.cpp'
 )
-subdir('Posix')
-subdir('Win32')
+if build_machine.system() == 'windows'
+    subdir('Win32')
+else
+    subdir('Posix')
+endif
 
 unittest_cpp_lib = library('unittest-cpp', 
     sources: unittest_cpp_src,
