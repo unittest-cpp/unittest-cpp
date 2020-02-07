@@ -23,6 +23,6 @@ unittest_cpp_src = files(
 )
 subdir('Posix')
 
-unittest_cpp_lib = static_library('unittest-cpp', 
+unittest_cpp_lib = library('unittest-cpp', 
     sources: unittest_cpp_src,
     include_directories: unittest_cpp_dir)
