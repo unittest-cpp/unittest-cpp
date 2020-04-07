@@ -64,6 +64,8 @@ source_group(${platformDir_} FILES ${platformHeaders_} ${platformSources_})
 
 # create the lib
 add_library(UnitTest++ STATIC ${headers_} ${sources_} ${platformHeaders_} ${platformSources_})
+add_library(UnitTest++::UnitTest++ ALIAS UnitTest++)
+
 
 if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(UnitTest++ PROPERTIES OUTPUT_NAME UnitTest++)
@@ -80,7 +82,10 @@ if(${UTPP_USE_PLUS_SIGN})
 	set_target_properties(TestUnitTest++ PROPERTIES OUTPUT_NAME TestUnitTest++)
 endif()
 
-target_link_libraries(TestUnitTest++ UnitTest++)
+target_link_libraries(TestUnitTest++ 
+	PUBLIC
+		UnitTest++::UnitTest++
+	)
 
 # run unit tests as post build step
 add_custom_command(TARGET TestUnitTest++
@@ -124,7 +129,7 @@ install(FILES
 	cmake/UnitTest++Config.cmake 
 	${CMAKE_CURRENT_BINARY_DIR}/cmake/UnitTest++ConfigVersion.cmake
 	DESTINATION "${config_install_dir_}")
-install(EXPORT "${targets_export_name_}" DESTINATION "${config_install_dir_}")
+install(EXPORT "${targets_export_name_}" NAMESPACE "UnitTest++::" DESTINATION "${config_install_dir_}")
 
 set(prefix      ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix ${CMAKE_INSTALL_PREFIX}/bin)
