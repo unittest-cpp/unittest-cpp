@@ -72,7 +72,7 @@ namespace {
       CHECK_EQUAL(1, results.GetFailureCount());
    }
 
-#if !defined(UNITTEST_MINGW) && !defined(UNITTEST_WIN32)
+#if !defined(UNITTEST_MINGW) && !defined(UNITTEST_WIN32) && !defined(__clang__)
 // Skip this test in debug because some debuggers don't like it.
 #if defined(NDEBUG)
    TEST(CrashingTestsAreReportedAsFailures)
