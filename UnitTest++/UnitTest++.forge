@@ -1,11 +1,11 @@
 
-for _, forge in toolsets('cc.*') do
-    local forge = forge:inherit {
+for _, cc in toolsets('cc.*') do
+    local cc = cc:inherit {
         warning_level = 0;
     };
 
-    local library = forge:StaticLibrary '${lib}/UnitTest++_${architecture}' {
-        forge:Cxx '${obj}/%1' {
+    local library = cc:StaticLibrary '${lib}/UnitTest++_${platform}_${architecture}' {
+        cc:Cxx '${obj}/%1' {
             'RequiredCheckException.cpp',
             'RequiredCheckTestReporter.cpp',
             'CompositeTestReporter.cpp',
@@ -29,17 +29,15 @@ for _, forge in toolsets('cc.*') do
         };    
     };
 
-    if forge:platform_matches('windows') then
+    if cc:platform_matches('windows') then
         library {
-            forge:Cxx '${obj}/%1' {
+            cc:Cxx '${obj}/%1' {
                 'Win32/TimeHelpers.cpp'
             };
         };
-    end
-
-    if forge:platform_matches('macos') or forge:platform_matches('linux') then
+    elseif cc:platform_matches('macos') or cc:platform_matches('linux') then
         library {
-            forge:Cxx '${obj}/%1' {
+            cc:Cxx '${obj}/%1' {
                 'Posix/SignalTranslator.cpp',
                 'Posix/TimeHelpers.cpp'
             };
