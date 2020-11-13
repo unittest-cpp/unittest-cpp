@@ -1,4 +1,4 @@
->  ### Maintenance of UnitTest++, recently sporadic, is officially on hiatus until 15 October 2020. Subscribe to https://github.com/unittest-cpp/unittest-cpp/issues/180 for updates.
+>  ### Maintenance of UnitTest++, recently sporadic, is officially on hiatus until 26 November 2020. Subscribe to https://github.com/unittest-cpp/unittest-cpp/issues/180 for updates.
 
 
 [![Build Status](https://travis-ci.org/unittest-cpp/unittest-cpp.svg?branch=master)](https://travis-ci.org/unittest-cpp/unittest-cpp)
