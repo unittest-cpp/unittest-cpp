@@ -20,10 +20,16 @@
    #define UNITTEST_WIN32
 #endif
 
+#ifndef __CYGWIN__
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
    defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__) \
    || defined (__HAIKU__) || defined(_AIX)
    #define UNITTEST_POSIX
+#endif
+#endif
+
+#if defined(__CYGWIN__)
+   #define UNITTEST_CYGWIN
 #endif
 
 #if defined(__MINGW32__)

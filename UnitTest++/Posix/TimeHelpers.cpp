@@ -1,4 +1,6 @@
 #include "TimeHelpers.h"
+#include <chrono>
+#include <thread>
 #include <unistd.h>
 
 namespace UnitTest {
@@ -27,7 +29,7 @@ namespace UnitTest {
 
    void TimeHelpers::SleepMs(int ms)
    {
-      usleep(static_cast<useconds_t>(ms * 1000));
+      std::this_thread::sleep_for(std::chrono::microseconds(ms * 1000));
    }
 
 }
