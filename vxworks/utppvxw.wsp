@@ -1,0 +1,15 @@
+Document file - DO NOT EDIT
+
+<BEGIN> CORE_INFO_TYPE
+Workspace
+<END>
+
+<BEGIN> CORE_INFO_VERSION
+2.2
+<END>
+
+<BEGIN> projectList
+$(PRJ_DIR)/utppvxwlib/utppvxwlib.wpj \
+	$(PRJ_DIR)/utppvxwtests/utppvxwtests.wpj
+<END>
+

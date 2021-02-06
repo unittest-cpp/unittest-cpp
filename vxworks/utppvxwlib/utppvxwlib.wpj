@@ -1,0 +1,859 @@
+Document file - DO NOT EDIT
+
+<BEGIN> BUILD_PPC604gnu_BUILDRULE
+archive
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_AR
+arppc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_ARCHIVE
+$(PRJ_DIR)/PPC604gnu/utppvxwlib.a
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_AS
+ccppc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_CC
+ccppc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_CC_ARCH_SPEC
+-mcpu=604 -mstrict-align
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_CFLAGS
+-g \
+	-mcpu=604 \
+	-mstrict-align \
+	-ansi \
+	-fno-builtin \
+	-I. \
+	-I$(WIND_BASE)/target/h/ \
+	-I../UnitTest++/ \
+	-DCPU=PPC604 \
+	-DTOOL_FAMILY=gnu \
+	-DTOOL=gnu \
+	-DUNITTEST_VXWORKS
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_CFLAGS_AS
+-g \
+	-mcpu=604 \
+	-mstrict-align \
+	-ansi \
+	-fno-builtin \
+	-P \
+	-xassembler-with-cpp \
+	-I. \
+	-I$(WIND_BASE)/target/h/ \
+	-DCPU=PPC604 \
+	-DTOOL_FAMILY=gnu \
+	-DTOOL=gnu
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_CPP
+ccppc -E -P
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_HEX_FLAGS
+
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_LD
+ldppc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_LDFLAGS
+-X -N
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_LD_PARTIAL
+ccppc -r -nostdlib -Wl,-X
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_LD_PARTIAL_FLAGS
+-X -r
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_NM
+nmppc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_OPTION_DEFINE_MACRO
+-D
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_OPTION_DEPEND
+-M -w
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_OPTION_GENERATE_DEPENDENCY_FILE
+-MD
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_OPTION_INCLUDE_DIR
+-I
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_OPTION_LANG_C
+-xc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_OPTION_UNDEFINE_MACRO
+-U
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_POST_BUILD_RULE
+
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_PRJ_LIBS
+
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_SIZE
+sizeppc
+<END>
+
+<BEGIN> BUILD_PPC604gnu_MACRO_TOOL_FAMILY
+gnu
+<END>
+
+<BEGIN> BUILD_PPC604gnu_RO_DEPEND_PATH
+{$(WIND_BASE)/target/h/} \
+	{$(WIND_BASE)/target/src/} \
+	{$(WIND_BASE)/target/config/}
+<END>
+
+<BEGIN> BUILD_PPC604gnu_TC
+::tc_PPC604gnu
+<END>
+
+<BEGIN> BUILD_RULE_archive
+
+<END>
+
+<BEGIN> BUILD_RULE_objects
+
+<END>
+
+<BEGIN> BUILD_RULE_utppvxwlib.out
+
+<END>
+
+<BEGIN> BUILD_RULE_utppvxwlib.pl
+
+<END>
+
+<BEGIN> BUILD__CURRENT
+PPC604gnu
+<END>
+
+<BEGIN> BUILD__LIST
+PPC604gnu
+<END>
+
+<BEGIN> CORE_INFO_TYPE
+::prj_vxApp
+<END>
+
+<BEGIN> CORE_INFO_VERSION
+2.2
+<END>
+
+<BEGIN> FILE_D:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestReporter.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_D:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestReporter.cpp_dependencies
+d:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/Config.h \
+	d:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestReporter.h \
+	d:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/TestReporter.h \
+	d:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/HelperMacros.h \
+	d:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestResult.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/vector \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_algobase.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_pair.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/type_traits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_construct.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_uninitialized.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_vector.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_bvector.h \
+	d:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/TestDetails.h
+<END>
+
+<BEGIN> FILE_D:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestReporter.cpp_objects
+DeferredTestReporter.o
+<END>
+
+<BEGIN> FILE_D:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestReporter.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/AssertException.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/AssertException.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/AssertException.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/AssertException.cpp_objects
+AssertException.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/AssertException.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Checks.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Checks.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/Checks.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/sstream \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Checks.cpp_objects
+Checks.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Checks.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CompositeTestReporter.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CompositeTestReporter.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/CompositeTestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CompositeTestReporter.cpp_objects
+CompositeTestReporter.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CompositeTestReporter.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CurrentTest.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CurrentTest.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/CurrentTest.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CurrentTest.cpp_objects
+CurrentTest.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/CurrentTest.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/vector \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_algobase.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_pair.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/type_traits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_construct.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_uninitialized.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_vector.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_bvector.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.cpp_objects
+DeferredTestResult.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/sstream \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.cpp_objects
+MemoryOutStream.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ReportAssert.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ReportAssert.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/ReportAssert.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/ReportAssertImpl.h \
+	$(PRJ_DIR)/../../UnitTest++/AssertException.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(PRJ_DIR)/../../UnitTest++/CurrentTest.h \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ReportAssert.cpp_objects
+ReportAssert.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ReportAssert.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.cpp_objects
+RequiredCheckException.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckTestReporter.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckTestReporter.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/RequiredCheckTestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/CurrentTest.h \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckTestReporter.cpp_objects
+RequiredCheckTestReporter.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/RequiredCheckTestReporter.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Test.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Test.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/Test.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/TestList.h \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.h \
+	$(PRJ_DIR)/../../UnitTest++/AssertException.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/sstream \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc \
+	$(PRJ_DIR)/../../UnitTest++/ExecuteTest.h \
+	$(PRJ_DIR)/../../UnitTest++/ExceptionMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.h \
+	$(PRJ_DIR)/../../UnitTest++/CurrentTest.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Test.cpp_objects
+Test.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/Test.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestDetails.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestDetails.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TestDetails.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestDetails.cpp_objects
+TestDetails.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestDetails.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestList.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestList.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TestList.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/Test.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cassert \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestList.cpp_objects
+TestList.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestList.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporter.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporter.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporter.cpp_objects
+TestReporter.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporter.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstdio \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.cpp_objects
+TestReporterStdout.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestResults.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestResults.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TestResults.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestResults.cpp_objects
+TestResults.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestResults.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestRunner.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestRunner.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TestRunner.h \
+	$(PRJ_DIR)/../../UnitTest++/Test.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/TestList.h \
+	$(PRJ_DIR)/../../UnitTest++/CurrentTest.h \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.h \
+	$(PRJ_DIR)/../../UnitTest++/TimeHelpers.h \
+	$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/sstream \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestRunner.cpp_objects
+TestRunner.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TestRunner.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.cpp_objects
+ThrowingTestReporter.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TimeConstraint.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TimeConstraint.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/TimeConstraint.h \
+	$(PRJ_DIR)/../../UnitTest++/TimeHelpers.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.h \
+	$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.h \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.h \
+	$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/sstream \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc \
+	$(PRJ_DIR)/../../UnitTest++/CurrentTest.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TimeConstraint.cpp_objects
+TimeConstraint.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/TimeConstraint.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.cpp_objects
+TimeHelpers.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/XmlTestReporter.cpp_dependDone
+TRUE
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/XmlTestReporter.cpp_dependencies
+$(PRJ_DIR)/../../UnitTest++/Config.h \
+	$(PRJ_DIR)/../../UnitTest++/XmlTestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/DeferredTestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.h \
+	$(PRJ_DIR)/../../UnitTest++/HelperMacros.h \
+	$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/string \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstddef \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stddef.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/straits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cctype \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/cstring \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/powerpc-wrs-vxworks/include/_G_config.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_alloc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/exception \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iterator \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_relops.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/streambuf.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/libio.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/stdarg.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/va-ppc.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stdio-lock.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_iterator.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/std/bastring.cc \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/vector \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_algobase.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_pair.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/type_traits.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/lib/gcc-lib/powerpc-wrs-vxworks/gcc-2.96/include/new.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_construct.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_uninitialized.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_vector.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/stl_bvector.h \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iosfwd \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/iostream \
+	$(WIND_BASE)/host/$(WIND_HOST_TYPE)/include/g++-3/sstream
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/XmlTestReporter.cpp_objects
+XmlTestReporter.o
+<END>
+
+<BEGIN> FILE_$(PRJ_DIR)/../../UnitTest++/XmlTestReporter.cpp_tool
+C/C++ compiler
+<END>
+
+<BEGIN> PROJECT_FILES
+$(PRJ_DIR)/../../UnitTest++/AssertException.cpp \
+	$(PRJ_DIR)/../../UnitTest++/Checks.cpp \
+	$(PRJ_DIR)/../../UnitTest++/CompositeTestReporter.cpp \
+	$(PRJ_DIR)/../../UnitTest++/CurrentTest.cpp \
+	$(PRJ_DIR)/../../UnitTest++/DeferredTestResult.cpp \
+	$(PRJ_DIR)/../../UnitTest++/MemoryOutStream.cpp \
+	$(PRJ_DIR)/../../UnitTest++/ReportAssert.cpp \
+	$(PRJ_DIR)/../../UnitTest++/RequiredCheckException.cpp \
+	$(PRJ_DIR)/../../UnitTest++/RequiredCheckTestReporter.cpp \
+	$(PRJ_DIR)/../../UnitTest++/Test.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TestDetails.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TestList.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TestReporter.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TestReporterStdout.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TestResults.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TestRunner.cpp \
+	$(PRJ_DIR)/../../UnitTest++/ThrowingTestReporter.cpp \
+	$(PRJ_DIR)/../../UnitTest++/TimeConstraint.cpp \
+	$(PRJ_DIR)/../../UnitTest++/XmlTestReporter.cpp \
+	$(PRJ_DIR)/../../UnitTest++/VxWorks/TimeHelpers.cpp \
+	D:/Temp/utpp_vxworks_build/unittest-cpp-master/UnitTest++/DeferredTestReporter.cpp
+<END>
+
+<BEGIN> userComments
+<Enter description here>
+<END>
+

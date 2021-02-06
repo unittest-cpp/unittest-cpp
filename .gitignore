@@ -2,6 +2,7 @@
 *.a
 *.lo
 *.la
+*.out
 
 # Visual Studio temp/user files
 *.user
