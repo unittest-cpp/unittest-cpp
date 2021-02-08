@@ -1,14 +1,15 @@
-#ifndef UNITTEST_TIMEHELPERS_H
-#define UNITTEST_TIMEHELPERS_H
+#ifndef UNITTEST_POSIX_TIMEHELPERS_H
+#define UNITTEST_POSIX_TIMEHELPERS_H
 
 #include <sys/time.h>
 
 namespace UnitTest {
+namespace Detail {
 
-   class Timer
+   class TimerImplPosix
    {
    public:
-      Timer();
+      TimerImplPosix();
       void Start();
       double GetTimeInMs() const;
 
@@ -16,13 +17,8 @@ namespace UnitTest {
       struct timeval m_startTime;
    };
 
-
-   namespace TimeHelpers
-   {
-      void SleepMs(int ms);
-   }
-
-
+   void SleepMsImplPosix(int ms);
+}
 }
 
 #endif

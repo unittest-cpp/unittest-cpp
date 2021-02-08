@@ -1,5 +1,5 @@
-#ifndef UNITTEST_TIMEHELPERS_H
-#define UNITTEST_TIMEHELPERS_H
+#ifndef UNITTEST_WIN32_TIMEHELPERS_H
+#define UNITTEST_WIN32_TIMEHELPERS_H
 
 #include "../Config.h"
 #include "../HelperMacros.h"
@@ -11,11 +11,12 @@
 #endif
 
 namespace UnitTest {
+namespace Detail {
 
-   class UNITTEST_LINKAGE Timer
+   class UNITTEST_LINKAGE TimerImplWin32
    {
    public:
-      Timer();
+      TimerImplWin32();
       void Start();
       double GetTimeInMs() const;
 
@@ -34,12 +35,8 @@ namespace UnitTest {
       __int64 m_frequency;
    };
 
-
-   namespace TimeHelpers
-   {
-      UNITTEST_LINKAGE void SleepMs(int ms);
-   }
-
+   UNITTEST_LINKAGE void SleepMsImplWin32(int ms);
+}
 }
 
 #endif
