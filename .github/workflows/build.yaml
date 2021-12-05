@@ -1,0 +1,24 @@
+name: Build
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04, macos-latest, windows-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install Forge
+      run: |
+        OS=$(echo ${RUNNER_OS} |tr '[:upper:]' '[:lower:]')
+        curl -L https://github.com/cwbaker/forge/releases/download/v0.6.18/forge-${OS}-v0.6.18.tar.gz >forge.tar.gz
+        tar -xvf forge.tar.gz
+      shell: bash
+    - name: Build
+      run: |
+        forge/bin/forge variant=release
+      shell: bash
