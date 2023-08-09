@@ -1,3 +1,6 @@
+>  ### Maintenance of UnitTest++, recently sporadic, is officially on hiatus until 26 November 2020. Subscribe to https://github.com/unittest-cpp/unittest-cpp/issues/180 for updates.
+
+
 [![Build Status](https://travis-ci.org/unittest-cpp/unittest-cpp.svg?branch=master)](https://travis-ci.org/unittest-cpp/unittest-cpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/ffs2k8dddts5cyok/branch/master?svg=true)](https://ci.appveyor.com/project/pjohnmeyer/unittest-cpp/branch/master)
 
@@ -31,17 +34,17 @@ Via svn:
 
     svn checkout https://github.com/unittest-cpp/unittest-cpp/trunk unittest-cpp
 
-### Latest release (v1.6.1) ###
+### Latest release (v2.0.0) ###
 
 Via git:
 
     git clone https://github.com/unittest-cpp/unittest-cpp
     cd unittest-cpp
-    git checkout v1.6.1
+    git checkout v2.0.0
 
 Via svn:
 
-    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v1.6.1 unittest-cpp
+    svn checkout https://github.com/unittest-cpp/unittest-cpp/tags/v2.0.0 unittest-cpp
 
 License
 ---------
@@ -77,6 +80,12 @@ Contributors
 
 Historic release notes
 ----------------------
+
+### Version 2.0.0 (2017-01-13) ###
+- Change Check method supporting CHECK macro to accept argument by reference
+- Introduce long macro forms (e.g. UNITTEST_CHECK); make short forms optional
+- Improved Visual Studio 2015 support
+- [Full List](https://github.com/unittest-cpp/unittest-cpp/issues?q=milestone%3A2.0.0+)
 
 ### Version 1.6.0 (2016-02-29) ###
 - Add REQUIRE macro to end tests early when selected checks fail

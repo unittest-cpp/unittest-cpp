@@ -31,23 +31,23 @@ namespace UnitTest {
       {
 #endif
 #ifndef UNITTEST_POSIX
-      UT_TRY({ testObject.RunImpl(); })
+      UNITTEST_IMPL_TRY({ testObject.RunImpl(); })
 #else
-      UT_TRY
+      UNITTEST_IMPL_TRY
          ({
          UNITTEST_THROW_SIGNALS_POSIX_ONLY
          testObject.RunImpl();
       })
 #endif
-      UT_CATCH(RequiredCheckException, e, { (void)e; })
-      UT_CATCH(AssertException, e, { (void)e; })
-      UT_CATCH(std::exception, e,
+      UNITTEST_IMPL_CATCH(RequiredCheckException, e, { (void)e; })
+      UNITTEST_IMPL_CATCH(AssertException, e, { (void)e; })
+      UNITTEST_IMPL_CATCH(std::exception, e,
       {
          MemoryOutStream stream;
          stream << "Unhandled exception: " << e.what();
          CurrentTest::Results()->OnTestFailure(details, stream.GetText());
       })
-      UT_CATCH_ALL
+      UNITTEST_IMPL_CATCH_ALL
          ({
          CurrentTest::Results()->OnTestFailure(details, "Unhandled exception: test crashed");
       })

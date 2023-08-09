@@ -9,7 +9,7 @@ namespace UnitTest {
 
 
    template< typename Value >
-   bool Check(Value const value)
+   bool Check(Value const& value)
    {
       return !!value; // doing double negative to avoid silly VS warnings
    }
@@ -57,10 +57,10 @@ namespace UnitTest {
 
    template< typename Expected, typename Actual >
    void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
-                        int const count, TestDetails const& details)
+                        size_t const count, TestDetails const& details)
    {
       bool equal = true;
-      for (int i = 0; i < count; ++i)
+      for (size_t i = 0; i < count; ++i)
          equal &= (expected[i] == actual[i]);
 
       if (!equal)
@@ -69,12 +69,12 @@ namespace UnitTest {
 
          stream << "Expected [ ";
 
-         for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
+         for (size_t expectedIndex = 0; expectedIndex < count; ++expectedIndex)
             stream << expected[expectedIndex] << " ";
 
          stream << "] but was [ ";
 
-         for (int actualIndex = 0; actualIndex < count; ++actualIndex)
+         for (size_t actualIndex = 0; actualIndex < count; ++actualIndex)
             stream << actual[actualIndex] << " ";
 
          stream << "]";
@@ -84,17 +84,17 @@ namespace UnitTest {
    }
 
    template< typename Expected, typename Actual, typename Tolerance >
-   bool ArrayAreClose(Expected const& expected, Actual const& actual, int const count, Tolerance const& tolerance)
+   bool ArrayAreClose(Expected const& expected, Actual const& actual, size_t const count, Tolerance const& tolerance)
    {
       bool equal = true;
-      for (int i = 0; i < count; ++i)
+      for (size_t i = 0; i < count; ++i)
          equal &= AreClose(expected[i], actual[i], tolerance);
       return equal;
    }
 
    template< typename Expected, typename Actual, typename Tolerance >
    void CheckArrayClose(TestResults& results, Expected const& expected, Actual const& actual,
-                        int const count, Tolerance const& tolerance, TestDetails const& details)
+                        size_t const count, Tolerance const& tolerance, TestDetails const& details)
    {
       bool equal = ArrayAreClose(expected, actual, count, tolerance);
 
@@ -103,11 +103,11 @@ namespace UnitTest {
          UnitTest::MemoryOutStream stream;
 
          stream << "Expected [ ";
-         for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
+         for (size_t expectedIndex = 0; expectedIndex < count; ++expectedIndex)
             stream << expected[expectedIndex] << " ";
          stream << "] +/- " << tolerance << " but was [ ";
 
-         for (int actualIndex = 0; actualIndex < count; ++actualIndex)
+         for (size_t actualIndex = 0; actualIndex < count; ++actualIndex)
             stream << actual[actualIndex] << " ";
          stream << "]";
 
@@ -117,10 +117,10 @@ namespace UnitTest {
 
    template< typename Expected, typename Actual, typename Tolerance >
    void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
-                          int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
+                          size_t const rows, size_t const columns, Tolerance const& tolerance, TestDetails const& details)
    {
       bool equal = true;
-      for (int i = 0; i < rows; ++i)
+      for (size_t i = 0; i < rows; ++i)
          equal &= ArrayAreClose(expected[i], actual[i], columns, tolerance);
 
       if (!equal)
@@ -129,20 +129,20 @@ namespace UnitTest {
 
          stream << "Expected [ ";
 
-         for (int expectedRow = 0; expectedRow < rows; ++expectedRow)
+         for (size_t expectedRow = 0; expectedRow < rows; ++expectedRow)
          {
             stream << "[ ";
-            for (int expectedColumn = 0; expectedColumn < columns; ++expectedColumn)
+            for (size_t expectedColumn = 0; expectedColumn < columns; ++expectedColumn)
                stream << expected[expectedRow][expectedColumn] << " ";
             stream << "] ";
          }
 
          stream << "] +/- " << tolerance << " but was [ ";
 
-         for (int actualRow = 0; actualRow < rows; ++actualRow)
+         for (size_t actualRow = 0; actualRow < rows; ++actualRow)
          {
             stream << "[ ";
-            for (int actualColumn = 0; actualColumn < columns; ++actualColumn)
+            for (size_t actualColumn = 0; actualColumn < columns; ++actualColumn)
                stream << actual[actualRow][actualColumn] << " ";
             stream << "] ";
          }

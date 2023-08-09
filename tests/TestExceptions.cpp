@@ -253,7 +253,7 @@ namespace {
    class ThrowingObject
    {
    public:
-      float operator[](int) const
+      float operator[](size_t) const
       {
          throw "Test throw";
       }
@@ -262,7 +262,7 @@ namespace {
    class StdThrowingObject
    {
    public:
-      float operator[](int) const
+      float operator[](size_t) const
       {
          throw std::runtime_error("Test throw");
       }
@@ -451,7 +451,7 @@ namespace {
       class ThrowingObject2D
       {
       public:
-         float* operator[](int) const
+         float* operator[](size_t) const
          {
             throw "Test throw";
          }
@@ -460,7 +460,7 @@ namespace {
       class StdThrowingObject2D
       {
       public:
-         float* operator[](int) const
+         float* operator[](size_t) const
          {
             throw std::runtime_error("Test throw");
          }
