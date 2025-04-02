@@ -1,0 +1,13 @@
+"""
+Module: unittest-cpp
+Purpose: Provides the unittest++ library compileable as a Bazel target. Includes tests through Bazel
+"""
+
+module(
+    name = "unittest-cpp",
+    version = "2.0.1-0.20201113052638-10e50ad70c69",
+    compatibility_level = 1,
+)
+
+bazel_dep(name = "rules_cc", version = "0.1.1")
+bazel_dep(name = "platforms", version = "0.0.11")
