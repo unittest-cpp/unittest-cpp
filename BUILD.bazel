@@ -1,0 +1,32 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "unittest-cpp",
+    srcs = glob([
+        "UnitTest++/*.h",
+        "UnitTest++/*.cpp",
+    ]) + select({
+        "@platforms//os:windows": glob([
+            "UnitTest++/Win32/*.h",
+            "UnitTest++/Win32/*.cpp",
+        ]),
+        "//conditions:default": glob([
+            "UnitTest++/Posix/*.h",
+            "UnitTest++/Posix/*.cpp",
+        ]),
+    }),
+    hdrs = [
+        "UnitTest++/UnitTest++.h",
+        "UnitTest++/UnitTestPP.h",
+    ],
+    copts = select({
+        "@platforms//os:windows": [
+            "-D_CRT_SECURE_NO_DEPRECATE",  # Windows-specific define
+        ],
+        "//conditions:default": [
+            "-std=c++11",  # Default to C++11 for POSIX systems
+        ],
+    }),
+    includes = ["UnitTest++"],
+    visibility = ["//visibility:public"],
+)
