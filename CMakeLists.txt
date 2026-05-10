@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 project(UnitTest++ VERSION 2.1.0)
 
 option(UTPP_USE_PLUS_SIGN
